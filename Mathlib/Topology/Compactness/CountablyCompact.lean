@@ -167,6 +167,12 @@ theorem isCountablyCompact_iff_countable_open_cover' :
 theorem IsCompact.isCountablyCompact (hA : IsCompact A) : IsCountablyCompact A :=
   fun _ _ _ hle => hA hle
 
+/-- A compact space is countably compact. -/
+instance CompactSpace.CountablyCompactSpace
+    {X : Type*} [TopologicalSpace X] [h : CompactSpace X] :
+    CountablyCompactSpace X where
+  isCountablyCompact_univ := isCompact_univ.isCountablyCompact
+
 /-- A sequentially compact set is countably compact. -/
 theorem IsSeqCompact.isCountablyCompact (hA : IsSeqCompact A) :
     IsCountablyCompact A := IsCountablyCompact.of_seq_clusterPt fun x hx => by
