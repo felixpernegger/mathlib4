@@ -329,11 +329,6 @@ theorem symm_apply_apply (e : M ≃* N) (x : M) : e.symm (e x) = x :=
   e.toEquiv.symm_apply_apply x
 
 @[to_additive (attr := simp)]
-theorem apply_coe_symm_apply {F : Type*} [EquivLike F M N] [MulEquivClass F M N] (f : F) (a : N) :
-    f ((↑f : M ≃* N).symm a) = a :=
-  (f : M ≃* N).apply_symm_apply a
-
-@[to_additive (attr := simp)]
 theorem symm_comp_self (e : M ≃* N) : e.symm ∘ e = id :=
   funext e.symm_apply_apply
 
@@ -580,23 +575,3 @@ def MonoidHom.toMulEquiv [MulOneClass M] [MulOneClass N] (f : M →* N) (g : N �
   left_inv := DFunLike.congr_fun h₁
   right_inv := DFunLike.congr_fun h₂
   map_mul' := f.map_mul
-
-/-- The identity equivalence between the monoid of endomorphisms `Monoid.End M` and the type
-`M →* M` of monoid homomorphisms from `M` to itself. `Monoid.End M` is definitionally (but not
-reducibly) equal to `M →* M`. -/
-@[to_additive /-- The identity equivalence between the additive monoid of endomorphisms
-`AddMonoid.End M` and the type `M →+ M` of additive monoid homomorphisms from `M` to itself.
-`AddMonoid.End M` is definitionally (but not reducibly) equal to `M →+ M`. -/]
-def Monoid.End.equiv (M : Type*) [MulOne M] : Monoid.End M ≃ (M →* M) where
-  toFun := id
-  invFun := id
-  left_inv _ := rfl
-  right_inv _ := rfl
-
-@[to_additive (attr := simp)]
-theorem Monoid.End.equiv_apply {M : Type*} [MulOne M] (f : Monoid.End M) (x : M) :
-    Monoid.End.equiv M f x = f x := rfl
-
-@[to_additive (attr := simp)]
-theorem Monoid.End.equiv_symm_apply {M : Type*} [MulOne M] (f : M →* M) (x : M) :
-    (Monoid.End.equiv M).symm f x = f x := rfl
