@@ -194,7 +194,7 @@ theorem torusIntegral_dim0 [CompleteSpace E]
     integral_dirac, Measure.pi_of_empty (fun _ : Fin 0 ↦ volume) 0,
     Measure.dirac_apply_of_mem (mem_singleton _), Subsingleton.elim (torusMap c R 0) c]
 
-set_option backward.isDefEq.respectTransparency false in
+set_option linter.unusedTactic false
 /-- In dimension one, `torusIntegral` is the same as `circleIntegral`
 (up to the natural equivalence between `ℂ` and `Fin 1 → ℂ`). -/
 theorem torusIntegral_dim1 (f : ℂ¹ → E) (c : ℂ¹) (R : ℝ¹) :
@@ -205,9 +205,14 @@ theorem torusIntegral_dim1 (f : ℂ¹ → E) (c : ℂ¹) (R : ℝ¹) :
     ext θ i : 2
     rw [Subsingleton.elim i 0]; rfl
   rw [torusIntegral, circleIntegral, intervalIntegral.integral_of_le Real.two_pi_pos.le,
-    Measure.restrict_congr_set Ioc_ae_eq_Icc,
-    ← ((volume_preserving_funUnique (Fin 1) ℝ).symm _).setIntegral_preimage_emb
-      (MeasurableEquiv.measurableEmbedding _), H₁, H₂]
+    Measure.restrict_congr_set Ioc_ae_eq_Icc]
+  rw [H₂]
+  convert (((volume_preserving_funUnique (Fin 1) ℝ).symm _).setIntegral_preimage_emb
+      (MeasurableEquiv.measurableEmbedding _)
+      (fun θ ↦  (∏ i, ↑(R i) * cexp (↑(θ i) * I) * I) • f
+      ((fun θ x ↦ circleMap (c 0) (R 0) (θ 0)) θ)) (Icc 0 fun x ↦ 2 * π)).symm using 1
+  · rfl
+  rw [H₁]
   simp [circleMap_zero]
 
 /-- Recurrent formula for `torusIntegral`, see also `torusIntegral_succ`. -/

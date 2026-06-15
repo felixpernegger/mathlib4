@@ -47,7 +47,6 @@ namespace ContinuousMap.Homotopy
 variable [NormedSpace ℝ E] [NormedSpace ℝ F] {a b c d : E}
     {γ₁ : Path a b} {γ₂ : Path c d} {s : Set (I × I)} {t : Set E}
 
-set_option backward.isDefEq.respectTransparency false in
 private theorem curveIntegral_add_curveIntegral_eq_of_hasFDerivWithinAt_off_countable_real
     {ω : E → E →L[ℝ] F} {dω : E → E →L[ℝ] E →L[ℝ] F}
     (φ : (γ₁ : C(I, E)).Homotopy γ₂)
@@ -149,7 +148,10 @@ private theorem curveIntegral_add_curveIntegral_eq_of_hasFDerivWithinAt_off_coun
       apply intervalIntegral.integral_congr
       rw [uIcc_of_le zero_le_one]
       intro t ht
-      simp [Path.extend, hf (s, t), Prod.le_def, s.2.1, s.2.2, ht.1, ht.2, Function.comp_def, hψ]
+      simp only [mem_Icc, Prod.le_def, Prod.fst_zero, s.2.1, Prod.snd_zero, ht.1, and_self,
+        Prod.fst_one, s.2.2, Prod.snd_one, ht.2, hf (s, t), hψ, Subtype.coe_prop, extend_of_mem_I,
+        Subtype.coe_eta, comp_def, Path.extend, toFun_eq_coe, curry_apply, coe_mk]
+      rfl
     have hf₀ : ∫ t in 0..1, f (0, t) = ∫ᶜ x in γ₁, ω x := by
       simpa [curveIntegral_def, curveIntegralFun_def, Path.extend] using hfi 0
     have hf₁ : ∫ t in 0..1, f (1, t) = curveIntegral ω γ₂ := by
@@ -160,7 +162,10 @@ private theorem curveIntegral_add_curveIntegral_eq_of_hasFDerivWithinAt_off_coun
       rw [uIcc_of_le zero_le_one]
       intro s hs
       simp only [hs, Path.extend_apply, φ.evalAt_apply]
-      simp [hg (s, t), Prod.le_def, hs.1, hs.2, t.2.1, t.2.2, Function.comp_def, hψ]
+      simp only [ContinuousMap.coe_coe, mem_Icc, Prod.le_def, Prod.fst_zero, hs.1, Prod.snd_zero,
+        t.2.1, and_self, Prod.fst_one, hs.2, Prod.snd_one, t.2.2, hg (s, t), hψ, extend_of_mem_I,
+        IccExtend_val, curry_apply, comp_def, map_neg, neg_neg]
+      rfl
     rw [← hf₀, ← hf₁, hgi, hgi]
     linear_combination (norm := {dsimp; abel}) -this
   -- Write a formula for the derivative of `η`.

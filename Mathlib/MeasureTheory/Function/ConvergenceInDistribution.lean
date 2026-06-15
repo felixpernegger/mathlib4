@@ -104,14 +104,12 @@ lemma tendstoInDistribution_of_isEmpty [IsEmpty E] :
     simp only [Subsingleton.elim _ (0 : Measure E)]
     exact tendsto_const_nhds
 
-set_option backward.isDefEq.respectTransparency false in
 lemma tendstoInDistribution_unique [HasOuterApproxClosed E] [BorelSpace E]
     (X : (i : ι) → Ω i → E) {Z : Ω' → E} {W : Ω'' → E} [l.NeBot]
     (h1 : TendstoInDistribution X l Z μ μ') (h2 : TendstoInDistribution X l W μ μ'') :
     μ'.map Z = μ''.map W := by
   have h_eq := tendsto_nhds_unique h1.tendsto h2.tendsto
-  rw [Subtype.ext_iff] at h_eq
-  simpa using h_eq
+  simpa using Subtype.ext_iff.mp h_eq --?
 
 /-- **Continuous mapping theorem**: if `X n` tends to `Z` in distribution and `g` is continuous,
 then `g ∘ X n` tends to `g ∘ Z` in distribution. -/

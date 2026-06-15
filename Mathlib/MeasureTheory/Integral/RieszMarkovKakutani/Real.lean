@@ -183,7 +183,6 @@ private lemma exists_nat_large (a' b' : ℝ) {ε : ℝ} (hε : 0 < ε) : ∃ (N 
   obtain ⟨N, hN, h'N⟩ := (((tendsto_order.1 B).2 _ hε).and (Ici_mem_atTop 1)).exists
   exact ⟨N, h'N, hN.le⟩
 
-set_option backward.isDefEq.respectTransparency false in
 /-- The main estimate in the proof of the Riesz-Markov-Kakutani: `Λ f` is bounded above by the
 integral of `f` with respect to the `rieszMeasure` associated to `Λ`. -/
 private lemma integral_riesz_aux (f : C_c(X, ℝ)) : Λ f ≤ ∫ x, f x ∂(rieszMeasure Λ) := by
@@ -280,7 +279,7 @@ private lemma integral_riesz_aux (f : C_c(X, ℝ)) : Λ f ≤ ∫ x, f x ∂(rie
           · exact le_rieszMeasure_tsupport_subset Λ (fun x ↦ hg.2.2.1 n x) (hg.1 n)
           · rw [← lt_top_iff_ne_top]
             apply lt_of_le_of_lt (hV n).2.2
-            rw [WithTop.add_lt_top]
+            rw [ENNReal.add_lt_top]
             exact ⟨WithTop.lt_top_iff_ne_top.mpr (hE' n), ENNReal.ofReal_lt_top⟩
         _ ≤ _ := by
           rw [← ENNReal.toReal_ofReal (div_nonneg (le_of_lt hε'.1) (Nat.cast_nonneg _))]
