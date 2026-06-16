@@ -182,9 +182,8 @@ theorem measure_symmDiff_eq_zero_iff {s t : Set α} : μ (s ∆ t) = 0 ↔ s =�
 
 @[simp]
 theorem ae_eq_set_compl_compl {s t : Set α} : sᶜ =ᵐ[μ] tᶜ ↔ s =ᵐ[μ] t := by
-  simp only [← measure_symmDiff_eq_zero_iff]
-  congr! 2
-  exact compl_symmDiff_compl s t
+  simp only [← measure_symmDiff_eq_zero_iff, ← compl_symmDiff_compl s t]
+  rfl
 
 theorem ae_eq_set_compl {s t : Set α} : sᶜ =ᵐ[μ] t ↔ s =ᵐ[μ] tᶜ := by
   rw [← ae_eq_set_compl_compl, compl_compl]
