@@ -149,23 +149,26 @@ theorem tprod_cons (i : δ) (l : List δ) (μ : ∀ i, Measure (X i)) :
     Measure.tprod (i :: l) μ = (μ i).prod (Measure.tprod l μ) :=
   rfl
 
-set_option backward.isDefEq.respectTransparency false in
 instance sigmaFinite_tprod (l : List δ) (μ : ∀ i, Measure (X i)) [∀ i, SigmaFinite (μ i)] :
     SigmaFinite (Measure.tprod l μ) := by
   induction l with
-  | nil => rw [tprod_nil]; infer_instance
+  | nil =>
+    rw [tprod_nil]; exact dirac.instSigmaFinite
   | cons i l ih => rw [tprod_cons]; exact @prod.instSigmaFinite _ _ _ _ _ _ _ ih
 
-set_option backward.isDefEq.respectTransparency false in
 theorem tprod_tprod (l : List δ) (μ : ∀ i, Measure (X i)) [∀ i, SigmaFinite (μ i)]
     (s : ∀ i, Set (X i)) :
     Measure.tprod l μ (Set.tprod l s) = (l.map fun i => (μ i) (s i)).prod := by
   induction l with
-  | nil => simp
+  | nil =>
+    simp only [foldr_nil, tprod_nil, Set.tprod,  map_nil, prod_nil]
+    rw [← measure_univ (μ := dirac PUnit.unit.{u_5 + 1})]
+    rfl
   | cons a l ih =>
     rw [tprod_cons, Set.tprod]
     dsimp only [foldr_cons, map_cons, prod_cons]
-    rw [prod_prod, ih]
+    rw [← ih, ← prod_prod]
+    rfl
 
 end Tprod
 
