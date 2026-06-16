@@ -74,7 +74,6 @@ end Integrable
 
 variable [RCLike 𝕜]
 
-set_option backward.isDefEq.respectTransparency false in
 /-- A version of **Fubini's theorem** in `n` variables, for a natural number `n`. -/
 theorem integral_fin_nat_prod_eq_prod {n : ℕ} {E : Fin n → Type*}
     {mE : ∀ i, MeasurableSpace (E i)} {μ : (i : Fin n) → Measure (E i)} [∀ i, SigmaFinite (μ i)]
@@ -91,6 +90,7 @@ theorem integral_fin_nat_prod_eq_prod {n : ℕ} {E : Fin n → Type*}
           simp_rw [MeasurableEquiv.piFinSuccAbove_symm_apply, Fin.insertNthEquiv,
             Fin.prod_univ_succ, Fin.insertNth_zero, Equiv.coe_fn_mk, Fin.cons_succ,
             Fin.zero_succAbove, cast_eq, Fin.cons_zero]
+          rfl
         _ = (∫ x, f 0 x ∂μ 0)
             * ∏ i : Fin n, ∫ (x : E (Fin.succ i)), f (Fin.succ i) x ∂(μ i.succ) := by
           rw [← n_ih, ← integral_prod_mul]
