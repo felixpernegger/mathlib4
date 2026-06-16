@@ -393,7 +393,6 @@ theorem Lp.induction_stronglyMeasurable_aux (hm : m ≤ m0) (hp_ne_top : p ≠ �
   · change IsClosed ((lpMeasToLpTrimLie F ℝ p μ hm).symm ⁻¹' {g : lpMeas F ℝ m p μ | P ↑g})
     exact IsClosed.preimage (LinearIsometryEquiv.continuous _) h_closed
 
-set_option backward.isDefEq.respectTransparency false in
 /-- To prove something for an `Lp` function a.e. strongly measurable with respect to a
 sub-σ-algebra `m` in a normed space, it suffices to show that
 * the property holds for (multiples of) characteristic functions which are measurable w.r.t. `m`;
@@ -429,7 +428,7 @@ theorem Lp.induction_stronglyMeasurable (hm : m ≤ m0) (hp_ne_top : p ≠ ∞) 
     exact Set.disjoint_iff_inter_eq_empty.mp h_disj
   let f' := (s_f \ s_g).indicator (hfm.mk f)
   have hff' : f =ᵐ[μ] f' := by
-    have : s_f \ s_g =ᵐ[μ] s_f := by
+    have : (s_f \ s_g : Set α) =ᵐ[μ] s_f := by
       rw [← Set.sdiff_inter_self_eq_sdiff, Set.inter_comm]
       refine ((ae_eq_refl s_f).diff h_inter_empty).trans ?_
       rw [Set.sdiff_empty]
@@ -440,8 +439,8 @@ theorem Lp.induction_stronglyMeasurable (hm : m ≤ m0) (hp_ne_top : p ≠ ∞) 
   have hf'_Lp : MemLp f' p μ := hf.ae_eq hff'
   let g' := (s_g \ s_f).indicator (hgm.mk g)
   have hgg' : g =ᵐ[μ] g' := by
-    have : s_g \ s_f =ᵐ[μ] s_g := by
-      rw [← Set.sdiff_inter_self_eq_sdiff]
+    have : (s_g \ s_f : Set α) =ᵐ[μ] s_g := by
+      rw [← Set.sdiff_inter_self_eq_sdiff (s := s_g) (t := s_f)]
       refine ((ae_eq_refl s_g).diff h_inter_empty).trans ?_
       rw [Set.sdiff_empty]
     refine ((indicator_ae_eq_of_ae_eq_set this).trans ?_).symm
