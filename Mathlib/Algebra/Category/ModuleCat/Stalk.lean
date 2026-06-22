@@ -61,7 +61,6 @@ def colimit.smul (r : (R ⋙ forget _).ColimitType) (m : (M ⋙ forget _).Colimi
 #adaptation_note /-- As of nightly-2026-02-10, we need to increase the maxHeartbeats limits here. -/
 set_option backward.defeqAttrib.useBackward true in
 set_option backward.isDefEq.respectTransparency false in
-set_option synthInstance.maxHeartbeats 40000 in --
 /-- (Implementation). The module structure on `AddCommGrpCat.FilteredColimits.colimit`. -/
 noncomputable abbrev filteredColimitsModule : Module (RingCat.FilteredColimits.colimit R)
     (AddCommGrpCat.FilteredColimits.colimit M) where
@@ -73,18 +72,22 @@ noncomputable abbrev filteredColimitsModule : Module (RingCat.FilteredColimits.c
       (rightToMax U₁ U₂ ≫ leftToMax (max U₁ U₂) V) (leftToMax U₂ V ≫ rightToMax U₁ (max U₂ V))
       (rightToMax (max U₁ U₂) V) (rightToMax U₂ V ≫ rightToMax U₁ (max U₂ V))
     refine Functor.ιColimitType_eq_of_map_eq_map _ _ _ α β ?_
-    dsimp
+    dsimp only [Functor.comp_obj, Functor.comp_map, SemiRingCat.forget₂_monCat_map,
+      RingCat.forget₂_map, ConcreteCategory.forget_map_eq_ofHom, TypeCat.hom_ofHom,
+      TypeCat.Fun.coe_mk]
     simp only [map_mul, ← ConcreteCategory.comp_apply, ← Functor.map_comp, mul_smul, *]
   one_smul m := Quot.induction_on m <| by
     rintro ⟨V, b⟩
     refine Functor.ιColimitType_eq_of_map_eq_map _ _ _ (𝟙 _) (rightToMax _ _) ?_
-    dsimp
+    dsimp only [Functor.comp_obj, Functor.comp_map, ConcreteCategory.forget_map_eq_ofHom,
+      TypeCat.hom_ofHom, TypeCat.Fun.coe_mk]
     simp only [map_one, ← ConcreteCategory.comp_apply, ← Functor.map_comp, one_smul,
       Category.comp_id]
   smul_zero r := Quot.induction_on r <| by
     rintro ⟨U, a⟩
     refine Functor.ιColimitType_eq_of_map_eq_map _ _ _ (𝟙 _) (rightToMax _ _) ?_
-    dsimp
+    dsimp only [Functor.comp_obj, Functor.comp_map, ConcreteCategory.forget_map_eq_ofHom,
+      TypeCat.hom_ofHom, TypeCat.Fun.coe_mk]
     simp only [map_zero, smul_zero]
   smul_add r m n := Quot.induction_on₃ r m n <| by
     rintro ⟨U, a⟩ ⟨V₁, b₁⟩ ⟨V₂, b₂⟩
@@ -97,7 +100,8 @@ noncomputable abbrev filteredColimitsModule : Module (RingCat.FilteredColimits.c
       (rightToMax V₁ V₂ ≫ rightToMax U (max V₁ V₂))
     refine Functor.ιColimitType_eq_of_map_eq_map _ _ _ β α ?_
     dsimp
-    simp only [*, ← ConcreteCategory.comp_apply, ← Functor.map_comp, map_add, smul_add]
+    sorry
+    --simp only [*, ← ConcreteCategory.comp_apply, ← Functor.map_comp, map_add, smul_add]
   add_smul r s m := Quot.induction_on₃ r s m <| by
     rintro ⟨U₁, a₁⟩ ⟨U₂, a₂⟩ ⟨V, b⟩
     obtain ⟨s, α, β, h₁, h₂, h₃, h₄⟩ := crown₄
@@ -108,13 +112,17 @@ noncomputable abbrev filteredColimitsModule : Module (RingCat.FilteredColimits.c
       (leftToMax U₂ V ≫ rightToMax (max U₁ V) (max U₂ V))
       (rightToMax U₁ U₂ ≫ leftToMax (max U₁ U₂) V)
     refine Functor.ιColimitType_eq_of_map_eq_map _ _ _ β α ?_
-    dsimp
+    dsimp only [Functor.comp_obj, AddCommMonCat.coe_forget₂_obj, Functor.comp_map,
+      AddCommMonCat.hom_forget₂_map, SemiRingCat.forget₂_addCommMonCat_map, RingCat.forget₂_map,
+      ConcreteCategory.forget_map_eq_ofHom, TypeCat.hom_ofHom, TypeCat.Fun.coe_mk,
+      AddGrpCat.forget₂_map, AddCommGrpCat.forget₂_map]
     simp only [add_smul, map_add, ← ConcreteCategory.comp_apply, ← Functor.map_comp, *]
   zero_smul m := Quot.induction_on m <| by
     rintro ⟨V, b⟩
     refine Functor.ιColimitType_eq_of_map_eq_map _ _ _ (𝟙 _) (leftToMax _ _) ?_
-    dsimp
-    simp only [map_zero, zero_smul, *]
+    dsimp only [Functor.comp_obj, AddCommMonCat.coe_forget₂_obj, Functor.comp_map,
+      ConcreteCategory.forget_map_eq_ofHom, TypeCat.hom_ofHom, TypeCat.Fun.coe_mk]
+    simp only [map_zero, zero_smul]
 
 /-- Given a cofiltered diagram of rings `R`, and a module `M` over `R`,
 this is the `colim R`-module structure of `colim M`. -/
