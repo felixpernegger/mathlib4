@@ -498,7 +498,7 @@ theorem IsPathConnected.preimage_coe {U W : Set X} (hW : IsPathConnected W) (hWU
     IsPathConnected (((↑) : U → X) ⁻¹' W) := by
   rwa [IsInducing.subtypeVal.isPathConnected_iff, Subtype.image_preimage_val, inter_eq_right.2 hWU]
 
-set_option backward.isDefEq.respectTransparency false in
+--set_option backward.isDefEq.respectTransparency false in
 theorem IsPathConnected.exists_path_through_family {n : ℕ}
     {s : Set X} (h : IsPathConnected s) (p : Fin (n + 1) → X) (hp : ∀ i, p i ∈ s) :
     ∃ γ : Path (p 0) (p (last n)), range γ ⊆ s ∧ ∀ i, p i ∈ range γ := by
@@ -508,9 +508,12 @@ theorem IsPathConnected.exists_path_through_family {n : ℕ}
   obtain ⟨hp, hx⟩ := hp
   induction p using snocInduction generalizing x with
   | elim0 =>
-    simp only [snoc_zero]
     use Path.refl x
-    simp [hx]
+    have := Path.refl_range (a := x)
+    simp only [Nat.reduceAdd, isValue, mem_range, Subtype.exists, mem_Icc, IsEmpty.forall_iff,
+      and_true]
+    unfold DFunLike.coe Path.instFunLike at *
+    rwa [this, singleton_subset_iff]
   | @snoc n p y hp₂ =>
     simp only [forall_fin_succ', snoc_castSucc, snoc_last, snoc_apply_zero, Path.cast_coe] at hp ⊢
     obtain ⟨hp, hy⟩ := hp

@@ -495,14 +495,13 @@ Finally, if the original space `X` is *not* compact and is a preconnected space,
 `OnePoint X` is a connected space.
 -/
 
-set_option backward.isDefEq.respectTransparency false in
 /-- For any topological space `X`, its one point compactification is a compact space. -/
 instance : CompactSpace (OnePoint X) where
   isCompact_univ := by
     have : Tendsto ((↑) : X → OnePoint X) (cocompact X) (𝓝 ∞) := by
       rw [nhds_infty_eq]
       exact (tendsto_map.mono_left cocompact_le_coclosedCompact).mono_right le_sup_left
-    rw [← insert_none_range_some X]
+    simp_rw [OnePoint, ← insert_none_range_some X]
     exact this.isCompact_insert_range_of_cocompact continuous_coe
 
 /-- The one point compactification of a `T0Space` space is a `T0Space`. -/

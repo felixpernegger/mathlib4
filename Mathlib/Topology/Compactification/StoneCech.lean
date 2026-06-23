@@ -293,12 +293,11 @@ lemma preStoneCechExtend_preStoneCechUnit (a : α) :
     preStoneCechExtend hg (preStoneCechUnit a) = g a :=
   congr_fun (preStoneCechExtend_extends hg) a
 
-set_option backward.isDefEq.respectTransparency false in
 lemma eq_if_preStoneCechUnit_eq {a b : α} (h : preStoneCechUnit a = preStoneCechUnit b) :
     g a = g b := by
   have e := ultrafilter_extend_extends g
   rw [← congrFun e a, ← congrFun e b, Function.comp_apply, Function.comp_apply]
-  rw [preStoneCechUnit, preStoneCechUnit, Quot.eq] at h
+  simp_rw [preStoneCechUnit, PreStoneCech, Quot.eq] at h
   generalize (pure a : Ultrafilter α) = F at h
   generalize (pure b : Ultrafilter α) = G at h
   induction h with
