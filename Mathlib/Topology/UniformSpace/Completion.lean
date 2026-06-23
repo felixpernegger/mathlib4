@@ -492,16 +492,19 @@ theorem map_unique {f : α → β} {g : Completion α → Completion β} (hg : U
 theorem map_id : Completion.map (@id α) = id :=
   cPkg.map_id
 
+lemma map_eq_extension_coe {f : α → β} :
+  Completion.map f = Completion.extension (coe' ∘ f) := rfl
+
 theorem extension_map [CompleteSpace γ] [T0Space γ] {f : β → γ} {g : α → β}
     (hf : UniformContinuous f) (hg : UniformContinuous g) :
     Completion.extension f ∘ Completion.map g = Completion.extension (f ∘ g) :=
   Completion.ext (continuous_extension.comp continuous_map) continuous_extension <| by
     simp [hf, hg, hf.comp hg, map_coe, extension_coe]
 
-set_option backward.isDefEq.respectTransparency false in
 theorem map_comp {g : β → γ} {f : α → β} (hg : UniformContinuous g) (hf : UniformContinuous f) :
-    Completion.map g ∘ Completion.map f = Completion.map (g ∘ f) :=
-  extension_map ((uniformContinuous_coe _).comp hg) hf
+    Completion.map g ∘ Completion.map f = Completion.map (g ∘ f) := by
+  rw [map_eq_extension_coe, extension_map ((uniformContinuous_coe _).comp hg) hf,
+    map_eq_extension_coe, Function.comp_assoc]
 
 /-- The uniform isomorphism between two completions of isomorphic uniform spaces. -/
 def mapEquiv (e : α ≃ᵤ β) : Completion α ≃ᵤ Completion β := cPkg.mapEquiv cPkg e
