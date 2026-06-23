@@ -124,7 +124,6 @@ lemma of_finite {U : Set S} {κ : Type*} [Finite κ] (a : κ → ι) (V : ∀ k,
     IsCompactOpenCovered f U :=
   of_iUnion_eq_of_finite _ hU (fun _ ↦ .image _ (hV _))
 
-set_option backward.isDefEq.respectTransparency false in
 /-- If `U` is compact-open covered and the `X i` have a basis of compact opens,
 `U` can be written as the union of images of elements of the basis. -/
 lemma exists_mem_of_isBasis {B : ∀ i, Set (Opens (X i))} (hB : ∀ i, IsBasis (B i))
@@ -138,6 +137,7 @@ lemma exists_mem_of_isBasis {B : ∀ i, Set (Opens (X i))} (hB : ∀ i, IsBasis 
     cases nonempty_fintype κ
     refine ⟨Fintype.card κ, a ∘ (Fintype.equivFin κ).symm, fun i ↦ V _, fun i ↦ hB _, ?_⟩
     simp [← hU, ← (Fintype.equivFin κ).symm.surjective.iUnion_comp, Function.comp_apply]
+    rfl -- eta reduction
   obtain ⟨s, hs, V, hc, hunion⟩ := hU
   choose Us UsB hUsf hUs using fun i : s ↦ (hB i.1).exists_finite_of_isCompact (hc i i.2)
   let σ := Σ i : s, Us i

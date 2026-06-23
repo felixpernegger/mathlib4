@@ -933,7 +933,6 @@ def auxGluing (n : ℕ) : AuxGluingStruct (X n) :=
         toGlueR Y.isom (isometry_optimalGHInjl (X n) (X (n + 1))) ∘ optimalGHInjr (X n) (X (n + 1))
       isom := (toGlueR_isometry _ _).comp (isometry_optimalGHInjr (X n) (X (n + 1))) }
 
-set_option backward.isDefEq.respectTransparency false in
 /-- The Gromov-Hausdorff space is complete. -/
 instance : CompleteSpace GHSpace := by
   set d := fun n : ℕ ↦ ((1 : ℝ) / 2) ^ n
@@ -948,7 +947,7 @@ instance : CompleteSpace GHSpace := by
   have E :
     ∀ n : ℕ,
       GlueSpace (Y n).isom (isometry_optimalGHInjl (X n) (X (n + 1))) = (Y (n + 1)).Space :=
-    fun n => by dsimp only [Y, auxGluing]
+    fun n => by dsimp only [Y, auxGluing]; rfl
   let c n := cast (E n)
   have ic : ∀ n, Isometry (c n) := fun n x y => by dsimp only [Y, auxGluing]; exact rfl
   -- there is a canonical embedding of `Y n` in `Y (n+1)`, by construction

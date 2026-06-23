@@ -748,6 +748,9 @@ variable {s : Setoid α}
 protected theorem mk''_eq_mk : Quotient.mk'' = Quotient.mk s :=
   rfl
 
+protected theorem mk''_eq_mk' : Quotient.mk'' (s₁ := s) = Quotient.mk' (s := s) :=
+  rfl
+
 @[simp]
 protected theorem liftOn'_mk (x : α) (f : α → β) (h) : (Quotient.mk s x).liftOn' f h = f x :=
   rfl
