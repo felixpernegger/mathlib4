@@ -136,15 +136,13 @@ theorem GHSpace.toGHSpace_rep (p : GHSpace) : toGHSpace p.Rep = p := by
   rw [← eq_toGHSpace]
   exact Quot.out_eq p
 
-set_option backward.isDefEq.respectTransparency false in
 /-- Two nonempty compact spaces have the same image in `GHSpace` if and only if they are
 isometric. -/
 theorem toGHSpace_eq_toGHSpace_iff_isometryEquiv {X : Type u} [MetricSpace X] [CompactSpace X]
     [Nonempty X] {Y : Type v} [MetricSpace Y] [CompactSpace Y] [Nonempty Y] :
     toGHSpace X = toGHSpace Y ↔ Nonempty (X ≃ᵢ Y) :=
   ⟨by
-    simp only [toGHSpace]
-    rw [Quotient.eq]
+    simp_rw [toGHSpace, GHSpace, Quotient.eq]
     rintro ⟨e⟩
     have I :
       (NonemptyCompacts.kuratowskiEmbedding X ≃ᵢ NonemptyCompacts.kuratowskiEmbedding Y) =
@@ -154,14 +152,13 @@ theorem toGHSpace_eq_toGHSpace_iff_isometryEquiv {X : Type u} [MetricSpace X] [C
     have g := (kuratowskiEmbedding.isometry Y).isometryEquivOnRange.symm
     exact ⟨f.trans <| (cast I e).trans g⟩, by
     rintro ⟨e⟩
-    simp only [toGHSpace]
     have f := (kuratowskiEmbedding.isometry X).isometryEquivOnRange.symm
     have g := (kuratowskiEmbedding.isometry Y).isometryEquivOnRange
     have I :
       (range (kuratowskiEmbedding X) ≃ᵢ range (kuratowskiEmbedding Y)) =
         (NonemptyCompacts.kuratowskiEmbedding X ≃ᵢ NonemptyCompacts.kuratowskiEmbedding Y) := by
       dsimp only [NonemptyCompacts.kuratowskiEmbedding]; rfl
-    rw [Quotient.eq]
+    simp_rw [toGHSpace, GHSpace, Quotient.eq]
     exact ⟨cast I ((f.trans e).trans g)⟩⟩
 
 /-- Distance on `GHSpace`: the distance between two nonempty compact spaces is the infimum
