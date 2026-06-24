@@ -158,7 +158,6 @@ elab_rules : tactic
 this move brackets to the left in order to expose a maximal prefix
 built out of unitors and associators.
 -/
-@[nolint unusedArguments]
 theorem assoc_liftHom₂ {f g h i : a ⟶ b} [LiftHom f] [LiftHom g] [LiftHom h]
     (η : f ⟶ g) (θ : g ⟶ h) (ι : h ⟶ i) [LiftHom₂ η] [LiftHom₂ θ] : η ≫ θ ≫ ι = (η ≫ θ) ≫ ι :=
   (Category.assoc _ _ _).symm

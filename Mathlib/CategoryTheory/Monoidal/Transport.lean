@@ -172,7 +172,6 @@ def transport (e : C ≌ D) : MonoidalCategory.{v₂} D :=
       rightUnitor_eq := by simp +zetaDelta +instances }
 
 /-- A type synonym for `D`, which will carry the transported monoidal structure. -/
-@[nolint unusedArguments]
 def Transported (_ : C ≌ D) := D
 
 instance (e : C ≌ D) : Category (Transported e) := (inferInstance : Category D)

@@ -60,7 +60,6 @@ lemma shift_z_app (a b c : A) (X : C) :
 /-- Given `t : TwistShiftData C A`, this is a type synonym for the category `C`,
 which the same shift functors as `C` but where the `shiftFunctorAdd` isomorphisms
 have been modified using `t`. -/
-@[nolint unusedArguments]
 protected def Category (_ : TwistShiftData C A) : Type u := C
 
 instance : Category t.Category := inferInstanceAs (Category C)

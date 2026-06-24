@@ -38,7 +38,6 @@ instances of `Module R[X] (PolynomialModule R[X])`.
 See https://leanprover.zulipchat.com/#narrow/stream/144837-PR-reviews/topic/.2315065.20polynomial.20modules
 for the full discussion.
 -/
-@[nolint unusedArguments]
 def PolynomialModule (R M : Type*) [CommRing R] [AddCommGroup M] [Module R M] := ℕ →₀ M
 deriving Inhabited, FunLike, AddCommGroup
 

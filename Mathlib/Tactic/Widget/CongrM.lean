@@ -23,7 +23,6 @@ open Lean Meta Server ProofWidgets
 /-! ### CongrM widget -/
 
 /-- Return the link text and inserted text above and below of the congrm widget. -/
-@[nolint unusedArguments]
 def makeCongrMString (pos : Array Lean.SubExpr.GoalsLocation) (goalType : Expr)
     (_ : SelectInsertParams) :
     MetaM (String × String × Option (String.Pos.Raw × String.Pos.Raw)) := do

@@ -39,7 +39,6 @@ structure ContextFreeRule (T N : Type*) where
 deriving DecidableEq, Repr
 
 -- See https://github.com/leanprover/lean4/issues/10295
-attribute [nolint unusedArguments] instReprContextFreeRule.repr
 
 /-- Context-free grammar that generates words over the alphabet `T` (a type of terminals). -/
 structure ContextFreeGrammar (T : Type*) where

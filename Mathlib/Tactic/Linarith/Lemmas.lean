@@ -67,7 +67,6 @@ variable (α) in
 lemma natCast_nonneg [IsOrderedRing α] (n : ℕ) : (0 : α) ≤ n := Nat.cast_nonneg n
 
 -- used alongside `mul_neg` and `mul_nonpos`, so has the same argument pattern for uniformity
-@[nolint unusedArguments]
 theorem mul_eq [IsOrderedRing α] {a b : α} (ha : a = 0) (_ : 0 < b) : b * a = 0 := by
   simp [*]
 
@@ -102,13 +101,11 @@ lemma eq_of_not_lt_of_not_gt {α} [LinearOrder α] (a b : α) (h1 : ¬ a < b) (h
   le_antisymm (le_of_not_gt h2) (le_of_not_gt h1)
 
 -- used in the `nlinarith` normalization steps. The `_` argument is for uniformity.
-@[nolint unusedArguments]
 lemma mul_zero_eq {α} {R : α → α → Prop} [Semiring α] {a b : α} (_ : R a 0) (h : b = 0) :
     a * b = 0 := by
   simp [h]
 
 -- used in the `nlinarith` normalization steps. The `_` argument is for uniformity.
-@[nolint unusedArguments]
 lemma zero_mul_eq {α} {R : α → α → Prop} [Semiring α] {a b : α} (h : a = 0) (_ : R b 0) :
     a * b = 0 := by
   simp [h]

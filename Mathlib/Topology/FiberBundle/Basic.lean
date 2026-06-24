@@ -435,16 +435,14 @@ namespace FiberBundleCore
 variable [TopologicalSpace B] [TopologicalSpace F] (Z : FiberBundleCore ι B F)
 
 /-- The index set of a fiber bundle core, as a convenience function for dot notation -/
-@[nolint unusedArguments]
 def Index (_Z : FiberBundleCore ι B F) := ι
 
 /-- The base space of a fiber bundle core, as a convenience function for dot notation -/
-@[nolint unusedArguments, reducible]
+@[reducible]
 def Base (_Z : FiberBundleCore ι B F) := B
 
 /-- The fiber of a fiber bundle core, as a convenience function for dot notation and
 typeclass inference -/
-@[nolint unusedArguments]
 def Fiber (_ : FiberBundleCore ι B F) (_x : B) := F
 
 instance topologicalSpaceFiber (x : B) : TopologicalSpace (Z.Fiber x) := ‹_›

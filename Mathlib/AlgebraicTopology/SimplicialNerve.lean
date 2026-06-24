@@ -50,7 +50,6 @@ open scoped Simplicial
 section SimplicialNerve
 
 /-- A type synonym for a linear order `J`, will be equipped with a simplicial category structure. -/
-@[nolint unusedArguments]
 structure SimplicialThickening (J : Type*) [LinearOrder J] : Type _ where
   /-- The underlying object of the linear order. -/
   as : J

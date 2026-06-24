@@ -52,7 +52,7 @@ namespace Quiver
 /-- A Schreier graph for a monoid `M` acting on `V` with generators `ι : S → M`.
 Vertices are elements of `V`, and there is an edge from `x` to `y` for each `s : S`
 such that `ι s • x = y`. -/
-@[nolint unusedArguments, ext]
+@[ext]
 structure SchreierGraph (V : Type*) {M : Type*} [SMul M V] {S : Type*} (_ι : S → M) where
   /-- Wraps a vertex of the acted-upon type into the Schreier graph. -/
   ofVertex ::

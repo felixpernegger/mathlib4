@@ -40,7 +40,6 @@ variable (C : Type u) [Category.{v} C] [MonoidalCategory C]
 with composition given by tensor product,
 and the morphisms of the monoidal category become the 2-morphisms.)
 -/
-@[nolint unusedArguments]
 def MonoidalSingleObj (C : Type u) [Category.{v} C] [MonoidalCategory C] :=
   Unit
 deriving Inhabited
@@ -61,7 +60,6 @@ instance : Bicategory (MonoidalSingleObj C) where
 namespace MonoidalSingleObj
 
 /-- The unique object in the bicategory obtained by "promoting" a monoidal category. -/
-@[nolint unusedArguments]
 protected def star : MonoidalSingleObj C :=
   Unit.unit
 

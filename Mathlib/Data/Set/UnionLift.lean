@@ -51,7 +51,6 @@ section UnionLift
 simplify terms involving `iUnionLift`. -/
 /-- Given a union of sets `iUnion S`, define a function on the Union by defining
 it on each component, and proving that it agrees on the intersections. -/
-@[nolint unusedArguments]
 noncomputable def iUnionLift (S : ι → Set α) (f : ∀ i, S i → β)
     (_ : ∀ (i j) (x : α) (hxi : x ∈ S i) (hxj : x ∈ S j), f i ⟨x, hxi⟩ = f j ⟨x, hxj⟩) (T : Set α)
     (hT : T ⊆ iUnion S) (x : T) : β :=

@@ -79,7 +79,6 @@ end HasShift
 
 /-- The category `OppositeShift C A` is the opposite category `Cᵒᵖ` equipped
 with the naive shift: `shiftFunctor (OppositeShift C A) n` is `(shiftFunctor C n).op`. -/
-@[nolint unusedArguments]
 def OppositeShift (A : Type*) [AddMonoid A] [HasShift C A] := Cᵒᵖ
 
 instance : Category (OppositeShift C A) := inferInstanceAs (Category Cᵒᵖ)

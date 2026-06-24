@@ -48,21 +48,18 @@ variable (P : ObjectProperty C)
 /-- The class of monomorphisms modulo a Serre class: given a
 Serre class `P : ObjectProperty C`, this is the class of morphisms `f`
 such that `kernel f` satisfies `P`. -/
-@[nolint unusedArguments]
 def monoModSerre [P.IsSerreClass] : MorphismProperty C :=
   fun _ _ f ↦ P (kernel f)
 
 /-- The class of epimorphisms modulo a Serre class: given a
 Serre class `P : ObjectProperty C`, this is the class of morphisms `f`
 such that `cokernel f` satisfies `P`. -/
-@[nolint unusedArguments]
 def epiModSerre [P.IsSerreClass] : MorphismProperty C :=
   fun _ _ f ↦ P (cokernel f)
 
 /-- The class of isomorphisms modulo a Serre class: given a
 Serre class `P : ObjectProperty C`, this is the class of morphisms `f`
 such that `kernel f` and `cokernel f` satisfy `P`. -/
-@[nolint unusedArguments]
 def isoModSerre [P.IsSerreClass] : MorphismProperty C :=
   P.monoModSerre ⊓ P.epiModSerre
 

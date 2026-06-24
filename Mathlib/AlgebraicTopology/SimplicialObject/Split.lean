@@ -191,7 +191,7 @@ variable (N : ℕ → C) (Δ : SimplexCategoryᵒᵖ) (X : SimplicialObject C) (
 a family of objects indexed by the elements `A : Splitting.IndexSet Δ`.
 The `Δ`-simplices of a split simplicial objects shall identify to the
 coproduct of objects in such a family. -/
-@[simp, nolint unusedArguments]
+@[simp]
 def summand (A : IndexSet Δ) : C :=
   N A.1.unop.len
 

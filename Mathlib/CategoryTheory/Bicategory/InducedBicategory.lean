@@ -35,7 +35,6 @@ variable {B : Type*} (C : Type*) [Bicategory C] (F : B → C)
 a bicategory structure where the 1-morphisms `X ⟶ Y` are the 1-morphisms in `C` from `F X` to
 `F Y`, and the 2-morphisms `f ⟶ g` are also the 2-morphisms in `C` from `f` to `g`.
 -/
-@[nolint unusedArguments]
 def InducedBicategory (_F : B → C) :=
   B
 

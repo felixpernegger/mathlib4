@@ -67,7 +67,6 @@ variable {ι α β γ : Type*}
 namespace MeasureTheory
 
 /-- A type tag for `α` with `MeasurableSet` given by `NullMeasurableSet`. -/
-@[nolint unusedArguments]
 def NullMeasurableSpace (α : Type*) [MeasurableSpace α]
     (_μ : Measure α := by volume_tac) : Type _ :=
   α

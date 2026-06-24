@@ -300,7 +300,7 @@ set_option linter.overlappingInstances false in
 /-- Linear equivalences are transitive. -/
 -- Note: the `RingHomCompTriple σ₃₂ σ₂₁ σ₃₁` is unused, but is convenient to carry around
 -- implicitly for lemmas like `LinearEquiv.self_trans_symm`.
-@[trans, nolint unusedArguments]
+@[trans]
 def trans
     [RingHomCompTriple σ₁₂ σ₂₃ σ₁₃] [RingHomCompTriple σ₃₂ σ₂₁ σ₃₁]
     {re₁₂ : RingHomInvPair σ₁₂ σ₂₁} {re₂₃ : RingHomInvPair σ₂₃ σ₃₂}

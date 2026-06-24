@@ -47,7 +47,6 @@ variable {C : Type*} [Category* C] [Preadditive C] (K K' : ChainComplex C ℕ) (
 
 /-- `Isδ₀ i` is a simple condition used to check whether a monomorphism `i` in
 `SimplexCategory` identifies to the coface map `δ 0`. -/
-@[nolint unusedArguments]
 def Isδ₀ {Δ Δ' : SimplexCategory} (i : Δ' ⟶ Δ) [Mono i] : Prop :=
   Δ.len = Δ'.len + 1 ∧ i.toOrderHom 0 ≠ 0
 

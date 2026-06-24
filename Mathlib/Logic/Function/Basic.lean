@@ -742,7 +742,6 @@ such as `(Sum.rec · g)`.
 
 In future, we should build some automation to generate applications like `Option.rec_update` for all
 inductive types. -/
-@[nolint unusedArguments]
 lemma rec_update {ι κ : Sort*} {α : κ → Sort*} [DecidableEq ι] [DecidableEq κ]
     {ctor : ι → κ} (_ : Function.Injective ctor)
     (recursor : ((i : ι) → α (ctor i)) → ((i : κ) → α i))

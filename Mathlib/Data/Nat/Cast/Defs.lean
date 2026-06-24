@@ -38,7 +38,6 @@ protected def Nat.unaryCast [One R] [Zero R] [Add R] : ℕ → R
 instance is what makes things like `37 : R` type check.  Note that `0` and `1` are not needed
 because they are recognized as terms of `R` (at least when `R` is an `AddMonoidWithOne`) through
 `Zero` and `One`, respectively. -/
-@[nolint unusedArguments]
 instance (priority := 100) instOfNatAtLeastTwo {n : ℕ} [NatCast R] [Nat.AtLeastTwo n] :
     OfNat R n where
   ofNat := n.cast

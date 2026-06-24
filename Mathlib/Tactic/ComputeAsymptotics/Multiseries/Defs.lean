@@ -73,7 +73,6 @@ coefficient (a multiseries in `basis_tl`).
 
 `MultiseriesExpansion` is a `Multiseries` with an attached real function.
 -/
-@[nolint unusedArguments]
 def Multiseries (basis_hd : ℝ → ℝ) (basis_tl : Basis) : Type :=
   Seq (ℝ × MultiseriesExpansion basis_tl)
 

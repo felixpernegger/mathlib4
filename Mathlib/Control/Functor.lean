@@ -63,7 +63,6 @@ namespace Functor
 /-- `Const α` is the constant functor, mapping every type to `α`. When
 `α` has a monoid structure, `Const α` has an `Applicative` instance.
 (If `α` has an additive monoid structure, see `Functor.AddConst`.) -/
-@[nolint unusedArguments]
 def Const (α : Type*) (_β : Type*) :=
   α
 
@@ -88,7 +87,6 @@ protected theorem ext {α β} {x y : Const α β} (h : x.run = y.run) : x = y :=
   h
 
 /-- The map operation of the `Const γ` functor. -/
-@[nolint unusedArguments]
 protected def map {γ α β} (_f : α → β) (x : Const γ β) : Const γ α :=
   x
 

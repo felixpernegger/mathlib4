@@ -20,7 +20,6 @@ public meta section
 open Lean Meta Server ProofWidgets
 
 /-- Return the link text and inserted text above and below of the gcongr widget. -/
-@[nolint unusedArguments]
 def makeGCongrString (pos : Array Lean.SubExpr.GoalsLocation) (goalType : Expr)
     (_ : SelectInsertParams) :
     MetaM (String × String × Option (String.Pos.Raw × String.Pos.Raw)) := do

@@ -67,7 +67,6 @@ def TensorAlgebra := TensorAlgebra.ringCon R M |>.Quotient
 deriving Inhabited, Semiring
 
 -- `IsScalarTower` is not needed, but the instance isn't really canonical without it.
-@[nolint unusedArguments]
 instance instAlgebra {R A M} [CommSemiring R] [AddCommMonoid M] [CommSemiring A]
     [Algebra R A] [Module R M] [Module A M]
     [IsScalarTower R A M] :

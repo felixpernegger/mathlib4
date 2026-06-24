@@ -246,7 +246,6 @@ instance NonUnitalSubalgebra.nonUnitalSeminormedRing {𝕜 : Type*} [CommRing �
 /-- A non-unital subalgebra of a non-unital seminormed ring is also a non-unital seminormed ring,
 with the restriction of the norm. -/
 -- necessary to require `SMulMemClass S 𝕜 E` so that `𝕜` can be determined as an `outParam`
-@[nolint unusedArguments]
 instance (priority := 75) NonUnitalSubalgebraClass.nonUnitalSeminormedRing {S 𝕜 E : Type*}
     [CommRing 𝕜] [NonUnitalSeminormedRing E] [Module 𝕜 E] [SetLike S E] [NonUnitalSubringClass S E]
     [SMulMemClass S 𝕜 E] (s : S) :
@@ -312,7 +311,6 @@ instance Subalgebra.seminormedRing {𝕜 : Type*} [CommRing 𝕜] {E : Type*} [S
 /-- A subalgebra of a seminormed ring is also a seminormed ring, with the restriction of the
 norm. -/
 -- necessary to require `SMulMemClass S 𝕜 E` so that `𝕜` can be determined as an `outParam`
-@[nolint unusedArguments]
 instance (priority := 75) SubalgebraClass.seminormedRing {S 𝕜 E : Type*} [CommRing 𝕜]
     [SeminormedRing E] [Algebra 𝕜 E] [SetLike S E] [SubringClass S E] [SMulMemClass S 𝕜 E]
     (s : S) : SeminormedRing s :=

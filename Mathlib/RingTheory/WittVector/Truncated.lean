@@ -58,7 +58,6 @@ and under this assumption we construct a ring structure on `TruncatedWittVector 
 (`TruncatedWittVector p₁ n R` and `TruncatedWittVector p₂ n R` are definitionally
 equal as types but will have different ring operations.)
 -/
-@[nolint unusedArguments]
 def TruncatedWittVector (_ : ℕ) (n : ℕ) (R : Type*) :=
   Fin n → R
 

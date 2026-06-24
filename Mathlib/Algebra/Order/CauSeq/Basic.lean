@@ -85,7 +85,6 @@ theorem rat_inv_continuous_lemma {β : Type*} [DivisionRing β] (abv : β → α
 end
 
 /-- A sequence is Cauchy if the distance between its entries tends to zero. -/
-@[nolint unusedArguments]
 def IsCauSeq {α : Type*} [Field α] [LinearOrder α] [IsStrictOrderedRing α]
     {β : Type*} [Ring β] (abv : β → α) (f : ℕ → β) :
     Prop :=

@@ -194,7 +194,6 @@ lemma hom_ext [K.IsStrictlySupported e₁] [L.IsStrictlySupported e₂] (φ : K 
 
 /-- If `e₁` and `e₂` are complementary embeddings into a complex shape `c`,
 indices `i₁` and `i₂` are at the boundary if `c.Rel (e₁.f i₁) (e₂.f i₂)`. -/
-@[nolint unusedArguments]
 def Boundary (_ : AreComplementary e₁ e₂) (i₁ : ι₁) (i₂ : ι₂) : Prop :=
   c.Rel (e₁.f i₁) (e₂.f i₂)
 

@@ -441,7 +441,6 @@ end Localization
 
 /-- The constructed localized category for a morphism property
 that has left calculus of fractions. -/
-@[nolint unusedArguments]
 def Localization (_ : MorphismProperty C) := C
 
 namespace Localization

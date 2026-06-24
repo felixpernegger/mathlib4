@@ -31,7 +31,6 @@ universe v v' u u'
 namespace CategoryTheory
 
 /-- A property of objects in a category `C` is a predicate `C → Prop`. -/
-@[nolint unusedArguments]
 abbrev ObjectProperty (C : Type u) [CategoryStruct.{v} C] : Type u := C → Prop
 
 namespace ObjectProperty

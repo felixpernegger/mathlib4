@@ -61,7 +61,6 @@ open CategoryTheory CategoryTheory.ActionCategory CategoryTheory.SingleObj Quive
 /-- `IsFreeGroupoid.Generators G` is a type synonym for `G`. We think of this as
 the vertices of the generating quiver of `G` when `G` is free. We can't use `G` directly,
 since `G` already has a quiver instance from being a groupoid. -/
-@[nolint unusedArguments]
 def IsFreeGroupoid.Generators (G) [Groupoid G] :=
   G
 

@@ -65,7 +65,6 @@ instance : LawfulBitraversable Sum := by
 
 set_option linter.unusedVariables false in
 /-- The bitraverse function for `Const`. It throws away the second map. -/
-@[nolint unusedArguments]
 def Const.bitraverse {F : Type u → Type u} [Applicative F] {α α' β β'} (f : α → F α')
     (f' : β → F β') : Const α β → F (Const α' β') :=
   f

@@ -122,7 +122,6 @@ protected def index : Set (X × Set X) :=
 
 /-- Given `h : v.FineSubfamilyOn f s`, then `h.covering p` is a set in the family,
 for `p ∈ h.index`, such that these sets form a disjoint covering of almost every `s`. -/
-@[nolint unusedArguments]
 protected def covering (_h : FineSubfamilyOn v f s) : X × Set X → Set X :=
   fun p => p.2
 

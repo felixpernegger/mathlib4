@@ -195,7 +195,6 @@ built out of unitors and associators.
 -- We have unused typeclass arguments here.
 -- They are intentional, to ensure that `simp only [assoc_LiftHom]` only left associates
 -- monoidal structural morphisms.
-@[nolint unusedArguments]
 lemma assoc_liftHom {W X Y Z : C} [LiftObj W] [LiftObj X] [LiftObj Y]
     (f : W ⟶ X) (g : X ⟶ Y) (h : Y ⟶ Z) [LiftHom f] [LiftHom g] :
     f ≫ (g ≫ h) = (f ≫ g) ≫ h :=

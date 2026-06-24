@@ -214,7 +214,6 @@ universe v u
 we will equip with a category structure where the morphisms are formal `R`-linear combinations
 of the morphisms in `C`.
 -/
-@[nolint unusedArguments]
 def Free (_ : Type*) (C : Type u) :=
   C
 

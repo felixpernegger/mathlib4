@@ -201,7 +201,6 @@ lemma continuous_of_forall_lipschitzWith {f : γ → α →ᵤ[𝔖] β} (K : Se
   rintro ⟨y, hy⟩
   exact h s hs y hy
 
-@[nolint unusedArguments]
 noncomputable instance [Finite 𝔖] : EDist (α →ᵤ[𝔖] β) where
   edist f g := ⨆ x ∈ ⋃₀ 𝔖, edist (toFun 𝔖 f x) (toFun 𝔖 g x)
 

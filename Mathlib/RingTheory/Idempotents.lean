@@ -517,7 +517,6 @@ lemma mem_corner_iff_mem_range_mul_right (hc : IsMulCentral e) {r : R} :
 
 /-- The corner associated to an idempotent `e` in a semiring without 1
 is the semiring with `e` as 1 consisting of all element of the form `e * r * e`. -/
-@[nolint unusedArguments]
 def _root_.IsIdempotentElem.Corner (_ : IsIdempotentElem e) : Type _ := Subsemigroup.corner e
 
 end Subsemigroup

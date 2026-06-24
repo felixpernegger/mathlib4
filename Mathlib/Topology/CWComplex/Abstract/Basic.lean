@@ -59,7 +59,6 @@ namespace RelativeCWComplex
 
 /-- For each `n : ℕ`, this is the family of morphisms which sends the unique
 element of `Unit` to `diskBoundaryInclusion n : ∂𝔻 n ⟶ 𝔻 n`. -/
-@[nolint unusedArguments]
 abbrev basicCell (n : ℕ) (_ : Unit) : ∂𝔻 n ⟶ 𝔻 n := diskBoundaryInclusion n
 
 end RelativeCWComplex

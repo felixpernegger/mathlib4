@@ -68,7 +68,6 @@ and under the assumption that for any `x : X n` the cochain `φ n x` coincides
 with `x` up to the degree `p₀ + n`, this is a cochain in `Cochain K L d` which
 can be understood as the "limit" of the sequence of cochains obtained by
 evaluating iterations of `φ` on `x₀`. -/
-@[nolint unusedArguments]
 def limitSequence (_ : ∀ (n : ℕ) (x : X n), (φ n x).val.EqUpTo x.val (p₀ + n)) (x₀ : X 0) :
     Cochain K L d :=
   Cochain.mk (fun p q hpq => (sequence φ x₀ (p - p₀).toNat).1.v p q hpq)

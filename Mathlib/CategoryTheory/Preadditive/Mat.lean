@@ -502,7 +502,6 @@ universe u
 
 /-- A type synonym for `Fintype`, which we will equip with a category structure
 where the morphisms are matrices with components in `R`. -/
-@[nolint unusedArguments]
 def Mat (_ : Type u) :=
   FintypeCat.{u}
 deriving Inhabited

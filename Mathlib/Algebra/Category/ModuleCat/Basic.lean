@@ -530,7 +530,6 @@ def smulNatTrans : R →+* End (forget₂ (ModuleCat R) AddCommGrpCat) where
 
 /-- Given `A : AddCommGrpCat` and a ring morphism `R →+* End A`, this is a type synonym
 for `A`, on which we shall define a structure of `R`-module. -/
-@[nolint unusedArguments]
 def mkOfSMul' {A : AddCommGrpCat} (_ : R →+* End A) := A
 
 section

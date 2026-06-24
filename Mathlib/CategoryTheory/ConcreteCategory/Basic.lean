@@ -80,14 +80,14 @@ variable [∀ X Y, FunLike (FC X Y) (CC X) (CC Y)]
 
 This is an `abbrev` so that instances on `X` (e.g. `Ring`) do not need to be redeclared.
 -/
-@[nolint unusedArguments] -- Need the instance to trigger unification that finds `CC`.
+-- Need the instance to trigger unification that finds `CC`.
 abbrev ToType [ConcreteCategory C FC] := CC
 
 /-- `ToHom X Y` is the type of (bundled) functions between objects `X Y : C`.
 
 This is an `abbrev` so that instances (e.g. `RingHomClass`) do not need to be redeclared.
 -/
-@[nolint unusedArguments] -- Need the instance to trigger unification that finds `FC`.
+-- Need the instance to trigger unification that finds `FC`.
 abbrev ToHom [ConcreteCategory C FC] := FC
 
 variable [ConcreteCategory C FC]

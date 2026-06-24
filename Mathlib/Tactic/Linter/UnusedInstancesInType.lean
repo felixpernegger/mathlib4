@@ -243,7 +243,7 @@ Note: This linter can be disabled with `set_option {linter.fooLinter.name} false
 ```
 pluralizing as appropriate.
 -/
-@[nolint unusedArguments] -- TODO: we plan to use `_cmd` in future
+-- TODO: we plan to use `_cmd` in future
 def _root_.Lean.Syntax.logUnusedInstancesInTheoremsWhere (_cmd : Syntax)
     (instanceTypeFilter : Expr → Bool)
     (log : InfoTree → ConstantVal → Array Parameter → TermElabM Unit)

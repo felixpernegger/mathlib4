@@ -66,7 +66,6 @@ namespace Topology
 
 /-- Given a family of topological spaces `X i`, and a topological space `Y`,
 this is a type synonym for `Y` which we endow with the `X`-generated topology. -/
-@[nolint unusedArguments]
 def WithGeneratedByTopology (X : ι → Type u) [∀ i, TopologicalSpace (X i)]
     (Y : Type v) [TopologicalSpace Y] := Y
 

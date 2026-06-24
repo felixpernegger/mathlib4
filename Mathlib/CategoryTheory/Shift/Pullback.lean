@@ -42,7 +42,6 @@ variable (C : Type*) [Category* C] {A B : Type*} [AddMonoid A] [AddMonoid B]
 
 /-- The category `PullbackShift C φ` is equipped with a shift such that for all `a`,
 the shift functor by `a` is `shiftFunctor C (φ a)`. -/
-@[nolint unusedArguments]
 def PullbackShift [HasShift C B] (_ : A →+ B) := C
 deriving Category
 

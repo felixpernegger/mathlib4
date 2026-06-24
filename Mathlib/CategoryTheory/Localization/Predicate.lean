@@ -236,7 +236,6 @@ def functorEquivalence : D ⥤ E ≌ W.FunctorsInverting E :=
 set_option linter.overlappingInstances false in
 /-- The functor `(D ⥤ E) ⥤ (C ⥤ E)` given by the composition with a localization
 functor `L : C ⥤ D` with respect to `W : MorphismProperty C`. -/
-@[nolint unusedArguments]
 def whiskeringLeftFunctor' [L.IsLocalization W] (E : Type*) [Category* E] :
     (D ⥤ E) ⥤ C ⥤ E :=
   (whiskeringLeft C D E).obj L

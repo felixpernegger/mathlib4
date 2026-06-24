@@ -227,7 +227,7 @@ theorem coe_period : (p : AddCircle p) = 0 :=
 theorem coe_add_period (x : 𝕜) : ((x + p : 𝕜) : AddCircle p) = x := by
   rw [coe_add, ← eq_sub_iff_add_eq', sub_self, coe_period]
 
-@[continuity, nolint unusedArguments]
+@[continuity]
 protected theorem continuous_mk' [TopologicalSpace 𝕜] :
     Continuous (QuotientAddGroup.mk' (zmultiples p) : 𝕜 → AddCircle p) :=
   continuous_coinduced_rng

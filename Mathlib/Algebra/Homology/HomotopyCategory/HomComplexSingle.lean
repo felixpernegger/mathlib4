@@ -36,7 +36,6 @@ variable {X : C} {K : CochainComplex C ℤ}
 namespace Cochain
 
 /-- Constructor for cochains from a single complex. -/
-@[nolint unusedArguments]
 noncomputable def fromSingleMk {p q : ℤ} (f : X ⟶ K.X q) {n : ℤ} (_ : p + n = q) :
     Cochain ((singleFunctor C p).obj X) K n :=
   Cochain.single ((HomologicalComplex.singleObjXSelf (.up ℤ) p X).hom ≫ f) n
@@ -127,7 +126,6 @@ lemma fromSingleMk_postcomp {p q : ℤ} (f : X ⟶ K.X q) {n : ℤ} (h : p + n =
   (fromSingleEquiv h).injective (by simp [fromSingleEquiv, singleFunctor, singleFunctors])
 
 /-- Constructor for cochains to a single complex. -/
-@[nolint unusedArguments]
 noncomputable def toSingleMk {p q : ℤ} (f : K.X p ⟶ X) {n : ℤ} (_ : p + n = q) :
     Cochain K ((singleFunctor C q).obj X) n :=
   Cochain.single (f ≫ (HomologicalComplex.singleObjXSelf (.up ℤ) q X).inv) n

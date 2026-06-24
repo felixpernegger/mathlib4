@@ -52,7 +52,6 @@ variable {W X Y Z : C} {f : W ⟶ X} {g : W ⟶ Y} {h : X ⟶ Z} {i : Y ⟶ Z}
 /-- A convenient formulation for a pushout being a van Kampen colimit. For any commutative cube of
 which a van Kampen pushout forms the bottom face and the back faces are pullbacks, the front faces
 are pullbacks if and only if the top face is a pushout. See `IsPushout.isVanKampen_iff` below. -/
-@[nolint unusedArguments]
 def IsPushout.IsVanKampen (_ : IsPushout f g h i) : Prop :=
   ∀ ⦃W' X' Y' Z' : C⦄ (f' : W' ⟶ X') (g' : W' ⟶ Y') (h' : X' ⟶ Z') (i' : Y' ⟶ Z') (αW : W' ⟶ W)
     (αX : X' ⟶ X) (αY : Y' ⟶ Y) (αZ : Z' ⟶ Z) (_ : IsPullback f' αW αX f)

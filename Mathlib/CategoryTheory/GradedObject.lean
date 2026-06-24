@@ -52,7 +52,6 @@ instance inhabitedGradedObject (β : Type w) (C : Type u) [Inhabited C] :
 /-- A type synonym for `β → C`, used for `β`-graded objects in a category `C`
 with a shift functor given by translation by `s`.
 -/
-@[nolint unusedArguments]
 abbrev GradedObjectWithShift {β : Type w} [AddCommGroup β] (_ : β) (C : Type u) : Type max w u :=
   GradedObject β C
 

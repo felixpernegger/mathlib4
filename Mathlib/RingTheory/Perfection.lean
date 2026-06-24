@@ -489,7 +489,6 @@ variable {S : Type u₂} [CommSemiring S] [CharP S p]
 variable {Q : Type u₄} [CommSemiring Q] [CharP Q p] [PerfectRing Q p]
 
 /-- A ring homomorphism `R →+* S` induces `P →+* Q`, a map of the respective perfections. -/
-@[nolint unusedArguments]
 noncomputable def map {π : P →+* R} (_ : PerfectionMap p π) {σ : Q →+* S} (n : PerfectionMap p σ)
     (φ : R →+* S) : P →+* Q :=
   lift p P S Q σ n <| φ.comp π

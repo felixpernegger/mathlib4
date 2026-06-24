@@ -131,7 +131,7 @@ instance Stmt.inhabited [Inhabited Γ] : Inhabited (Stmt Γ) :=
   Both `Λ` and `Γ` are required to be inhabited; the default value
   for `Γ` is the "blank" tape value, and the default value of `Λ` is
   the initial state. -/
-@[nolint unusedArguments] -- this is a deliberate addition, see comment
+-- this is a deliberate addition, see comment
 def Machine [Inhabited Λ] :=
   Λ → Γ → Option (Λ × (Stmt Γ))
 deriving Inhabited
@@ -492,7 +492,7 @@ to be executed, or `none` for the halt state, and a `σ` which is the local stat
 not the tape). Because there are an infinite number of programs, this state space is infinite, but
 for a finitely supported TM1 machine and a finite type `σ`, only finitely many of these states are
 reachable. -/
-@[nolint unusedArguments] -- We need the M assumption
+-- We need the M assumption
 def Λ' (M : Λ → TM1.Stmt Γ Λ σ) :=
   Option (TM1.Stmt Γ Λ σ) × σ
 

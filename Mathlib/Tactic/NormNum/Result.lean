@@ -311,7 +311,7 @@ section
 set_option linter.unusedVariables false
 
 /-- The result of `norm_num` running on an expression `x` of type `α`. -/
-@[nolint unusedArguments] def Result {α : Q(Type u)} (x : Q($α)) := Result'
+def Result {α : Q(Type u)} (x : Q($α)) := Result'
 
 -- The new behaviour of `inferInstanceAs` from leanprover/lean4#12897 needs to be updated,
 -- to ensure that if we are in a `meta` section then the auxiliary definitions are also `meta`.

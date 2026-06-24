@@ -118,7 +118,6 @@ end HahnSeries
 series. If we wrote a `SMul R⟦Γ⟧ V⟦Γ⟧` instance, then when
 `V = R⟦Γ⟧`, we would have two different actions of `R⟦Γ⟧` on `V⟦Γ⟧`.
 See `Mathlib/Algebra/Polynomial/Module/Basic.lean` for more discussion on this problem. -/
-@[nolint unusedArguments]
 def HahnModule (Γ R V : Type*) [PartialOrder Γ] [Zero V] [SMul R V] :=
   V⟦Γ⟧
 

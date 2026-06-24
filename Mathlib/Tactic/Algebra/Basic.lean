@@ -186,7 +186,6 @@ def mul (cR : Common.Cache sR) {a b : Q($A)} (za : BaseType sAlg a) (zb : BaseTy
 /-- Take an expression `r'` in a ring `R'` such that `R` is an `R'`-algebra and cast `r'` to `R`
 using `algebraMap R' R`, so that the scalar multiplication action on `A` is preserved. -/
 /- We include the CharZero argument to match the type signature of the ringCompute entry. -/
-@[nolint unusedArguments]
 def cast (cR : Algebra.Cache sR) (u' : Level) (R' : Q(Type u'))
     (_ : Q(CommSemiring $R')) (_smul : Q(SMul $R' $A)) (r' : Q($R')) :
     AtomM ((y : Q($A)) × Common.ExSum (BaseType sAlg) sA q($y) ×
@@ -227,7 +226,6 @@ def pow (cR : Common.Cache sR) {a : Q($A)} {b : Q(ℕ)} (za : BaseType sAlg a)
 
 /-- Evaluate the inverse of two normalized expressions in `R` using `ring`. -/
 /- We include the CharZero argument to match the type signature of the ringCompute entry. -/
-@[nolint unusedArguments]
 def inv (cR : Algebra.Cache sR) {a : Q($A)} (_ : Option Q(CharZero $A)) (fA : Q(Semifield $A))
     (za : BaseType sAlg a) : AtomM (Option (Common.Result (BaseType sAlg) q($a⁻¹))) :=
   match za with

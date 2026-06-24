@@ -43,7 +43,6 @@ variable (F : C → D) (P : MorphismProperty D) [P.IsMultiplicative]
 which provides a category structure so that the morphisms `X ⟶ Y` are the morphisms
 in `D` from `F X` to `F Y` which satisfy a property `P : MorphismProperty D` that is multiplicative.
 -/
-@[nolint unusedArguments]
 def InducedWideCategory (_F : C → D) (_P : MorphismProperty D) [IsMultiplicative _P] :=
   C
 
@@ -95,7 +94,7 @@ variable (P : MorphismProperty C) [IsMultiplicative P]
 /--
 Structure for wide subcategories. Objects ignore the morphism property.
 -/
-@[ext, nolint unusedArguments]
+@[ext]
 structure WideSubcategory (_P : MorphismProperty C) [IsMultiplicative _P] where
   /-- The category of which this is a wide subcategory -/
   obj : C

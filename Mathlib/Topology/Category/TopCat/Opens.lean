@@ -345,7 +345,6 @@ namespace Topology.IsInducing
 
 /-- Given an inducing map `X ⟶ Y` and some `U : Opens X`, this is the union of all open sets
 whose preimage is `U`. This is right adjoint to `Opens.map`. -/
-@[nolint unusedArguments]
 def functorObj {X Y : TopCat.{u}} {f : X ⟶ Y} (_ : IsInducing f) (U : Opens X) : Opens Y :=
   sSup { s : Opens Y | (Opens.map f).obj s = U }
 

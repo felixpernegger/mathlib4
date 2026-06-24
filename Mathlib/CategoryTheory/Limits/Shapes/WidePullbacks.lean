@@ -60,7 +60,6 @@ inductive Hom : WidePullbackShape J → WidePullbackShape J → Type w
   deriving DecidableEq
 
 -- See https://github.com/leanprover/lean4/issues/10295
-attribute [nolint unusedArguments] instDecidableEqHom.decEq
 
 instance struct : CategoryStruct (WidePullbackShape J) where
   Hom := Hom
@@ -188,7 +187,6 @@ inductive Hom : WidePushoutShape J → WidePushoutShape J → Type w
   deriving DecidableEq
 
 -- See https://github.com/leanprover/lean4/issues/10295
-attribute [nolint unusedArguments] instDecidableEqHom.decEq
 
 instance struct : CategoryStruct (WidePushoutShape J) where
   Hom := Hom

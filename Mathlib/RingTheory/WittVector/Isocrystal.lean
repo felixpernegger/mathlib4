@@ -153,7 +153,6 @@ open scoped Isocrystal
 /-- Type synonym for `K(p, k)` to carry the standard 1-dimensional isocrystal structure
 of slope `m : ℤ`.
 -/
-@[nolint unusedArguments]
 def StandardOneDimIsocrystal (_m : ℤ) : Type _ :=
   K(p, k)
 deriving AddCommGroup, Module K(p, k)

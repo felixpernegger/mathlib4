@@ -376,7 +376,6 @@ section TrivialLieModule
 
 set_option linter.unusedVariables false in
 /-- A type synonym for an `R`-module to have a trivial Lie module structure. -/
-@[nolint unusedArguments]
 def TrivialLieModule (R L M : Type*) := M
 
 namespace TrivialLieModule

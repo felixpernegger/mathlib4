@@ -28,7 +28,6 @@ itself using `pathEquivList`.
 namespace Quiver
 
 /-- Type tag on `Unit` used to define single-object quivers. -/
-@[nolint unusedArguments]
 def SingleObj (_ : Type*) : Type :=
   Unit
 deriving Unique

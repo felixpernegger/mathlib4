@@ -262,7 +262,6 @@ variable (J : CardinalFilteredPoset κ)
 /-- Given `J : CardinalFilteredPoset κ` and a regular cardinal `κ'`,
 this is the predicate on `Set J.withTop.obj` that is satisfied by
 subsets that are of cardinality `< κ'` and contain `⊤`. -/
-@[nolint unusedArguments]
 def PropSetWithTop (κ' : Cardinal.{u}) [Fact κ'.IsRegular]
     (S : Set J.withTop.obj) : Prop :=
   HasCardinalLT S κ' ∧ ⊤ ∈ S

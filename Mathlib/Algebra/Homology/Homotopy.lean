@@ -470,7 +470,7 @@ At this stage, we don't check the homotopy condition in degree 0,
 because it "falls off the end", and is easier to treat using `xNext` and `xPrev`,
 which we do in `mkInductiveAux₂`.
 -/
-@[simp, nolint unusedArguments]
+@[simp]
 def mkInductiveAux₁ :
     ∀ n,
       Σ' (f : P.X n ⟶ Q.X (n + 1)) (f' : P.X (n + 1) ⟶ Q.X (n + 2)),

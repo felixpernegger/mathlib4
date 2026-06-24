@@ -69,7 +69,6 @@ variable (R) in
 /-- A Type synonym for `A ⊗[R] B`, but with multiplication as `TensorProduct.gradedMul`.
 
 This has notation `𝒜 ᵍ⊗[R] ℬ`. -/
-@[nolint unusedArguments]
 def GradedTensorProduct
     (𝒜 : ι → Submodule R A) (ℬ : ι → Submodule R B)
     [GradedAlgebra 𝒜] [GradedAlgebra ℬ] :

@@ -30,7 +30,6 @@ open MvFunctor
 variable (n : ℕ)
 
 /-- Constant multivariate functor -/
-@[nolint unusedArguments]
 def Const (A : Type*) (_v : TypeVec.{u} n) : Type _ := A
 
 instance Const.inhabited {A α} [Inhabited A] : Inhabited (Const n A α) := ⟨(default : A)⟩

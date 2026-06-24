@@ -67,7 +67,6 @@ inductive Hom : Pairwise ι → Pairwise ι → Type v
   deriving DecidableEq
 
 -- False positive?
-attribute [nolint unusedArguments] instDecidableEqHom.decEq
 
 open Hom
 

@@ -150,7 +150,6 @@ def UniformFun (α β : Type*) :=
 
 /-- The type of functions from `α` to `β` equipped with the uniform structure and topology of
 uniform convergence on some family `𝔖` of subsets of `α`. We denote it `α →ᵤ[𝔖] β`. -/
-@[nolint unusedArguments]
 def UniformOnFun (α β : Type*) (_ : Set (Set α)) :=
   α → β
 

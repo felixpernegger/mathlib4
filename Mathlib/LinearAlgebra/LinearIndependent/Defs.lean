@@ -547,7 +547,6 @@ universe v w
 /--
 A linearly independent family is maximal if there is no strictly larger linearly independent family.
 -/
-@[nolint unusedArguments]
 def LinearIndependent.Maximal {ι : Type w} {R : Type u} [Semiring R] {M : Type v} [AddCommMonoid M]
     [Module R M] {v : ι → M} (_i : LinearIndependent R v) : Prop :=
   ∀ (s : Set M) (_i' : LinearIndependent R ((↑) : s → M)) (_h : range v ≤ s), range v = s

@@ -29,7 +29,6 @@ def WideSubquiver (V) [Quiver.{v} V] :=
 
 /-- A type synonym for `V`, when thought of as a quiver having only the arrows from
 some `WideSubquiver`. -/
-@[nolint unusedArguments]
 def WideSubquiver.toType (V) [Quiver V] (_ : WideSubquiver V) : Type u :=
   V
 

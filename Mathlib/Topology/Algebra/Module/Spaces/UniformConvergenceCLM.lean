@@ -83,7 +83,6 @@ with the "topology of uniform convergence on the elements of `𝔖`".
 
 If the continuous linear image of any element of `𝔖` is bounded, this makes `E →SL[σ] F` a
 topological vector space. -/
-@[nolint unusedArguments]
 def UniformConvergenceCLM [TopologicalSpace F] (_ : Set (Set E)) := E →SL[σ] F
 
 -- There seems to be a Lean bug here: the following causes troubles later

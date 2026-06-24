@@ -217,7 +217,6 @@ variable {J : Type u} [SmallCategory J] [IsFiltered J] {F : J ⥤ PartOrdEmb.{u}
 /-- Given a functor `F : J ⥤ PartOrdEmb` and a colimit cocone `c` for
 `F ⋙ forget _`, this is the type `c.pt` on which we define a partial order
 which makes it the colimit of `F`. -/
-@[nolint unusedArguments]
 def CoconePt (_ : IsColimit c) : Type u := c.pt
 
 open IsFiltered

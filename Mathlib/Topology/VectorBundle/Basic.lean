@@ -597,16 +597,14 @@ theorem coordChange_linear_comp (i j k : ι) :
   exact Z.coordChange_comp i j k x hx v
 
 /-- The index set of a vector bundle core, as a convenience function for dot notation -/
-@[nolint unusedArguments]
 def Index := ι
 
 /-- The base space of a vector bundle core, as a convenience function for dot notation -/
-@[nolint unusedArguments, reducible]
+@[reducible]
 def Base := B
 
 /-- The fiber of a vector bundle core, as a convenience function for dot notation and
 typeclass inference -/
-@[nolint unusedArguments]
 def Fiber : B → Type _ :=
   Z.toFiberBundleCore.Fiber
 
@@ -628,7 +626,7 @@ protected def proj : TotalSpace F Z.Fiber → B :=
 
 /-- The total space of the vector bundle, as a convenience function for dot notation.
 It is by definition equal to `Bundle.TotalSpace F Z.Fiber`. -/
-@[nolint unusedArguments, reducible]
+@[reducible]
 protected def TotalSpace :=
   Bundle.TotalSpace F Z.Fiber
 

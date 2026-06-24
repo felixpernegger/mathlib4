@@ -38,7 +38,6 @@ section StrictOrderedCommSemiring
 /-- Two vectors are in the same ray if either one of them is zero or some positive multiples of them
 are equal (in the typical case over a field, this means one of them is a nonnegative multiple of
 the other). -/
-@[nolint unusedArguments]
 def SameRay (R : Type*) [CommSemiring R] [PartialOrder R] [IsStrictOrderedRing R]
     {M : Type*} [AddCommMonoid M] [Module R M] (v₁ v₂ : M) : Prop :=
   v₁ = 0 ∨ v₂ = 0 ∨ ∃ r₁ r₂ : R, 0 < r₁ ∧ 0 < r₂ ∧ r₁ • v₁ = r₂ • v₂
@@ -46,7 +45,6 @@ def SameRay (R : Type*) [CommSemiring R] [PartialOrder R] [IsStrictOrderedRing R
 set_option linter.unusedVariables false in
 /-- Nonzero vectors, as used to define rays. This type depends on an unused argument `R` so that
 `RayVector.Setoid` can be an instance. -/
-@[nolint unusedArguments]
 def RayVector (R M : Type*) [Zero M] :=
   { v : M // v ≠ 0 }
 

@@ -65,7 +65,6 @@ variable {M : PresheafOfModules.{w} R} {cM : Cocone M.presheaf} (hcM : IsColimit
 `M` a presheaf of modules over `R`, and a colimit cocone `cM` for the underlying
 functor `Cᵒᵖ ⥤ AddCommGrpCat` of `M`, this is the type `cM.pt` on which we define
 a module structure below. -/
-@[nolint unusedArguments]
 def ModuleColimit (_ : IsColimit cR) (_ : IsColimit cM) : Type w := cM.pt
 
 instance : AddCommGroup (ModuleColimit hcR hcM) :=

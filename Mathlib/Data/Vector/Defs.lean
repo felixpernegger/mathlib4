@@ -54,7 +54,7 @@ def cons : α → Vector α n → Vector α (Nat.succ n)
 
 
 /-- The length of a vector. -/
-@[reducible, nolint unusedArguments]
+@[reducible]
 def length (_ : Vector α n) : ℕ :=
   n
 

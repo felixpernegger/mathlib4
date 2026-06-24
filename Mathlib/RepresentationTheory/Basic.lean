@@ -137,7 +137,6 @@ which we equip with an instance `Module k[G] ρ.asModule`.
 
 You should use `asModuleEquiv : ρ.asModule ≃+ V` to translate terms.
 -/
-@[nolint unusedArguments]
 def asModule (_ : Representation k G V) := V
 deriving AddCommMonoid, Module k
 

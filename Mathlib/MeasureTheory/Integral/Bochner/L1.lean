@@ -114,7 +114,6 @@ theorem weightedSMul_union' (s t : Set α) (ht : MeasurableSet t) (hs_finite : �
   ext1 x
   simp_rw [add_apply, weightedSMul_apply, measureReal_union hdisj ht, add_smul]
 
-@[nolint unusedArguments]
 theorem weightedSMul_union (s t : Set α) (_hs : MeasurableSet s) (ht : MeasurableSet t)
     (hs_finite : μ s ≠ ∞) (ht_finite : μ t ≠ ∞) (hdisj : Disjoint s t) :
     (weightedSMul μ (s ∪ t) : F →L[ℝ] F) = weightedSMul μ s + weightedSMul μ t :=

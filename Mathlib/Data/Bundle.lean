@@ -100,7 +100,7 @@ theorem TotalSpace.range_mk (b : B) : range ((↑) : E b → TotalSpace F E) = �
 notation:100 E₁ " ×ᵇ " E₂ => fun x => E₁ x × E₂ x
 
 /-- `Bundle.Trivial B F` is the trivial bundle over `B` of fiber `F`. -/
-@[reducible, nolint unusedArguments]
+@[reducible]
 def Trivial (B : Type*) (F : Type*) : B → Type _ := fun _ => F
 
 /-- The trivial bundle, unlike other bundles, has a canonical projection on the fiber. -/

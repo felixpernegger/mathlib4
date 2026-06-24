@@ -43,7 +43,6 @@ variable [Algebra S T] [IsScalarTower R S T]
 /-- Localizing w.r.t. `M ⊆ R` and then w.r.t. `N ⊆ S = M⁻¹R` is equal to the localization of `R`
 w.r.t. this submonoid. See `localization_localization_isLocalization`.
 -/
-@[nolint unusedArguments]
 def localizationLocalizationSubmodule : Submonoid R :=
   (N ⊔ M.map (algebraMap R S)).comap (algebraMap R S)
 

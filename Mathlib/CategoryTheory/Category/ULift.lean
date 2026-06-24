@@ -145,7 +145,6 @@ end ULiftHom
   Note: We require a category instance for this definition in order to have direct
   access to the universe level `v`.
 -/
-@[nolint unusedArguments]
 def AsSmall.{w, v, u} (D : Type u) [Category.{v} D] := ULift.{max w v} D
 
 instance : SmallCategory (AsSmall.{w₁} C) where

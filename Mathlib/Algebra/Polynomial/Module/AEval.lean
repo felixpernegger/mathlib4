@@ -36,7 +36,6 @@ where the action of a polynomial $f$ is given by $f • m = f(a) • m$.
 More precisely, `Module.AEval R M a` has elements `Module.AEval.of R M a m` for `m : M`,
 and the action of `f` is `f • (of R M a m) = of R M a ((aeval a f) • m)`.
 -/
-@[nolint unusedArguments]
 def AEval (R M : Type*) {A : Type*} [CommSemiring R] [Semiring A] [Algebra R A]
     [AddCommMonoid M] [Module A M] [Module R M] [IsScalarTower R A M] (_ : A) := M
   deriving AddCommMonoid, Module R

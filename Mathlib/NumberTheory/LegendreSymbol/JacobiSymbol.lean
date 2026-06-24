@@ -589,7 +589,7 @@ set_option backward.privateInPublic.warn false in
     · exact lt_of_le_of_ne (Nat.one_le_iff_ne_zero.mpr hb0) (Ne.symm hb1)
 
 /-- Computes `legendreSym p a` using `fastJacobiSym`. -/
-@[inline, nolint unusedArguments]
+@[inline]
 private def fastLegendreSym (p : ℕ) [Fact p.Prime] (a : ℤ) : ℤ := J(a | p)
 
 set_option backward.privateInPublic true in

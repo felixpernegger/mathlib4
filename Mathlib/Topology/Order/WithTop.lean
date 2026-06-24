@@ -23,11 +23,10 @@ namespace TopologicalSpace
 
 variable {ι : Type*} [Preorder ι]
 
-@[nolint unusedArguments, to_dual]
+@[to_dual]
 instance [TopologicalSpace ι] [OrderTopology ι] : TopologicalSpace (WithTop ι) :=
   Preorder.topology _
 
-attribute [nolint unusedArguments] instWithBotOfOrderTopology
 
 @[to_dual]
 instance [TopologicalSpace ι] [OrderTopology ι] : OrderTopology (WithTop ι) := ⟨rfl⟩

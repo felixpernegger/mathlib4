@@ -56,12 +56,12 @@ open AlgebraicTopology.DoldKan
 /-- The functor `N` for the equivalence is obtained by composing
 `N' : SimplicialObject C ⥤ Karoubi (ChainComplex C ℕ)` and the inverse
 of the equivalence `ChainComplex C ℕ ≌ Karoubi (ChainComplex C ℕ)`. -/
-@[simps!, nolint unusedArguments]
+@[simps!]
 def N [IsIdempotentComplete C] [HasFiniteCoproducts C] : SimplicialObject C ⥤ ChainComplex C ℕ :=
   N₁ ⋙ (toKaroubiEquivalence _).inverse
 
 /-- The functor `Γ` for the equivalence is `Γ₀`. -/
-@[simps!, nolint unusedArguments]
+@[simps!]
 def Γ [IsIdempotentComplete C] [HasFiniteCoproducts C] : ChainComplex C ℕ ⥤ SimplicialObject C :=
   Γ₀
 

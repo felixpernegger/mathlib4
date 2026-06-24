@@ -47,7 +47,6 @@ structure Recurse.Config where
 deriving Inhabited, BEq, Repr
 
 -- See https://github.com/leanprover/lean4/issues/10295
-attribute [nolint unusedArguments] Mathlib.Tactic.AtomM.Recurse.instReprConfig.repr
 
 /-- The read-only state of the `AtomM.Recurse` monad. -/
 structure Recurse.Context where

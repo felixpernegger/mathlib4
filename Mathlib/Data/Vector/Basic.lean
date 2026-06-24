@@ -669,7 +669,6 @@ variable {α β γ : Type u}
 
 -- We need to turn off the linter here as
 -- the `LawfulTraversable` instance below expects a particular signature.
-@[nolint unusedArguments]
 protected theorem comp_traverse (f : β → F γ) (g : α → G β) (x : Vector α n) :
     Vector.traverse (Comp.mk ∘ Functor.map f ∘ g) x =
       Comp.mk (Vector.traverse f <$> Vector.traverse g x) := by

@@ -279,7 +279,6 @@ section One
 variable [Zero ι] [GOne A]
 
 /-- `1 : A 0` is the value provided in `GOne.one`. -/
-@[nolint unusedArguments]
 instance (priority := 900) GradeZero.one : One (A 0) :=
   ⟨GOne.one⟩
 

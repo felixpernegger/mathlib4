@@ -111,7 +111,6 @@ variable {V} {W : Type v'} [Category.{w'} W] [MonoidalCategory W]
 In a moment we will equip this with the `W`-enriched category structure
 obtained by applying the functor `F : LaxMonoidalFunctor V W` to each hom object.
 -/
-@[nolint unusedArguments]
 def TransportEnrichment (F : V ⥤ W) [F.LaxMonoidal] (C : Type u₁) :=
   C
 
@@ -202,7 +201,6 @@ When `V` is any of `Type`, `Top`, `AddCommGroup`, or `Module R`,
 For `V = Algebra R`, the usual forgetful functor is coyoneda of `R[X]`, not of `R`.
 (Perhaps we should have a typeclass for this situation: `ConcreteMonoidal`?)
 -/
-@[nolint unusedArguments]
 def ForgetEnrichment (W : Type v) [Category.{w} W] [MonoidalCategory W] (C : Type u₁)
     [EnrichedCategory W C] :=
   C
