@@ -80,7 +80,6 @@ theorem MeasureTheory.Measure.euclideanHausdorffMeasure_def (d : ℕ) :
     addHaarScalarFactor (volume : Measure (EuclideanSpace ℝ (Fin d))) μH[d] • μH[d] := by
   rfl
 
-set_option backward.isDefEq.respectTransparency false in -- needed by simplifying `1 • _`
 /-- `μHE[0]` and `μH[0]` are equal. -/
 @[simp]
 theorem MeasureTheory.Measure.euclideanHausdorffMeasure_zero :
@@ -104,7 +103,6 @@ theorem MeasureTheory.Measure.addHaarScalarFactor_volume_hausdorffMeasure_ne_zer
   obtain h := congr($h (parallelepiped (stdOrthonormalBasis ℝ (EuclideanSpace ℝ (Fin d)))))
   simp [OrthonormalBasis.volume_parallelepiped, h0] at h
 
-set_option backward.isDefEq.respectTransparency false in -- needed by `ENNReal.smul_def`
 instance MeasureTheory.isAddHaarMeasure_euclideanHausdorffMeasure {E : Type*}
     [NormedAddCommGroup E] [NormedSpace ℝ E] [FiniteDimensional ℝ E] [MeasurableSpace E]
     [BorelSpace E] : (μHE[Module.finrank ℝ E] : Measure E).IsAddHaarMeasure := by
@@ -113,7 +111,6 @@ instance MeasureTheory.isAddHaarMeasure_euclideanHausdorffMeasure {E : Type*}
     (by simpa using addHaarScalarFactor_volume_hausdorffMeasure_ne_zero (Module.finrank ℝ E))
     (by simp)
 
-set_option backward.isDefEq.respectTransparency false in -- needed by `ENNReal.smul_top`
 /-- If `d₁ < d₂`, then for any set s we have either `μHE[d₂] s = 0`, or `μHE[d₁] s = ∞`. -/
 theorem MeasureTheory.Measure.euclideanHausdorffMeasure_zero_or_top {d₁ d₂ : ℕ} (h : d₁ < d₂)
     (s : Set X) : μHE[d₂] s = 0 ∨ μHE[d₁] s = ⊤ := by

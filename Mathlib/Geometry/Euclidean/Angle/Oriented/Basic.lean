@@ -72,14 +72,14 @@ theorem oangle_zero_left (x : V) : o.oangle 0 x = 0 := by simp [oangle]
 @[simp]
 theorem oangle_zero_right (x : V) : o.oangle x 0 = 0 := by simp [oangle]
 
-set_option backward.isDefEq.respectTransparency false in
 /-- If the two vectors passed to `oangle` are the same, the result is 0. -/
 @[simp]
 theorem oangle_self (x : V) : o.oangle x x = 0 := by
   rw [oangle, kahler_apply_self, ← ofReal_pow]
-  convert! QuotientAddGroup.mk_zero (AddSubgroup.zmultiples (2 * π))
-  apply arg_ofReal_of_nonneg
-  positivity
+  unfold Real.Angle AddCircle Real.Angle.coe
+  rw [arg_ofReal_of_nonneg <| sq_nonneg ‖x‖,
+    QuotientAddGroup.mk_zero (AddSubgroup.zmultiples (2 * π))]
+  rfl
 
 /-- If the angle between two vectors is nonzero, the first vector is nonzero. -/
 theorem left_ne_zero_of_oangle_ne_zero {x y : V} (h : o.oangle x y ≠ 0) : x ≠ 0 := by
