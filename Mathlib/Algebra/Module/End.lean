@@ -35,16 +35,23 @@ theorem AddMonoid.End.natCast_def (n : ℕ) :
 
 variable (R M)
 
-set_option backward.isDefEq.respectTransparency false in
+theorem testt : AddMonoid.End.instFunLike M = AddMonoidHom.instFunLike := rfl
+
 /-- `(•)` as an `AddMonoidHom`.
 
 This is a stronger version of `DistribMulAction.toAddMonoidEnd` -/
 @[simps! apply_apply]
 def Module.toAddMonoidEnd : R →+* AddMonoid.End M :=
   { DistribMulAction.toAddMonoidEnd R M with
-    map_zero' := AddMonoidHom.ext fun r => by simp
+    map_zero' := AddMonoidHom.ext fun r => by
+      simp
+      rw [← testt]
+      rw [← AddMonoid.End.zero_apply r]
+      unfold AddMonoid.End
+      dsimp
     map_add' x y :=
-      AddMonoidHom.ext fun r => by simp [(AddMonoidHom.add_apply), add_smul] }
+      AddMonoidHom.ext fun r => by
+      simp [(AddMonoidHom.add_apply), add_smul] }
 
 /-- A convenience alias for `Module.toAddMonoidEnd` as an `AddMonoidHom`, usually to allow the
 use of `AddMonoidHom.flip`. -/

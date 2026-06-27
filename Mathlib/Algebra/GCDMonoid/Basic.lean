@@ -1019,7 +1019,6 @@ noncomputable def gcdMonoidOfGCD [DecidableEq α] (gcd : α → α → α)
       apply Or.resolve_left (mul_eq_zero.1 _) a0'
       rw [h, mul_zero] }
 
-set_option backward.isDefEq.respectTransparency false in
 /-- Define `NormalizedGCDMonoid` on a structure just from the `gcd` and its properties. -/
 @[implicit_reducible]
 noncomputable def normalizedGCDMonoidOfGCD [NormalizationMonoid α] [DecidableEq α] (gcd : α → α → α)
@@ -1048,7 +1047,8 @@ noncomputable def normalizedGCDMonoidOfGCD [NormalizationMonoid α] [DecidableEq
           · apply (a0 _).elim
             rw [← zero_dvd_iff, ← ha]
             exact gcd_dvd_left _ _
-          · rw [hl, zero_mul]
+          · simp only [mul_zero, map_zero, normUnit_zero, Units.val_one, mul_one, l] at hl ⊢
+            rw [hl, zero_mul]
         have h1 : gcd a b ≠ 0 := by
           have hab : a * b ≠ 0 := mul_ne_zero a0 hb
           contrapose hab
@@ -1140,7 +1140,6 @@ noncomputable def gcdMonoidOfLCM [DecidableEq α] (lcm : α → α → α)
       rw [mul_comm, mul_dvd_mul_iff_right h_1.2]
       apply ac }
 
-set_option backward.isDefEq.respectTransparency false in
 /-- Define `NormalizedGCDMonoid` on a structure just from the `lcm` and its properties. -/
 @[implicit_reducible]
 noncomputable def normalizedGCDMonoidOfLCM [NormalizationMonoid α] [DecidableEq α] (lcm : α → α → α)
@@ -1177,8 +1176,14 @@ noncomputable def normalizedGCDMonoidOfLCM [NormalizationMonoid α] [DecidableEq
       conv_lhs =>
         congr
         rw [← normalize_lcm a b]
-      rw [← normalize_apply, ← normalize.map_mul,
-        ← Classical.choose_spec (exists_gcd a b), normalize_idem]
+      rw [← normalize_apply, ← normalize.map_mul, ← normalize_idem (a * b),
+        Classical.choose_spec (exists_gcd a b)]
+      simp only [map_mul, mul_eq_mul_left_iff, normalize_eq_zero]
+      left
+      congr! 4
+      simp only [normalize, MonoidWithZeroHom.coe_mk, ZeroHom.coe_mk]
+      rw [NormalizationMonoid.normUnit_mul h h_1, Units.val_mul]
+      grind
     lcm_zero_left := fun _ => eq_zero_of_zero_dvd (dvd_lcm_left _ _)
     lcm_zero_right := fun _ => eq_zero_of_zero_dvd (dvd_lcm_right _ _)
     gcd_dvd_left := fun a b => by
