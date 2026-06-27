@@ -644,6 +644,8 @@ instance : CharP (PreTilt O p) p :=
 instance : PerfectRing (PreTilt O p) p :=
   inferInstanceAs <| PerfectRing (Perfection _ _) p
 
+theorem Perfection.instCommSemiring_eq :
+  Perfection.instCommSemiring (ModP O p) p = CommRing.toCommSemiring := rfl
 section coeff
 
 variable {O p}
@@ -654,11 +656,13 @@ def coeff (n : ℕ) : PreTilt O p →+* ModP O p := Perfection.coeff (ModP O p) 
 theorem coeff_def (n : ℕ) (x : PreTilt O p) : coeff n x = Perfection.coeff _ _ n x :=
   rfl
 
-set_option backward.isDefEq.respectTransparency false in
 @[simp]
 theorem coeff_frobenius (n : ℕ) (x : PreTilt O p) :
     (coeff (n + 1) (frobenius _ p x)) = coeff n x := by
-  simp [PreTilt, coeff]
+  unfold PreTilt at *
+  simp only [coeff]
+  have := Perfection.coeff_frobenius x n (R := (ModP O p))
+  convert this <;> rfl
 
 set_option backward.isDefEq.respectTransparency false in
 @[simp]

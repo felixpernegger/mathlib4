@@ -283,7 +283,6 @@ theorem norm_iteratedFDeriv_mul_le {f : E → A} {g : E → A} {N : ℕ∞ω} (h
 -- TODO: Add `norm_iteratedFDeriv[Within]_list_prod_le` for non-commutative `NormedRing A`.
 
 set_option backward.defeqAttrib.useBackward true in
-set_option backward.isDefEq.respectTransparency false in
 theorem norm_iteratedFDerivWithin_prod_le [DecidableEq ι] [NormOneClass A'] {u : Finset ι}
     {f : ι → E → A'} {N : ℕ∞ω} (hf : ∀ i ∈ u, ContDiffOn 𝕜 N (f i) s)
     (hs : UniqueDiffOn 𝕜 s) {x : E} (hx : x ∈ s) {n : ℕ} (hn : n ≤ N) :
@@ -304,7 +303,12 @@ theorem norm_iteratedFDerivWithin_prod_le [DecidableEq ι] [NormOneClass A'] {u 
       (g := (fun v ↦ v.countPerms *
           ∏ j ∈ insert i u, ‖iteratedFDerivWithin 𝕜 (v.count j) (f j) s x‖) ∘
         Sym.toMultiset ∘ Subtype.val ∘ (Finset.symInsertEquiv hi).symm)
-      (by simp) (by simp only [← comp_apply (g := Finset.symInsertEquiv hi), comp_assoc]; simp)]
+      (by simp) (by
+        simp only [← comp_apply (g := Finset.symInsertEquiv hi), comp_assoc]
+        simp only [Finset.univ_eq_attach, Finset.mem_attach, Equiv.symm_comp_self,
+          CompTriple.comp_eq, comp_apply, mul_eq_mul_left_iff, Nat.cast_eq_zero, forall_const,
+          Subtype.forall, Finset.mem_sym_iff, Finset.mem_insert]
+        intros; left; rfl)]
     rw [← Finset.univ_sigma_univ, Finset.sum_sigma, Finset.sum_range]
     simp +instances only [comp_apply, Finset.symInsertEquiv_symm_apply_coe]
     gcongr with m _

@@ -278,7 +278,6 @@ open Filtration
 variable [ConditionallyCompleteLinearOrder ι] [TopologicalSpace ι] [OrderTopology ι]
     [FirstCountableTopology ι] {f : Filtration ι m} {τ : Ω → WithTop ι}
 
-set_option backward.isDefEq.respectTransparency false in
 lemma isStoppingTime_of_measurableSet_lt_of_isRightContinuous' [hf : f.IsRightContinuous]
     (hτ1 : ∀ i, MeasurableSet[f i] {ω | τ ω < i})
     (hτ2 : ∀ i, 𝓝[>] i = ⊥ → MeasurableSet[f i] {ω | τ ω = i}) :
@@ -323,7 +322,8 @@ lemma isStoppingTime_of_measurableSet_lt_of_isRightContinuous' [hf : f.IsRightCo
       obtain ⟨m, hm⟩ := h_exists_lt i hti
       exact (iInf_le _ m).trans (f.mono hm.le)
   rw [h𝓕_eq_iInf]
-  simp only [MeasurableSpace.measurableSet_sInf, Set.mem_range, forall_exists_index,
+  erw [MeasurableSpace.measurableSet_sInf]
+  simp only [Set.mem_range, forall_exists_index,
     forall_apply_eq_imp_iff]
   intro k
   have h_eq_k : ⋂ m, {ω | τ ω < s m} = ⋂ (m) (hm : s m ≤ s k), {ω | τ ω < s m} := by

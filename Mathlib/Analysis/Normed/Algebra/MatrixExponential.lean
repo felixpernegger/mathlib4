@@ -173,10 +173,12 @@ section NormedComm
 variable [Fintype m] [DecidableEq m]
   [NormedCommRing 𝔸] [NormedAlgebra ℚ 𝔸] [CompleteSpace 𝔸]
 
-set_option backward.isDefEq.respectTransparency false in
+open scoped Norms.Operator in
 theorem exp_neg (A : Matrix m m 𝔸) : exp (-A) = (exp A)⁻¹ := by
+  have : @CompleteSpace (Matrix m m 𝔸) PseudoMetricSpace.toUniformSpace :=
+    instCompleteSpace m m 𝔸
   rw [nonsing_inv_eq_ringInverse]
-  open scoped Norms.Operator in exact (Ring.inverse_exp A).symm
+  convert (Ring.inverse_exp A).symm <;> rfl
 
 theorem exp_zsmul (z : ℤ) (A : Matrix m m 𝔸) : exp (z • A) = exp A ^ z := by
   obtain ⟨n, rfl | rfl⟩ := z.eq_nat_or_neg

@@ -182,11 +182,10 @@ theorem cons_mem_acceptsFrom {S : Set σ} {a : α} {x : List α} :
     a :: x ∈ M.acceptsFrom S ↔ x ∈ M.acceptsFrom (M.stepSet S a) := by
   simp [mem_acceptsFrom]
 
-set_option backward.isDefEq.respectTransparency false in
 variable (M) in
 theorem cons_preimage_acceptsFrom {S : Set σ} {a : α} :
     (a :: ·) ⁻¹' M.acceptsFrom S = M.acceptsFrom (M.stepSet S a) := by
-  ext x; simp [cons_mem_acceptsFrom M]
+  ext x; exact cons_mem_acceptsFrom M
 
 variable (M) in
 @[simp]

@@ -172,8 +172,10 @@ instance : DecidableEq (V n) := by induction n <;> · dsimp only [V]; infer_inst
 
 instance : AddCommGroup (V n) := by induction n <;> · dsimp only [V]; infer_instance
 
-set_option backward.isDefEq.respectTransparency false in
-instance : Module ℝ (V n) := by induction n <;> · dsimp only [V]; infer_instance
+instance : Module ℝ (V n) := by
+  induction n with
+  | zero => simp only [V_zero]; exact Semiring.toModule
+  | succ n ih => haveI := ih; simp only [V_succ]; exact Prod.instModule
 
 end V
 
@@ -321,9 +323,8 @@ variable {m : ℕ}
 /-! Again we unpack what are the values of `g`. -/
 
 
-set_option backward.isDefEq.respectTransparency false in
 theorem g_apply : ∀ v, g m v = (f m v + √(m + 1) • v, v) := by
-  delta g; intro v; simp
+  intro v; rfl
 
 set_option backward.isDefEq.respectTransparency false in
 theorem g_injective : Injective (g m) := by
