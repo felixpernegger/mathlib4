@@ -6,7 +6,12 @@ Authors: Kim Morrison, Bhavik Mehta
 module
 
 public import Mathlib.CategoryTheory.Discrete.Basic
-public import Mathlib.Data.ULift
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Data.ULift
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # The category `Discrete PUnit`

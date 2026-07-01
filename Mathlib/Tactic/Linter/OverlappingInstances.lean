@@ -5,10 +5,11 @@ Authors: Jovan Gerbscheid, Thomas R. Murrills
 -/
 module
 
-public meta import Lean.Elab.Command
-public meta import Mathlib.Lean.ContextInfo
-public meta import Batteries.Lean.Position
-public meta import Mathlib.Tactic.Linter.UnusedInstancesInType
+meta import Batteries.Lean.Position
+import Lean.Data.LOption
+import Lean.Message
+meta import Mathlib.Lean.Elab.InfoTree
+import Mathlib.Tactic.Linter.UnusedInstancesInType
 
 /-!
 # A linter for declarations with local instances that overlap

@@ -6,9 +6,20 @@ Authors: Johannes Hölzl, Mario Carneiro
 module
 
 public import Mathlib.Data.Set.Countable
-public import Mathlib.Tactic.CrossRefAttribute
-public import Mathlib.Tactic.FunProp.Attr
-public import Mathlib.Tactic.Measurability
+public import Mathlib.Order.GaloisConnection.Basic
+import Mathlib.Data.Countable.Basic
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Set.Finite.Basic
+import Mathlib.Data.Set.Lattice
+import Mathlib.Init
+import Mathlib.Order.BoundedOrder.Lattice
+import Mathlib.Tactic.Attr.Register
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.Measurability
+import Mathlib.Tactic.Monotonicity.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Measurable spaces and measurable functions

@@ -5,9 +5,17 @@ Authors: Floris van Doorn, Hannah Scholz
 -/
 module
 
-public import Mathlib.Topology.Coherent
-public import Mathlib.Topology.Compactness.Compact
 public import Mathlib.Topology.Separation.Hausdorff
+public meta import Mathlib.Tactic.ToDual
+public import Mathlib.Topology.Defs.Sequences
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Coherent
+import Mathlib.Topology.Continuous
+import Mathlib.Topology.ContinuousOn
 
 /-!
 # Compactly coherent spaces and the compact coherentification

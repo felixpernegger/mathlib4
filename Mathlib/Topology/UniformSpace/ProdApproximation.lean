@@ -6,9 +6,30 @@ Authors: David Loeffler
 module
 
 public import Mathlib.LinearAlgebra.TensorProduct.Basic
-public import Mathlib.Topology.Algebra.Indicator
 public import Mathlib.Topology.ContinuousMap.Algebra
-public import Mathlib.Topology.Separation.DisjointCover
+import Batteries.Tactic.Congr
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.Order.Field.Basic
+import Mathlib.Algebra.Order.Floor.Ring
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Data.Rat.Floor
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Algebra.Indicator
+import Mathlib.Topology.Neighborhoods
+import Mathlib.Topology.Separation.DisjointCover
+import Mathlib.Topology.UniformSpace.CompactConvergence
 
 /-!
 # Uniform approximation by products

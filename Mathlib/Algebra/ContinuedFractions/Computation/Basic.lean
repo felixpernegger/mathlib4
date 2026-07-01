@@ -7,6 +7,14 @@ module
 
 public import Mathlib.Algebra.ContinuedFractions.Basic
 public import Mathlib.Algebra.Order.Floor.Defs
+public import Mathlib.Algebra.GroupWithZero.Basic
+public import Mathlib.Tactic.Basic
+import Mathlib.Data.Option.Basic
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Computable Continued Fractions

@@ -6,10 +6,17 @@ Authors: Mario Carneiro, Floris van Doorn, Violeta Hernández Palacios, Nir Paz
 module
 
 public import Mathlib.SetTheory.Cardinal.Cofinality.Ordinal
-public import Mathlib.SetTheory.Ordinal.FixedPoint
 
 import Mathlib.SetTheory.Cardinal.Ordinal
 import Mathlib.SetTheory.Ordinal.FundamentalSequence
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Set.Lattice
+import Mathlib.Init
+import Mathlib.SetTheory.Cardinal.Arithmetic
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Regular cardinals

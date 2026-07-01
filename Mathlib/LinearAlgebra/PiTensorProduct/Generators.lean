@@ -6,11 +6,17 @@ Authors: Joël Riou
 module
 
 public import Mathlib.Data.SubtypeNeLift
-public import Mathlib.Data.Set.Card
 public import Mathlib.LinearAlgebra.PiTensorProduct.Basic
-public import Mathlib.LinearAlgebra.Quotient.Basic
 public import Mathlib.LinearAlgebra.TensorProduct.Map
-public import Mathlib.SetTheory.Cardinal.Finite
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Set.Card
+import Mathlib.Init
+import Mathlib.LinearAlgebra.Quotient.Basic
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Basic
+import Mathlib.Tactic.SetLike
 
 /-!
 # Generators of multiple tensor products

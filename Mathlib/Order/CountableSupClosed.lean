@@ -8,8 +8,16 @@ module
 public import Mathlib.Data.Set.Countable
 public import Mathlib.Order.SupClosed
 
-import Mathlib.Data.Nat.Pairing
 import Mathlib.Order.Bounds.Lattice
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Set.Lattice
+import Mathlib.Data.Set.Prod
+import Mathlib.Init
+import Mathlib.Order.ConditionallyCompletePartialOrder.Indexed
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Tactic.Translate.ToDual
 
 /-!
 # Sets closed under countable join/meet

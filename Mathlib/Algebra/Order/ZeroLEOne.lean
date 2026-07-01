@@ -8,6 +8,8 @@ module
 public import Mathlib.Algebra.Notation.Pi.Defs
 public import Mathlib.Algebra.Notation.Prod
 public import Mathlib.Order.Basic
+public import Mathlib.Logic.Basic
+import Mathlib.Init
 
 /-!
 # Typeclass expressing `0 ≤ 1`.

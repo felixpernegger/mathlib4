@@ -5,9 +5,19 @@ Authors: Violeta Hernández Palacios
 -/
 module
 
-public import Mathlib.Order.DirSupClosed
 public import Mathlib.Order.IsNormal
 public import Mathlib.SetTheory.Cardinal.Cofinality.Basic
+public import Mathlib.Data.Set.Countable
+public import Mathlib.Order.BourbakiWitt
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Set.Lattice
+import Mathlib.Init
+import Mathlib.Order.Cofinal
+import Mathlib.SetTheory.Cardinal.Basic
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Club sets and stationary sets

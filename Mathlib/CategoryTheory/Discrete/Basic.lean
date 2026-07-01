@@ -6,7 +6,15 @@ Authors: Stephen Morgan, Kim Morrison, Floris van Doorn
 module
 
 public import Mathlib.CategoryTheory.Pi.Basic
-public import Mathlib.Data.Set.Image
+import Batteries.Tactic.Init
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Data.Set.Image
+import Mathlib.Init
+import Mathlib.Tactic.CategoryTheory.CategoryStar
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Discrete categories

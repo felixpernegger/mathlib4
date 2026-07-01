@@ -9,6 +9,7 @@ public meta import Mathlib.Lean.Elab.Tactic.Meta
 -- Import this linter explicitly to ensure that
 -- this file has a valid copyright header and module docstring.
 public import Mathlib.Tactic.Linter.Header  -- shake: keep
+public meta import Lean.Elab.Command
 
 /-! # Executing actions using the infotree
 

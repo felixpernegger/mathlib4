@@ -5,10 +5,17 @@ Authors: Christian Merten
 -/
 module
 
-public import Mathlib.CategoryTheory.Sites.Closed
 public import Mathlib.CategoryTheory.Sites.Coverage
-public import Mathlib.CategoryTheory.Sites.Precoverage.Subsheaf
-public import Mathlib.Logic.Small.Set
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.Sites.Closed
+import Mathlib.CategoryTheory.Sites.Precoverage.Subsheaf
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Logic.Small.Set
+import Mathlib.Tactic.CategoryTheory.CategoryStar
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Generators of a Grothendieck topology

@@ -6,9 +6,18 @@ Authors: Andrew Yang
 module
 
 public import Mathlib.Algebra.Category.ModuleCat.Sheaf.PushforwardContinuous
-public import Mathlib.Algebra.Category.Ring.Limits
 public import Mathlib.Topology.Sheaves.Over
-public import Mathlib.Topology.Sheaves.SheafCondition.Sites
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Sheaves.Init
 
 /-! # Specialized results for sheaves of modules over topological spaces -/
 

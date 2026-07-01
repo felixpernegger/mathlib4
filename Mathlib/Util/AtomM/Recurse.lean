@@ -6,6 +6,9 @@ Authors: Mario Carneiro, Heather Macbeth
 module
 
 public import Mathlib.Util.AtomM
+public import Batteries.Tactic.Lint.Misc
+public meta import Lean.Elab.Tactic.Simp
+import Mathlib.Init
 
 /-!
 # Running `AtomM` metaprograms recursively

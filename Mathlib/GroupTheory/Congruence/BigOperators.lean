@@ -5,12 +5,17 @@ Authors: Amelia Livingston
 -/
 module
 
-public import Mathlib.Algebra.BigOperators.Group.Multiset.Basic
-public import Mathlib.Algebra.BigOperators.Group.List.Lemmas
-public import Mathlib.Algebra.BigOperators.Group.Finset.Defs
 public import Mathlib.Algebra.BigOperators.Finsupp.Basic
 public import Mathlib.Data.DFinsupp.BigOperators
-public import Mathlib.GroupTheory.Congruence.Basic
+public import Mathlib.GroupTheory.Congruence.Hom
+import Mathlib.Algebra.BigOperators.Group.Multiset.Basic
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Tactic.Translate.ToAdditive
 
 /-!
 # Interactions between `∑, ∏` and `(Add)Con`

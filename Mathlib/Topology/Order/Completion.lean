@@ -8,10 +8,27 @@ module
 public import Mathlib.Data.Prod.Lex
 public import Mathlib.Order.SuccPred.Limit
 public import Mathlib.Topology.Order.Basic
-public import Mathlib.Order.UpperLower.CompleteLattice
 public import Mathlib.Order.Completion
 
 import Mathlib.Algebra.Order.Field.Basic
+public import Mathlib.Algebra.Order.Ring.Unbundled.Rat
+import Mathlib.Algebra.Order.Ring.Rat
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Init
+import Mathlib.Order.Cover
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Continuous
 
 /-!
 # Dense and continuous completion of a linear order

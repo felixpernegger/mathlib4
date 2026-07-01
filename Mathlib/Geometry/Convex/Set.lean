@@ -7,7 +7,20 @@ module
 
 public import Mathlib.Geometry.Convex.ConvexSpace.Prod
 
-import Mathlib.Data.Fintype.Order
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
+import Mathlib.Algebra.Field.Basic
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Finset.Lattice.Lemmas
+import Mathlib.Data.Nat.Cast.Order.Basic
+import Mathlib.Data.Set.Finite.Lattice
+import Mathlib.Data.Set.Lattice
+import Mathlib.Data.Set.Prod
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Convex sets

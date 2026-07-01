@@ -6,7 +6,10 @@ Authors: Johannes Hölzl, Jens Wagemaker, Yaël Dillies
 module
 
 public import Mathlib.Algebra.Group.Units.Defs
-public import Mathlib.Logic.Basic
+import Mathlib.Init
+import Mathlib.Logic.Basic
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Translate.ToAdditive
 
 /-!
 # Irreducible elements in a monoid

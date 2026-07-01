@@ -5,10 +5,17 @@ Authors: Joël Riou
 -/
 module
 
-public import Mathlib.CategoryTheory.Comma.Over.Basic
 public import Mathlib.CategoryTheory.Sites.Over
-public import Mathlib.Topology.Sets.Opens
 public import Mathlib.Topology.Sheaves.SheafCondition.Sites
+public import Mathlib.CategoryTheory.Sites.Equivalence
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.CategoryTheory.CategoryStar
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Sheaves.Init
 
 /-!
 # Opens and Over categories

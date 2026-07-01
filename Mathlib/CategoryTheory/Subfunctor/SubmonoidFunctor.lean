@@ -7,8 +7,17 @@ module
 
 public import Mathlib.Algebra.Category.MonCat.Basic
 public import Mathlib.Algebra.Group.Submonoid.Operations
-public import Mathlib.CategoryTheory.ConcreteCategory.EpiMono
 public import Mathlib.CategoryTheory.Subfunctor.Basic
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.ConcreteCategory.EpiMono
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Order.GaloisConnection.Basic
+import Mathlib.Tactic.CategoryTheory.Reassoc
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Util.CompileInductive
 
 /-!
 # Functors of submonoids

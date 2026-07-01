@@ -7,11 +7,14 @@ Jireh Loreaux
 module
 
 public meta import Lean.Elab.Tactic.Conv.Simp
-public meta import Lean.Elab.ConfigEval
 public import Mathlib.Logic.Basic
-public import Mathlib.Tactic.Conv
 public import Mathlib.Tactic.Push.Attr
 public import Mathlib.Util.AtLocation
+public meta import Lean.Elab.ConfigEval.Basic
+import Lean.Elab.ConfigEval.Commands
+meta import Lean.Elab.ConfigEval.DeriveEvalConfigItem
+import Mathlib.Init
+import Mathlib.Tactic.Conv
 
 /-!
 # The `push` and `pull` tactics

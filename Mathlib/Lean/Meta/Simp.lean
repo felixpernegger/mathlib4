@@ -5,9 +5,10 @@ Authors: Kim Morrison, Gabriel Ebner, Floris van Doorn
 -/
 module
 
-public import Mathlib.Init
 public import Lean.Elab.Tactic.Simp
-public import Lean.Meta.DiscrTree
+public import Lean.Meta.DiscrTree.Util
+public meta import Lean.Meta.Tactic.Simp.Rewrite
+import Mathlib.Init
 
 /-!
 # Helper functions for using the simplifier.

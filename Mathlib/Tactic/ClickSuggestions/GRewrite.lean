@@ -6,8 +6,14 @@ Authors: Jovan Gerbscheid
 module
 
 public import Mathlib.Tactic.ClickSuggestions.SectionState
-public import Mathlib.Order.Antisymmetrization
 public meta import Lean.Meta.ExprLens
+public import Aesop.BuiltinRules
+public meta import Mathlib.Tactic.ClickSuggestions.Util
+public import Mathlib.Tactic.GCongr.Core
+import Mathlib.Init
+import Mathlib.Order.Antisymmetrization
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Support for `grw` suggestions in `#click_suggestions`

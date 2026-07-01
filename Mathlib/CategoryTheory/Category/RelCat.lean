@@ -7,6 +7,12 @@ module
 
 public import Mathlib.CategoryTheory.Types.Basic
 public import Mathlib.Data.Rel
+public import Mathlib.Tactic.TermCongr
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Basics on the category of relations

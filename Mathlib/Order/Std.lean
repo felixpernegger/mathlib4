@@ -6,6 +6,8 @@ Authors: Sabrina Jewson
 module
 
 public import Mathlib.Order.Defs.LinearOrder
+import Mathlib.Init
+import Mathlib.Tactic.SplitIfs
 
 /-!
 # Converting Std order typeclasses into Mathlib ones

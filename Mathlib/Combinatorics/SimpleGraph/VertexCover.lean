@@ -8,9 +8,19 @@ module
 public import Mathlib.Combinatorics.SimpleGraph.Clique
 public import Mathlib.Data.ENat.Lattice
 public import Mathlib.Data.Set.Card
-public import Mathlib.SetTheory.Cardinal.NatCard
 
 import Mathlib.Tactic.ENatToNat
+import Mathlib.Algebra.Order.Sub.Basic
+import Mathlib.Algebra.Order.Sub.Unbundled.Basic
+import Mathlib.Combinatorics.SimpleGraph.Init
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.SetTheory.Cardinal.NatCard
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.Nontriviality.Core
+import Mathlib.Tactic.SetLike
 
 /-!
 # Vertex cover

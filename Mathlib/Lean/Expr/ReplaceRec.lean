@@ -8,6 +8,7 @@ module -- shake: keep-all
 
 public import Lean.Expr
 public import Mathlib.Util.MemoFix
+import Mathlib.Init
 
 /-!
 # ReplaceRec

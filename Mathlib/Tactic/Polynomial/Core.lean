@@ -6,8 +6,9 @@ Authors: Arend Mellendijk
 module
 
 meta import Lean.Compiler.IR.CompilerM
-public meta import Lean.Meta.Tactic.Simp.Attr
-public import Mathlib.Init
+public import Lean.Meta.Basic
+public meta import Lean.Meta.Tactic.Simp.SimpTheorems
+import Mathlib.Init
 
 /-!
 # Setup for the `polynomial` tactic

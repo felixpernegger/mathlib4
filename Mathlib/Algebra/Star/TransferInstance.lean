@@ -7,6 +7,11 @@ module
 
 public import Mathlib.Algebra.Star.Basic
 public import Mathlib.Algebra.Ring.TransferInstance
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-! # Transfer star (algebraic) structures across `Equiv`s
 

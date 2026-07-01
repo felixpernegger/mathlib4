@@ -6,6 +6,16 @@ Authors: Arend Mellendijk
 module
 
 public import Mathlib.Tactic.Algebra.Basic
+public meta import Mathlib.Tactic.Algebra.Basic
+public meta import Mathlib.Tactic.Ring.RingNF
+public import Mathlib.Tactic.Ring.RingNF
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Algebra.Lemmas
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-! # The `algebra_nf` tactic
 

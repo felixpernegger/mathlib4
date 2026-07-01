@@ -5,7 +5,10 @@ Authors: Mario Carneiro, Heather Macbeth
 -/
 module
 
-public import Mathlib.Init
+public import Lean.Meta.Basic
+public meta import Lean.Meta.Basic
+meta import Lean.Compiler.IR.CompilerM
+import Mathlib.Init
 
 /-!
 # Environment extension for the forward-reasoning part of the `gcongr` tactic

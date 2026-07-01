@@ -7,17 +7,32 @@ module
 
 public import Mathlib.Algebra.Group.WithOne.Map
 public import Mathlib.Algebra.GroupWithZero.InjSurj
-public import Mathlib.Algebra.GroupWithZero.Regular
 public import Mathlib.Algebra.GroupWithZero.WithZero
 public import Mathlib.Algebra.Order.AddGroupWithTop
-public import Mathlib.Algebra.Order.Group.Defs
-public import Mathlib.Algebra.Order.Group.Int
-public import Mathlib.Algebra.Order.Group.Units
-public import Mathlib.Algebra.Order.GroupWithZero.Basic
-public import Mathlib.Algebra.Order.Monoid.OrderDual
-public import Mathlib.Algebra.Order.Monoid.TypeTags
-public import Mathlib.Data.Int.Basic
-public import Mathlib.Data.Set.Function
+public import Mathlib.Algebra.Group.Int.Defs
+public import Mathlib.Algebra.Order.Group.Synonym
+public import Mathlib.Algebra.Order.GroupWithZero.Defs
+public import Mathlib.Algebra.Order.Monoid.Canonical.Defs
+public import Mathlib.Algebra.Order.Monoid.Unbundled.TypeTags
+public import Mathlib.Algebra.Order.Monoid.Units
+import Batteries.Tactic.Init
+import Mathlib.Algebra.Group.Units.Basic
+import Mathlib.Algebra.GroupWithZero.Regular
+import Mathlib.Algebra.Order.Group.Defs
+import Mathlib.Algebra.Order.Group.Int
+import Mathlib.Algebra.Order.Group.Unbundled.Basic
+import Mathlib.Algebra.Order.Group.Units
+import Mathlib.Algebra.Order.GroupWithZero.Basic
+import Mathlib.Algebra.Order.Monoid.OrderDual
+import Mathlib.Algebra.Order.Monoid.TypeTags
+import Mathlib.Data.Int.Basic
+import Mathlib.Data.Set.Function
+import Mathlib.Init
+import Mathlib.Order.MinMax
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Linearly ordered commutative groups and monoids with a zero element adjoined

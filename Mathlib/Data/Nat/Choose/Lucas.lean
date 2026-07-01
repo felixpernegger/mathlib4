@@ -5,10 +5,40 @@ Authors: Gareth Ma
 -/
 module
 
-public import Mathlib.Algebra.CharP.Lemmas
-public import Mathlib.Data.ZMod.Basic
-public import Mathlib.RingTheory.Polynomial.Basic
-meta import Mathlib.Tactic.GRewrite
+public import Mathlib.Algebra.GCDMonoid.Finset
+public import Mathlib.Algebra.IsPrimePow
+public import Mathlib.Data.Int.ModEq
+public import Mathlib.Data.Nat.Choose.Basic
+public import Mathlib.Data.Nat.PrimeFin
+public import Mathlib.Order.Interval.Finset.Nat
+public import Mathlib.RingTheory.Multiplicity
+import Mathlib.Algebra.BigOperators.Group.Finset.Basic
+import Mathlib.Algebra.BigOperators.Group.Finset.Piecewise
+import Mathlib.Algebra.BigOperators.Group.Finset.Sigma
+import Mathlib.Algebra.BigOperators.Ring.Finset
+import Mathlib.Algebra.CharP.Lemmas
+import Mathlib.Algebra.Order.Ring.Nat
+import Mathlib.Algebra.Polynomial.Eval.Coeff
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Nat.Choose.Sum
+import Mathlib.Data.Nat.Factorization.Basic
+import Mathlib.Data.Nat.Multiplicity
+import Mathlib.Data.Nat.Prime.Basic
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Data.ZMod.Basic
+import Mathlib.Init
+import Mathlib.RingTheory.Polynomial.Basic
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.SetLike
 
 /-!
 # Lucas's theorem

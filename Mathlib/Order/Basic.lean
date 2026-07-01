@@ -10,12 +10,20 @@ public import Mathlib.Order.Defs.LinearOrder
 public import Mathlib.Order.Defs.Prop
 public import Mathlib.Order.Notation
 public import Mathlib.Tactic.Spread
-public import Mathlib.Tactic.Convert
-public import Mathlib.Tactic.Inhabit
-public import Mathlib.Tactic.SimpRw
-public import Mathlib.Tactic.GCongr.Core
-public import Mathlib.Tactic.Attr.Register
-public import Mathlib.Tactic.FastInstance
+public import Batteries.Tactic.Exact
+public import Mathlib.Tactic.GCongr.ForwardAttr
+import Batteries.Tactic.Init
+import Mathlib.Init
+import Mathlib.Logic.Basic
+import Mathlib.Tactic.Attr.Register
+import Mathlib.Tactic.Convert
+import Mathlib.Tactic.FastInstance
+import Mathlib.Tactic.GCongr.Core
+import Mathlib.Tactic.Inhabit
+import Mathlib.Tactic.Push.Attr
+import Mathlib.Tactic.SimpRw
+import Mathlib.Tactic.SplitIfs
+import Mathlib.Tactic.Translate.ToDual
 
 /-!
 # Basic definitions about `≤` and `<`

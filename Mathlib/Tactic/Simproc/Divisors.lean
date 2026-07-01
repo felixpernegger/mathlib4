@@ -5,9 +5,17 @@ Authors: Paul Lezeau, Bhavik Mehta
 -/
 module
 
-public meta import Mathlib.NumberTheory.Divisors
-public meta import Mathlib.Tactic.ToAdditive
 public meta import Mathlib.Util.Qq
+public meta import Lean.Meta.Tactic.Simp.BuiltinSimprocs.Nat
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Nat.Notation
+import Mathlib.Init
+meta import Mathlib.NumberTheory.Divisors
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Util.CompileInductive
 
 /-! # Divisor Simprocs
 

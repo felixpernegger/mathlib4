@@ -9,8 +9,13 @@ public import Mathlib.Data.Set.Finite.Basic
 public import Mathlib.Algebra.Group.InjSurj
 public import Mathlib.Algebra.Group.Equiv.Defs
 public import Mathlib.Algebra.Group.Pi.Basic
-public import Mathlib.Algebra.Notation.Prod
 public import Mathlib.Algebra.Group.Basic
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.FastInstance
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Dependent functions with finite support

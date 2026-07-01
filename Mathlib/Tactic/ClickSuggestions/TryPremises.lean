@@ -6,6 +6,10 @@ Authors: Jovan Gerbscheid
 module
 
 public import Mathlib.Tactic.ClickSuggestions.FindPremises
+import Mathlib.Init
+meta import Mathlib.Tactic.ClickSuggestions.FindPremises
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # generating lemma suggestions, given the the shortlist of candidate lemmas

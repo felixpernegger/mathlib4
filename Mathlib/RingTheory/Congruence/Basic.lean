@@ -6,9 +6,15 @@ Authors: Eric Wieser
 module
 
 public import Mathlib.Algebra.Algebra.Hom
-public import Mathlib.Algebra.Ring.Action.Basic
 public import Mathlib.GroupTheory.Congruence.Basic
 public import Mathlib.RingTheory.Congruence.Defs
+import Batteries.Tactic.Trans
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Order.GaloisConnection.Basic
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Congruence relations on rings

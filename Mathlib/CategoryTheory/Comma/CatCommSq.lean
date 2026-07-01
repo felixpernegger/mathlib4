@@ -7,6 +7,11 @@ module
 
 public import Mathlib.CategoryTheory.CatCommSq
 public import Mathlib.CategoryTheory.Comma.Arrow
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # 2-commutative squares of categories of arrows

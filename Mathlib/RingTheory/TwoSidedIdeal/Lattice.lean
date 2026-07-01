@@ -6,6 +6,14 @@ Authors: Jujian Zhang
 module
 
 public import Mathlib.RingTheory.TwoSidedIdeal.Basic
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Order.Bounds.Image
+import Mathlib.Tactic.Abel
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Basic
+import Mathlib.Tactic.SetLike
 
 /-!
 # The complete lattice structure on two-sided ideals

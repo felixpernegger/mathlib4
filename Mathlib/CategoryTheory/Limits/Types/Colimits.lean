@@ -5,9 +5,17 @@ Authors: Kim Morrison, Reid Barton, Joël Riou
 -/
 module
 
-public import Mathlib.Logic.UnivLE
 public import Mathlib.CategoryTheory.Limits.HasLimits
 public import Mathlib.CategoryTheory.Limits.Types.ColimitType
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.ConcreteCategory.Elementwise
+import Mathlib.Init
+import Mathlib.Logic.Small.Basic
+import Mathlib.Tactic.CategoryTheory.Elementwise
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Colimits in the category of types

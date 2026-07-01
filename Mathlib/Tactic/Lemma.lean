@@ -6,6 +6,8 @@ Authors: Mario Carneiro, Kyle Miller
 module
 
 public import Mathlib.Tactic.Linter.Header  --shake: keep
+public meta import Lean.Syntax
+import Lean.Parser.Command
 
 /-!
 # Support for `lemma` as a synonym for `theorem`.

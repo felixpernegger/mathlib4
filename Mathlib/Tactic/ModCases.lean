@@ -6,7 +6,13 @@ Authors: Mario Carneiro, Heather Macbeth
 module
 
 public import Mathlib.Data.Int.ModEq
-public import Mathlib.Tactic.HaveI
+public meta import Qq.MetaM
+import Batteries.Lean.Expr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.HaveI
+import Mathlib.Util.CompileInductive
 
 /-! # `mod_cases` tactic
 

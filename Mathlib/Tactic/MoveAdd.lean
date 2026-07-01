@@ -6,10 +6,18 @@ Authors: Arthur Paulino, Damiano Testa
 module
 
 public meta import Mathlib.Lean.Meta
-public import Mathlib.Algebra.Group.Basic
-public import Mathlib.Order.Defs.LinearOrder
 public meta import Mathlib.Tactic.ToAdditive
 public meta import Mathlib.Tactic.ToDual
+public import Aesop.BuiltinRules
+public meta import Lean.Elab.Tactic.Simp
+public import Lean.Meta.Basic
+public import Mathlib.Data.Int.Notation
+public import Mathlib.Data.Nat.Notation
+public meta import Std.Do.Triple.SpecLemmas
+import Lean.Meta.Tactic.Simp.Types
+import Mathlib.Algebra.Group.Basic
+import Mathlib.Init
+import Mathlib.Order.Defs.LinearOrder
 
 /-!
 

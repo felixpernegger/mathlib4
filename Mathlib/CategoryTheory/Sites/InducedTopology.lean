@@ -6,7 +6,14 @@ Authors: Christian Merten
 module
 
 public import Mathlib.CategoryTheory.Sites.Canonical
-public import Mathlib.CategoryTheory.Sites.CoverPreserving
+public import Mathlib.CategoryTheory.Sites.Continuous
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.Sites.CoverPreserving
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Induced topologies

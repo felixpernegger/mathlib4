@@ -5,11 +5,12 @@ Authors: Michael Rothgang, Damiano Testa
 -/
 module
 
-public meta import Lean.Elab.Command
-public meta import Lean.Elab.ParseImportsFast
-public meta import Std.Sync.Mutex
-public import Lean.Parser.Module
-public import Mathlib.Tactic.Linter.DirectoryDependency
+public meta import Lean.Data.Options
+meta import Lean.Linter.Basic
+import Lean.Parser.Module.Syntax
+import Mathlib.Tactic.Linter.DirectoryDependency
+meta import Std.Sync.Mutex
+import Std.Sync.Mutex
 
 /-!
 # The "header" linter

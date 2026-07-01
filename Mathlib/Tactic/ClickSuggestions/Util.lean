@@ -7,13 +7,15 @@ module
 
 public import ProofWidgets.Component.MakeEditLink
 public import ProofWidgets.Component.RefreshComponent
-public import Mathlib.Tactic.GRewrite
-public import Mathlib.Tactic.SimpRw
-public import Mathlib.Tactic.NthRewrite
-public import Mathlib.Tactic.DepRewrite
-public import Batteries.Tactic.PermuteGoals
 public meta import Mathlib.Data.String.Defs
 public meta import Lean.PrettyPrinter.Delaborator.Builtins
+public import Lean.Server.Utils
+import Batteries.Tactic.PermuteGoals
+import Mathlib.Init
+import Mathlib.Tactic.DepRewrite
+import Mathlib.Tactic.GRewrite.Elab
+import Mathlib.Tactic.NthRewrite
+import Mathlib.Tactic.SimpRw
 
 /-!
 # Various utilities used in `#click_suggestions`

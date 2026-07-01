@@ -6,6 +6,11 @@ Authors: Stephen Morgan, Kim Morrison
 module
 
 public import Mathlib.CategoryTheory.Products.Basic
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 The associator functor `((C × D) × E) ⥤ (C × (D × E))` and its inverse form an equivalence.

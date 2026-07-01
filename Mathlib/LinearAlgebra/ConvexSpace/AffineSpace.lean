@@ -1,14 +1,14 @@
 module
 
-public import Mathlib.Algebra.BigOperators.Finsupp.Basic
-public import Mathlib.Algebra.Module.Defs
-public import Mathlib.Algebra.Order.BigOperators.Group.Finset
-public import Mathlib.Algebra.Order.Ring.Defs
-public import Mathlib.Data.Finsupp.SMulWithZero
-public import Mathlib.Tactic.Bound
-public import Mathlib.Data.Finsupp.SMul
-public import Mathlib.Data.Finsupp.Order
-public import Mathlib.LinearAlgebra.AffineSpace.Combination
-public import Mathlib.LinearAlgebra.AffineSpace.AffineMap
+import Mathlib.Algebra.Order.Field.Basic
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Inv
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.SetLike
+import Mathlib.Util.CompileInductive
 
 deprecated_module (since := "2026-05-11")

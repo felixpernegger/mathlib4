@@ -5,8 +5,17 @@ Authors: Eric Wieser
 -/
 module
 
-public import Mathlib.GroupTheory.Congruence.BigOperators
 public import Mathlib.RingTheory.Congruence.Defs
+public import Mathlib.Algebra.BigOperators.Finsupp.Basic
+public import Mathlib.Data.DFinsupp.BigOperators
+public import Mathlib.GroupTheory.Congruence.Hom
+import Mathlib.Data.Finset.Attr
+import Mathlib.GroupTheory.Congruence.BigOperators
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Interactions between `∑, ∏` and `RingCon`

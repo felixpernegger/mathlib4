@@ -5,9 +5,19 @@ Authors: Jean Lo
 -/
 module
 
-public import Mathlib.Topology.Algebra.Monoid
 public import Mathlib.Algebra.Order.Monoid.Submonoid
 public import Mathlib.Algebra.Order.Monoid.Canonical.Defs
+public import Mathlib.Algebra.Group.Nat.Defs
+public import Mathlib.GroupTheory.GroupAction.Defs
+public import Mathlib.Topology.Algebra.Group.Defs
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Continuous
+import Mathlib.Topology.ContinuousOn
 
 /-!
 # Flows and invariant sets

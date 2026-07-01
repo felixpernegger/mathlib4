@@ -6,6 +6,10 @@ Authors: Joseph Myers, Yury Kudryashov
 module
 
 public import Mathlib.Algebra.Group.Action.Defs
+import Mathlib.Init
+import Mathlib.Tactic.Inhabit
+import Mathlib.Tactic.Translate.ToAdditive
+import Mathlib.Util.CompileInductive
 
 /-!
 # Torsors of group actions

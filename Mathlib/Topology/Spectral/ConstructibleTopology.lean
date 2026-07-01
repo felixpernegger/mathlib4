@@ -5,10 +5,18 @@ Authors: Johan Commelin, Jiedong Jiang, Christian Merten
 -/
 module
 
-public import Mathlib.Topology.Spectral.Basic
-public import Mathlib.Topology.WithTopology
-public import Mathlib.Topology.JacobsonSpace
-public import Mathlib.Data.Set.Card
+public import Mathlib.Topology.Sober
+public import Mathlib.Topology.Spectral.Prespectral
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Set.Finite.Lattice
+import Mathlib.Init
+import Mathlib.Order.Zorn
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.WithTopology
 
 /-!
 # Constructible topology

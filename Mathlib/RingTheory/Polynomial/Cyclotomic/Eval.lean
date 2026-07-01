@@ -5,11 +5,63 @@ Authors: Eric Rodriguez
 -/
 module
 
-public import Mathlib.RingTheory.Polynomial.Cyclotomic.Roots
-public import Mathlib.Tactic.ByContra
-public import Mathlib.Topology.Algebra.Polynomial
-public import Mathlib.NumberTheory.Padics.PadicVal.Basic
-public import Mathlib.Analysis.Complex.Arg
+public import Mathlib.RingTheory.Polynomial.Cyclotomic.Basic
+meta import Lean.Meta.Tactic.NormCast
+import Mathlib.Algebra.BigOperators.GroupWithZero.Finset
+import Mathlib.Algebra.Order.Algebra
+import Mathlib.Algebra.Order.BigOperators.Expect
+import Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset
+import Mathlib.Algebra.Order.BigOperators.Ring.Finset
+import Mathlib.Algebra.Order.Field.Basic
+import Mathlib.Algebra.Order.Field.Power
+import Mathlib.Algebra.Order.Floor.Ring
+import Mathlib.Algebra.Order.Group.Int
+import Mathlib.Algebra.Order.Group.Units
+import Mathlib.Algebra.Order.Module.Field
+import Mathlib.Algebra.Order.Ring.Cast
+import Mathlib.Algebra.Order.Ring.GeomSum
+import Mathlib.Algebra.Polynomial.Eval.Coeff
+import Mathlib.Algebra.Ring.GeomSum
+import Mathlib.Analysis.Complex.Arg
+import Mathlib.Analysis.InnerProductSpace.Convex
+import Mathlib.Analysis.Normed.Order.Lattice
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Combinatorics.Matroid.Init
+import Mathlib.Data.ENNReal.Real
+import Mathlib.Data.EReal.Inv
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Int.Basic
+import Mathlib.Data.Nat.Prime.Basic
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Data.Rat.Floor
+import Mathlib.Data.Sym.Sym2.Init
+import Mathlib.Init
+import Mathlib.NumberTheory.Padics.PadicVal.Basic
+import Mathlib.RingTheory.Polynomial.Cyclotomic.Roots
+import Mathlib.Tactic.ApplyFun
+import Mathlib.Tactic.ArithMult.Init
+import Mathlib.Tactic.Attr.Register
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.ContinuousFunctionalCalculus
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.BigOperators
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.GCD
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.NatFactorial
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.Positivity.Finset
+import Mathlib.Tactic.Ring.Basic
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Algebra.Polynomial
+import Mathlib.Topology.Algebra.Ring.Real
+import Mathlib.Topology.Connected.PathConnected
+import Mathlib.Topology.Order.IntermediateValue
 
 /-!
 # Evaluating cyclotomic polynomials

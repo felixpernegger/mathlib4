@@ -6,6 +6,15 @@ Authors: Robin Carlier
 module
 
 public import Mathlib.CategoryTheory.Iso
+public import Batteries.Tactic.Exact
+public meta import Mathlib.Lean.Meta.Basic
+public meta import Mathlib.Lean.Meta.Simp
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Init
+import Mathlib.Tactic.CategoryTheory.CategoryStar
+import Mathlib.Tactic.CategoryTheory.Reassoc
+import Mathlib.Tactic.Common
+import Mathlib.Util.CompileInductive
 
 /-!
 # Extension of `reassoc` to isomorphisms.

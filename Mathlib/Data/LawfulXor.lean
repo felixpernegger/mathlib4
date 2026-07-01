@@ -6,6 +6,7 @@ Authors: Eric Wieser
 
 module
 public import Mathlib.Logic.Function.Basic
+import Mathlib.Init
 
 /-!
 # The `LawfulXor` typeclass

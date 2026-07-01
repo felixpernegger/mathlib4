@@ -7,6 +7,11 @@ module
 
 public import Mathlib.RingTheory.Congruence.Basic
 public import Mathlib.GroupTheory.Congruence.Opposite
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Congruences on the opposite ring

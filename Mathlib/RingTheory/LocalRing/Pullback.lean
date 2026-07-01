@@ -6,11 +6,27 @@ Authors: Bingyu Xia
 
 module
 
-public import Mathlib.Algebra.Torsor.Defs
-public import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
 
 import Mathlib.Algebra.Ring.Subring.Units
 import Mathlib.RingTheory.LocalRing.RingHom.Basic
+public import Mathlib.Algebra.Algebra.Prod
+public import Mathlib.Algebra.Algebra.Subalgebra.Basic
+public import Mathlib.RingTheory.Ideal.Maps
+public import Mathlib.RingTheory.LocalRing.Defs
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.SetLike
 
 /-!
 # Local Ring Properties of Equalizers and Pullbacks

@@ -5,8 +5,8 @@ Authors: Jannis Limperg
 -/
 module
 
-public import Mathlib.Init
-public import Aesop
+import Aesop.Frontend.Command
+import Mathlib.Init
 
 /-!
 # SimpleGraph Rule Set

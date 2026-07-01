@@ -6,6 +6,15 @@ Authors: Yury Kudryashov, Gemini CLI
 module
 
 public import Mathlib.Topology.Defs.Induced
+public import Mathlib.Data.Fintype.OfMap
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Fintype.EquivFin
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Tactic.Translate.ToDual
+import Mathlib.Topology.Basic
 
 /-!
 # Basic lemmas and instances about the `WithTopology` type synonym

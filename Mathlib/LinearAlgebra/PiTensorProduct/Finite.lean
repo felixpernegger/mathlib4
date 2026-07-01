@@ -5,8 +5,19 @@ Authors: Joël Riou
 -/
 module
 
-public import Mathlib.RingTheory.Finiteness.Basic
-public import Mathlib.LinearAlgebra.PiTensorProduct.Generators
+public import Mathlib.LinearAlgebra.PiTensorProduct.Basic
+public import Mathlib.RingTheory.Finiteness.Defs
+import Mathlib.Data.Finite.Prod
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.LinearAlgebra.PiTensorProduct.Generators
+import Mathlib.RingTheory.Finiteness.Basic
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Inv
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.SetLike
 
 /-!
 # A multiple tensor product of finitely generated modules is finitely generated

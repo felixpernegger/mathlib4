@@ -5,10 +5,19 @@ Authors: Johannes Hölzl, Mario Carneiro, Floris van Doorn
 -/
 module
 
-public import Mathlib.Data.ULift
-public import Mathlib.Tactic.CrossRefAttribute
-public import Mathlib.Tactic.PPWithUniv
 public import Mathlib.Util.Delaborators
+public import Aesop.BuiltinRules
+public import Mathlib.Data.Nat.Notation
+public import Mathlib.Logic.Equiv.Sum
+public import Mathlib.Tactic.Lift
+import Mathlib.Data.ULift
+import Mathlib.Init
+import Mathlib.Logic.Equiv.Basic
+import Mathlib.Logic.IsEmpty.Basic
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.PPWithUniv
+import Mathlib.Tactic.SimpRw
+import Mathlib.Util.CompileInductive
 
 /-!
 # Cardinal Numbers

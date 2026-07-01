@@ -6,6 +6,12 @@ Authors: Kim Morrison
 module
 
 public import Mathlib.CategoryTheory.Subobject.WellPowered
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # `Type u` is well-powered

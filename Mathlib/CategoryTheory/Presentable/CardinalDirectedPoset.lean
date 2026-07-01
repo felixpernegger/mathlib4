@@ -5,9 +5,22 @@ Authors: Joël Riou
 -/
 module
 
-public import Mathlib.CategoryTheory.Limits.Preorder
 public import Mathlib.CategoryTheory.Presentable.LocallyPresentable
 public import Mathlib.Order.Category.PartOrdEmb
+import Batteries.Tactic.Trans
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.Limits.FullSubcategory
+import Mathlib.CategoryTheory.Limits.Preorder
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Set.Finite.Basic
+import Mathlib.Data.Set.Lattice
+import Mathlib.Init
+import Mathlib.Logic.Small.Basic
+import Mathlib.Order.Hom.WithTopBot
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # The κ-accessible category of κ-directed posets

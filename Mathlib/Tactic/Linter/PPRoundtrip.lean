@@ -5,8 +5,8 @@ Authors: Damiano Testa
 -/
 module
 
-public meta import Lean.Elab.Command
-public import Mathlib.Init
+public meta import Lean.Data.Options
+import Mathlib.Init
 
 /-!
 # The "ppRoundtrip" linter

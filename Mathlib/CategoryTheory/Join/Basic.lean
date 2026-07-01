@@ -5,8 +5,13 @@ Authors: Robin Carlier
 -/
 module
 
-public import Mathlib.CategoryTheory.Functor.Category
 public import Mathlib.CategoryTheory.Products.Basic
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Init
+import Mathlib.Tactic.CategoryTheory.Reassoc
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Joins of categories

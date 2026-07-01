@@ -5,13 +5,42 @@ Authors: Aaron Anderson, Antoine Chambert-Loir
 -/
 module
 
-public import Mathlib.Algebra.GroupWithZero.Units.Fintype
-public import Mathlib.GroupTheory.IndexNormal
-public import Mathlib.GroupTheory.Perm.ConjAct
-public import Mathlib.GroupTheory.Perm.Fin
-public import Mathlib.GroupTheory.SpecificGroups.Cyclic
-public import Mathlib.GroupTheory.Subgroup.Simple
-public import Mathlib.Tactic.IntervalCases
+public import Mathlib.GroupTheory.Perm.Cycle.Type
+public import Mathlib.Logic.Equiv.Fin.Rotate
+import Mathlib.Algebra.Group.Action.Pointwise.Finset
+import Mathlib.Algebra.Group.Nat.Units
+import Mathlib.Algebra.GroupWithZero.Units.Fintype
+import Mathlib.Algebra.Order.AbsoluteValue.Basic
+import Mathlib.Algebra.Order.Ring.Nat
+import Mathlib.Algebra.Order.Sub.Unbundled.Basic
+import Mathlib.Algebra.Ring.Int.Units
+import Mathlib.Data.Finite.Perm
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Int.Order.Units
+import Mathlib.Data.Nat.Totient
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.GroupTheory.IndexNormal
+import Mathlib.GroupTheory.Perm.ConjAct
+import Mathlib.GroupTheory.Perm.Fin
+import Mathlib.GroupTheory.Perm.Finite
+import Mathlib.GroupTheory.SpecificGroups.Cyclic.Basic
+import Mathlib.Init
+import Mathlib.SetTheory.Cardinal.NatCard
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.IntervalCases
+import Mathlib.Tactic.Nontriviality.Core
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.GCD
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.SetLike
 
 /-!
 # Alternating Groups

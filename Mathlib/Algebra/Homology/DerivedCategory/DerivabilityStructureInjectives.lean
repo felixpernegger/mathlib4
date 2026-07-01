@@ -8,11 +8,32 @@ module
 public import Mathlib.Algebra.Homology.DerivedCategory.Plus
 public import Mathlib.Algebra.Homology.FullSubcategory
 public import Mathlib.Algebra.Homology.ModelCategory.Injective
-public import Mathlib.AlgebraicTopology.ModelCategory.DerivabilityStructureFibrant
-public import Mathlib.CategoryTheory.GuitartExact.Quotient
 public import Mathlib.CategoryTheory.Localization.DerivabilityStructure.Derives
-public import Mathlib.CategoryTheory.Localization.DerivabilityStructure.OfLocalizedEquivalences
 public import Mathlib.CategoryTheory.Preadditive.Injective.InjectiveObject
+public import Mathlib.AlgebraicTopology.ModelCategory.Bifibrant
+import Mathlib.Algebra.Homology.DerivedCategory.KInjective
+import Mathlib.Algebra.Homology.Factorizations.CM5a
+import Mathlib.AlgebraicTopology.ModelCategory.DerivabilityStructureFibrant
+import Mathlib.AlgebraicTopology.ModelCategory.Instances
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.GuitartExact.Quotient
+import Mathlib.CategoryTheory.Localization.Composition
+import Mathlib.CategoryTheory.Localization.DerivabilityStructure.OfLocalizedEquivalences
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.CategoryTheory.CategoryStar
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.SetLike
 
 /-!
 # The injective derivability structure

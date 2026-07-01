@@ -7,6 +7,8 @@ module -- shake: keep-all
 
 public import Mathlib.Algebra.Group.Action.Faithful
 public import Mathlib.Algebra.GroupWithZero.NeZero
+import Mathlib.Init
+import Mathlib.Util.CompileInductive
 
 /-!
 # Faithful actions involving groups with zero

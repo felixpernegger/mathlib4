@@ -5,8 +5,8 @@ Authors: Miyahara Kō
 -/
 module
 
-public import Mathlib.Init
-public import Aesop
+import Aesop.Frontend.Command
+import Mathlib.Init
 
 /-!
 # Measurability Rule Set

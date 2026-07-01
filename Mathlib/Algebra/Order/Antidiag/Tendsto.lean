@@ -5,9 +5,14 @@ Authors: William Coram
 -/
 module
 
-public import Mathlib.Algebra.Group.Pointwise.Set.Finite
 public import Mathlib.Algebra.Order.Antidiag.Prod
 public import Mathlib.Order.Filter.Cofinite
+import Mathlib.Algebra.Group.Pointwise.Set.Finite
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Antidiagonal tendsto

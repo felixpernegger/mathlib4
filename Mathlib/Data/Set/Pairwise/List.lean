@@ -5,8 +5,16 @@ Authors: Mario Carneiro, Kenny Lau
 -/
 module
 
-public import Mathlib.Data.List.Nodup
-public import Mathlib.Data.Set.Pairwise.Basic
+public import Aesop.BuiltinRules
+public import Mathlib.Logic.Pairwise
+import Batteries.Data.List.Lemmas
+import Mathlib.Data.List.Nodup
+import Mathlib.Data.Set.Insert
+import Mathlib.Data.Set.Pairwise.Basic
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Translating pairwise relations on sets to lists

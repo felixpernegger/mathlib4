@@ -6,7 +6,15 @@ Authors: Michael Stoll
 module
 
 public import Mathlib.Algebra.Order.Hom.Basic
-public import Mathlib.Data.Fintype.Order
+public import Mathlib.Data.Finite.Defs
+public import Mathlib.Order.ConditionallyCompleteLattice.Basic
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Fintype.Order
+import Mathlib.Init
+import Mathlib.Order.ConditionallyCompleteLattice.Indexed
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Results on order homomorphism classes and lattice operations

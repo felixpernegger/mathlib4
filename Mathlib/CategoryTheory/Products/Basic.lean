@@ -7,8 +7,14 @@ module
 
 public import Mathlib.CategoryTheory.EqToHom
 public import Mathlib.CategoryTheory.Functor.Const
-public import Mathlib.CategoryTheory.Opposites
-public import Mathlib.Data.Prod.Basic
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Data.Prod.Basic
+import Mathlib.Init
+import Mathlib.Tactic.CategoryTheory.Reassoc
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Cartesian products of categories

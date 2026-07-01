@@ -6,12 +6,32 @@ Authors: Joël Riou
 module
 
 public import Mathlib.Algebra.Homology.CochainComplexPlus
-public import Mathlib.Algebra.Homology.Factorizations.CM5a
-public import Mathlib.Algebra.Homology.HomologySequenceLemmas
-public import Mathlib.Algebra.Homology.HomotopyCategory.KInjective
-public import Mathlib.Algebra.Homology.ModelCategory.Lifting
 public import Mathlib.AlgebraicTopology.ModelCategory.Basic
 public import Mathlib.AlgebraicTopology.ModelCategory.IsCofibrant
+public import Mathlib.Algebra.Homology.Factorizations.Basic
+import Mathlib.Algebra.Homology.Factorizations.CM5a
+import Mathlib.Algebra.Homology.Factorizations.CM5b
+import Mathlib.Algebra.Homology.HomologicalComplexAbelian
+import Mathlib.Algebra.Homology.HomologicalComplexLimits
+import Mathlib.Algebra.Homology.HomologySequenceLemmas
+import Mathlib.Algebra.Homology.HomotopyCategory.KInjective
+import Mathlib.Algebra.Homology.ModelCategory.Lifting
+import Mathlib.CategoryTheory.Abelian.Exact
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.SetLike
 
 /-!
 # The model category structure on bounded below complexes

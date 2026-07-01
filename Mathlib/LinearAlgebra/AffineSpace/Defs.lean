@@ -6,6 +6,8 @@ Authors: Joseph Myers
 module
 
 public import Mathlib.Algebra.Torsor.Defs
+import Mathlib.Init
+import Mathlib.Util.CompileInductive
 
 /-!
 # Affine space

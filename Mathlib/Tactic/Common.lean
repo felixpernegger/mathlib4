@@ -123,6 +123,8 @@ public import Mathlib.Util.TransImports
 public import Mathlib.Util.WhatsNew
 
 public import Lean.Elab.Tactic.Try
+public meta import Lean.Meta.Tactic.Try.Collect
+import Mathlib.Init
 
 /-!
 # Common tactics, linters, and utilities

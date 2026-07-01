@@ -5,11 +5,24 @@ Authors: Kim Morrison, Andrew Yang, Yaël Dillies
 -/
 module
 public import Mathlib.Data.Fin.VecNotation
-public import Mathlib.Data.Finsupp.Order
-public import Mathlib.LinearAlgebra.Finsupp.LSum
 
 import Mathlib.Tactic.FinCases
 import Mathlib.Tactic.Positivity.Basic
+public import Mathlib.Algebra.Group.End
+public import Mathlib.Algebra.GroupWithZero.Units.Basic
+public import Mathlib.Algebra.Module.Defs
+public import Mathlib.Algebra.Order.Ring.Defs
+public import Mathlib.Data.Finsupp.Basic
+public import Mathlib.Data.Finsupp.SMulWithZero
+public import Mathlib.Order.Preorder.Finsupp
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Finsupp.Order
+import Mathlib.Init
+import Mathlib.LinearAlgebra.Finsupp.LSum
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Convex spaces

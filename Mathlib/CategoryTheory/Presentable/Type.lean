@@ -5,9 +5,19 @@ Authors: Joël Riou
 -/
 module
 
-public import Mathlib.CategoryTheory.Generator.Type
-public import Mathlib.CategoryTheory.Presentable.StrongGenerator
 public import Mathlib.CategoryTheory.Types.Set
+public import Mathlib.CategoryTheory.Limits.Types.Filtered
+public import Mathlib.CategoryTheory.Presentable.LocallyPresentable
+public import Mathlib.Data.Set.Finite.Basic
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.Generator.Type
+import Mathlib.CategoryTheory.Presentable.StrongGenerator
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Presentable objects in Type

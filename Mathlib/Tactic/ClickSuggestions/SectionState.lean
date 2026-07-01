@@ -7,6 +7,8 @@ module
 
 public import Mathlib.Tactic.ClickSuggestions.Util
 public import ProofWidgets.Component.FilterDetails
+public meta import ProofWidgets.Util
+import Mathlib.Init
 
 /-!
 # Infrastructure for searching and displaying sets of lemmas

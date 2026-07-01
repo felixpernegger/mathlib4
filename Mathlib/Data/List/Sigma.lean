@@ -5,12 +5,20 @@ Authors: Mario Carneiro, Sean Leather
 -/
 module
 
-public import Batteries.Data.List.Perm
-public import Mathlib.Data.List.Pairwise
-public import Mathlib.Data.List.Nodup
-public import Mathlib.Data.List.Lookmap
 public import Mathlib.Data.Sigma.Basic
-public import Mathlib.Data.Nat.Basic
+public import Aesop.BuiltinRules
+public import Batteries.Data.List.Basic
+public import Mathlib.Tactic.Attr.Core
+public import Mathlib.Tactic.Basic
+import Batteries.Data.List.Perm
+import Mathlib.Data.List.Basic
+import Mathlib.Data.List.Lookmap
+import Mathlib.Data.List.Nodup
+import Mathlib.Data.List.Pairwise
+import Mathlib.Data.Nat.Basic
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Util.CompileInductive
 
 /-!
 # Utilities for lists of sigmas

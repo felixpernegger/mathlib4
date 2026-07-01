@@ -5,12 +5,36 @@ Authors: Felix Pernegger
 -/
 module
 
-public import Mathlib.Topology.Bornology.Real
 public import Mathlib.Topology.Compactification.OnePoint.Basic
 public import Mathlib.Topology.Instances.ENat
 public import Mathlib.Topology.Instances.Nat
 public import Mathlib.Topology.Order.Real
 public import Mathlib.Topology.Order.WithTop
+public import Mathlib.Topology.MetricSpace.Pseudo.Lemmas
+import Mathlib.Algebra.Order.Field.Basic
+import Mathlib.Algebra.Order.Floor.Ring
+import Mathlib.Data.ENNReal.Real
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Data.Rat.Floor
+import Mathlib.Init
+import Mathlib.Order.Interval.Set.OrdConnected
+import Mathlib.Order.Interval.Set.WithBotTop
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.SetLike
+import Mathlib.Tactic.Translate.ToDual
+import Mathlib.Topology.Bornology.Real
+import Mathlib.Topology.Instances.Discrete
+import Mathlib.Topology.MetricSpace.Bounded
 
 /-!
 # Lemmas around weak (pseudo) extended metric spaces.

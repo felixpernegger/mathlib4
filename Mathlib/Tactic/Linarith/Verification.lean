@@ -8,6 +8,16 @@ module
 public meta import Mathlib.Util.Qq
 public meta import Mathlib.Tactic.Linarith.Datatypes
 public import Mathlib.Tactic.Linarith.Parsing
+public meta import Lean.Meta.Tactic.Rewrite
+public meta import Qq.MetaM
+public meta import Std.Do.Triple.SpecLemmas
+import Lean.Meta.Tactic.Rewrite
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Basic
+import Mathlib.Util.CompileInductive
 
 /-!
 # Deriving a proof of false

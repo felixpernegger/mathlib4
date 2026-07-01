@@ -6,8 +6,15 @@ Authors: Joël Riou
 module
 
 public import Mathlib.CategoryTheory.Adjunction.Parametrized
-public import Mathlib.CategoryTheory.Limits.Opposites
 public import Mathlib.CategoryTheory.Limits.Preserves.Basic
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.Limits.Opposites
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.CategoryTheory.CategoryStar
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Parametrized adjunctions and limits

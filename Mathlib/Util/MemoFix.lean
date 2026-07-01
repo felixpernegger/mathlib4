@@ -5,7 +5,7 @@ Authors: Gabriel Ebner, Edward Ayers
 -/
 module
 
-public import Mathlib.Init
+import Mathlib.Init
 
 /-!
 # Fixpoint function with memoisation

@@ -5,8 +5,13 @@ Authors: Eric Wieser
 -/
 module
 
-public import Mathlib.GroupTheory.Congruence.Basic
 public import Mathlib.Algebra.Star.Basic
+public import Mathlib.GroupTheory.Congruence.Defs
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Util.CompileInductive
 
 /-!
 # Helpers for working with star operators on quotients.

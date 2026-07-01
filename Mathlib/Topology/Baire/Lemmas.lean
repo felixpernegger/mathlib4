@@ -5,11 +5,22 @@ Authors: Sébastien Gouëzel
 -/
 module
 
-public import Mathlib.Data.Fintype.Powerset
-public import Mathlib.Topology.Constructions
 public import Mathlib.Topology.GDelta.Basic
-public import Mathlib.Topology.Maps.OpenQuotient
-public import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Fintype.Powerset
+import Mathlib.Data.Set.Lattice
+import Mathlib.Data.Set.Lattice.Image
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Closure
+import Mathlib.Topology.Constructions
+import Mathlib.Topology.Continuous
+import Mathlib.Topology.Maps.Basic
+import Mathlib.Topology.Maps.OpenQuotient
+import Mathlib.Topology.Neighborhoods
 
 /-!
 # Baire spaces

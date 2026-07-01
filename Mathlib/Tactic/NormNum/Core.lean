@@ -6,10 +6,19 @@ Authors: Mario Carneiro
 module
 
 public meta import Mathlib.Lean.Expr.Rat
-public import Mathlib.Tactic.Hint
 public import Mathlib.Tactic.NormNum.Result
 public meta import Mathlib.Util.Qq
-public import Lean.Elab.Tactic.Try
+public meta import Lean.Elab.Tactic.Conv.Simp
+public import Lean.Meta.DiscrTree.Util
+public meta import Lean.Meta.Tactic.Try.Collect
+public meta import Mathlib.Lean.Meta.Simp
+public import Mathlib.Util.AtLocation
+meta import Lean.Compiler.IR.CompilerM
+import Lean.Elab.Tactic.Simp
+import Mathlib.Init
+import Mathlib.Tactic.Conv
+import Mathlib.Tactic.Hint
+import Mathlib.Util.CompileInductive
 
 /-!
 ## `norm_num` core functionality

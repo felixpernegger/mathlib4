@@ -7,6 +7,12 @@ module
 
 public import Mathlib.Data.Fintype.Option
 public import Mathlib.Order.TypeTags
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Tactic.Translate.ToDual
 
 /-!
 # Fintype instances for `WithTop α` and `WithBot α`

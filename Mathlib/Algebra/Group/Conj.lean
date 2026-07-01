@@ -6,7 +6,13 @@ Authors: Patrick Massot, Chris Hughes, Michael Howes
 module
 
 public import Mathlib.Algebra.Group.End
-public import Mathlib.Algebra.Group.Semiconj.Units
+public import Mathlib.Data.Set.Operations
+import Mathlib.Algebra.Group.Semiconj.Units
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.Translate.ToAdditive
+import Mathlib.Util.CompileInductive
 
 /-!
 # Conjugacy of group elements

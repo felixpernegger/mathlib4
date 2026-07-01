@@ -10,6 +10,11 @@ public import Mathlib.Algebra.Group.Defs
 public import Mathlib.Algebra.Notation.Pi.Defs
 public import Mathlib.Data.FunLike.Basic
 public import Mathlib.Logic.Function.Iterate
+import Mathlib.Init
+import Mathlib.Logic.Basic
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Translate.ToAdditive
+import Mathlib.Util.CompileInductive
 
 /-!
 # Monoid and group homomorphisms

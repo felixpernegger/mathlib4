@@ -5,9 +5,21 @@ Authors: Daniel Morrison, Antoine Chambert-Loir
 -/
 module
 
-public import Mathlib.Data.ENat.Lattice
 public import Mathlib.Data.Set.Card
-public import Mathlib.SetTheory.Cardinal.NatCard
+public import Mathlib.Data.Finset.Powerset
+import Mathlib.Algebra.Order.Ring.Nat
+import Mathlib.Data.ENat.Lattice
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Fintype.Powerset
+import Mathlib.Data.Nat.Cast.Order.Basic
+import Mathlib.Data.Set.Finite.Lattice
+import Mathlib.Data.Set.Lattice
+import Mathlib.Init
+import Mathlib.SetTheory.Cardinal.NatCard
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-! # Combinations
 

@@ -5,8 +5,14 @@ Authors: Kim Morrison, Kyle Miller
 -/
 module
 
-public import Mathlib.Data.Nat.Notation
 public import Mathlib.Tactic.CongrExclamation
+public meta import Lean.Elab.Tactic.Location
+import Lean.Elab.ConfigEval.Commands
+meta import Lean.Elab.ConfigEval.DeriveEvalConfigItem
+meta import Lean.Elab.ConfigEval.MetaInstances
+import Mathlib.Data.Nat.Notation
+import Mathlib.Init
+meta import Mathlib.Tactic.CongrExclamation
 
 /-!
 # The `convert` tactic.

@@ -6,7 +6,17 @@ Authors: Bhavik Mehta
 module
 
 import Mathlib.Topology.Compactness.Compact
-public import Mathlib.Data.Set.Finite.Basic
+public import Mathlib.Data.Finite.Defs
+public import Mathlib.Data.Finset.Defs
+public import Mathlib.Data.Set.Inclusion
+public import Mathlib.Tactic.ToAdditive
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Set.Lattice
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Continuous
 
 /-!
 # Combinatorial compactness and the Rado selection lemma

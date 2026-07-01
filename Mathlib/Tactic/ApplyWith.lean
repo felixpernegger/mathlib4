@@ -5,10 +5,12 @@ Authors: Mario Carneiro
 -/
 module
 
-public import Mathlib.Init
-public meta import Lean.Elab.Eval
 public meta import Lean.Elab.Tactic.ElabTerm
-public meta import Lean.Elab.ConfigEval
+public meta import Lean.Elab.ConfigEval.Basic
+import Lean.Elab.ConfigEval.Commands
+meta import Lean.Elab.ConfigEval.DeriveEvalConfigItem
+meta import Lean.Elab.ConfigEval.MetaInstances
+import Mathlib.Init
 
 /-!
 # The `applyWith` tactic

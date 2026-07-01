@@ -5,8 +5,16 @@ Authors: Thomas Browning
 -/
 module
 
-public import Mathlib.Dynamics.FixedPoints.Basic
 public import Mathlib.Topology.Separation.Basic
+public import Mathlib.Algebra.Group.End
+public import Mathlib.Dynamics.FixedPoints.Defs
+import Mathlib.Data.Finset.Attr
+import Mathlib.Dynamics.FixedPoints.Basic
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Topology.Closure
 
 /-!
 # Support of a self-map

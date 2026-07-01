@@ -5,7 +5,9 @@ Authors: Johannes Hölzl, Yury Kudryashov
 -/
 module
 
-import Mathlib.Tactic.ToDual
+public import Mathlib.Tactic.ToDual
+import Mathlib.Init
+import Mathlib.Tactic.Translate.ToDual
 
 /-!
 # Order definitions for propositions

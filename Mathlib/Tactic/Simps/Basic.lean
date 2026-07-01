@@ -7,11 +7,17 @@ module
 
 public meta import Lean.Elab.Tactic.Simp
 public meta import Lean.Elab.App
-public meta import Lean.Elab.ConfigEval
 public meta import Mathlib.Lean.Expr.Basic
-public import Mathlib.Util.AddRelatedDecl
 public import Mathlib.Tactic.Simps.NotationClass
-public import Mathlib.Tactic.Translate.Attributes
+public import Batteries.Util.LibraryNote
+public import Lean.Elab.Attributes
+public meta import Lean.Elab.ConfigEval.Basic
+import Lean.Elab.ConfigEval.Commands
+meta import Lean.Elab.ConfigEval.DeriveEvalConfigItem
+meta import Lean.Elab.ConfigEval.MetaInstances
+import Lean.Elab.Tactic.Simp
+import Mathlib.Init
+import Mathlib.Tactic.Translate.Attributes
 
 /-!
 # Simps attribute

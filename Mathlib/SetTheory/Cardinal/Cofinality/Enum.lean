@@ -6,8 +6,16 @@ Authors: Violeta Hernández Palacios
 module
 
 public import Mathlib.SetTheory.Cardinal.Cofinality.Basic
-public import Mathlib.SetTheory.Ordinal.Family
 public import Mathlib.SetTheory.Ordinal.Univ
+public import Mathlib.Order.Cofinal
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Order.Hom.Set
+import Mathlib.SetTheory.Ordinal.Family
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Enumerating a cofinal set

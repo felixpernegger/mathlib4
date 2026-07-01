@@ -5,7 +5,11 @@ Authors: Floris van Doorn, Leonardo de Moura, Jeremy Avigad, Mario Carneiro
 -/
 module
 
-public import Mathlib.Data.Nat.Basic
+public import Mathlib.Data.Nat.Notation
+public import Mathlib.Tactic.ToDual
+import Mathlib.Data.Nat.Basic
+import Mathlib.Init
+import Mathlib.Tactic.GCongr.Core
 
 /-!
 # Properties of the natural number square root function.

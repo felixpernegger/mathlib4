@@ -5,9 +5,16 @@ Authors: Jakob von Raumer
 -/
 module
 
-public import Mathlib.CategoryTheory.Limits.IsConnected
-public import Mathlib.CategoryTheory.Filtered.Final
-public import Mathlib.CategoryTheory.Comma.StructuredArrow.CommaMap
+public import Mathlib.CategoryTheory.Limits.Final
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.Comma.StructuredArrow.CommaMap
+import Mathlib.CategoryTheory.Filtered.Final
+import Mathlib.CategoryTheory.Limits.IsConnected
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Finality of Projections in Comma Categories

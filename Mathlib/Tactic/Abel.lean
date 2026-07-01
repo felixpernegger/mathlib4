@@ -6,9 +6,15 @@ Authors: Mario Carneiro, Kim Morrison
 module
 
 public import Mathlib.Util.AtomM.Recurse
-public import Mathlib.Tactic.NormNum.Basic
-public import Mathlib.Tactic.TryThis
 public meta import Mathlib.Util.AtomM.Recurse
+public import Mathlib.Tactic.Basic
+public import Mathlib.Tactic.NormNum.Core
+import Lean.Elab.ConfigEval.Commands
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.NormNum.Basic
+import Mathlib.Tactic.TryThis
+import Mathlib.Util.CompileInductive
 
 /-!
 # The `abel` tactic

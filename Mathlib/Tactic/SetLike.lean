@@ -5,9 +5,10 @@ Authors: Jireh Loreaux
 -/
 module
 
-public import Aesop.Frontend
-public meta import Batteries.Util.LibraryNote
-public import Mathlib.Init
+public import Batteries.Util.LibraryNote
+import Aesop.Frontend.Basic
+import Aesop.Frontend.Command
+import Mathlib.Init
 
 /-!
 # SetLike Rule Set

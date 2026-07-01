@@ -5,7 +5,11 @@ Authors: Elazar Gershuni
 -/
 module
 
-public import Mathlib.Data.Set.Basic
+public import Mathlib.Data.Subtype
+import Mathlib.Init
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.Push
+import Mathlib.Util.CompileInductive
 
 /-!
 # Uniquely Decodable Codes

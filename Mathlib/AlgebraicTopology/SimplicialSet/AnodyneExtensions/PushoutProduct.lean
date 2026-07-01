@@ -6,12 +6,31 @@ Authors: Joël Riou, Jack McKoen
 module
 
 public import Mathlib.AlgebraicTopology.SimplicialSet.AnodyneExtensions.Basic
-public import Mathlib.AlgebraicTopology.SimplicialSet.AnodyneExtensions.UnionProd
 public import Mathlib.AlgebraicTopology.SimplicialSet.KanComplex
-public import Mathlib.AlgebraicTopology.SimplicialSet.PushoutProduct
-public import Mathlib.CategoryTheory.LiftingProperties.ParametrizedAdjunction
-public import Mathlib.CategoryTheory.Monoidal.Braided.PushoutObjObj
-public import Mathlib.CategoryTheory.Monoidal.Closed.Braided
+public import Mathlib.AlgebraicTopology.SimplicialSet.Monoidal
+public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.PullbackObjObj
+public import Mathlib.CategoryTheory.Monoidal.Closed.FunctorToTypes
+import Mathlib.AlgebraicTopology.SimplicialSet.AnodyneExtensions.UnionProd
+import Mathlib.AlgebraicTopology.SimplicialSet.PushoutProduct
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.CategoryTheory.LiftingProperties.ParametrizedAdjunction
+import Mathlib.CategoryTheory.Monoidal.Braided.PushoutObjObj
+import Mathlib.CategoryTheory.Monoidal.Closed.Braided
+import Mathlib.CategoryTheory.Monoidal.Closed.Types
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Abs
+import Mathlib.Tactic.NormNum.DivMod
+import Mathlib.Tactic.NormNum.Eq
+import Mathlib.Tactic.NormNum.Ineq
+import Mathlib.Tactic.NormNum.OfScientific
+import Mathlib.Tactic.NormNum.Pow
+import Mathlib.Tactic.Positivity.Basic
+import Mathlib.Tactic.SetLike
 
 /-!
 # Anodyne extensions and pushout-products, fibrations and pullbacks

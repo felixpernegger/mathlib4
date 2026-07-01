@@ -6,9 +6,9 @@ Authors: Mario Carneiro, Wojciech Nawrocki
 module
 
 public import Mathlib.Data.Nat.Notation
-public import Mathlib.Tactic.CrossRefAttribute
-public import Mathlib.Util.CompileInductive
 import Batteries.Tactic.Alias
+import Mathlib.Init
+import Mathlib.Util.CompileInductive
 
 /-!
 # Binary tree

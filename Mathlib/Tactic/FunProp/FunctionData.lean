@@ -9,6 +9,7 @@ module
 public meta import Mathlib.Tactic.FunProp.Mor
 public import Mathlib.Tactic.FunProp.Mor
 public import Mathlib.Tactic.FunProp.ToBatteries
+import Mathlib.Init
 
 /-!
 ## `funProp` data structure holding information about a function

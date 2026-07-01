@@ -5,9 +5,10 @@ Authors: Mario Carneiro, Yury Kudryashov, Floris van Doorn, Jon Eugster
 -/
 module
 
-public meta import Std.Data.TreeMap.Basic
 public meta import Mathlib.Data.String.Defs
-public import Mathlib.Init
+public meta import Lean.Elab.Command
+public import Std.Data.HashMap.Basic
+import Mathlib.Init
 
 /-!
 # Name generation APIs for `to_additive`-like attributes

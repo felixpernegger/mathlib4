@@ -6,10 +6,15 @@ Authors: Eric Wieser
 module
 
 public import Mathlib.Data.Set.Card
-public import Mathlib.Data.Sym.Basic
 public import Mathlib.Data.Sym.Sym2
 
 import Mathlib.Data.Sym.Card
+import Mathlib.Data.Finset.Attr
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # `Nat.card` versions of `Fintype.card` lemmas on `Sym`

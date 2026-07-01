@@ -5,8 +5,15 @@ Authors: Mario Carneiro
 -/
 module
 
-public import Mathlib.Algebra.Group.Nat.Defs
-public import Mathlib.Tactic.Push
+public meta import Lean.Elab.Command
+public meta import Lean.Elab.Eval
+public import Lean.Exception
+public import Mathlib.Data.Nat.Notation
+public import Mathlib.Tactic.ToAdditive
+public meta import Std.Do.Triple.SpecLemmas
+import Mathlib.Algebra.Group.Nat.Defs
+import Mathlib.Init
+import Mathlib.Tactic.Push
 
 /-!
 # `lrat_proof` command

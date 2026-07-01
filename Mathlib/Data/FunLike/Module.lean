@@ -7,6 +7,11 @@ module
 
 public import Mathlib.Data.FunLike.Group
 public import Mathlib.Algebra.Module.Pi
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.Translate.ToAdditive
+import Mathlib.Util.CompileInductive
 
 /-! # Module instances for `FunLike` types
 In this file we define various instances related to modules for `FunLike` types.

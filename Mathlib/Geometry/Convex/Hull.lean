@@ -7,6 +7,13 @@ module
 
 public import Mathlib.Geometry.Convex.Set
 public import Mathlib.Order.Closure
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Set.Lattice
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Convex hull

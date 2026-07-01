@@ -5,8 +5,8 @@ Authors: Anne Baanen
 -/
 module
 
-public import Mathlib.Init
-public meta import Lean.Meta.Tactic.Simp.Attr
+public meta import Lean.Meta.Tactic.Simp.SimpTheorems
+import Mathlib.Init
 
 /-!
 # `@[reduce_mod_char]` attribute

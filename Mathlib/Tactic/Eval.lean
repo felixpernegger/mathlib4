@@ -5,8 +5,11 @@ Authors: Eric Wieser
 -/
 module
 
-public import Mathlib.Init
-public import Qq.Macro
+public meta import Lean.Elab.SyntheticMVars
+public meta import Lean.Meta.Eval
+public meta import Qq.Typ
+import Mathlib.Init
+import Qq.Macro
 
 /-!
 # The `eval%` term elaborator

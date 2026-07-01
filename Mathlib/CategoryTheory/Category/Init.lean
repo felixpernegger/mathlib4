@@ -5,8 +5,9 @@ Authors: Jannis Limperg
 -/
 module
 
-public import Mathlib.Init
-public import Aesop
+public meta import Lean.Data.Options
+import Aesop.Frontend.Command
+import Mathlib.Init
 
 /-!
 # Category Theory Rule Set

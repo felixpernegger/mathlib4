@@ -6,7 +6,16 @@ Authors: Antoine Chambert-Loir
 module
 
 public import Mathlib.Algebra.Group.Subgroup.Lattice
-public import Mathlib.GroupTheory.GroupAction.FixedPoints
+public import Mathlib.Algebra.Group.End
+public import Mathlib.GroupTheory.GroupAction.Defs
+import Mathlib.Data.Finset.Attr
+import Mathlib.GroupTheory.GroupAction.FixedPoints
+import Mathlib.Init
+import Mathlib.Order.GaloisConnection.Basic
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
+import Mathlib.Tactic.Translate.ToAdditive
 
 /-!
 

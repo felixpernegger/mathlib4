@@ -5,10 +5,15 @@ Authors: Mario Carneiro, Chris Hughes, Floris van Doorn, Yaël Dillies
 -/
 module
 
-public import Mathlib.Data.Nat.Basic
-public import Mathlib.Tactic.Common
-public import Mathlib.Tactic.CrossRefAttribute
-public import Mathlib.Tactic.Monotonicity.Attr
+public import Aesop.BuiltinRules
+public import Mathlib.Data.Nat.Notation
+public import Mathlib.Tactic.Basic
+public import Mathlib.Tactic.ToDual
+import Mathlib.Data.Nat.Basic
+import Mathlib.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Monotonicity.Attr
 
 /-!
 # Factorial and variants

@@ -6,9 +6,14 @@ Authors: Eric Wieser
 module
 
 public import Mathlib.Algebra.Ring.Hom.Defs
-public import Mathlib.Algebra.Ring.InjSurj
 public import Mathlib.GroupTheory.Congruence.Defs
-public import Mathlib.Tactic.FastInstance
+import Mathlib.Algebra.Ring.InjSurj
+import Mathlib.Init
+import Mathlib.Tactic.Coe
+import Mathlib.Tactic.CongrExclamation
+import Mathlib.Tactic.FastInstance
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Congruence relations on rings

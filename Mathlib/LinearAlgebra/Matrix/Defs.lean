@@ -6,8 +6,12 @@ Authors: Ellen Arlt, Blair Shi, Sean Leather, Mario Carneiro, Johan Commelin, Lu
 module
 
 public import Mathlib.Algebra.Module.Pi
-public import Mathlib.Logic.Nontrivial.Basic
-public import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Init
+import Mathlib.Logic.Nontrivial.Basic
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.CrossRefAttribute
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Matrices

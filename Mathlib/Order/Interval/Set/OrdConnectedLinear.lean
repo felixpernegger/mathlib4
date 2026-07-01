@@ -6,9 +6,25 @@ Authors: Kevin Buzzard, Bhavik Mehta, Oliver Nash
 module
 
 public import Mathlib.Data.Int.ConditionallyCompleteOrder
-public import Mathlib.Data.Int.Interval
-public import Mathlib.Data.Int.SuccPred
 public import Mathlib.Order.Lattice.Nat
+public import Mathlib.Order.Interval.Finset.Defs
+import Mathlib.Algebra.Order.Ring.Int
+import Mathlib.Data.Finset.Attr
+import Mathlib.Data.Int.Basic
+import Mathlib.Data.Int.Interval
+import Mathlib.Data.Int.SuccPred
+import Mathlib.Data.Nat.SuccPred
+import Mathlib.Init
+import Mathlib.Order.ConditionallyCompleteLattice.Finset
+import Mathlib.Order.Interval.Finset.Nat
+import Mathlib.Order.Interval.Set.LinearOrder
+import Mathlib.Order.Interval.Set.OrdConnected
+import Mathlib.Order.Minimal
+import Mathlib.Order.Preorder.Finite
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.SetLike
 
 /-!
 # Order-connected subsets of linear orders

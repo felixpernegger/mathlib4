@@ -5,7 +5,17 @@ Authors: Heather Macbeth
 -/
 module
 
-public import Mathlib.Tactic.Positivity.Core
+public import Aesop.BuiltinRules.Assumption
+public import Aesop.BuiltinRules.Intros
+public import Aesop.Frontend.Tactic
+public meta import Lean.Meta.Tactic.Try.Collect
+public meta import Mathlib.Tactic.ToDual
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.Positivity.Core
+import Mathlib.Util.CompileInductive
 
 /-!
 # Finiteness tactic

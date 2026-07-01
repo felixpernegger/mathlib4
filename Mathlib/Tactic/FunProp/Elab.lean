@@ -5,8 +5,12 @@ Authors: Tomáš Skřivan
 -/
 module
 
-public meta import Lean.Elab.Tactic.Config
 public import Mathlib.Tactic.FunProp.Core
+public meta import Lean.Elab.ConfigEval.Basic
+import Lean.Elab.ConfigEval.Commands
+meta import Lean.Elab.ConfigEval.DeriveEvalExpr
+meta import Lean.Elab.ConfigEval.Instances
+import Mathlib.Init
 
 /-!
 ## `funProp` tactic syntax

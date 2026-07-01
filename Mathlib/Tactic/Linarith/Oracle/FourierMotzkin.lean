@@ -8,6 +8,17 @@ module
 public meta import Std.Data.HashMap.AdditionalOperations
 public meta import Batteries.Lean.HashMap
 public import Mathlib.Tactic.Linarith.Datatypes
+public import Mathlib.Tactic.Basic
+public meta import Mathlib.Tactic.Linarith.Datatypes
+public meta import Std.Do.Triple.SpecLemmas
+import Batteries.Lean.HashMap
+import Mathlib.Init
+import Mathlib.Tactic.Bound.Init
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Tactic.NormNum.Basic
+import Mathlib.Util.CompileInductive
+import Std.Data.HashMap.AdditionalOperations
 
 /-!
 # The Fourier-Motzkin elimination procedure

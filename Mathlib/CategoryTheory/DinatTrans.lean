@@ -6,6 +6,12 @@ Authors: Andrea Laretto, Fernando Chu
 module
 
 public import Mathlib.CategoryTheory.Opposites
+import Mathlib.CategoryTheory.Category.Init
+import Mathlib.Init
+import Mathlib.Tactic.CategoryTheory.Reassoc
+import Mathlib.Tactic.Common
+import Mathlib.Tactic.Finiteness.Attr
+import Mathlib.Util.CompileInductive
 
 /-!
 # Dinatural transformations
