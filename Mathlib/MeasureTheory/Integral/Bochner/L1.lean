@@ -383,12 +383,12 @@ theorem norm_eq_integral (f : α →₁ₛ[μ] E) : ‖f‖ = ((toSimpleFunc f).
 section PosPart
 
 /-- Positive part of a simple function in L1 space. -/
-nonrec def posPart (f : α →₁ₛ[μ] ℝ) : α →₁ₛ[μ] ℝ :=
+def posPart (f : α →₁ₛ[μ] ℝ) : α →₁ₛ[μ] ℝ :=
   ⟨Lp.posPart (f : α →₁[μ] ℝ), by
     rcases f with ⟨f, s, hsf⟩
     use s.posPart
-    simp only [SimpleFunc.posPart, SimpleFunc.coe_map, Function.comp_def, coe_posPart, ← hsf,
-      posPart_mk] ⟩
+    simp only [MeasureTheory.SimpleFunc.posPart, SimpleFunc.coe_map, Function.comp_def, coe_posPart,
+      ← hsf, posPart_mk] ⟩
 
 /-- Negative part of a simple function in L1 space. -/
 def negPart (f : α →₁ₛ[μ] ℝ) : α →₁ₛ[μ] ℝ :=
@@ -420,15 +420,15 @@ def integral (f : α →₁ₛ[μ] E) : E :=
 
 theorem integral_eq_integral (f : α →₁ₛ[μ] E) : integral f = (toSimpleFunc f).integral μ := rfl
 
-nonrec theorem integral_eq_lintegral {f : α →₁ₛ[μ] ℝ} (h_pos : 0 ≤ᵐ[μ] toSimpleFunc f) :
+theorem integral_eq_lintegral {f : α →₁ₛ[μ] ℝ} (h_pos : 0 ≤ᵐ[μ] toSimpleFunc f) :
     integral f = ENNReal.toReal (∫⁻ a, ENNReal.ofReal ((toSimpleFunc f) a) ∂μ) := by
-  rw [integral, SimpleFunc.integral_eq_lintegral (SimpleFunc.integrable f) h_pos]
+  rw [integral, MeasureTheory.SimpleFunc.integral_eq_lintegral (SimpleFunc.integrable f) h_pos]
 
 theorem integral_eq_setToL1S (f : α →₁ₛ[μ] E) : integral f = setToL1S (weightedSMul μ) f := rfl
 
-nonrec theorem integral_congr {f g : α →₁ₛ[μ] E} (h : toSimpleFunc f =ᵐ[μ] toSimpleFunc g) :
+theorem integral_congr {f g : α →₁ₛ[μ] E} (h : toSimpleFunc f =ᵐ[μ] toSimpleFunc g) :
     integral f = integral g :=
-  SimpleFunc.integral_congr (SimpleFunc.integrable f) h
+  MeasureTheory.SimpleFunc.integral_congr (SimpleFunc.integrable f) h
 
 theorem integral_add (f g : α →₁ₛ[μ] E) : integral (f + g) = integral f + integral g :=
   setToL1S_add _ (fun _ _ => weightedSMul_null) weightedSMul_union _ _
@@ -526,8 +526,8 @@ open ContinuousLinearMap
 
 variable (𝕜) in
 /-- The Bochner integral in L1 space as a continuous linear map. -/
-nonrec def integralCLM' : (α →₁[μ] E) →L[𝕜] E :=
-  (integralCLM' α E 𝕜 μ).extend (coeToLp α E 𝕜)
+def integralCLM' : (α →₁[μ] E) →L[𝕜] E :=
+  (SimpleFunc.integralCLM' α E 𝕜 μ).extend (coeToLp α E 𝕜)
 
 /-- The Bochner integral in L1 space as a continuous linear map over ℝ. -/
 def integralCLM : (α →₁[μ] E) →L[ℝ] E :=
