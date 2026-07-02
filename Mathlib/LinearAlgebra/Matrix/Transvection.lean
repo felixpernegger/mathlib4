@@ -7,7 +7,6 @@ module
 
 public import Mathlib.LinearAlgebra.Matrix.Reindex
 public import Mathlib.Tactic.Field
-public import Mathlib.GroupTheory.GroupAction.Ring
 
 /-!
 # Transvections

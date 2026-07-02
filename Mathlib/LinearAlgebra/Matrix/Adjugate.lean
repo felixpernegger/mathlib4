@@ -8,7 +8,6 @@ module
 public import Mathlib.LinearAlgebra.Matrix.Symmetric
 public import Mathlib.LinearAlgebra.Matrix.MvPolynomial
 public import Mathlib.LinearAlgebra.Matrix.Polynomial
-public import Mathlib.GroupTheory.GroupAction.Ring
 
 /-!
 # Cramer's rule and adjugate matrices

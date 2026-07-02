@@ -5,6 +5,7 @@ Authors: Dexin Zhang
 -/
 module
 
+public import Mathlib.Data.Finite.Sum
 public import Mathlib.Data.Matrix.ColumnRowPartitioned
 public import Mathlib.ModelTheory.Arithmetic.Presburger.Semilinear.Defs
 

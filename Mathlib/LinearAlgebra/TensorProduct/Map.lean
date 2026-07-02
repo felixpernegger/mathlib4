@@ -5,6 +5,7 @@ Authors: Kenny Lau, Mario Carneiro
 -/
 module
 
+public import Mathlib.Algebra.Module.Shrink
 public import Mathlib.LinearAlgebra.TensorProduct.Basic
 
 /-!

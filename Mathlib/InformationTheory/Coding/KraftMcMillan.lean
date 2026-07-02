@@ -6,7 +6,6 @@ Authors: Elazar Gershuni
 module
 
 public import Mathlib.Data.Real.Basic
-public import Mathlib.Algebra.BigOperators.Pi
 public import Mathlib.Data.Fintype.BigOperators
 public import Mathlib.InformationTheory.Coding.UniquelyDecodable
 import Mathlib.Analysis.SpecificLimits.Normed

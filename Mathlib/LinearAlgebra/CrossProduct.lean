@@ -7,7 +7,6 @@ module
 
 public import Mathlib.Algebra.Lie.Basic
 public import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
-public import Mathlib.GroupTheory.GroupAction.Ring
 
 /-!
 # Cross products

@@ -7,13 +7,7 @@ module
 
 public import Mathlib.Algebra.Algebra.Epi
 public import Mathlib.RingTheory.Flat.Basic
-public import Mathlib.Combinatorics.Matroid.Init
-public import Mathlib.Data.Nat.Totient
-public import Mathlib.Data.Sym.Sym2
 public import Mathlib.LinearAlgebra.FreeModule.PID
-public import Mathlib.LinearAlgebra.FreeModule.StrongRankCondition
-public import Mathlib.Tactic.NormNum.GCD
-public import Mathlib.Tactic.Positivity
 
 /-!
 # The interaction of linear span and tensor product for mixed scalars.

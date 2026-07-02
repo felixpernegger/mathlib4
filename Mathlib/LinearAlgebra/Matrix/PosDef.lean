@@ -6,7 +6,6 @@ Authors: Alexander Bentkamp, Mohanad Ahmed
 module
 
 public import Mathlib.Algebra.CharP.Invertible
-public import Mathlib.Algebra.Order.Ring.Star
 public import Mathlib.Data.Real.Star
 public import Mathlib.LinearAlgebra.Matrix.BilinearForm
 public import Mathlib.LinearAlgebra.Matrix.DotProduct

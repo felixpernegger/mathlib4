@@ -7,7 +7,6 @@ module
 
 public import Mathlib.LinearAlgebra.Matrix.RowCol
 public import Mathlib.Algebra.BigOperators.Fin
-public meta import Mathlib.LinearAlgebra.Matrix.Defs
 
 /-!
 # Matrix and vector notation

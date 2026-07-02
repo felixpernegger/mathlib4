@@ -12,7 +12,6 @@ public import Mathlib.LinearAlgebra.LinearIndependent.Basic
 public import Mathlib.LinearAlgebra.Pi
 public import Mathlib.Tactic.Module
 public import Mathlib.Tactic.Abel
-public import Mathlib.Tactic.NormNum.Ineq
 
 import Mathlib.Algebra.Module.Torsion.Field
 

@@ -7,7 +7,6 @@ module
 
 public import Mathlib.Dynamics.Newton
 public import Mathlib.LinearAlgebra.Semisimple
-public import Mathlib.LinearAlgebra.FreeModule.Finite.Matrix
 
 /-!
 # Jordan-Chevalley-Dunford decomposition
