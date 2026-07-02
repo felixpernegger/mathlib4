@@ -6,6 +6,7 @@ Authors: Aaron Anderson
 module
 
 public import Mathlib.Algebra.CharZero.Infinite
+public import Mathlib.Algebra.Order.Archimedean.Basic
 public import Mathlib.Data.Rat.Encodable
 public import Mathlib.Data.Finset.Sort
 public import Mathlib.ModelTheory.Complexity

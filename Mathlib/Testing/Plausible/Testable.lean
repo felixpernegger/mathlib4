@@ -5,10 +5,7 @@ Authors: Henrik Böving, Simon Hudon
 -/
 module
 
-public import Plausible.Testable
 public meta import Mathlib.Logic.Basic
-public import Mathlib.Tactic.Basic
-public import Plausible.Gen
 public meta import Plausible.Testable
 
 /-!
