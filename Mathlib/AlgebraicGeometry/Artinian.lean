@@ -5,6 +5,7 @@ Authors: Brian Nugent
 -/
 module
 
+public import Mathlib.AlgebraicGeometry.Morphisms.Immersion
 public import Mathlib.AlgebraicGeometry.Noetherian
 public import Mathlib.RingTheory.HopkinsLevitzki
 
