@@ -7,7 +7,6 @@ module
 
 public import Mathlib.Data.Fin.VecNotation
 public import Mathlib.Logic.Embedding.Set
-public import Mathlib.Logic.Equiv.Option
 public import Mathlib.Data.Int.Init
 public import Batteries.Data.Fin.Lemmas
 
@@ -125,6 +124,9 @@ theorem finSuccEquiv_zero : (finSuccEquiv n) 0 = none :=
 @[simp]
 theorem finSuccEquiv_succ (m : Fin n) : (finSuccEquiv n) m.succ = some m :=
   finSuccEquiv'_above (Fin.zero_le _)
+
+@[simp]
+theorem finSuccEquiv_last (n : ℕ) : finSuccEquiv (n + 1) (Fin.last (n + 1)) = Fin.last n := rfl
 
 @[simp]
 theorem finSuccEquiv_symm_none : (finSuccEquiv n).symm none = 0 :=

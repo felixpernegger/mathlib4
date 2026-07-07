@@ -6,10 +6,8 @@ Authors: Aaron Anderson
 module
 
 public import Mathlib.Data.ENat.Pow
-public import Mathlib.Data.ULift
 public import Mathlib.Data.ZMod.Defs
 public import Mathlib.SetTheory.Cardinal.ToNat
-public import Mathlib.SetTheory.Cardinal.ENat
 
 /-!
 # Finite Cardinality Functions
@@ -83,6 +81,8 @@ lemma card_pos_iff : 0 < Nat.card α ↔ Nonempty α ∧ Finite α := by
   simp [Nat.card, mk_eq_zero_iff, mk_lt_aleph0_iff]
 
 @[simp] lemma card_pos [Nonempty α] [Finite α] : 0 < Nat.card α := card_pos_iff.2 ⟨‹_›, ‹_›⟩
+
+instance [Nonempty α] [Finite α] : NeZero (Nat.card α) := ⟨card_pos.ne'⟩
 
 theorem finite_of_card_ne_zero (h : Nat.card α ≠ 0) : Finite α := (card_ne_zero.1 h).2
 

@@ -6,7 +6,6 @@ Authors: Mario Carneiro, Kevin Kappelmann
 module
 
 public import Mathlib.Algebra.Order.Floor.Defs
-public import Mathlib.Order.Interval.Set.Defs
 
 /-!
 # Lemmas on `Nat.floor` and `Nat.ceil` for semirings
@@ -15,7 +14,7 @@ This file contains basic results on the natural-valued floor and ceiling functio
 
 ## TODO
 
-`LinearOrderedSemiring` can be relaxed to `OrderedSemiring` in many lemmas.
+`LinearOrder` can be relaxed to `PartialOrder` in many lemmas.
 
 ## Tags
 

@@ -6,7 +6,6 @@ Authors: Chris Hughes, Abhimanyu Pallavi Sudhir
 module
 
 public import Mathlib.Analysis.Complex.Exponential
-import Mathlib.Tactic.NormNum.NatFactorial
 
 /-!
 # Trigonometric and hyperbolic trigonometric functions
@@ -940,7 +939,8 @@ open Lean.Meta Qq
 
 /-- Extension for the `positivity` tactic: `Real.cosh` is always positive. -/
 @[positivity Real.cosh _]
-meta def evalCosh : PositivityExt where eval {u α} _ _ e := do
+meta def evalCosh : PositivityExt where eval {u α} _ pα? e :=
+  match pα? with | none => pure .none | some _ => do
   match u, α, e with
   | 0, ~q(ℝ), ~q(Real.cosh $a) =>
     assertInstancesCommute

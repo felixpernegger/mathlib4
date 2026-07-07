@@ -5,10 +5,8 @@ Authors: Yury Kudryashov
 -/
 module
 
-public import Mathlib.Algebra.Group.Pi.Lemmas
 public import Mathlib.Algebra.GroupWithZero.Units.Equiv
 public import Mathlib.Topology.Algebra.Monoid
-public import Mathlib.Topology.Homeomorph.Lemmas
 
 /-!
 # Topological group with zero
@@ -112,22 +110,23 @@ theorem Filter.Tendsto.inv₀ {a : G₀} (hf : Tendsto f l (𝓝 a)) (ha : a ≠
 
 variable [TopologicalSpace α]
 
+@[to_fun (attr := fun_prop)]
 nonrec theorem ContinuousWithinAt.inv₀ (hf : ContinuousWithinAt f s a) (ha : f a ≠ 0) :
-    ContinuousWithinAt (fun x => (f x)⁻¹) s a :=
+    ContinuousWithinAt f⁻¹ s a :=
   hf.inv₀ ha
 
-@[fun_prop]
+@[to_fun (attr := fun_prop)]
 nonrec theorem ContinuousAt.inv₀ (hf : ContinuousAt f a) (ha : f a ≠ 0) :
-    ContinuousAt (fun x => (f x)⁻¹) a :=
+    ContinuousAt f⁻¹ a :=
   hf.inv₀ ha
 
-@[continuity, fun_prop]
-theorem Continuous.inv₀ (hf : Continuous f) (h0 : ∀ x, f x ≠ 0) : Continuous fun x => (f x)⁻¹ :=
+@[to_fun (attr := continuity, fun_prop)]
+theorem Continuous.inv₀ (hf : Continuous f) (h0 : ∀ x, f x ≠ 0) : Continuous f⁻¹ :=
   continuous_iff_continuousAt.2 fun x => (hf.tendsto x).inv₀ (h0 x)
 
-@[fun_prop]
+@[to_fun (attr := fun_prop)]
 theorem ContinuousOn.inv₀ (hf : ContinuousOn f s) (h0 : ∀ x ∈ s, f x ≠ 0) :
-    ContinuousOn (fun x => (f x)⁻¹) s := fun x hx => (hf x hx).inv₀ (h0 x hx)
+    ContinuousOn f⁻¹ s := fun x hx => (hf x hx).inv₀ (h0 x hx)
 
 end Inv₀
 

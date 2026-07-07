@@ -6,12 +6,12 @@ Authors: Kenny Lau, Ken Lee, Chris Hughes
 module
 
 public import Mathlib.Algebra.BigOperators.Ring.Finset
-public import Mathlib.Data.Fintype.Basic
 public import Mathlib.Data.Int.GCD
 public import Mathlib.RingTheory.Coprime.Basic
 
 /-!
 # Additional lemmas about elements of a ring satisfying `IsCoprime`
+
 and elements of a monoid satisfying `IsRelPrime`
 
 These lemmas are in a separate file to the definition of `IsCoprime` or `IsRelPrime`

@@ -6,7 +6,6 @@ Authors: Johannes Hölzl, Jeremy Avigad, Yury Kudryashov, Patrick Massot
 module
 
 public import Mathlib.Data.Finset.Order
-public import Mathlib.Data.Fintype.EquivFin
 public import Mathlib.Order.Filter.AtTopBot.Basic
 public import Mathlib.Order.Filter.Finite
 public import Mathlib.Order.Interval.Finset.Defs
@@ -31,7 +30,7 @@ theorem atTop_finset_eq_iInf : (atTop : Filter (Finset α)) = ⨅ x : α, 𝓟 (
   refine
     le_iInf fun s =>
       le_principal_iff.2 <| mem_iInf_of_iInter s.finite_toSet (fun i => mem_principal_self _) ?_
-  simp only [subset_def, mem_iInter, SetCoe.forall, mem_Ici, Finset.le_iff_subset,
+  simp only [subset_def, mem_iInter, SetCoe.forall, mem_Ici,
     Finset.mem_singleton, Finset.subset_iff, forall_eq]
   exact fun t => id
 

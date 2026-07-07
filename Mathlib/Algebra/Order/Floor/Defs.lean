@@ -6,7 +6,6 @@ Authors: Mario Carneiro, Kevin Kappelmann
 module
 
 public import Mathlib.Algebra.Order.Ring.Cast
-public import Mathlib.Data.Nat.Cast.Basic
 
 import Mathlib.Data.Int.LeastGreatest
 
@@ -39,8 +38,7 @@ for `nnnorm`.
 
 ## TODO
 
-`LinearOrderedRing`/`LinearOrderedSemiring` can be relaxed to `OrderedRing`/`OrderedSemiring` in
-many lemmas.
+`LinearOrder` can be relaxed to `PartialOrder` in many lemmas.
 
 ## Tags
 

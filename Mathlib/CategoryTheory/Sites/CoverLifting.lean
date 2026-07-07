@@ -6,9 +6,7 @@ Authors: Andrew Yang, Joël Riou
 module
 
 public import Mathlib.CategoryTheory.Adjunction.Restrict
-public import Mathlib.CategoryTheory.Functor.KanExtension.Adjunction
 public import Mathlib.CategoryTheory.Sites.CoverPreserving
-public import Mathlib.CategoryTheory.Sites.Sheafification
 
 /-!
 # Cocontinuous functors between sites.
@@ -101,6 +99,13 @@ variable {J K} in
 lemma Functor.IsCocontinuous.iff_of_iso {F G : C ⥤ D} (e : F ≅ G) :
     F.IsCocontinuous J K ↔ G.IsCocontinuous J K :=
   ⟨fun _ ↦ .of_iso e, fun _ ↦ .of_iso e.symm⟩
+
+lemma CoverPreserving.of_comp_of_isCocontinuous {F : C ⥤ D} (G : D ⥤ E)
+    (h : CoverPreserving J L (F ⋙ G)) [G.IsCocontinuous K L] [G.Full] [G.Faithful] :
+    CoverPreserving J K F where
+  cover_preserve {U} S hS := by
+    refine K.superset_covering ?_ (G.cover_lift K _ (h.cover_preserve hS))
+    rw [Sieve.functorPushforward_comp, Sieve.functorPullback_functorPushforward_eq G]
 
 section
 

@@ -9,12 +9,11 @@ public import Mathlib.Algebra.BigOperators.Finsupp.Basic
 public import Mathlib.Algebra.BigOperators.Expect
 public import Mathlib.Algebra.Order.BigOperators.Group.Finset
 public import Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset
-public import Mathlib.Algebra.Order.Field.Canonical
 public import Mathlib.Algebra.Order.Nonneg.Floor
 public import Mathlib.Data.Real.Pointwise
 public import Mathlib.Data.NNReal.Defs
 public import Mathlib.Order.ConditionallyCompleteLattice.Group
-public import Mathlib.Data.Nat.Lattice
+public import Mathlib.Order.Lattice.Nat
 
 /-!
 # Basic results on nonnegative real numbers

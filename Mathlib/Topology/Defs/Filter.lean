@@ -9,7 +9,6 @@ public import Mathlib.Topology.Defs.Basic
 public import Mathlib.Data.Setoid.Basic
 public import Mathlib.Order.Filter.Defs
 public import Mathlib.Tactic.IrreducibleDef
-public import Mathlib.Tactic.ToAdditive
 
 /-!
 # Definitions about filters in topological spaces
@@ -279,6 +278,7 @@ def IsCompact (s : Set X) :=
 variable (X) in
 /-- Type class for compact spaces. Separation is sometimes included in the definition, especially
 in the French literature, but we do not include it here. -/
+@[wikidata Q381892]
 class CompactSpace : Prop where
   /-- In a compact space, `Set.univ` is a compact set. -/
   isCompact_univ : IsCompact (Set.univ : Set X)

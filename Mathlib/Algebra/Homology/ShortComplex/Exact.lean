@@ -7,9 +7,7 @@ module
 
 public import Mathlib.Algebra.Homology.ShortComplex.PreservesHomology
 public import Mathlib.Algebra.Homology.ShortComplex.Abelian
-public import Mathlib.Algebra.Homology.ShortComplex.QuasiIso
 public import Mathlib.CategoryTheory.Abelian.Opposite
-public import Mathlib.CategoryTheory.Preadditive.AdditiveFunctor
 public import Mathlib.CategoryTheory.Preadditive.Injective.Basic
 
 /-!
@@ -260,6 +258,12 @@ lemma Exact.comp_eq_zero (h : S.Exact) {X Y : C} {a : X ⟶ S.X₂} (ha : a ≫ 
 lemma Exact.isZero_of_both_zeros (ex : S.Exact) (hf : S.f = 0) (hg : S.g = 0) :
     IsZero S.X₂ :=
   (ShortComplex.HomologyData.ofZeros S hf hg).exact_iff.1 ex
+
+/-- In an exact short complex, if the two outer objects are zero objects, then so is the
+middle object. -/
+lemma Exact.isZero_of_both_isZero (ex : S.Exact) (hX₁ : IsZero S.X₁) (hX₃ : IsZero S.X₃) :
+    IsZero S.X₂ :=
+  ex.isZero_of_both_zeros (hX₁.eq_zero_of_src _) (hX₃.eq_zero_of_tgt _)
 
 end
 

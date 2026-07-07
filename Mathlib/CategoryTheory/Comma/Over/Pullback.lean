@@ -7,8 +7,6 @@ module
 
 public import Mathlib.CategoryTheory.Adjunction.FullyFaithful
 public import Mathlib.CategoryTheory.Adjunction.Mates
-public import Mathlib.CategoryTheory.Limits.Shapes.BinaryProducts
-public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.HasPullback
 public import Mathlib.CategoryTheory.Monad.Products
 public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Pasting
 public import Mathlib.CategoryTheory.Limits.Shapes.Pullback.Iso
@@ -86,6 +84,12 @@ def mapPullbackAdj {X Y : C} (f : X ⟶ Y) [HasPullbacksAlong f] :
             ext
             · simp
             · simpa using (Over.w v).symm } }
+
+instance {X Y : C} (f : X ⟶ Y) [HasPullbacksAlong f] : (Over.map f).IsLeftAdjoint :=
+  (Over.mapPullbackAdj f).isLeftAdjoint
+
+instance {X Y : C} (f : X ⟶ Y) [HasPullbacksAlong f] : (Over.pullback f).IsRightAdjoint :=
+  (Over.mapPullbackAdj f).isRightAdjoint
 
 set_option backward.isDefEq.respectTransparency false in
 /-- The pullback along an epi that's preserved under pullbacks is faithful.

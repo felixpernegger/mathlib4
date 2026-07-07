@@ -5,11 +5,8 @@ Authors: Thomas Browning
 -/
 module
 
-public import Mathlib.Algebra.GCDMonoid.Multiset
-public import Mathlib.Algebra.GCDMonoid.Nat
 public import Mathlib.Algebra.Group.TypeTags.Finite
 public import Mathlib.Combinatorics.Enumerative.Partition.Basic
-public import Mathlib.Data.List.Rotate
 public import Mathlib.GroupTheory.Perm.Closure
 public import Mathlib.GroupTheory.Perm.Cycle.Factors
 public import Mathlib.Tactic.NormNum.GCD
@@ -320,7 +317,7 @@ theorem mem_cycleType_iff {n : ℕ} {σ : Perm α} :
     obtain ⟨l, rfl, hlc, hld⟩ := truncCycleFactors σ
     rw [cycleType_eq _ rfl hlc hld, Multiset.mem_coe, List.mem_map] at h
     obtain ⟨c, cl, rfl⟩ := h
-    rw [(List.perm_cons_erase cl).pairwise_iff @(Disjoint.symmetric)] at hld
+    rw [(List.perm_cons_erase cl).pairwise_iff symm] at hld
     refine ⟨c, (l.erase c).prod, ?_, ?_, hlc _ cl, rfl⟩
     · rw [← List.prod_cons, (List.perm_cons_erase cl).symm.prod_eq' (hld.imp Disjoint.commute)]
     · exact disjoint_prod_right _ fun g => List.rel_of_pairwise_cons hld

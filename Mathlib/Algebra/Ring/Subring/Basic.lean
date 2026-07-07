@@ -6,7 +6,6 @@ Authors: Ashvni Narayanan
 module
 
 public import Mathlib.Algebra.Field.Defs
-public import Mathlib.Algebra.Group.Subgroup.Basic
 public import Mathlib.Algebra.Ring.Subring.Defs
 public import Mathlib.Algebra.Ring.Subsemiring.Basic
 public import Mathlib.RingTheory.NonUnitalSubring.Basic
@@ -842,6 +841,11 @@ theorem domRestrict_comp_rangeRestrict (g : S →+* T) (f : R →+* S) :
     (g.domRestrict f.range).comp (f.rangeRestrict) = g.comp f :=
   rfl
 
+@[simp]
+theorem range_prodMap {R' S' : Type*} [Ring R'] [Ring S'] (f : R →+* S) (g : R' →+* S') :
+    (f.prodMap g).range = f.range.prod g.range :=
+  SetLike.coe_injective Set.range_prodMap
+
 section eqLocus
 
 variable {S : Type v} [Semiring S]
@@ -1166,5 +1170,5 @@ end Subring
 
 theorem AddSubgroup.int_mul_mem {G : AddSubgroup R} (k : ℤ) {g : R} (h : g ∈ G) :
     (k : R) * g ∈ G := by
-  convert! AddSubgroup.zsmul_mem G h k using 1
+  convert AddSubgroup.zsmul_mem G h k
   rw [zsmul_eq_mul]

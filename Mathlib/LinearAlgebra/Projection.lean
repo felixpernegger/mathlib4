@@ -6,7 +6,6 @@ Authors: Yury Kudryashov
 module
 
 public import Mathlib.LinearAlgebra.Quotient.Basic
-public import Mathlib.LinearAlgebra.Prod
 public import Mathlib.Algebra.Module.Submodule.Invariant
 public import Mathlib.LinearAlgebra.GeneralLinearGroup.Basic
 public import Mathlib.Algebra.Ring.Idempotent
@@ -164,6 +163,12 @@ theorem projectionOnto_apply_left (h : IsCompl p q) (x : p) :
 @[simp]
 theorem projection_apply_left (hpq : IsCompl p q) (x : p) :
     p.projection q hpq x = x := by simp [projection]
+
+lemma projectionOnto_apply_of_mem_left (hpq : IsCompl p q) {x : E} (hx : x ∈ p) :
+    p.projectionOnto q hpq x = ⟨x, hx⟩ := projectionOnto_apply_left hpq ⟨x, hx⟩
+
+lemma projection_apply_of_mem_left (hpq : IsCompl p q) {x : E} (hx : x ∈ p) :
+    p.projection q hpq x = x := projection_apply_left hpq ⟨x, hx⟩
 
 @[simp]
 theorem range_projectionOnto (h : IsCompl p q) : range (projectionOnto p q h) = ⊤ :=

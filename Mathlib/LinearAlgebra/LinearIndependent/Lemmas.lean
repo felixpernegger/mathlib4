@@ -10,8 +10,6 @@ public import Mathlib.LinearAlgebra.Dual.Defs
 public import Mathlib.LinearAlgebra.Finsupp.SumProd
 public import Mathlib.LinearAlgebra.LinearIndependent.Basic
 public import Mathlib.LinearAlgebra.Pi
-public import Mathlib.Logic.Equiv.Fin.Rotate
-public import Mathlib.Tactic.FinCases
 public import Mathlib.Tactic.Module
 public import Mathlib.Tactic.Abel
 public import Mathlib.Tactic.NormNum.Ineq
@@ -522,6 +520,27 @@ theorem LinearIndependent.of_pairwise_dual_eq_zero_one (v : ι → M) (f : ι �
   simpa [s.sum_eq_single i aux (by lia), h2 i] using congr_arg (f i) hrel
 
 end Module
+
+open Finsupp in
+/-- A linearly independent family of vectors `f` remains linearly independent when we substitute one
+of the terms with a vector `m` provided there exists a non-zero divisor `r`, such that `r • m`
+belongs to the span of `f` with non-zero-divisor coefficients. -/
+lemma LinearIndependent.update [DecidableEq ι] [CommRing R] [AddCommGroup M] [Module R M]
+    {f : ι → M} (hf : LinearIndependent R f) (i : ι) (m : M)
+    (hg : ∃ r ∈ nonZeroDivisors R, ∃ l : ι →₀ R,
+      l i ∈ nonZeroDivisors R ∧ r • m = linearCombination R f l) :
+    LinearIndependent R (Function.update f i m) := by
+  rw [linearIndependent_iff] at hf ⊢
+  obtain ⟨r, hr, l, hl, hg⟩ := hg
+  intros l' hl'
+  apply_fun (r • ·) at hl'
+  simp_rw [Pi.update_eq_sub_add_single, ← bilinearCombination_apply _ (S := R), map_add, map_sub,
+    bilinearCombination_apply, LinearMap.add_apply, LinearMap.sub_apply,
+    linearCombination_single_index, smul_add, smul_sub, smul_zero, smul_comm r (l' i) m,
+    hg, ← LinearMap.map_smul, smul_smul, ← linearCombination_single, ← map_sub, ← map_add] at hl'
+  replace hl' : ∀ j, (r * l' j - (single i (r * l' i)) j) + l' i * l j = 0 :=
+    fun j ↦ DFunLike.congr_fun (hf _ hl') j
+  grind [mem_nonZeroDivisors_iff]
 
 /-!
 ### Properties which require `DivisionRing K`

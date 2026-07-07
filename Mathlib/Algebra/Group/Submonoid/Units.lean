@@ -5,7 +5,6 @@ Authors: Wrenna Robson
 -/
 module
 
-public import Mathlib.Algebra.Group.Submonoid.Operations
 public import Mathlib.Algebra.Group.Submonoid.Pointwise
 public import Mathlib.Algebra.Group.Subgroup.Lattice
 
@@ -189,7 +188,7 @@ S.unitsEquivUnitsType.trans unitsTypeEquivIsUnitSubmonoid
 end Units
 
 instance instSubsingletonUnits [Subsingleton Mˣ] {S : Submonoid M} : Subsingleton Sˣ :=
-   .units_of_isUnit fun _a ha ↦ Subtype.ext (ha.map S.subtype).eq_one
+  .units_of_isUnit fun _a ha ↦ Subtype.ext (ha.map S.subtype).eq_one
 
 end Submonoid
 

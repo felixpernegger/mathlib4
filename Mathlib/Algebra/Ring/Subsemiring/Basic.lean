@@ -7,8 +7,6 @@ module
 
 public import Mathlib.Algebra.Group.Submonoid.BigOperators
 public import Mathlib.Algebra.Ring.Action.Subobjects
-public import Mathlib.Algebra.Ring.Equiv
-public import Mathlib.Algebra.Ring.Prod
 public import Mathlib.Algebra.Ring.Subsemiring.Defs
 public import Mathlib.GroupTheory.Submonoid.Centralizer
 public import Mathlib.RingTheory.NonUnitalSubsemiring.Basic
@@ -661,6 +659,11 @@ theorem top_prod (s : Subsemiring S) : (⊤ : Subsemiring R).prod s = s.comap (R
 @[simp]
 theorem top_prod_top : (⊤ : Subsemiring R).prod (⊤ : Subsemiring S) = ⊤ :=
   (top_prod _).trans <| comap_top _
+
+@[simp]
+theorem _root_.RingHom.rangeS_prodMap (f : R →+* S) (g : S →+* T) :
+    (f.prodMap g).rangeS = Subsemiring.prod f.rangeS g.rangeS :=
+  SetLike.coe_injective Set.range_prodMap
 
 protected theorem center_prod : center (R × S) = prod (center R) (center S) :=
   SetLike.coe_injective Set.center_prod

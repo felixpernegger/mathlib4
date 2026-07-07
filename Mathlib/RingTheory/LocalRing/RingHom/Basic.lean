@@ -5,10 +5,8 @@ Authors: Kenny Lau, Chris Hughes, Mario Carneiro
 -/
 module
 
-public import Mathlib.Algebra.Group.Units.Hom
 public import Mathlib.Data.ZMod.Basic
 public import Mathlib.RingTheory.LocalRing.MaximalIdeal.Basic
-public import Mathlib.RingTheory.Ideal.Maps
 
 /-!
 
@@ -45,13 +43,12 @@ theorem isLocalHom_of_comp (f : R →+* S) (g : S →+* T) [IsLocalHom (g.comp f
   ⟨fun _ ha => (isUnit_map_iff (g.comp f) _).mp (g.isUnit_map ha)⟩
 
 /-- If `f : R →+* S` is a local ring hom, then `R` is a local ring if `S` is. -/
-theorem RingHom.domain_isLocalRing {R S : Type*} [Semiring R] [CommSemiring S] [IsLocalRing S]
-    (f : R →+* S) [IsLocalHom f] : IsLocalRing R := by
-  haveI : Nontrivial R := f.domain_nontrivial
-  apply IsLocalRing.of_nonunits_add
-  intro a b
-  simp_rw [← map_mem_nonunits_iff f, f.map_add]
-  exact IsLocalRing.nonunits_add
+theorem RingHom.domain_isLocalRing [IsLocalRing S] (f : R →+* S) [IsLocalHom f] :
+    IsLocalRing R where
+  toNontrivial := f.domain_nontrivial
+  isUnit_or_isUnit_of_add_one {a b} h := Or.imp
+    (isUnit_of_map_unit f a) (isUnit_of_map_unit f b)
+    (IsLocalRing.isUnit_or_isUnit_of_add_one (by rw [← map_add, h, map_one]))
 
 end
 

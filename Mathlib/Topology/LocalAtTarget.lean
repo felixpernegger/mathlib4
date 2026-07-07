@@ -5,7 +5,6 @@ Authors: Andrew Yang
 -/
 module
 
-public import Mathlib.Topology.Homeomorph.Lemmas
 public import Mathlib.Topology.Sets.OpenCover
 public import Mathlib.Topology.LocallyClosed
 public import Mathlib.Topology.Maps.Proper.Basic
@@ -224,10 +223,7 @@ lemma isOpenMap_iff_comp : IsOpenMap f ↔ ∀ i, IsOpenMap (f ∘ ((↑) : U i 
 
 lemma generalizingMap_iff_comp :
     GeneralizingMap f ↔ ∀ i, GeneralizingMap (f ∘ ((↑) : U i → α)) := by
-  refine ⟨fun hf ↦ fun i ↦
-      ((U i).isOpenEmbedding'.generalizingMap
-        (U i).isOpenEmbedding'.isOpen_range.stableUnderGeneralization).comp hf,
-    fun hf ↦ fun x y h ↦ ?_⟩
+  refine ⟨fun hf i ↦ ((U i).isOpenEmbedding'.generalizingMap).comp hf, fun hf ↦ fun x y h ↦ ?_⟩
   obtain ⟨i, hi⟩ := hU.exists_mem x
   replace h : y ⤳ (f ∘ ((↑) : U i → α)) ⟨x, hi⟩ := h
   obtain ⟨a, ha, rfl⟩ := hf i h

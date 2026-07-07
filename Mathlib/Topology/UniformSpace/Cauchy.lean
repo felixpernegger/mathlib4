@@ -6,7 +6,6 @@ Authors: Johannes Hölzl, Mario Carneiro
 module
 
 public import Mathlib.Topology.Algebra.Constructions
-public import Mathlib.Topology.Bases
 public import Mathlib.Algebra.Order.Group.Nat
 public import Mathlib.Topology.UniformSpace.DiscreteUniformity
 
@@ -365,6 +364,7 @@ theorem isComplete_iUnion_separated {ι : Sort*} {s : ι → Set α} (hs : ∀ i
 
 /-- A complete space is defined here using uniformities. A uniform space
   is complete if every Cauchy filter converges. -/
+@[wikidata Q848569]
 class CompleteSpace (α : Type u) [UniformSpace α] : Prop where
   /-- In a complete uniform space, every Cauchy filter converges. -/
   complete : ∀ {f : Filter α}, Cauchy f → ∃ x, f ≤ 𝓝 x

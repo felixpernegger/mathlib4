@@ -8,7 +8,6 @@ module
 public import Mathlib.LinearAlgebra.Dimension.Localization
 public import Mathlib.RingTheory.Algebraic.Basic
 public import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
-public import Mathlib.RingTheory.Localization.BaseChange
 
 import Mathlib.RingTheory.Polynomial.Subring
 
@@ -128,9 +127,6 @@ theorem transcendental_aeval_iff {r : A} {f : K[X]} :
   exact .of_mem_of_fg _ h.fg_adjoin_singleton _ (aeval_mem_adjoin_singleton _ _)
 
 variable [Field L] [Algebra K L]
-
-theorem AlgHom.bijective [FiniteDimensional K L] (ϕ : L →ₐ[K] L) : Function.Bijective ϕ :=
-  (Algebra.IsAlgebraic.of_finite K L).algHom_bijective ϕ
 
 variable (K L) in
 /-- Bijection between algebra equivalences and algebra homomorphisms -/

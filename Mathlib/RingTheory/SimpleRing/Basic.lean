@@ -6,7 +6,6 @@ Authors: Jujian Zhang
 module
 
 public import Mathlib.RingTheory.SimpleRing.Defs
-public import Mathlib.Algebra.Ring.Opposite
 public import Mathlib.RingTheory.TwoSidedIdeal.Kernel
 
 /-! # Basic Properties of Simple rings
@@ -24,8 +23,6 @@ A ring `R` is **simple** if it has only two two-sided ideals, namely `⊥` and `
 -/
 
 public section
-
-assert_not_exists Finset
 
 variable (R : Type*) [NonUnitalNonAssocRing R]
 

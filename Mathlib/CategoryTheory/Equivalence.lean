@@ -5,12 +5,9 @@ Authors: Tim Baumann, Stephen Morgan, Kim Morrison, Floris van Doorn
 -/
 module
 
-public import Mathlib.CategoryTheory.Functor.FullyFaithful
-public import Mathlib.CategoryTheory.ObjectProperty.FullSubcategory
 public import Mathlib.CategoryTheory.Whiskering
 public import Mathlib.CategoryTheory.EssentialImage
 public import Mathlib.Tactic.CategoryTheory.Slice
-public import Mathlib.Data.Int.Notation
 /-!
 # Equivalence of categories
 
@@ -214,7 +211,6 @@ def mkIso {e f : C ≌ D} (η : e.functor ≅ f.functor) : e ≅ f where
   hom := mkHom η.hom
   inv := mkHom η.inv
 
-set_option linter.existingAttributeWarning false in
 attribute [to_dual existing mkIso_inv] mkIso_hom
 
 variable (C D) in

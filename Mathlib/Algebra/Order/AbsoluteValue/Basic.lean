@@ -5,7 +5,6 @@ Authors: Mario Carneiro, Anne Baanen
 -/
 module
 
-public import Mathlib.Algebra.GroupWithZero.Regular
 public import Mathlib.Algebra.GroupWithZero.Units.Lemmas
 public import Mathlib.Algebra.Order.Hom.Basic
 public import Mathlib.Algebra.Order.Ring.Abs
@@ -416,7 +415,8 @@ open Lean Meta Mathlib Meta Positivity Qq in
 For performance reasons, we only attempt to apply this when `abv` is a variable.
 If it is an explicit function, e.g. `|_|` or `‖_‖`, another extension should apply. -/
 @[positivity _]
-meta def Mathlib.Meta.Positivity.evalAbv : PositivityExt where eval {_ _α} _zα _pα e := do
+meta def Mathlib.Meta.Positivity.evalAbv : PositivityExt where eval {_ _α} _zα pα? e :=
+  match pα? with | none => pure .none | some _ => do
   let (.app f a) ← whnfR e | throwError "not abv ·"
   if !f.getAppFn.isFVar then
     throwError "abv: function is not a variable"

@@ -9,7 +9,6 @@ public import Mathlib.CategoryTheory.Sites.Equivalence
 public import Mathlib.CategoryTheory.Limits.Constructions.Over.Connected
 public import Mathlib.CategoryTheory.Limits.Shapes.Connected
 public import Mathlib.CategoryTheory.Comma.Over.Pullback
-public import Mathlib.CategoryTheory.Functor.Flat
 
 /-! # Localization
 
@@ -360,6 +359,12 @@ instance {D : Type*} [Category* D] {J : GrothendieckTopology C} {K : Grothendiec
     simp_rw [GrothendieckTopology.mem_over_iff, Sieve.overEquiv_preOneHypercover_sieve₁,
       ← PreOneHypercover.map_comp, Over.post_forget_eq_forget_comp, PreOneHypercover.map_comp]
     exact E'.mem₁ _ _ _ _ congr($(w).left)
+
+instance {D : Type*} [Category* D] {J : GrothendieckTopology C} {K : GrothendieckTopology D}
+    {F : C ⥤ D} (X : C) (Y : D) (f : F.obj X ⟶ Y)
+    [(Over.post F).IsContinuous (J.over X) (K.over _)] :
+    (Over.post F ⋙ Over.map f).IsContinuous (J.over X) (K.over Y) :=
+  Functor.isContinuous_comp _ _ _ (K.over _) _
 
 open Limits
 

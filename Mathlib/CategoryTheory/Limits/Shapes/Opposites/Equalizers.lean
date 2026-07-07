@@ -5,8 +5,6 @@ Authors: Kim Morrison, Floris van Doorn
 -/
 module
 
-public import Mathlib.CategoryTheory.Limits.Opposites
-public import Mathlib.CategoryTheory.Limits.Shapes.Equalizers
 public import Mathlib.CategoryTheory.Limits.Shapes.Opposites.Pullbacks
 
 /-!
@@ -108,8 +106,8 @@ namespace Cofork
 
 /-- The obvious map `Cofork f g → Fork f.unop g.unop` -/
 def unop {X Y : Cᵒᵖ} {f g : X ⟶ Y} (c : Cofork f g) : Fork f.unop g.unop :=
-   Cocone.unop ((Cocone.precompose (opParallelPairIso f.unop g.unop).hom).obj
-      (Cocone.whisker walkingParallelPairOpEquiv.inverse c))
+  Cocone.unop ((Cocone.precompose (opParallelPairIso f.unop g.unop).hom).obj
+    (Cocone.whisker walkingParallelPairOpEquiv.inverse c))
 
 set_option backward.defeqAttrib.useBackward true in
 lemma unop_π_app_one {X Y : Cᵒᵖ} {f g : X ⟶ Y} (c : Cofork f g) :

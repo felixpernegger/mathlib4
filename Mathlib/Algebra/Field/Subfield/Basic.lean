@@ -5,10 +5,8 @@ Authors: Anne Baanen
 -/
 module
 
-public import Mathlib.Algebra.Algebra.Defs
 public import Mathlib.Algebra.Field.Subfield.Defs
 public import Mathlib.Algebra.GroupWithZero.Units.Lemmas
-public import Mathlib.Algebra.Ring.Subring.Basic
 public import Mathlib.RingTheory.SimpleRing.Basic
 
 /-!
@@ -556,7 +554,7 @@ protected theorem prod_mem {ι : Type*} {t : Finset ι} {f : ι → K} (h : ∀ 
   prod_mem h
 
 instance toAlgebra : Algebra s K :=
-  fast_instance% RingHom.toAlgebra s.subtype
+  inferInstance
 
 theorem algebraMap_ofSubfield : algebraMap s K = s.subtype :=
   rfl

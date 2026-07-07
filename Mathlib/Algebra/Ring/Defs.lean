@@ -7,7 +7,6 @@ module
 
 public import Mathlib.Algebra.GroupWithZero.Defs
 public import Mathlib.Data.Int.Cast.Defs
-public import Mathlib.Tactic.CrossRefAttribute
 public import Mathlib.Tactic.Spread
 
 /-!
@@ -411,6 +410,7 @@ instance (priority := 100) NonUnitalCommRing.toNonUnitalCommSemiring [s : NonUni
   { s with }
 
 /-- A commutative ring is a ring with commutative multiplication. -/
+@[wikidata Q858656]
 class CommRing (α : Type u) extends Ring α, CommMonoid α
 
 instance (priority := 100) CommRing.toNonAssocCommRing [CommRing α] : NonAssocCommRing α where

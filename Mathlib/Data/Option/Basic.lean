@@ -8,7 +8,6 @@ module
 public import Mathlib.Control.Combinators
 public import Mathlib.Data.Option.Defs
 public import Mathlib.Logic.IsEmpty.Basic
-public import Mathlib.Logic.Relator
 public import Mathlib.Util.CompileInductive
 public import Aesop
 public import Batteries.Tactic.Lint.Simp
@@ -47,11 +46,7 @@ theorem coe_def : (fun a ↦ ↑a : α → Option α) = some :=
 
 theorem mem_map {f : α → β} {y : β} {o : Option α} : y ∈ o.map f ↔ ∃ x ∈ o, f x = y := by simp
 
--- The simpNF linter says that the LHS can be simplified via `Option.mem_def`.
--- However this is a higher priority lemma.
--- It seems the side condition `H` is not applied by `simpNF`.
--- https://github.com/leanprover/std4/issues/207
-@[simp 1100, nolint simpNF]
+@[simp 1100]
 theorem mem_map_of_injective {f : α → β} (H : Function.Injective f) {a : α} {o : Option α} :
     f a ∈ o.map f ↔ a ∈ o := by
   aesop

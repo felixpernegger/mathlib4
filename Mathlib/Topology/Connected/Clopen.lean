@@ -6,9 +6,7 @@ Authors: Johannes Hölzl, Mario Carneiro, Yury Kudryashov
 module
 
 public import Mathlib.Data.Finite.Sigma
-public import Mathlib.Data.Set.Subset
 public import Mathlib.Topology.Clopen
-public import Mathlib.Topology.Compactness.Compact
 public import Mathlib.Topology.Connected.Basic
 
 /-!
@@ -210,12 +208,11 @@ lemma PreconnectedSpace.induction₂' [PreconnectedSpace α] (P : α → α → 
 /-- In a preconnected space, if a symmetric transitive relation `P x y` is true for `y` close
 enough to `x`, then it holds for all `x, y`. This is a version of the fact that, if an equivalence
 relation has open classes, then it has a single equivalence class. -/
-lemma PreconnectedSpace.induction₂ [PreconnectedSpace α] (P : α → α → Prop)
-    (h : ∀ x, ∀ᶠ y in 𝓝 x, P x y) (h' : IsTrans α P) (h'' : Symmetric P) (x y : α) :
-    P x y := by
+lemma PreconnectedSpace.induction₂ [PreconnectedSpace α] (P : α → α → Prop) [Std.Symm P]
+    (h : ∀ x, ∀ᶠ y in 𝓝 x, P x y) (h' : IsTrans α P) (x y : α) : P x y := by
   refine PreconnectedSpace.induction₂' P (fun z ↦ ?_) h' x y
   filter_upwards [h z] with a ha
-  exact ⟨ha, h'' ha⟩
+  exact ⟨ha, symm ha⟩
 
 /-- In a preconnected set, given a transitive relation `P`, if `P x y` and `P y x` are true
 for `y` close enough to `x`, then `P x y` holds for all `x, y`. This is a version of the fact

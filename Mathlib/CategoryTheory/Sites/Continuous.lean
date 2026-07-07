@@ -6,13 +6,9 @@ Authors: Joël Riou, Andrew Yang
 module
 
 public import Mathlib.CategoryTheory.Sites.Closed
-public import Mathlib.CategoryTheory.Sites.Localization
 public import Mathlib.CategoryTheory.Sites.Hypercover.IsSheaf
 public import Mathlib.CategoryTheory.Sites.PreservesSheafification
-public import Mathlib.CategoryTheory.Adjunction.Opposites
 public import Mathlib.CategoryTheory.Adjunction.Whiskering
-public import Mathlib.CategoryTheory.Subfunctor.Basic
-public import Mathlib.CategoryTheory.Functor.KanExtension.Adjunction
 public import Mathlib.CategoryTheory.Functor.KanExtension.Preserves
 
 /-!
@@ -79,6 +75,11 @@ lemma map_id : E.map (𝟭 _) = E :=
 
 lemma map_comp {D' : Type*} [Category* D'] (G : D ⥤ D') : E.map (F ⋙ G) = (E.map F).map G :=
   rfl
+
+lemma sieve₀_map : (E.map F).sieve₀ = Sieve.functorPushforward _ E.sieve₀ := by
+  rw [PreZeroHypercover.sieve₀, Sieve.ofArrows, ← PreZeroHypercover.presieve₀,
+    PreOneHypercover.map_toPreZeroHypercover, PreZeroHypercover.presieve₀_map,
+    Sieve.generate_map_eq_functorPushforward]
 
 /-- If `F : C ⥤ D`, `P : Dᵒᵖ ⥤ A` and `E` is a 1-pre-hypercover of an object of `X`,
 then `(E.map F).multifork P` is a limit iff `E.multifork (F.op ⋙ P)` is a limit. -/

@@ -6,7 +6,6 @@ Authors: Adam Topaz, Kim Morrison
 module
 
 public import Mathlib.CategoryTheory.Limits.ExactFunctor
-public import Mathlib.CategoryTheory.Limits.Preserves.Finite
 public import Mathlib.CategoryTheory.Preadditive.Biproducts
 public import Mathlib.CategoryTheory.Preadditive.FunctorCategory
 
@@ -217,6 +216,12 @@ instance (priority := 100) preservesFiniteCoproductsOfAdditive [Additive F] :
 instance (priority := 100) preservesFiniteProductsOfAdditive [Additive F] :
     PreservesFiniteProducts F where
   preserves _ := preservesProductsOfShape_of_preservesBiproductsOfShape F
+
+lemma hasFiniteProducts_of_additive_of_essSurj [HasFiniteProducts C] [Additive F]
+    [EssSurj F] : HasFiniteProducts D :=
+  ⟨fun _ ↦ ⟨fun K ↦ hasLimit_of_iso
+    (F := Discrete.functor (fun i ↦ F.objPreimage (K.obj ⟨i⟩)) ⋙ F)
+      (Discrete.natIso (fun _ ↦ F.objObjPreimageIso _))⟩⟩
 
 theorem additive_of_preservesBinaryBiproducts [HasBinaryBiproducts C] [PreservesZeroMorphisms F]
     [PreservesBinaryBiproducts F] : Additive F where

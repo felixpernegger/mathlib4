@@ -8,7 +8,6 @@ module
 public import Mathlib.Algebra.Algebra.Defs
 public import Mathlib.Algebra.Module.Equiv.Basic
 public import Mathlib.Algebra.Module.Submodule.Ker
-public import Mathlib.Algebra.Module.Submodule.RestrictScalars
 public import Mathlib.Algebra.Module.ULift
 public import Mathlib.Algebra.Ring.CharZero
 public import Mathlib.Algebra.Ring.Subring.Basic
@@ -112,10 +111,6 @@ theorem coe_algebraMap_ofSubsemiring (S : C) : (algebraMap S R : S → R) = Subt
 
 theorem algebraMap_ofSubsemiring_apply (S : C) (x : S) : algebraMap S R x = x :=
   rfl
-
-/-- Algebra over a subring. This builds upon `Subring.module`. -/
-instance ofSubring {R A : Type*} [CommRing R] [Ring A] [Algebra R A] (S : Subring R) :
-    Algebra S A := inferInstance
 
 theorem algebraMap_ofSubring {R : Type*} [CommRing R] (S : Subring R) :
     (algebraMap S R : S →+* R) = S.subtype :=

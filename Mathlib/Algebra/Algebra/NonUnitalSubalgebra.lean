@@ -8,7 +8,6 @@ module
 public import Mathlib.Algebra.Algebra.NonUnitalHom
 public import Mathlib.Data.Set.UnionLift
 public import Mathlib.LinearAlgebra.Span.Basic
-public import Mathlib.RingTheory.NonUnitalSubring.Basic
 
 /-!
 # Non-unital Subalgebras over Commutative Semirings
@@ -344,6 +343,7 @@ def map (f : F) (S : NonUnitalSubalgebra R A) : NonUnitalSubalgebra R B :=
       rcases hb with ⟨a, ha, rfl⟩
       exact map_smulₛₗ f r a ▸ Set.mem_image_of_mem f (S.smul_mem' r ha) }
 
+@[gcongr]
 theorem map_mono {S₁ S₂ : NonUnitalSubalgebra R A} {f : F} :
     S₁ ≤ S₂ → (map f S₁ : NonUnitalSubalgebra R B) ≤ map f S₂ :=
   Set.image_mono

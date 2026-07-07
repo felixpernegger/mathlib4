@@ -7,7 +7,6 @@ module
 
 public import Mathlib.Algebra.Order.SuccPred.PartialSups
 public import Mathlib.LinearAlgebra.Finsupp.Pi
-public import Mathlib.LinearAlgebra.Quotient.Basic
 public import Mathlib.RingTheory.Noetherian.Defs
 public import Mathlib.RingTheory.Finiteness.Cardinality
 public import Mathlib.RingTheory.Finiteness.Finsupp
@@ -381,6 +380,12 @@ theorem FG.of_le_of_isNoetherian {S T : Submodule R M} [IsNoetherian R T] (hST :
 lemma FG.of_le [IsNoetherianRing R] {S T : Submodule R M} (hT : T.FG) (hST : S ≤ T) : S.FG := by
   rw [← Module.Finite.iff_fg] at hT
   exact FG.of_le_of_isNoetherian hST
+
+/-- If `S` is disjoint from `T` and `M ⧸ T` is a noetherian module, then `S` is FG.
+See also `Submodule.CoFG.fg_of_disjoint`. -/
+theorem FG.of_disjoint_of_isNoetherian_quotient {S T : Submodule R M} [IsNoetherian R (M ⧸ T)]
+    (hST : Disjoint S T) : S.FG :=
+  Module.Finite.iff_fg.mp <| .of_injective (T.mkQ.domRestrict S) (by simp [hST])
 
 end Submodule
 

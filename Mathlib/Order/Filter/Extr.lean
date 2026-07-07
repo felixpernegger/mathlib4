@@ -114,6 +114,7 @@ def IsMaxOn :=
   IsMaxFilter f (𝓟 s) a
 
 /-- `IsExtrOn f s a` means `IsMinOn f s a` or `IsMaxOn f s a` -/
+@[wikidata Q845060]
 def IsExtrOn : Prop :=
   IsExtrFilter f (𝓟 s) a
 

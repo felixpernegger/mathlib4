@@ -9,7 +9,6 @@ public import Mathlib.Algebra.Order.GroupWithZero.Canonical
 public import Mathlib.Algebra.Order.Nonneg.Basic
 public import Mathlib.Algebra.Order.Nonneg.Lattice
 public import Mathlib.Algebra.Order.Ring.InjSurj
-public import Mathlib.Tactic.FastInstance
 
 /-!
 # Bundled ordered algebra instance on the type of nonnegative elements
@@ -20,10 +19,6 @@ This file defines instances and prove some properties about the nonnegative elem
 Currently we only state instances and states some `simp`/`norm_cast` lemmas.
 
 When `α` is `ℝ`, this will give us some properties about `ℝ≥0`.
-
-## Main declarations
-
-* `{x : α // 0 ≤ x}` is a `CanonicallyLinearOrderedAddCommMonoid` if `α` is a `LinearOrderedRing`.
 
 ## Implementation Notes
 

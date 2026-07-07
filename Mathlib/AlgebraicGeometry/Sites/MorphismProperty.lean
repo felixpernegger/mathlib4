@@ -6,7 +6,6 @@ Authors: Christian Merten, Joël Riou, Adam Topaz
 module
 
 public import Mathlib.AlgebraicGeometry.OpenImmersion
-public import Mathlib.CategoryTheory.MorphismProperty.Limits
 public import Mathlib.CategoryTheory.Sites.JointlySurjective
 public import Mathlib.CategoryTheory.Sites.MorphismProperty
 
@@ -88,7 +87,7 @@ lemma ofArrows_mem_precoverage_iff {S : Scheme.{u}} {ι : Type*} {X : ι → Sch
 @[simp]
 lemma singleton_mem_precoverage_iff {X S : Scheme.{u}} (f : X ⟶ S) :
     Presieve.singleton f ∈ precoverage P S ↔ Function.Surjective f.base ∧ P f := by
-  rw [← Presieve.ofArrows_pUnit.{_, _, 0}, ofArrows_mem_precoverage_iff]
+  rw [← Presieve.ofArrows_pUnit.{0}, ofArrows_mem_precoverage_iff]
   aesop
 
 lemma bot_mem_precoverage (X : Scheme.{u}) [IsEmpty X] : ⊥ ∈ Scheme.precoverage P X :=
