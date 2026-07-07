@@ -28,6 +28,10 @@ public import Mathlib.Tactic.Linter.Style
 public import Mathlib.Tactic.Linter.Whitespace
 public import Mathlib.Tactic.TacticAnalysis.Declarations
 public import Mathlib.Tactic.TypeStar
+-- This is a redundant import, but it is needed so that
+-- the linter doesn't complain about `ParseCommand` not importing `Header`.
+-- This can be removed after https://github.com/leanprover-community/mathlib4/pull/32419
+public import Mathlib.Util.ParseCommand
 -- This import makes the `#help` command available globally.
 public import Batteries.Tactic.HelpCmd
 -- This import makes the `proof_wanted` command available globally.
@@ -132,7 +136,7 @@ run_cmd liftTermElabM do
   let DefinedInScripts : Array Name :=
     #[`linter.checkInitImports, `linter.allScriptsDocumented]
   let env ← getEnv
-  let ls := (linterSetsExt.getState env).localEntries
+  let ls := linterSetsExt.getEntries env
   let some (_, mlLinters) := ls.find? (·.1 == ``linter.mathlibStandardSet) |
     throwError m!"'linter.mathlibStandardSet' is not defined."
   let some (_, nrLinters) := ls.find? (·.1 == ``linter.nightlyRegressionSet) |

@@ -5,9 +5,13 @@ Authors: Joël Riou
 -/
 module
 
+-- `Subsheaf` must stay the first import: it must appear before `LeftExact` in the flattened
+-- import order of downstream files, as the `Epi`/`Mono`/`IsIso`/`HasImages` instances it
+-- (and `Subfunctor.Image`) provides would otherwise be tried first by instance resolution,
+-- which causes a large slowdown in files about sheaves of modules.
+public import Mathlib.CategoryTheory.Sites.Subsheaf
 public import Mathlib.CategoryTheory.Sites.LeftExact
 public import Mathlib.CategoryTheory.Sites.PreservesSheafification
-public import Mathlib.CategoryTheory.Sites.Subsheaf
 
 /-!
 # Locally injective morphisms of (pre)sheaves
