@@ -223,7 +223,6 @@ section Covariance
 
 variable [NormedSpace ℝ E] [BorelSpace E]
 
-open Classical in
 /-- Continuous bilinear form with value `∫ x, (L₁ x - μ[L₁]) * (L₂ x - μ[L₂]) ∂μ` on `(L₁, L₂)`
 if `MemLp id 2 μ`. If not, we set it to zero. -/
 noncomputable

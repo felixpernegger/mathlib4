@@ -239,7 +239,6 @@ protected abbrev IntegrableOn
     (μ : VectorMeasure X F) (f : X → E) (s : Set X) : Prop :=
   (μ.restrict s).Integrable f
 
-open Classical in
 /-- The `G`-valued integral of `E`-valued function and the `F`-valued vector measure `μ` with linear
 paring `B : E →L[ℝ] F →L[ℝ] G` . This is set to be `0` if `G` is not complete or if `f` is not
 integrable with respect to `(μ.transpose B).variation`. Notation `∫ᵛ x, f x ∂[B; μ]`.
