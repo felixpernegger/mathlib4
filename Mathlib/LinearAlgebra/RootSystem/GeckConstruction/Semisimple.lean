@@ -209,7 +209,7 @@ private lemma instIsIrreducible_aux₀ {U : LieSubmodule K H (b.support ⊕ ι �
     set μ := χ x
     obtain ⟨⟨x, hx⟩, hx'⟩ := x
     replace hdx : x = diagonal d := by simpa using! hdx
-    have this (d : b.support ⊕ ι → K) (μ : K) :
+    have (d : b.support ⊕ ι → K) (μ : K) :
         (diagonal d).toLin' - μ • 1 = (diagonal (d - μ • 1)).toLin' := by
       aesop (add simp Pi.single_apply)
     simp [mem_genWeightSpaceOf, hdx, this, ← toLin'_pow, diagonal_pow]

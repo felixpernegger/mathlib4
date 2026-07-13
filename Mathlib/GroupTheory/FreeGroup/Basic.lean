@@ -637,7 +637,7 @@ See note [partially-applied ext lemmas]. -/
 lemma ext_hom {M : Type*} [Monoid M] (f g : FreeGroup α →* M) (h : ∀ a, f (of a) = g (of a)) :
     f = g := by
   ext x
-  have this (x) : f (of x)⁻¹ = g (of x)⁻¹ := by
+  have (x) : f (of x)⁻¹ = g (of x)⁻¹ := by
     trans f (of x)⁻¹ * f (of x) * g (of x)⁻¹
     · simp_rw [mul_assoc, h, ← _root_.map_mul, mul_inv_cancel, _root_.map_one, mul_one]
     · simp_rw [← _root_.map_mul, inv_mul_cancel, _root_.map_one, one_mul]

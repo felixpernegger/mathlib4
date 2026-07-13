@@ -257,7 +257,7 @@ lemma contMDiffOn_of_coeff [FiniteDimensional 𝕜 F]
     CMDiff[u] n (T% t) := by
   rcases u.eq_empty_or_nonempty with rfl | ⟨x, hx⟩; · simp
   have := fintypeOfFiniteDimensional hs hx
-  have this (i) : CMDiff[u] n (T% ((LinearMap.piApply (hs.coeff i)) t • s i)) :=
+  have (i) : CMDiff[u] n (T% ((LinearMap.piApply (hs.coeff i)) t • s i)) :=
     (h i).smul_section (hs.contMDiffOn i)
   have almost : CMDiff[u] n (T% (fun x ↦ ∑ i, ((LinearMap.piApply (hs.coeff i)) t) x • s i x)) :=
     .sum_section fun i _ ↦ this i
@@ -294,7 +294,7 @@ lemma mdifferentiableOn_of_coeff [FiniteDimensional 𝕜 F]
     MDiff[u] (T% t) := by
   rcases u.eq_empty_or_nonempty with rfl | ⟨x, hx⟩; · simp
   have := fintypeOfFiniteDimensional hs hx
-  have this (i) : MDiff[u] (T% ((LinearMap.piApply (hs.coeff i)) t • s i)) :=
+  have (i) : MDiff[u] (T% ((LinearMap.piApply (hs.coeff i)) t • s i)) :=
     (h i).smul_section ((hs.contMDiffOn i).mdifferentiableOn one_ne_zero)
   have almost : MDiff[u] (T% (fun x ↦ ∑ i, hs.coeff i x (t x) • s i x)) :=
     .sum_section (fun i _ _ hx ↦ this i _ hx)
