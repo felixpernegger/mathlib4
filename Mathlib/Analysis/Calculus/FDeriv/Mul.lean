@@ -410,7 +410,7 @@ theorem hasStrictFDerivAt_list_prod_finRange' {n : ℕ} {x : Fin n → 𝔸} :
       (∑ i : Fin n, (((List.finRange n).take i).map x).prod •
         proj i <• (((List.finRange n).drop (.succ i)).map x).prod) x :=
   hasStrictFDerivAt_list_prod'.congr_fderiv <|
-    Finset.sum_equiv (finCongr List.length_finRange) (by simp) (by simp)
+    Finset.sumEquiv (finCongr List.length_finRange) (by simp) (by simp)
 
 @[fun_prop]
 theorem hasStrictFDerivAt_list_prod_attach' {l : List ι} {x : {i // i ∈ l} → 𝔸} :
@@ -419,7 +419,7 @@ theorem hasStrictFDerivAt_list_prod_attach' {l : List ι} {x : {i // i ∈ l} �
         proj l.attach[i.cast List.length_attach.symm] <•
           ((l.attach.drop (.succ i)).map x).prod) x := by
   classical exact hasStrictFDerivAt_list_prod'.congr_fderiv <| Eq.symm <|
-    Finset.sum_equiv (finCongr List.length_attach.symm) (by simp) (by simp)
+    Finset.sumEquiv (finCongr List.length_attach.symm) (by simp) (by simp)
 
 @[fun_prop]
 theorem hasFDerivAt_list_prod' [Finite ι] {l : List ι} {x : ι → 𝔸'} :

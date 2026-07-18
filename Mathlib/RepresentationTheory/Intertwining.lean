@@ -38,9 +38,12 @@ structure IntertwiningMap extends V →ₗ[A] W where
   isIntertwining' (g : G) : toLinearMap ∘ₗ ρ g = σ g ∘ₗ toLinearMap
 
 /-- An intertwining map constructed form the linear map and the fact that it is intertwining. -/
-def _root_.LinearMap.intertwiningMap_of_isIntertwiningMap
+def _root_.LinearMap.intertwiningMapOfIsIntertwiningMap
     (hf : ∀ (g : G), ∀ (v : V), f (ρ g v) = σ g (f v)) : IntertwiningMap ρ σ :=
   { f with isIntertwining' g := by ext v; exact hf g v }
+
+@[deprecated (since := "2026-07-18")]
+alias _root_.LinearMap.intertwiningMap_of_isIntertwiningMap := _root_.LinearMap.intertwiningMapOfIsIntertwiningMap
 
 lemma IntertwiningMap.isIntertwining_assoc {f : IntertwiningMap ρ σ} (g : G) (l : U →ₗ[A] V) :
     f.toLinearMap ∘ₗ ρ g ∘ₗ l = σ g ∘ₗ f.toLinearMap ∘ₗ l := by
@@ -91,7 +94,7 @@ lemma toLinearMap_apply (f : IntertwiningMap ρ σ) (v : V) : f.toLinearMap v = 
 
 @[simp] lemma _root_.LinearMap.toIntertwiningMap
   (hf : ∀ (g : G), ∀ (v : V), f (ρ g v) = σ g (f v)) (v : V) :
-  f.intertwiningMap_of_isIntertwiningMap ρ σ hf v = f v := rfl
+  f.intertwiningMapOfIsIntertwiningMap ρ σ hf v = f v := rfl
 
 instance : Zero (IntertwiningMap ρ σ) := ⟨⟨0, by simp⟩⟩
 
@@ -511,7 +514,7 @@ set_option backward.isDefEq.respectTransparency false in
 /-- Composition of intertwining maps. -/
 def llcomp : IntertwiningMap σ τ →ₗ[A] IntertwiningMap ρ σ →ₗ[A] IntertwiningMap ρ τ where
   toFun f :=
-    { toFun g := ((f.toLinearMap.comp g.toLinearMap).intertwiningMap_of_isIntertwiningMap ρ τ
+    { toFun g := ((f.toLinearMap.comp g.toLinearMap).intertwiningMapOfIsIntertwiningMap ρ τ
       (by intro γ v; simp [f.isIntertwining, g.isIntertwining]))
       map_add' _ _ := by ext; simp [map_add, toLinearMap_apply]
       map_smul' _ _ := by ext; simp [toLinearMap_apply] }

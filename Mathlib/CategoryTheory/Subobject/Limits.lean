@@ -101,7 +101,7 @@ theorem equalizerSubobject_factors_iff {W : C} (h : W ⟶ X) :
 lemma pullback_equalizer {W : C} (h : W ⟶ X) [HasPullbacks C] :
   (Subobject.pullback h).obj (equalizerSubobject f g) =
     equalizerSubobject (h ≫ f) (h ≫ g) := by
-  refine skeletal _ ⟨iso_of_both_ways (homOfFactors ?_) (homOfFactors ?_)⟩
+  refine skeletal _ ⟨isoOfBothWays (homOfFactors ?_) (homOfFactors ?_)⟩
   · apply equalizerSubobject_factors
     have := (Subobject.isPullback h (equalizerSubobject f g)).w
     rw [← reassoc_of% (Subobject.isPullback h (equalizerSubobject f g)).w,

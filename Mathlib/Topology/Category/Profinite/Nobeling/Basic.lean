@@ -75,7 +75,7 @@ In this section we define the relevant projection maps and prove some compatibil
 * The image of `C` under `Proj J` is denoted `π C J` and the corresponding map `C → π C J` is called
   `ProjRestrict`. If `J` implies `K` we have a map `ProjRestricts : π C K → π C J`.
 
-* `spanCone_isLimit` establishes that when `C` is compact, it can be written as a limit of its
+* `spanConeIsLimit` establishes that when `C` is compact, it can be written as a limit of its
   images under the maps `Proj (· ∈ s)` where `s : Finset I`.
 -/
 
@@ -172,7 +172,7 @@ theorem projRestricts_comp_projRestrict (h : ∀ i, J i → K i) :
 variable (J)
 
 /-- The objectwise map in the isomorphism `spanFunctor ≅ Profinite.indexFunctor`. -/
-def iso_map : C(π C J, (IndexFunctor.obj C J)) :=
+def isoMap : C(π C J, (IndexFunctor.obj C J)) :=
   ⟨fun x ↦ ⟨fun i ↦ x.val i.val, by
     rcases x with ⟨x, y, hy, rfl⟩
     refine ⟨y, hy, ?_⟩
@@ -181,7 +181,10 @@ def iso_map : C(π C J, (IndexFunctor.obj C J)) :=
     refine Continuous.subtype_mk (continuous_pi fun i ↦ ?_) _
     exact (continuous_apply i.val).comp continuous_subtype_val⟩
 
-lemma iso_map_bijective : Function.Bijective (iso_map C J) := by
+@[deprecated (since := "2026-07-18")]
+alias iso_map := isoMap
+
+lemma iso_map_bijective : Function.Bijective (isoMap C J) := by
   refine ⟨fun a b h ↦ ?_, fun a ↦ ?_⟩
   · ext i
     rw [Subtype.ext_iff] at h
@@ -232,25 +235,28 @@ noncomputable def spanFunctorIsoIndexFunctor
     [∀ (s : Finset I) (i : I), Decidable (i ∈ s)] (hC : IsCompact C) :
     spanFunctor hC ≅ indexFunctor hC :=
   NatIso.ofComponents
-    (fun s ↦ CompHausLike.isoOfBijective (ConcreteCategory.ofHom (iso_map C (· ∈ unop s)))
+    (fun s ↦ CompHausLike.isoOfBijective (ConcreteCategory.ofHom (isoMap C (· ∈ unop s)))
       (iso_map_bijective C (· ∈ unop s))) (by
         rintro ⟨s⟩ ⟨t⟩ ⟨⟨⟨f⟩⟩⟩
         ext x
-        have : iso_map C (· ∈ t) ∘ ProjRestricts C f =
-            IndexFunctor.map C f ∘ iso_map C (· ∈ s) := by
+        have : isoMap C (· ∈ t) ∘ ProjRestricts C f =
+            IndexFunctor.map C f ∘ isoMap C (· ∈ s) := by
           ext _ i; exact dif_pos i.prop
         exact congr_fun this x)
 
 /-- `spanCone` is a limit cone. -/
 noncomputable
-def spanCone_isLimit [∀ (s : Finset I) (i : I), Decidable (i ∈ s)] (hC : IsCompact C) :
+def spanConeIsLimit [∀ (s : Finset I) (i : I), Decidable (i ∈ s)] (hC : IsCompact C) :
     CategoryTheory.Limits.IsLimit (spanCone hC) :=
   IsLimit.postcomposeHomEquiv (spanFunctorIsoIndexFunctor hC) _
-    (IsLimit.ofIsoLimit (indexCone_isLimit hC) (Cone.ext (Iso.refl _) (fun ⟨s⟩ ↦ by
+    (IsLimit.ofIsoLimit (indexConeIsLimit hC) (Cone.ext (Iso.refl _) (fun ⟨s⟩ ↦ by
       ext
-      have : iso_map C (· ∈ s) ∘ ProjRestrict C (· ∈ s) = IndexFunctor.π_app C (· ∈ s) := by
+      have : isoMap C (· ∈ s) ∘ ProjRestrict C (· ∈ s) = IndexFunctor.πApp C (· ∈ s) := by
         ext _ i; exact dif_pos i.prop
       exact congr_fun this.symm _)))
+
+@[deprecated (since := "2026-07-18")]
+alias spanCone_isLimit := spanConeIsLimit
 
 end Projections
 
@@ -368,15 +374,18 @@ def range := Set.range (GoodProducts.eval C)
 
 /-- The type of good products is equivalent to its image. -/
 noncomputable
-def equiv_range : GoodProducts C ≃ range C :=
+def equivRange : GoodProducts C ≃ range C :=
   Equiv.ofInjective (eval C) (injective C)
 
-theorem equiv_toFun_eq_eval : (equiv_range C).toFun = Set.rangeFactorization (eval C) := rfl
+@[deprecated (since := "2026-07-18")]
+alias equiv_range := equivRange
+
+theorem equiv_toFun_eq_eval : (equivRange C).toFun = Set.rangeFactorization (eval C) := rfl
 
 theorem linearIndependent_iff_range : LinearIndependent ℤ (GoodProducts.eval C) ↔
     LinearIndependent ℤ (fun (p : range C) ↦ p.1) := by
   rw [← @Set.rangeFactorization_eq _ _ (GoodProducts.eval C), ← equiv_toFun_eq_eval C]
-  exact linearIndependent_equiv (equiv_range C)
+  exact linearIndependent_equiv (equivRange C)
 
 end GoodProducts
 

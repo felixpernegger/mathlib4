@@ -103,7 +103,7 @@ def restriction (A : Subalgebra R S) (f : AlgebraNorm R S) : AlgebraNorm R A whe
 
 set_option linter.style.whitespace false in -- manual alignment is not recognised
 /-- The restriction of an algebra norm in a scalar tower. -/
-def isScalarTower_restriction {A : Type*} [CommRing A] [Algebra R A] [Algebra A S]
+def isScalarTowerRestriction {A : Type*} [CommRing A] [Algebra R A] [Algebra A S]
     [IsScalarTower R A S] (hinj : Function.Injective (algebraMap A S)) (f : AlgebraNorm R S) :
     AlgebraNorm R A where
   toFun x     := f (algebraMap A S x)
@@ -117,6 +117,9 @@ def isScalarTower_restriction {A : Type*} [CommRing A] [Algebra R A] [Algebra A 
   smul' r x := by
     simp only [Algebra.smul_def, map_mul, ← IsScalarTower.algebraMap_apply]
     simp only [← smul_eq_mul, algebraMap_smul, map_smul_eq_mul]
+
+@[deprecated (since := "2026-07-18")]
+alias isScalarTower_restriction := isScalarTowerRestriction
 
 end AlgebraNorm
 

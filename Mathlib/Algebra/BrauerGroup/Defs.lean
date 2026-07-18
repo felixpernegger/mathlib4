@@ -90,10 +90,13 @@ variable (K)
 
 /-- `CSA` equipped with Brauer Equivalence is indeed a setoid. -/
 @[instance_reducible]
-def Brauer.CSA_Setoid : Setoid (CSA K) where
+def Brauer.CSASetoid : Setoid (CSA K) where
   r := IsBrauerEquivalent
   iseqv := IsBrauerEquivalent.is_eqv
 
+@[deprecated (since := "2026-07-18")]
+alias Brauer.CSA_Setoid := Brauer.CSASetoid
+
 /-- `BrauerGroup` is the set of all finite-dimensional central simple algebras quotient
   by Brauer Equivalence. -/
-abbrev BrauerGroup := Quotient (Brauer.CSA_Setoid K)
+abbrev BrauerGroup := Quotient (Brauer.CSASetoid K)

@@ -175,8 +175,8 @@ def natTrans : (N₂ : Karoubi (SimplicialObject C) ⥤ _) ⋙ Γ₂ ⟶ 𝟭 _ 
 set_option backward.isDefEq.respectTransparency false in
 theorem natTrans_app_f_app (P : Karoubi (SimplicialObject C)) :
     Γ₂N₂.natTrans.app P =
-      (N₂ ⋙ Γ₂).map P.decompId_i ≫
-        (Γ₂N₂ToKaroubiIso.hom ≫ Γ₂N₁.natTrans).app P.X ≫ P.decompId_p := by
+      (N₂ ⋙ Γ₂).map P.decompIdI ≫
+        (Γ₂N₂ToKaroubiIso.hom ≫ Γ₂N₁.natTrans).app P.X ≫ P.decompIdP := by
   dsimp only [natTrans]
   simp only [whiskeringLeft_obj_preimage_app, Functor.id_map]
 

@@ -180,30 +180,33 @@ variable [Fintype α] {m : ℕ} (hm : m + n = Fintype.card α)
 include hm
 
 /-- The complement of a combination, as an equivariant map. -/
-def mulActionHom_compl : powersetCard α n →[G] powersetCard α m where
+def mulActionHomCompl : powersetCard α n →[G] powersetCard α m where
   toFun := compl hm
   map_smul' g s := by ext; simp [← inv_smul_mem_iff]
 
+@[deprecated (since := "2026-07-18")]
+alias mulActionHom_compl := mulActionHomCompl
+
 variable {hm} in
 theorem coe_mulActionHom_compl {s : powersetCard α n} :
-    (mulActionHom_compl G α hm s : Finset α) = (s : Finset α)ᶜ :=
+    (mulActionHomCompl G α hm s : Finset α) = (s : Finset α)ᶜ :=
   rfl
 
 variable {hm} in
 theorem mem_mulActionHom_compl {s : powersetCard α n} {a : α} :
-    a ∈ mulActionHom_compl G α hm s ↔ a ∉ s :=
+    a ∈ mulActionHomCompl G α hm s ↔ a ∉ s :=
   mem_compl
 
 theorem mulActionHom_compl_mulActionHom_compl :
-    (mulActionHom_compl G α <| (n.add_comm m).trans hm).comp
-    (mulActionHom_compl G α hm) = .id G := by
+    (mulActionHomCompl G α <| (n.add_comm m).trans hm).comp
+    (mulActionHomCompl G α hm) = .id G := by
   ext s a
-  change a ∈ (mulActionHom_compl G α _).comp (mulActionHom_compl G α hm) s ↔ a ∈ s
+  change a ∈ (mulActionHomCompl G α _).comp (mulActionHomCompl G α hm) s ↔ a ∈ s
   simp [MulActionHom.comp_apply, mem_mulActionHom_compl]
 
 theorem mulActionHom_compl_bijective :
-    Function.Bijective (mulActionHom_compl G α hm) :=
-  Function.bijective_iff_has_inverse.mpr ⟨mulActionHom_compl G α ((n.add_comm m).trans hm),
+    Function.Bijective (mulActionHomCompl G α hm) :=
+  Function.bijective_iff_has_inverse.mpr ⟨mulActionHomCompl G α ((n.add_comm m).trans hm),
     DFunLike.ext_iff.mp (mulActionHom_compl_mulActionHom_compl G α hm),
     DFunLike.ext_iff.mp (mulActionHom_compl_mulActionHom_compl G α _)⟩
 

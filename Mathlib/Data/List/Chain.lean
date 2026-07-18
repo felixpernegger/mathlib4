@@ -479,14 +479,17 @@ variable (r)
 abbrev List.chains := { l : List α // l.IsChain (flip r) }
 
 /-- The lexicographic order on the `r`-decreasing chains -/
-abbrev List.lex_chains (l m : List.chains r) : Prop := List.Lex r l.val m.val
+abbrev List.LexChains (l m : List.chains r) : Prop := List.Lex r l.val m.val
+
+@[deprecated (since := "2026-07-18")]
+alias List.lex_chains := List.LexChains
 
 variable {r}
 
 /-- If an `r`-decreasing chain `l` is empty or its head is accessible by `r`, then
   `l` is accessible by the lexicographic order `List.Lex r`. -/
 theorem Acc.list_chain' {l : List.chains r} (acc : ∀ a ∈ l.val.head?, Acc r a) :
-    Acc (List.lex_chains r) l := by
+    Acc (List.LexChains r) l := by
   obtain ⟨_ | ⟨a, l⟩, hl⟩ := l
   · apply Acc.intro; rintro ⟨_⟩ ⟨_⟩
   specialize acc a _
@@ -497,7 +500,7 @@ theorem Acc.list_chain' {l : List.chains r} (acc : ∀ a ∈ l.val.head?, Acc r 
     /- Bundle l with a proof that it is r-decreasing to form l' -/
     have hl' := (List.isChain_cons.1 hl).2
     let l' : List.chains r := ⟨l, hl'⟩
-    have : Acc (List.lex_chains r) l' := by
+    have : Acc (List.LexChains r) l' := by
       rcases l with - | ⟨b, l⟩
       · apply Acc.intro; rintro ⟨_⟩ ⟨_⟩
       /- l' is accessible by induction hypothesis -/
@@ -517,9 +520,9 @@ theorem Acc.list_chain' {l : List.chains r} (acc : ∀ a ∈ l.val.head?, Acc r 
 
 /-- If `r` is well-founded, the lexicographic order on `r`-decreasing chains is also. -/
 theorem WellFounded.list_chain' (hwf : WellFounded r) :
-    WellFounded (List.lex_chains r) :=
+    WellFounded (List.LexChains r) :=
   ⟨fun _ ↦ Acc.list_chain' (fun _ _ => hwf.apply _)⟩
 
 instance [hwf : IsWellFounded α r] :
-    IsWellFounded (List.chains r) (List.lex_chains r) :=
+    IsWellFounded (List.chains r) (List.LexChains r) :=
   ⟨hwf.wf.list_chain'⟩

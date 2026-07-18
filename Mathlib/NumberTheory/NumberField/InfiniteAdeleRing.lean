@@ -19,7 +19,7 @@ finite product of completions over its infinite places.
 
 - `NumberField.InfiniteAdeleRing` of a number field `K` is defined as the product of
   the completions of `K` over its infinite places.
-- `NumberField.InfiniteAdeleRing.ringEquiv_mixedSpace` is the ring isomorphism between
+- `NumberField.InfiniteAdeleRing.ringEquivMixedSpace` is the ring isomorphism between
   the infinite adele ring of `K` and `ℝ ^ r₁ × ℂ ^ r₂`, where `(r₁, r₂)` is the signature of `K`.
 
 ## Main results
@@ -70,7 +70,7 @@ instance locallyCompactSpace [NumberField K] : LocallyCompactSpace (InfiniteAdel
 open scoped Classical in
 /-- The ring isomorphism between the infinite adele ring of a number field and the
 space `ℝ ^ r₁ × ℂ ^ r₂`, where `(r₁, r₂)` is the signature of the number field. -/
-abbrev ringEquiv_mixedSpace :
+abbrev ringEquivMixedSpace :
     InfiniteAdeleRing K ≃+* mixedEmbedding.mixedSpace K :=
   RingEquiv.trans
     (RingEquiv.piEquivPiSubtypeProd (fun (v : InfinitePlace K) => IsReal v)
@@ -83,9 +83,12 @@ abbrev ringEquiv_mixedSpace :
         (RingEquiv.piCongrLeft (fun _ => ℂ) <|
           Equiv.subtypeEquivRight (fun _ => not_isReal_iff_isComplex))))
 
+@[deprecated (since := "2026-07-18")]
+alias ringEquiv_mixedSpace := ringEquivMixedSpace
+
 @[simp]
 theorem ringEquiv_mixedSpace_apply (x : InfiniteAdeleRing K) :
-    ringEquiv_mixedSpace K x =
+    ringEquivMixedSpace K x =
       (fun (v : {w : InfinitePlace K // IsReal w}) => extensionEmbeddingOfIsReal v.2 (x v),
        fun (v : {w : InfinitePlace K // IsComplex w}) => extensionEmbedding v.1 (x v)) := rfl
 
@@ -93,7 +96,7 @@ theorem ringEquiv_mixedSpace_apply (x : InfiniteAdeleRing K) :
 ring to the mixed embedding `x ↦ (φᵢ(x))ᵢ` of `K` into the space `ℝ ^ r₁ × ℂ ^ r₂`, where
 `(r₁, r₂)` is the signature of `K` and `φᵢ` are the complex embeddings of `K`. -/
 theorem mixedEmbedding_eq_algebraMap_comp {x : K} :
-    mixedEmbedding K x = ringEquiv_mixedSpace K (algebraMap K _ x) := by
+    mixedEmbedding K x = ringEquivMixedSpace K (algebraMap K _ x) := by
   ext v <;> simp
 
 /--

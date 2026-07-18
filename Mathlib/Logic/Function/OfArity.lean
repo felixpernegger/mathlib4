@@ -67,8 +67,11 @@ lemma fromTypes_fin_const (α β : Type u) (n : ℕ) :
 
 /-- The definitional equality between heterogeneous functions with constant
 domain and `n`-ary functions with that domain. -/
-def fromTypes_fin_const_equiv (α β : Type u) (n : ℕ) :
+def fromTypesFinConstEquiv (α β : Type u) (n : ℕ) :
     FromTypes (fun (_ : Fin n) => α) β ≃ OfArity α β n := .refl _
+
+@[deprecated (since := "2026-07-18")]
+alias fromTypes_fin_const_equiv := fromTypesFinConstEquiv
 
 end FromTypes
 

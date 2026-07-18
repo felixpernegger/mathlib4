@@ -519,18 +519,24 @@ lemma r_f (s : S.Splitting) : s.r ≫ S.f = 𝟙 _ - S.g ≫ s.s := by rw [← s
 lemma g_s (s : S.Splitting) : S.g ≫ s.s = 𝟙 _ - s.r ≫ S.f := by rw [← s.id, add_sub_cancel_left]
 
 /-- Given a splitting of a short complex `S`, this shows that `S.f` is a split monomorphism. -/
-@[simps] def splitMono_f (s : S.Splitting) : SplitMono S.f := ⟨s.r, s.f_r⟩
+@[simps] def splitMonoF (s : S.Splitting) : SplitMono S.f := ⟨s.r, s.f_r⟩
 
-lemma isSplitMono_f (s : S.Splitting) : IsSplitMono S.f := ⟨⟨s.splitMono_f⟩⟩
+@[deprecated (since := "2026-07-18")]
+alias splitMono_f := splitMonoF
+
+lemma isSplitMono_f (s : S.Splitting) : IsSplitMono S.f := ⟨⟨s.splitMonoF⟩⟩
 
 lemma mono_f (s : S.Splitting) : Mono S.f := by
   have := s.isSplitMono_f
   infer_instance
 
 /-- Given a splitting of a short complex `S`, this shows that `S.g` is a split epimorphism. -/
-@[simps] def splitEpi_g (s : S.Splitting) : SplitEpi S.g := ⟨s.s, s.s_g⟩
+@[simps] def splitEpiG (s : S.Splitting) : SplitEpi S.g := ⟨s.s, s.s_g⟩
 
-lemma isSplitEpi_g (s : S.Splitting) : IsSplitEpi S.g := ⟨⟨s.splitEpi_g⟩⟩
+@[deprecated (since := "2026-07-18")]
+alias splitEpi_g := splitEpiG
+
+lemma isSplitEpi_g (s : S.Splitting) : IsSplitEpi S.g := ⟨⟨s.splitEpiG⟩⟩
 
 lemma epi_g (s : S.Splitting) : Epi S.g := by
   have := s.isSplitEpi_g

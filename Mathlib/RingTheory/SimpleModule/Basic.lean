@@ -366,7 +366,7 @@ lemma isSemisimpleModule_biSup_of_isSemisimpleModule_submodule {s : Set ι} {p :
     (hp : ∀ i ∈ s, IsSemisimpleModule R (p i)) :
     IsSemisimpleModule R ↥(⨆ i ∈ s, p i) := by
   refine isSemisimpleModule_of_isSemisimpleModule_submodule
-    ((comap_equiv_self_of_inj_of_le (injective_subtype _) ?_).isSemisimpleModule_iff.mpr <| hp · ·)
+    ((comapEquivSelfOfInjOfLe (injective_subtype _) ?_).isSemisimpleModule_iff.mpr <| hp · ·)
     (biSup_comap_subtype_eq_top ..)
   simp_rw [range_subtype, le_biSup p ‹_›]
 

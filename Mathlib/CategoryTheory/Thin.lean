@@ -37,7 +37,10 @@ variable [CategoryStruct.{v₁} C] [Quiver.IsThin C]
 /-- Construct a category instance from a `CategoryStruct`, using the fact that
     hom spaces are subsingletons to prove the axioms. -/
 @[instance_reducible]
-def thin_category : Category C where
+def thinCategory : Category C where
+
+@[deprecated (since := "2026-07-18")]
+alias thin_category := thinCategory
 
 end
 
@@ -52,10 +55,13 @@ instance functor_thin : Quiver.IsThin (D ⥤ C) := fun _ _ =>
   ⟨fun α β => NatTrans.ext (by subsingleton)⟩
 
 /-- To show `X ≅ Y` in a thin category, it suffices to just give any morphism in each direction. -/
-def iso_of_both_ways {X Y : C} (f : X ⟶ Y) (g : Y ⟶ X) :
+def isoOfBothWays {X Y : C} (f : X ⟶ Y) (g : Y ⟶ X) :
     X ≅ Y where
   hom := f
   inv := g
+
+@[deprecated (since := "2026-07-18")]
+alias iso_of_both_ways := isoOfBothWays
 
 instance subsingleton_iso {X Y : C} : Subsingleton (X ≅ Y) :=
   ⟨by

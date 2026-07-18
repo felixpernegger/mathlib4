@@ -246,38 +246,44 @@ variable {C}
 
 /-- The split mono which appears in the factorisation `decompId P`. -/
 @[simps]
-def decompId_i (P : Karoubi C) : P ⟶ P.X :=
+def decompIdI (P : Karoubi C) : P ⟶ P.X :=
   ⟨P.p, by rw [coe_p, comp_id, P.idem]⟩
+
+@[deprecated (since := "2026-07-18")]
+alias decompId_i := decompIdI
 
 /-- The split epi which appears in the factorisation `decompId P`. -/
 @[simps]
-def decompId_p (P : Karoubi C) : (P.X : Karoubi C) ⟶ P :=
+def decompIdP (P : Karoubi C) : (P.X : Karoubi C) ⟶ P :=
   ⟨P.p, by rw [coe_p, id_comp, P.idem]⟩
+
+@[deprecated (since := "2026-07-18")]
+alias decompId_p := decompIdP
 
 /-- The formal direct factor of `P.X` given by the idempotent `P.p` in the category `C`
 is actually a direct factor in the category `Karoubi C`. -/
 @[reassoc]
-theorem decompId (P : Karoubi C) : 𝟙 P = decompId_i P ≫ decompId_p P := by
+theorem decompId (P : Karoubi C) : 𝟙 P = decompIdI P ≫ decompIdP P := by
   ext
-  simp only [comp_f, id_f, P.idem, decompId_i, decompId_p]
+  simp only [comp_f, id_f, P.idem, decompIdI, decompIdP]
 
 set_option backward.isDefEq.respectTransparency.types false in
-theorem decomp_p (P : Karoubi C) : (toKaroubi C).map P.p = decompId_p P ≫ decompId_i P := by
+theorem decomp_p (P : Karoubi C) : (toKaroubi C).map P.p = decompIdP P ≫ decompIdI P := by
   ext
   simp only [comp_f, decompId_p_f, decompId_i_f, P.idem, toKaroubi_map_f]
 
-theorem decompId_i_toKaroubi (X : C) : decompId_i ((toKaroubi C).obj X) = 𝟙 _ :=
+theorem decompId_i_toKaroubi (X : C) : decompIdI ((toKaroubi C).obj X) = 𝟙 _ :=
   rfl
 
-theorem decompId_p_toKaroubi (X : C) : decompId_p ((toKaroubi C).obj X) = 𝟙 _ :=
+theorem decompId_p_toKaroubi (X : C) : decompIdP ((toKaroubi C).obj X) = 𝟙 _ :=
   rfl
 
 theorem decompId_i_naturality {P Q : Karoubi C} (f : P ⟶ Q) :
-    f ≫ decompId_i Q = decompId_i P ≫ (by exact Hom.mk f.f (by simp)) := by
+    f ≫ decompIdI Q = decompIdI P ≫ (by exact Hom.mk f.f (by simp)) := by
   simp
 
 theorem decompId_p_naturality {P Q : Karoubi C} (f : P ⟶ Q) :
-    decompId_p P ≫ f = (by exact Hom.mk f.f (by simp)) ≫ decompId_p Q := by
+    decompIdP P ≫ f = (by exact Hom.mk f.f (by simp)) ≫ decompIdP Q := by
   simp
 
 @[simp]

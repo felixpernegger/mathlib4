@@ -54,7 +54,7 @@ theorem card_linearIndependent {k : ℕ} (hk : k ≤ n) :
             (V := ((Submodule.span K (Set.range (s : Fin k → V))) : Set (V)))]
             simp only [SetLike.coe_sort_coe, finrank_span_eq_card s.2, card_fin]
             rw [Module.card_eq_pow_finrank (K := K)]
-      simp [card_congr (equiv_linearIndependent k), sum_congr _ _ this, ih (Nat.le_of_succ_le hk),
+      simp [card_congr (equivLinearIndependent k), sum_congr _ _ this, ih (Nat.le_of_succ_le hk),
         mul_comm, Fin.prod_univ_succAbove _ (Fin.last k), -Set.fintypeCard_eq_ncard]
 
 end LinearIndependent
@@ -71,7 +71,7 @@ variable (n : ℕ)
 
 /-- Equivalence between `GL n F` and `n` vectors of length `n` that are linearly independent. Given
 by sending a matrix to its columns. -/
-noncomputable def equiv_GL_linearindependent :
+noncomputable def equivGLLinearindependent :
     GL (Fin n) 𝔽 ≃ { s : Fin n → Fin n → 𝔽 // LinearIndependent 𝔽 s } where
   toFun M := ⟨M.1.col, by
     apply linearIndependent_iff_card_eq_finrank_span.2
@@ -85,10 +85,13 @@ noncomputable def equiv_GL_linearindependent :
     exact isUnit_det_of_invertible _
   right_inv := by exact congrFun rfl
 
+@[deprecated (since := "2026-07-18")]
+alias equiv_GL_linearindependent := equivGLLinearindependent
+
 /-- The cardinal of the general linear group over a finite field. -/
 theorem card_GL_field :
     Nat.card (GL (Fin n) 𝔽) = ∏ i : (Fin n), (q ^ n - q ^ (i : ℕ)) := by
-  rw [Nat.card_congr (equiv_GL_linearindependent n), card_linearIndependent,
+  rw [Nat.card_congr (equivGLLinearindependent n), card_linearIndependent,
     Module.finrank_fintype_fun_eq_card, Fintype.card_fin]
   simp only [Module.finrank_fintype_fun_eq_card, Fintype.card_fin, le_refl]
 

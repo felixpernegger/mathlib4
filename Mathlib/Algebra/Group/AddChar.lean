@@ -333,7 +333,7 @@ lemma sum_eq_ite (ψ : AddChar A R) [Decidable (ψ = 0)] :
   obtain ⟨x, hx⟩ := ne_one_iff.1 h
   refine eq_zero_of_mul_eq_self_left hx ?_
   rw [Finset.mul_sum]
-  exact Fintype.sum_equiv (Equiv.addLeft x) _ _ fun y ↦ (map_add_eq_mul ..).symm
+  exact Fintype.sumEquiv (Equiv.addLeft x) _ _ fun y ↦ (map_add_eq_mul ..).symm
 
 variable [CharZero R]
 

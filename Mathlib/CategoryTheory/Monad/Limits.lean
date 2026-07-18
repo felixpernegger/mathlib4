@@ -55,7 +55,7 @@ set_option backward.defeqAttrib.useBackward true in
 def γ : D ⋙ T.forget ⋙ ↑T ⟶ D ⋙ T.forget where app j := (D.obj j).a
 
 /-- (Impl) This new cone is used to construct the algebra structure -/
-@[simps! π_app]
+@[simps! πApp]
 def newCone : Cone (D ⋙ forget T) where
   pt := T.obj c.pt
   π := (Functor.constComp _ _ (T : C ⥤ C)).inv ≫ whiskerRight c.π (T : C ⥤ C) ≫ γ D

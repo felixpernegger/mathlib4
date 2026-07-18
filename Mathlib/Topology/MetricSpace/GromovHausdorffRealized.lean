@@ -100,7 +100,7 @@ section Constructions
 variable {X : Type u} {Y : Type v} [MetricSpace X] [MetricSpace Y]
   {f : ProdSpaceFun X Y} {x y z t : X ⊕ Y}
 
-attribute [local instance 10] Classical.inhabited_of_nonempty'
+attribute [local instance 10] Classical.inhabitedOfNonempty'
 
 private theorem maxVar_bound [CompactSpace X] [Nonempty X] [CompactSpace Y] [Nonempty Y] :
     dist x y ≤ maxVar X Y :=

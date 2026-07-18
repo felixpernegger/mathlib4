@@ -65,7 +65,7 @@ lemma of_binaryBicone_left [HasZeroMorphisms C] {X Y : C} (c : BinaryBicone X Y)
 
 lemma of_binaryBicone_right [HasZeroMorphisms C] {X Y : C} (c : BinaryBicone X Y) (h : P c.pt) :
     P Y :=
-  of_retract c.retract_right h
+  of_retract c.retractRight h
 
 lemma of_biprod_left [HasZeroMorphisms C] {X Y : C} [HasBinaryBiproduct X Y] (h : P (X ⊞ Y)) :
     P X :=

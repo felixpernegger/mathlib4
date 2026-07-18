@@ -496,12 +496,12 @@ variable [TopologicalSpace H] [TopologicalSpace M] [TopologicalSpace M']
 /-- The disjoint union of two charted spaces modelled on a non-empty space `H`
 is a charted space over `H`. -/
 @[instance_reducible]
-def ChartedSpace.sum_of_nonempty [Nonempty H] : ChartedSpace H (M ⊕ M') where
-  atlas := ((fun e ↦ e.lift_openEmbedding IsOpenEmbedding.inl) '' cm.atlas) ∪
-    ((fun e ↦ e.lift_openEmbedding IsOpenEmbedding.inr) '' cm'.atlas)
+def ChartedSpace.sumOfNonempty [Nonempty H] : ChartedSpace H (M ⊕ M') where
+  atlas := ((fun e ↦ e.liftOpenEmbedding IsOpenEmbedding.inl) '' cm.atlas) ∪
+    ((fun e ↦ e.liftOpenEmbedding IsOpenEmbedding.inr) '' cm'.atlas)
   -- At `x : M`, the chart is the chart in `M`; at `x' ∈ M'`, it is the chart in `M'`.
-  chartAt := Sum.elim (fun x ↦ (cm.chartAt x).lift_openEmbedding IsOpenEmbedding.inl)
-    (fun x ↦ (cm'.chartAt x).lift_openEmbedding IsOpenEmbedding.inr)
+  chartAt := Sum.elim (fun x ↦ (cm.chartAt x).liftOpenEmbedding IsOpenEmbedding.inl)
+    (fun x ↦ (cm'.chartAt x).liftOpenEmbedding IsOpenEmbedding.inr)
   mem_chart_source p := by
     cases p with
     | inl x =>
@@ -523,9 +523,12 @@ def ChartedSpace.sum_of_nonempty [Nonempty H] : ChartedSpace H (M ⊕ M') where
       right
       use ChartedSpace.chartAt x, cm'.chart_mem_atlas x
 
+@[deprecated (since := "2026-07-18")]
+alias ChartedSpace.sum_of_nonempty := ChartedSpace.sumOfNonempty
+
 instance ChartedSpace.sum : ChartedSpace H (M ⊕ M') := by
   by_cases! h : Nonempty H
-  · exact ChartedSpace.sum_of_nonempty
+  · exact ChartedSpace.sumOfNonempty
   have : IsEmpty M := isEmpty_of_chartedSpace H
   have : IsEmpty M' := isEmpty_of_chartedSpace H
   exact empty H (M ⊕ M')
@@ -533,14 +536,14 @@ instance ChartedSpace.sum : ChartedSpace H (M ⊕ M') := by
 lemma ChartedSpace.sum_chartAt_inl (x : M) :
     haveI : Nonempty H := nonempty_of_chartedSpace x
     chartAt H (Sum.inl x)
-      = (chartAt H x).lift_openEmbedding (X' := M ⊕ M') IsOpenEmbedding.inl := by
+      = (chartAt H x).liftOpenEmbedding (X' := M ⊕ M') IsOpenEmbedding.inl := by
   simp +instances only [chartAt, sum, nonempty_of_chartedSpace x, ↓reduceDIte]
   rfl
 
 lemma ChartedSpace.sum_chartAt_inr (x' : M') :
     haveI : Nonempty H := nonempty_of_chartedSpace x'
     chartAt H (Sum.inr x')
-      = (chartAt H x').lift_openEmbedding (X' := M ⊕ M') IsOpenEmbedding.inr := by
+      = (chartAt H x').liftOpenEmbedding (X' := M ⊕ M') IsOpenEmbedding.inr := by
   simp +instances only [chartAt, sum, nonempty_of_chartedSpace x', ↓reduceDIte]
   rfl
 
@@ -559,9 +562,9 @@ lemma ChartedSpace.sum_chartAt_inr (x' : M') :
 lemma ChartedSpace.mem_atlas_sum [h : Nonempty H]
     {e : OpenPartialHomeomorph (M ⊕ M') H} (he : e ∈ atlas H (M ⊕ M')) :
     (∃ f : OpenPartialHomeomorph M H, f ∈ (atlas H M)
-      ∧ e = (f.lift_openEmbedding IsOpenEmbedding.inl))
+      ∧ e = (f.liftOpenEmbedding IsOpenEmbedding.inl))
     ∨ (∃ f' : OpenPartialHomeomorph M' H, f' ∈ (atlas H M') ∧
-      e = (f'.lift_openEmbedding IsOpenEmbedding.inr)) := by
+      e = (f'.liftOpenEmbedding IsOpenEmbedding.inr)) := by
   simp +instances only [atlas, sum, h, ↓reduceDIte] at he
   obtain (⟨x, hx, hxe⟩ | ⟨x, hx, hxe⟩) := he
   · rw [← hxe]; left; use x

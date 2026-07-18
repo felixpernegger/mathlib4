@@ -137,7 +137,7 @@ lemma pointwise (hΦ : TensorialAt I F Φ x) {σ σ' : Π x : M, V x}
   have x_mem : x ∈ t.baseSet := FiberBundle.mem_baseSet_trivializationAt F V x
   let b := Basis.ofVectorSpace 𝕜 F
   let s := t.localFrame b
-  let c := t.localFrame_coeff I b
+  let c := t.localFrameCoeff I b
   have hs (i) : MDiffAt (T% (s i)) x :=
     (contMDiffAt_localFrame_of_mem 1 _ b i x_mem).mdifferentiableAt (by simp)
   have hc {σ : (x : M) → V x} (hσ : MDiffAt (T% σ) x) (i) :

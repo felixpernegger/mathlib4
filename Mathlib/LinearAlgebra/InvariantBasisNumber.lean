@@ -271,7 +271,7 @@ section
 variable {R : Type u} [CommRing R] (I : Ideal R) {ι : Type v} [Fintype ι] {ι' : Type w}
 
 /-- An `R`-linear map `R^n → R^m` induces a function `R^n/I^n → R^m/I^m`. -/
-private def induced_map (I : Ideal R) (e : (ι → R) →ₗ[R] ι' → R) :
+private def inducedMap (I : Ideal R) (e : (ι → R) →ₗ[R] ι' → R) :
     (ι → R) ⧸ Ideal.pi (fun _ ↦ I) → (ι' → R) ⧸ Ideal.pi fun _ ↦ I := fun x =>
   Quotient.liftOn' x (fun y => Ideal.Quotient.mk _ (e y))
     fun a b hab => Ideal.Quotient.eq.2 fun h => by
@@ -283,8 +283,8 @@ private def induced_map (I : Ideal R) (e : (ι → R) →ₗ[R] ι' → R) :
     `R^n/I^n ≃ R^m/I^m`. -/
 private def inducedEquiv [Fintype ι'] (I : Ideal R) (e : (ι → R) ≃ₗ[R] ι' → R) :
     ((ι → R) ⧸ Ideal.pi fun _ ↦ I) ≃ₗ[R ⧸ I] (ι' → R) ⧸ Ideal.pi fun _ ↦ I where
-  toFun := induced_map I e
-  invFun := induced_map I e.symm
+  toFun := inducedMap I e
+  invFun := inducedMap I e.symm
   map_add' := by rintro ⟨a⟩ ⟨b⟩; exact congr_arg _ (map_add ..)
   map_smul' := by rintro ⟨a⟩ ⟨b⟩; exact congr_arg _ (map_smul ..)
   left_inv := by rintro ⟨a⟩; exact congr_arg _ (e.left_inv ..)

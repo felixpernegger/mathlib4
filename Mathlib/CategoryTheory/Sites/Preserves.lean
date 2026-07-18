@@ -53,10 +53,13 @@ If `F` is a presheaf which satisfies the sheaf condition with respect to the emp
 object, then `F` takes that object to the terminal object.
 -/
 noncomputable
-def isTerminal_of_isSheafFor_empty_presieve : IsTerminal (F.obj (op I)) := by
+def isTerminalOfIsSheafForEmptyPresieve : IsTerminal (F.obj (op I)) := by
   refine @IsTerminal.ofUnique _ _ _ fun Y ↦ ?_
   choose t h using hF (by tauto) (by tauto)
   exact ⟨⟨↾fun _ ↦ t⟩, fun a ↦ by ext; exact h.2 _ (by tauto)⟩
+
+@[deprecated (since := "2026-07-18")]
+alias isTerminal_of_isSheafFor_empty_presieve := isTerminalOfIsSheafForEmptyPresieve
 
 include hF in
 /--
@@ -69,7 +72,7 @@ lemma preservesTerminal_of_isSheaf_for_empty (hI : IsInitial I) :
   (preservesTerminal_of_iso F
     ((F.mapIso (terminalIsoIsTerminal (terminalOpOfInitial initialIsInitial)) ≪≫
     (F.mapIso (initialIsoIsInitial hI).symm.op) ≪≫
-    (terminalIsoIsTerminal (isTerminal_of_isSheafFor_empty_presieve I F hF)).symm)))
+    (terminalIsoIsTerminal (isTerminalOfIsSheafForEmptyPresieve I F hF)).symm)))
 
 end Terminal
 

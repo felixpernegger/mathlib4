@@ -163,7 +163,7 @@ theorem exists_isIntegral (W : WeierstrassCurve K) :
   let l₀ := [W.a₁, W.a₂, W.a₃, W.a₄, W.a₆]
   let l := l₀.map (fun a ↦ valuation R K a)
   let lmax : ValueGroup R K :=
-    l.maximum_of_length_pos (by simp [l₀, l])
+    l.maximumOfLengthPos (by simp [l₀, l])
   have hlmax_mem : lmax ∈ l :=
     List.maximum_of_length_pos_mem (by simp [l₀, l])
   have hlmax : ∀ v ∈ l, v ≤ lmax := fun v hv ↦

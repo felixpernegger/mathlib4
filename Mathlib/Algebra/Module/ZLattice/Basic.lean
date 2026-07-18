@@ -735,7 +735,7 @@ theorem ZLattice.comap_comp {G : Type*} [NormedAddCommGroup G] [NormedSpace K G]
 
 /-- If `e` is a linear equivalence, it induces a `ℤ`-linear equivalence between
 `L` and `ZLattice.comap K L e`. -/
-def ZLattice.comap_equiv (e : F ≃ₗ[K] E) :
+def ZLattice.comapEquiv (e : F ≃ₗ[K] E) :
     L ≃ₗ[ℤ] (ZLattice.comap K L e.toLinearMap) :=
   LinearEquiv.ofBijective
     ((e.symm.toLinearMap.restrictScalars ℤ).restrict
@@ -744,15 +744,18 @@ def ZLattice.comap_equiv (e : F ≃ₗ[K] E) :
     fun ⟨x, hx⟩ ↦ ⟨⟨e x, by rwa [← SetLike.mem_coe, ZLattice.coe_comap] at hx⟩,
       by simp [Subtype.ext_iff]⟩⟩
 
+@[deprecated (since := "2026-07-18")]
+alias ZLattice.comap_equiv := ZLattice.comapEquiv
+
 @[simp]
 theorem ZLattice.comap_equiv_apply (e : F ≃ₗ[K] E) (x : L) :
-    ZLattice.comap_equiv K L e x = e.symm x := rfl
+    ZLattice.comapEquiv K L e x = e.symm x := rfl
 
 namespace Module.Basis
 
 /-- The basis of `ZLattice.comap K L e` given by the image of a basis `b` of `L` by `e.symm`. -/
 def ofZLatticeComap (e : F ≃ₗ[K] E) {ι : Type*} (b : Basis ι ℤ L) :
-    Basis ι ℤ (ZLattice.comap K L e.toLinearMap) := b.map (ZLattice.comap_equiv K L e)
+    Basis ι ℤ (ZLattice.comap K L e.toLinearMap) := b.map (ZLattice.comapEquiv K L e)
 
 @[simp]
 theorem ofZLatticeComap_apply (e : F ≃ₗ[K] E) {ι : Type*} (b : Basis ι ℤ L) (i : ι) :
@@ -760,7 +763,7 @@ theorem ofZLatticeComap_apply (e : F ≃ₗ[K] E) {ι : Type*} (b : Basis ι ℤ
 
 @[simp]
 theorem ofZLatticeComap_repr_apply (e : F ≃ₗ[K] E) {ι : Type*} (b : Basis ι ℤ L) (x : L) (i : ι) :
-    (b.ofZLatticeComap K L e).repr (ZLattice.comap_equiv K L e x) i = b.repr x i := by
+    (b.ofZLatticeComap K L e).repr (ZLattice.comapEquiv K L e x) i = b.repr x i := by
   simp [Basis.ofZLatticeComap]
 
 end Module.Basis

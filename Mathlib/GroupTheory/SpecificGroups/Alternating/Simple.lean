@@ -33,18 +33,18 @@ they act on `Set.powersetCard α n`, for any natural number `n`.
 For `n = 2`, this gives an Iwaswa structure of `Equiv.Perm α`,
 for `n = 3` or `n = 4`, this gives an Iwasawa structure of `alternatingGroup α`.
 
-* `Equiv.Perm.iwasawaStructure_two`:
+* `Equiv.Perm.iwasawaStructureTwo`:
   the natural `IwasawaStructure` of `Equiv.Perm α` acting on `Set.powersetCard α 2`.
   Its commutative subgroups consist of the permutations with support in a given element
   of `Set.powersetCard α 2`. They are cyclic of order 2.
 
-* `alternatingGroup.iwasawaStructure_three`:
+* `alternatingGroup.iwasawaStructureThree`:
   the natural `IwasawaStructure` of `alternatingGroup α` acting on `Set.powersetCard α 3`.
 
   Its commutative subgroups consist of the permutations with support
   in a given element of `Set.powersetCard α 2`. They are cyclic of order 3.
 
-* `alternatingGroup.iwasawaStructure_four`:
+* `alternatingGroup.iwasawaStructureFour`:
   the natural `IwasawaStructure` of `alternatingGroup α` acting on `Set.powersetCard α 4`
 
   Its commutative subgroups consist of the permutations of cycleType (2, 2) with support
@@ -69,7 +69,7 @@ variable {α : Type*} [Finite α] [DecidableEq α]
 
 set_option backward.isDefEq.respectTransparency.types false in
 /-- The Iwasawa structure of `Perm α` acting on `Set.powersetCard α 2`. -/
-def iwasawaStructure_two [∀ s : Set α, DecidablePred fun x ↦ x ∈ s] :
+def iwasawaStructureTwo [∀ s : Set α, DecidablePred fun x ↦ x ∈ s] :
     IwasawaStructure (Perm α) (Set.powersetCard α 2) where
   T s := (ofSubtype : Perm (s : Set α) →* Perm α).range
   is_comm s := by
@@ -83,6 +83,9 @@ def iwasawaStructure_two [∀ s : Set α, DecidablePred fun x ↦ x ∈ s] :
     apply Subgroup.mem_iSup_of_mem ⟨{a, b}, Finset.card_pair hab⟩
     exact ⟨swap ⟨a, by simp⟩ ⟨b, by simp⟩, Equiv.Perm.ofSubtype_swap_eq _ _⟩
 
+@[deprecated (since := "2026-07-18")]
+alias iwasawaStructure_two := iwasawaStructureTwo
+
 /-- If `α` has at least 5 elements, then any nontrivial
 normal subgroup of `Equiv.Perm α` contains `alternatingGroup α`. -/
 theorem alternatingGroup_le_of_normal
@@ -93,7 +96,7 @@ theorem alternatingGroup_le_of_normal
   have : IsPreprimitive (Perm α) (Set.powersetCard α 2) := by
     apply Set.powersetCard.isPreprimitive_perm <;> grind
   classical
-  apply iwasawaStructure_two.commutator_le
+  apply iwasawaStructureTwo.commutator_le
   exact fixedPoints_ne_univ_of_faithfulSMul (by norm_num) (by grind)
 
 end Equiv.Perm
@@ -103,7 +106,7 @@ namespace alternatingGroup
 variable {α : Type*} [DecidableEq α] [Fintype α]
 
 /-- The Iwasawa structure of `alternatingGroup α` acting on `Set.powersetCard α 3`. -/
-def iwasawaStructure_three : IwasawaStructure (alternatingGroup α) (Set.powersetCard α 3) where
+def iwasawaStructureThree : IwasawaStructure (alternatingGroup α) (Set.powersetCard α 3) where
   T s := (alternatingGroup.ofSubtype s).range
   is_comm s := by
     have : IsMulCommutative (alternatingGroup s) := isMulCommutative_of_card_le_three (by simp)
@@ -114,6 +117,9 @@ def iwasawaStructure_three : IwasawaStructure (alternatingGroup α) (Set.powerse
     intro g hg
     apply Subgroup.mem_iSup_of_mem ⟨(g : Perm α).support, hg.card_support⟩
     rw [mem_range_ofSubtype_iff]
+
+@[deprecated (since := "2026-07-18")]
+alias iwasawaStructure_three := iwasawaStructureThree
 
 /-- If `α` has at least 5 elements, but not 6,
 then the only nontrivial normal subgroup of `alternatingGroup α`
@@ -129,7 +135,7 @@ theorem normal_subgroup_eq_bot_or_eq_top_of_card_ne_six
     · exact lt_of_lt_of_le (by norm_num) hα
     · simpa using hα'
   rw [eq_top_iff, ← commutator_alternatingGroup_eq_top (by simpa using hα)]
-  apply iwasawaStructure_three.commutator_le
+  apply iwasawaStructureThree.commutator_le
   exact fixedPoints_ne_univ_of_faithfulSMul (by norm_num) (by grind)
 
 theorem mem_map_kleinFour_ofSubtype {s : Finset α} (hs : s.card = 4) (k : alternatingGroup α) :
@@ -157,7 +163,7 @@ theorem map_kleinFour_conj (s : Finset α) (hs : s.card = 4) (g : alternatingGro
 
 /-- The Iwasawa structure of `alternatingGroup α` acting on `Set.powersetCard α 4`,
 provided `α` has at least 5 elements. -/
-def iwasawaStructure_four (h5 : 5 ≤ Nat.card α) :
+def iwasawaStructureFour (h5 : 5 ≤ Nat.card α) :
     IwasawaStructure (alternatingGroup α) (Set.powersetCard α 4) where
   T s := (kleinFour s).map (ofSubtype s)
   is_comm s := by
@@ -172,6 +178,9 @@ def iwasawaStructure_four (h5 : 5 ≤ Nat.card α) :
     apply Subgroup.mem_iSup_of_mem ⟨(g : Perm α).support, by simp [← sum_cycleType, hg]⟩
     rw [mem_map_kleinFour_ofSubtype] <;> simp [hg, ← sum_cycleType]
 
+@[deprecated (since := "2026-07-18")]
+alias iwasawaStructure_four := iwasawaStructureFour
+
 /-- If `α` has at least 5 elements, but not 8,
 then the only nontrivial normal subgroup of `alternatingGroup α`
 is `⊤`. -/
@@ -184,7 +193,7 @@ theorem normal_subgroup_eq_bot_or_eq_top_of_card_ne_eight
   have : IsPreprimitive (alternatingGroup α) (Set.powersetCard α 4) := by
     apply Set.powersetCard.isPreprimitive_alternatingGroup (by norm_num) <;> grind
   rw [eq_top_iff, ← commutator_alternatingGroup_eq_top hα]
-  apply (iwasawaStructure_four hα).commutator_le
+  apply (iwasawaStructureFour hα).commutator_le
   exact fixedPoints_ne_univ_of_faithfulSMul (by norm_num) (by grind)
 
 /- If `α` has at least 5 elements,

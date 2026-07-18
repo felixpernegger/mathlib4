@@ -101,7 +101,7 @@ instance (j : ConnectedComponents J) : Nonempty j.Component := by
   exact ⟨⟨_, rfl⟩⟩
 
 instance (j : ConnectedComponents J) : Inhabited j.Component :=
-  Classical.inhabited_of_nonempty'
+  Classical.inhabitedOfNonempty'
 
 /-- Each connected component of the category is connected. -/
 instance (j : ConnectedComponents J) : IsConnected j.Component := by

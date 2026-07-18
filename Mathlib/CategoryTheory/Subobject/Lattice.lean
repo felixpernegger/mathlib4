@@ -54,7 +54,7 @@ theorem top_arrow (X : C) : (⊤ : MonoOver X).arrow = 𝟙 X :=
 
 /-- `map f` sends `⊤ : MonoOver X` to `⟨X, f⟩ : MonoOver Y`. -/
 def mapTop (f : X ⟶ Y) [Mono f] : (map f).obj ⊤ ≅ mk f :=
-  iso_of_both_ways (homMk (𝟙 _) rfl) (homMk (𝟙 _) (by simp [id_comp f]))
+  isoOfBothWays (homMk (𝟙 _) rfl) (homMk (𝟙 _) (by simp [id_comp f]))
 
 section
 
@@ -63,7 +63,7 @@ variable [HasPullbacks C]
 /-- The pullback of the top object in `MonoOver Y`
 is (isomorphic to) the top object in `MonoOver X`. -/
 def pullbackTop (f : X ⟶ Y) : (pullback f).obj ⊤ ≅ ⊤ :=
-  iso_of_both_ways (leTop _)
+  isoOfBothWays (leTop _)
     (homMk (pullback.lift f (𝟙 _) (by simp)) (pullback.lift_snd _ _ _))
 
 /-- There is a morphism from `⊤ : MonoOver A` to the pullback of a monomorphism along itself;
@@ -74,7 +74,7 @@ def topLEPullbackSelf {A B : C} (f : A ⟶ B) [Mono f] :
 
 /-- The pullback of a monomorphism along itself is isomorphic to the top object. -/
 def pullbackSelf {A B : C} (f : A ⟶ B) [Mono f] : (pullback f).obj (mk f) ≅ ⊤ :=
-  iso_of_both_ways (leTop _) (topLEPullbackSelf _)
+  isoOfBothWays (leTop _) (topLEPullbackSelf _)
 
 end
 
@@ -100,7 +100,7 @@ def botLE {X : C} (f : MonoOver X) : ⊥ ⟶ f :=
 
 /-- `map f` sends `⊥ : MonoOver X` to `⊥ : MonoOver Y`. -/
 def mapBot (f : X ⟶ Y) [Mono f] : (map f).obj ⊥ ≅ ⊥ :=
-  iso_of_both_ways (homMk (initial.to _)) (homMk (𝟙 _))
+  isoOfBothWays (homMk (initial.to _)) (homMk (𝟙 _))
 
 end Bot
 

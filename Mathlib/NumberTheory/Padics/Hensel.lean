@@ -129,14 +129,14 @@ variable (p : ℕ) [Fact p.Prime] {R : Type*} [CommSemiring R] [Algebra R ℤ_[p
   (F : Polynomial R) (a : ℤ_[p])
 
 /-- `T` is an auxiliary value that is used to control the behavior of the polynomial `F`. -/
-private def T_gen : ℝ := ‖F.aeval a / ((F.derivative.aeval a ^ 2 : ℤ_[p]) : ℚ_[p])‖
+private def TGen : ℝ := ‖F.aeval a / ((F.derivative.aeval a ^ 2 : ℤ_[p]) : ℚ_[p])‖
 
-local notation "T" => @T_gen p _ _ _ _ F a
+local notation "T" => @TGen p _ _ _ _ F a
 
 variable {p F a}
 
 private theorem T_def : T = ‖F.aeval a‖ / ‖F.derivative.aeval a‖ ^ 2 := by
-  simp [T_gen]
+  simp [TGen]
 
 private theorem T_nonneg : 0 ≤ T := norm_nonneg _
 
@@ -170,11 +170,11 @@ private theorem T_pow {n : ℕ} (hn : n ≠ 0) : T ^ n < 1 := pow_lt_one₀ T_no
 private theorem T_pow' (n : ℕ) : T ^ 2 ^ n < 1 := T_pow hnorm (pow_ne_zero _ two_ne_zero)
 
 /-- We will construct a sequence of elements of `ℤ_p` satisfying successive values of `ih`. -/
-private def ih_gen (n : ℕ) (z : ℤ_[p]) : Prop :=
+private def IhGen (n : ℕ) (z : ℤ_[p]) : Prop :=
   ‖F.derivative.aeval z‖ = ‖F.derivative.aeval a‖ ∧ ‖F.aeval z‖ ≤
     ‖F.derivative.aeval a‖ ^ 2 * T ^ 2 ^ n
 
-local notation "ih" => @ih_gen p _ _ _ _ F a
+local notation "ih" => @IhGen p _ _ _ _ F a
 
 private theorem ih_0 : ih 0 a :=
   ⟨rfl, by simp [T_def, mul_div_cancel₀ _ (ne_of_gt (deriv_sq_norm_pos hnorm))]⟩
@@ -209,7 +209,7 @@ private theorem calc_deriv_dist {z z' z1 : ℤ_[p]} (hz' : z' = z - z1)
 
 
 set_option backward.isDefEq.respectTransparency false in
-private def calc_eval_z' {z z' z1 : ℤ_[p]} (hz' : z' = z - z1) {n} (hz : ih n z)
+private def calcEvalZ' {z z' z1 : ℤ_[p]} (hz' : z' = z - z1) {n} (hz : ih n z)
     (h1 : ‖(↑(F.aeval z) : ℚ_[p]) / ↑(F.derivative.aeval z)‖ ≤ 1) (hzeq : z1 = ⟨_, h1⟩) :
     { q : ℤ_[p] // F.aeval z' = q * z1 ^ 2 } := by
   have hdzne : F.derivative.aeval z ≠ 0 :=
@@ -228,8 +228,11 @@ private def calc_eval_z' {z z' z1 : ℤ_[p]} (hz' : z' = z - z1) {n} (hz : ih n 
       _ = -F.aeval z := by simp only [mul_div_cancel₀ _ hdzne', Subtype.coe_eta]
   exact ⟨q, by simpa [sub_eq_add_neg, neg_mul_eq_mul_neg, this, hz'] using hq⟩
 
+@[deprecated (since := "2026-07-18")]
+alias calc_eval_z' := calcEvalZ'
+
 set_option linter.defProp false in
-private def calc_eval_z'_norm {z z' z1 : ℤ_[p]} {n} (hz : ih n z) {q}
+private def calcEvalZ'Norm {z z' z1 : ℤ_[p]} {n} (hz : ih n z) {q}
     (heq : F.aeval z' = q * z1 ^ 2)
     (h1 : ‖(↑(F.aeval z) : ℚ_[p]) / ↑(F.derivative.aeval z)‖ ≤ 1) (hzeq : z1 = ⟨_, h1⟩) :
     ‖F.aeval z'‖ ≤ ‖F.derivative.aeval a‖ ^ 2 * T ^ 2 ^ (n + 1) := by
@@ -245,10 +248,13 @@ private def calc_eval_z'_norm {z z' z1 : ℤ_[p]} {n} (hz : ih n z) {q}
     _ = ‖F.derivative.aeval a‖ ^ 2 * (T ^ 2 ^ n) ^ 2 := div_sq_cancel _ _
     _ = ‖F.derivative.aeval a‖ ^ 2 * T ^ 2 ^ (n + 1) := by rw [← pow_mul, pow_succ 2]
 
+@[deprecated (since := "2026-07-18")]
+alias calc_eval_z'_norm := calcEvalZ'Norm
+
 
 /-- Given `z : ℤ_[p]` satisfying `ih n z`, construct `z' : ℤ_[p]` satisfying `ih (n+1) z'`. We need
 the hypothesis `ih n z`, since otherwise `z'` is not necessarily an integer. -/
-private def ih_n {n : ℕ} {z : ℤ_[p]} (hz : ih n z) : { z' : ℤ_[p] // ih (n + 1) z' } :=
+private def ihN {n : ℕ} {z : ℤ_[p]} (hz : ih n z) : { z' : ℤ_[p] // ih (n + 1) z' } :=
   have h1 : ‖(↑(F.aeval z) : ℚ_[p]) / ↑(F.derivative.aeval z)‖ ≤ 1 := calc_norm_le_one hnorm hz
   let z1 : ℤ_[p] := ⟨_, h1⟩
   let z' : ℤ_[p] := z - z1
@@ -259,33 +265,42 @@ private def ih_n {n : ℕ} {z : ℤ_[p]} (hz : ih n z) : { z' : ℤ_[p] // ih (n
       rw [sub_eq_add_neg, ← hz.1, ← norm_neg (F.derivative.aeval z)] at hdist
       have := PadicInt.norm_eq_of_norm_add_lt_right hdist
       rwa [norm_neg, hz.1] at this
-    let ⟨_, heq⟩ := calc_eval_z' hnorm rfl hz h1 rfl
+    let ⟨_, heq⟩ := calcEvalZ' hnorm rfl hz h1 rfl
     have hnle : ‖F.aeval z'‖ ≤ ‖F.derivative.aeval a‖ ^ 2 * T ^ 2 ^ (n + 1) :=
-      calc_eval_z'_norm hz heq h1 rfl
+      calcEvalZ'Norm hz heq h1 rfl
     ⟨hfeq, hnle⟩⟩
 
-private def newton_seq_aux : ∀ n : ℕ, { z : ℤ_[p] // ih n z }
+@[deprecated (since := "2026-07-18")]
+alias ih_n := ihN
+
+private def newtonSeqAux : ∀ n : ℕ, { z : ℤ_[p] // ih n z }
   | 0 => ⟨a, ih_0 hnorm⟩
-  | k + 1 => ih_n hnorm (newton_seq_aux k).2
+  | k + 1 => ihN hnorm (newtonSeqAux k).2
 
-private def newton_seq_gen (n : ℕ) : ℤ_[p] :=
-  (newton_seq_aux hnorm n).1
+@[deprecated (since := "2026-07-18")]
+alias newton_seq_aux := newtonSeqAux
 
-local notation "newton_seq" => newton_seq_gen hnorm
+private def newtonSeqGen (n : ℕ) : ℤ_[p] :=
+  (newtonSeqAux hnorm n).1
+
+@[deprecated (since := "2026-07-18")]
+alias newton_seq_gen := newtonSeqGen
+
+local notation "newton_seq" => newtonSeqGen hnorm
 
 private theorem newton_seq_deriv_norm (n : ℕ) :
     ‖F.derivative.aeval (newton_seq n)‖ = ‖F.derivative.aeval a‖ :=
-  (newton_seq_aux hnorm n).2.1
+  (newtonSeqAux hnorm n).2.1
 
 private theorem newton_seq_norm_le (n : ℕ) :
     ‖F.aeval (newton_seq n)‖ ≤ ‖F.derivative.aeval a‖ ^ 2 * T ^ 2 ^ n :=
-  (newton_seq_aux hnorm n).2.2
+  (newtonSeqAux hnorm n).2.2
 
 set_option backward.isDefEq.respectTransparency false in
 private theorem newton_seq_norm_eq (n : ℕ) :
     ‖newton_seq (n + 1) - newton_seq n‖ =
     ‖F.aeval (newton_seq n)‖ / ‖F.derivative.aeval (newton_seq n)‖ := by
-  rw [newton_seq_gen, newton_seq_gen, newton_seq_aux, ih_n]
+  rw [newtonSeqGen, newtonSeqGen, newtonSeqAux, ihN]
   simp [sub_eq_add_neg, add_comm]
 
 private theorem newton_seq_succ_dist (n : ℕ) :
@@ -351,26 +366,32 @@ private theorem bound'_sq :
 private theorem newton_seq_is_cauchy : IsCauSeq norm newton_seq := fun _ε hε ↦
   (bound hnorm hε).imp fun _N hN _j hj ↦ (newton_seq_dist hnorm hj).trans_lt <| hN le_rfl
 
-private def newton_cau_seq : CauSeq ℤ_[p] norm := ⟨_, newton_seq_is_cauchy hnorm⟩
+private def newtonCauSeq : CauSeq ℤ_[p] norm := ⟨_, newton_seq_is_cauchy hnorm⟩
 
-private def soln_gen : ℤ_[p] := (newton_cau_seq hnorm).lim
+@[deprecated (since := "2026-07-18")]
+alias newton_cau_seq := newtonCauSeq
 
-local notation "soln" => soln_gen hnorm
+private def solnGen : ℤ_[p] := (newtonCauSeq hnorm).lim
+
+@[deprecated (since := "2026-07-18")]
+alias soln_gen := solnGen
+
+local notation "soln" => solnGen hnorm
 
 private theorem soln_spec {ε : ℝ} (hε : ε > 0) :
-    ∃ N : ℕ, ∀ {i : ℕ}, i ≥ N → ‖soln - newton_cau_seq hnorm i‖ < ε :=
-  Setoid.symm (CauSeq.equiv_lim (newton_cau_seq hnorm)) _ hε
+    ∃ N : ℕ, ∀ {i : ℕ}, i ≥ N → ‖soln - newtonCauSeq hnorm i‖ < ε :=
+  Setoid.symm (CauSeq.equiv_lim (newtonCauSeq hnorm)) _ hε
 
 private theorem soln_deriv_norm : ‖F.derivative.aeval soln‖ = ‖F.derivative.aeval a‖ :=
   norm_deriv_eq (newton_seq_deriv_norm hnorm)
 
 private theorem newton_seq_norm_tendsto_zero :
-    Tendsto (fun i => ‖F.aeval (newton_cau_seq hnorm i)‖) atTop (𝓝 0) :=
+    Tendsto (fun i => ‖F.aeval (newtonCauSeq hnorm i)‖) atTop (𝓝 0) :=
   squeeze_zero (fun _ => norm_nonneg _) (newton_seq_norm_le hnorm) (bound'_sq hnorm)
 
 private theorem newton_seq_dist_tendsto' :
-    Tendsto (fun n => ‖newton_cau_seq hnorm n - a‖) atTop (𝓝 ‖soln - a‖) :=
-  (continuous_norm.tendsto _).comp ((newton_cau_seq hnorm).tendsto_limit.sub tendsto_const_nhds)
+    Tendsto (fun n => ‖newtonCauSeq hnorm n - a‖) atTop (𝓝 ‖soln - a‖) :=
+  (continuous_norm.tendsto _).comp ((newtonCauSeq hnorm).tendsto_limit.sub tendsto_const_nhds)
 
 private theorem eval_soln : F.aeval soln = 0 :=
   limit_zero_of_norm_tendsto_zero (newton_seq_norm_tendsto_zero hnorm)
@@ -397,7 +418,7 @@ private theorem newton_seq_succ_dist_weak (n : ℕ) :
       (mul_lt_mul_of_pos_left (pow_lt_pow_right_of_lt_one₀ (T_pos hnorm hnsol)
         (T_lt_one hnorm) (by norm_num)) (deriv_norm_pos hnorm))
     _ = ‖F.aeval a‖ / ‖F.derivative.aeval a‖ := by
-      rw [T_gen, sq, pow_one, norm_div, ← mul_div_assoc, PadicInt.padic_norm_e_of_padicInt,
+      rw [TGen, sq, pow_one, norm_div, ← mul_div_assoc, PadicInt.padic_norm_e_of_padicInt,
         PadicInt.coe_mul, norm_mul]
       apply mul_div_mul_left
       apply deriv_norm_ne_zero; assumption
@@ -405,7 +426,7 @@ private theorem newton_seq_succ_dist_weak (n : ℕ) :
 set_option backward.isDefEq.respectTransparency false in
 private theorem newton_seq_dist_to_a :
     ∀ n : ℕ, 0 < n → ‖newton_seq n - a‖ = ‖F.aeval a‖ / ‖F.derivative.aeval a‖
-  | 1, _h => by simp [sub_eq_add_neg, add_assoc, newton_seq_gen, newton_seq_aux, ih_n]
+  | 1, _h => by simp [sub_eq_add_neg, add_assoc, newtonSeqGen, newtonSeqAux, ihN]
   | k + 2, _h =>
     have hlt : ‖newton_seq (k + 2) - newton_seq (k + 1)‖ < ‖newton_seq (k + 1) - a‖ := by
       rw [newton_seq_dist_to_a (k + 1) (succ_pos _)]; apply newton_seq_succ_dist_weak
@@ -422,7 +443,7 @@ private theorem newton_seq_dist_to_a :
         newton_seq_dist_to_a (k + 1) (succ_pos _)
 
 private theorem newton_seq_dist_tendsto :
-    Tendsto (fun n => ‖newton_cau_seq hnorm n - a‖)
+    Tendsto (fun n => ‖newtonCauSeq hnorm n - a‖)
     atTop (𝓝 (‖F.aeval a‖ / ‖F.derivative.aeval a‖)) :=
   tendsto_const_nhds.congr' (eventually_atTop.2
     ⟨1, fun _ hx => (newton_seq_dist_to_a hnorm hnsol _ hx).symm⟩)
@@ -468,5 +489,5 @@ theorem hensels_lemma :
   classical
   exact if ha : F.aeval a = 0 then ⟨a, a_is_soln hnorm ha⟩
   else by
-    exact ⟨soln_gen hnorm, eval_soln hnorm,
+    exact ⟨solnGen hnorm, eval_soln hnorm,
       soln_dist_to_a_lt_deriv hnorm ha, soln_deriv_norm hnorm, fun z => soln_unique hnorm ha z⟩

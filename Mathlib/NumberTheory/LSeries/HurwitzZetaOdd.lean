@@ -215,8 +215,8 @@ lemma hasSum_int_oddKernel (a : ℝ) {x : ℝ} (hx : 0 < x) :
   have h2 := hasSum_jacobiTheta₂'_term (a * I * x) (by rwa [I_mul_im, ofReal_re])
   refine (((h2.div_const (2 * π * I)).add (h1.mul_left ↑a)).mul_left
     (cexp (-π * a ^ 2 * x))).congr_fun (fun n ↦ ?_)
-  rw [jacobiTheta₂'_term, mul_assoc (2 * π * I), mul_div_cancel_left₀ _ two_pi_I_ne_zero, ← add_mul,
-    mul_left_comm, jacobiTheta₂_term, ← Complex.exp_add]
+  rw [jacobiTheta₂'Term, mul_assoc (2 * π * I), mul_div_cancel_left₀ _ two_pi_I_ne_zero, ← add_mul,
+    mul_left_comm, jacobiTheta₂Term, ← Complex.exp_add]
   push_cast
   simp only [← mul_assoc, ← add_mul]
   congrm _ * cexp (?_ * x)
@@ -231,7 +231,7 @@ lemma hasSum_int_sinKernel (a : ℝ) {t : ℝ} (ht : 0 < t) : HasSum
   rw [sinKernel_def]
   refine ((hasSum_jacobiTheta₂'_term a
     (by rwa [I_mul_im, ofReal_re])).div_const _).congr_fun fun n ↦ ?_
-  rw [jacobiTheta₂'_term, jacobiTheta₂_term, ofReal_exp, mul_assoc (-I * n), ← Complex.exp_add,
+  rw [jacobiTheta₂'Term, jacobiTheta₂Term, ofReal_exp, mul_assoc (-I * n), ← Complex.exp_add,
     eq_div_iff h, ofReal_mul, ofReal_mul, ofReal_pow, ofReal_neg, ofReal_intCast,
     mul_comm _ (-2 * π : ℂ), ← mul_assoc]
   congrm ?_ * cexp (?_ + ?_)
@@ -269,8 +269,8 @@ lemma isBigO_atTop_oddKernel (a : UnitAddCircle) :
   obtain ⟨p, hp, hp'⟩ := HurwitzKernelBounds.isBigO_atTop_F_int_one b
   refine ⟨p, hp, (Eventually.isBigO ?_).trans hp'⟩
   filter_upwards [eventually_gt_atTop 0] with t ht
-  simpa [← (hasSum_int_oddKernel b ht).tsum_eq, HurwitzKernelBounds.F_int,
-    HurwitzKernelBounds.f_int, abs_of_nonneg (exp_pos _).le] using
+  simpa [← (hasSum_int_oddKernel b ht).tsum_eq, HurwitzKernelBounds.FInt,
+    HurwitzKernelBounds.fInt, abs_of_nonneg (exp_pos _).le] using
     norm_tsum_le_tsum_norm (hasSum_int_oddKernel b ht).summable.norm
 
 /-- The function `sinKernel a` has exponential decay at `+∞`, for any `a`. -/
@@ -280,12 +280,12 @@ lemma isBigO_atTop_sinKernel (a : UnitAddCircle) :
   obtain ⟨p, hp, hp'⟩ := HurwitzKernelBounds.isBigO_atTop_F_nat_one (le_refl 0)
   refine ⟨p, hp, (Eventually.isBigO ?_).trans (hp'.const_mul_left 2)⟩
   filter_upwards [eventually_gt_atTop 0] with t ht
-  rw [HurwitzKernelBounds.F_nat, ← (hasSum_nat_sinKernel a ht).tsum_eq]
-  apply tsum_of_norm_bounded (g := fun n ↦ 2 * HurwitzKernelBounds.f_nat 1 0 t n)
+  rw [HurwitzKernelBounds.FNat, ← (hasSum_nat_sinKernel a ht).tsum_eq]
+  apply tsum_of_norm_bounded (g := fun n ↦ 2 * HurwitzKernelBounds.fNat 1 0 t n)
   · exact (HurwitzKernelBounds.summable_f_nat 1 0 ht).hasSum.mul_left _
   · intro n
     rw [norm_mul, norm_mul, norm_mul, norm_two, mul_assoc, mul_assoc,
-      mul_le_mul_iff_of_pos_left two_pos, HurwitzKernelBounds.f_nat, pow_one, add_zero,
+      mul_le_mul_iff_of_pos_left two_pos, HurwitzKernelBounds.fNat, pow_one, add_zero,
       norm_of_nonneg (exp_pos _).le, Real.norm_eq_abs, Nat.abs_cast, ← mul_assoc,
       mul_le_mul_iff_of_pos_right (exp_pos _)]
     exact mul_le_of_le_one_right (Nat.cast_nonneg _) (abs_sin_le_one _)

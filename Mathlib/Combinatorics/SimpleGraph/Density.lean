@@ -388,7 +388,7 @@ open Positivity
 /-- Extension for the `positivity` tactic: `Rel.edgeDensity` and `SimpleGraph.edgeDensity` are
 always nonnegative. -/
 @[positivity]
-unsafe def positivity_edge_density : expr → tactic strictness
+unsafe def positivityEdgeDensity : expr → tactic strictness
   | q(Rel.edgeDensity $(r) $(s) $(t)) =>
     nonnegative <$> mk_mapp `` Rel.edgeDensity_nonneg [none, none, r, none, s, t]
   | q(SimpleGraph.edgeDensity $(G) $(s) $(t)) =>
@@ -398,6 +398,9 @@ unsafe def positivity_edge_density : expr → tactic strictness
       fail ∘
         format.bracket "The expression `"
           "` isn't of the form `Rel.edgeDensity r s t` nor `SimpleGraph.edgeDensity G s t`"
+
+@[deprecated (since := "2026-07-18")]
+alias positivity_edge_density := positivityEdgeDensity
 
 end Tactic
 -/

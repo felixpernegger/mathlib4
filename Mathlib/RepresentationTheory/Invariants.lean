@@ -110,7 +110,7 @@ variable {ρ σ} in
 /-- The invariants of the representation `linHom ρ σ` correspond to intertwining maps
 from `ρ` to `σ`. -/
 def invariantsEquivIntertwiningMap : (linHom ρ σ).invariants ≃ₗ[k] IntertwiningMap ρ σ where
-  toFun f := f.val.intertwiningMap_of_isIntertwiningMap ρ σ
+  toFun f := f.val.intertwiningMapOfIsIntertwiningMap ρ σ
     ((mem_linHom_invariants_iff_isIntertwining f.val).mp f.property).isIntertwining
   map_add' _ _ := IntertwiningMap.ext_iff.mpr rfl
   map_smul' _ _ := IntertwiningMap.ext_iff.mpr rfl
@@ -172,9 +172,12 @@ abbrev quotientToInvariants :
   ofQuotient (toInvariants ρ S) S
 
 /-- The intertwining map between the `G ⧸ S`-representation on the invariants of `ρ|_S` and `ρ`. -/
-abbrev quotientToInvariants_lift :
+abbrev quotientToInvariantsLift :
     Representation.IntertwiningMap (MonoidHom.comp (quotientToInvariants ρ S)
       (QuotientGroup.mk' _)) ρ := ⟨Submodule.subtype _, fun _ ↦ rfl⟩
+
+@[deprecated (since := "2026-07-18")]
+alias quotientToInvariants_lift := quotientToInvariantsLift
 
 end Subgroup
 end Invariants

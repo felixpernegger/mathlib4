@@ -37,25 +37,31 @@ open Unitization
 
 /-- The natural map between `Unitization 𝕜 A` and `𝕜 × A`, transferred to their `WithLp 1`
 synonyms. -/
-noncomputable def unitization_addEquiv_prod : WithLp 1 (Unitization 𝕜 A) ≃+ WithLp 1 (𝕜 × A) :=
+noncomputable def unitizationAddEquivProd : WithLp 1 (Unitization 𝕜 A) ≃+ WithLp 1 (𝕜 × A) :=
   (WithLp.linearEquiv 1 𝕜 (Unitization 𝕜 A)).toAddEquiv.trans <|
     (addEquiv 𝕜 A).trans (WithLp.linearEquiv 1 𝕜 (𝕜 × A)).symm.toAddEquiv
+
+@[deprecated (since := "2026-07-18")]
+alias unitization_addEquiv_prod := unitizationAddEquivProd
 
 noncomputable instance instUnitizationNormedAddCommGroup :
     NormedAddCommGroup (WithLp 1 (Unitization 𝕜 A)) :=
   NormedAddCommGroup.induced (WithLp 1 (Unitization 𝕜 A)) (WithLp 1 (𝕜 × A))
-    (unitization_addEquiv_prod 𝕜 A) (AddEquiv.injective _)
+    (unitizationAddEquivProd 𝕜 A) (AddEquiv.injective _)
 
-/-- Bundle `WithLp.unitization_addEquiv_prod` as a `UniformEquiv`. -/
-noncomputable def uniformEquiv_unitization_addEquiv_prod :
+/-- Bundle `WithLp.unitizationAddEquivProd` as a `UniformEquiv`. -/
+noncomputable def uniformEquivUnitizationAddEquivProd :
     WithLp 1 (Unitization 𝕜 A) ≃ᵤ WithLp 1 (𝕜 × A) :=
-  { unitization_addEquiv_prod 𝕜 A with
+  { unitizationAddEquivProd 𝕜 A with
     uniformContinuous_invFun := uniformContinuous_comap' uniformContinuous_id
     uniformContinuous_toFun := uniformContinuous_iff_le_comap.mpr le_rfl }
 
+@[deprecated (since := "2026-07-18")]
+alias uniformEquiv_unitization_addEquiv_prod := uniformEquivUnitizationAddEquivProd
+
 instance instCompleteSpace [CompleteSpace 𝕜] [CompleteSpace A] :
     CompleteSpace (WithLp 1 (Unitization 𝕜 A)) :=
-  completeSpace_congr (uniformEquiv_unitization_addEquiv_prod 𝕜 A).isUniformEmbedding |>.mpr
+  completeSpace_congr (uniformEquivUnitizationAddEquivProd 𝕜 A).isUniformEmbedding |>.mpr
     inferInstance
 
 variable {𝕜 A}

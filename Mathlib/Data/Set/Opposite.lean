@@ -52,8 +52,11 @@ theorem unop_op (s : Set αᵒᵖ) : s.unop.op = s := rfl
 
 /-- The members of the opposite of a set are in bijection with the members of the set itself. -/
 @[simps]
-def opEquiv_self (s : Set α) : s.op ≃ s :=
+def opEquivSelf (s : Set α) : s.op ≃ s :=
   ⟨fun x ↦ ⟨unop x, x.2⟩, fun x ↦ ⟨op x, x.2⟩, fun _ ↦ rfl, fun _ ↦ rfl⟩
+
+@[deprecated (since := "2026-07-18")]
+alias opEquiv_self := opEquivSelf
 
 /-- Taking opposites as an equivalence of powersets. -/
 @[simps]

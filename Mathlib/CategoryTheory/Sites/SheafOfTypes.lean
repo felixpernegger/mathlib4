@@ -177,7 +177,7 @@ any presieve, as does constructing a family of elements from a co-cone. Showing 
 family needs the sieve condition.
 Note: This is related to `CategoryTheory.Presheaf.conesEquivSieveCompatibleFamily`
 -/
-def compatibleYonedaFamily_toCocone (R : Presieve X) (W : C) (x : FamilyOfElements (yoneda.obj W) R)
+def compatibleYonedaFamilyToCocone (R : Presieve X) (W : C) (x : FamilyOfElements (yoneda.obj W) R)
     (hx : FamilyOfElements.Compatible x) :
     Cocone (R.diagram) where
   pt := W
@@ -189,10 +189,16 @@ def compatibleYonedaFamily_toCocone (R : Presieve X) (W : C) (x : FamilyOfElemen
         rw [comp_id, ← id_comp (x g₁.obj.hom g₁.property)]
         exact hx _ _ _ _ (by simp) }
 
+@[deprecated (since := "2026-07-18")]
+alias compatibleYonedaFamily_toCocone := compatibleYonedaFamilyToCocone
+
 /-- Construct a family of elements from a cocone. -/
-def yonedaFamilyOfElements_fromCocone (R : Presieve X) (s : Cocone (diagram R)) :
+def yonedaFamilyOfElementsFromCocone (R : Presieve X) (s : Cocone (diagram R)) :
     FamilyOfElements (yoneda.obj s.pt) R :=
   fun _ f hf => s.ι.app ⟨Over.mk f, hf⟩
+
+@[deprecated (since := "2026-07-18")]
+alias yonedaFamilyOfElements_fromCocone := yonedaFamilyOfElementsFromCocone
 
 end Presieve
 
@@ -205,11 +211,11 @@ variable {X : C}
 set_option backward.isDefEq.respectTransparency.types false in
 set_option backward.defeqAttrib.useBackward true in
 theorem yonedaFamily_fromCocone_compatible (S : Sieve X) (s : Cocone (diagram S.arrows)) :
-    FamilyOfElements.Compatible <| yonedaFamilyOfElements_fromCocone S.arrows s := by
+    FamilyOfElements.Compatible <| yonedaFamilyOfElementsFromCocone S.arrows s := by
   intro Y₁ Y₂ Z g₁ g₂ f₁ f₂ hf₁ hf₂ hgf
   have Hs := s.ι.naturality
   simp only [yoneda_obj_obj, Opposite.unop_op, yoneda_obj_map, Quiver.Hom.unop_op]
-  dsimp [yonedaFamilyOfElements_fromCocone]
+  dsimp [yonedaFamilyOfElementsFromCocone]
   have hgf₁ : S.arrows (g₁ ≫ f₁) := by exact Sieve.downward_closed S hf₁ g₁
   have hgf₂ : S.arrows (g₂ ≫ f₂) := by exact Sieve.downward_closed S hf₂ g₂
   let F : (Over.mk (g₁ ≫ f₁) : Over X) ⟶ (Over.mk (g₂ ≫ f₂) : Over X) := Over.homMk (𝟙 Z)
@@ -231,23 +237,23 @@ theorem forallYonedaIsSheaf_iff_colimit (S : Sieve X) :
   · intro H
     refine Nonempty.intro ?_
     exact
-    { desc := fun s => H s.pt (yonedaFamilyOfElements_fromCocone S.arrows s)
+    { desc := fun s => H s.pt (yonedaFamilyOfElementsFromCocone S.arrows s)
         (yonedaFamily_fromCocone_compatible S s) |>.choose
       fac := by
         intro s f
-        replace H := H s.pt (yonedaFamilyOfElements_fromCocone S.arrows s)
+        replace H := H s.pt (yonedaFamilyOfElementsFromCocone S.arrows s)
           (yonedaFamily_fromCocone_compatible S s)
         have ht := H.choose_spec.1 f.obj.hom f.property
         cat_disch
       uniq := by
         intro s Fs HFs
-        replace H := H s.pt (yonedaFamilyOfElements_fromCocone S.arrows s)
+        replace H := H s.pt (yonedaFamilyOfElementsFromCocone S.arrows s)
           (yonedaFamily_fromCocone_compatible S s)
         apply H.choose_spec.2 Fs
         exact fun _ f hf => HFs ⟨Over.mk f, hf⟩ }
   · intro H W x hx
     replace H := Classical.choice H
-    let s := compatibleYonedaFamily_toCocone S.arrows W x hx
+    let s := compatibleYonedaFamilyToCocone S.arrows W x hx
     use H.desc s
     constructor
     · exact fun _ f hf => (H.fac s) ⟨Over.mk f, hf⟩

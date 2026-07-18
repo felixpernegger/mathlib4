@@ -151,10 +151,13 @@ variable (F) in
 The function that sends any `p : F[X]` to `Polynomial.hilbertPoly p d` is an `F`-linear map from
 `F[X]` to `F[X]`.
 -/
-noncomputable def hilbertPoly_linearMap (d : ℕ) : F[X] →ₗ[F] F[X] where
+noncomputable def hilbertPolyLinearMap (d : ℕ) : F[X] →ₗ[F] F[X] where
   toFun p := hilbertPoly p d
   map_add' p q := hilbertPoly_add_left p q d
   map_smul' r p := hilbertPoly_smul r p d
+
+@[deprecated (since := "2026-07-18")]
+alias hilbertPoly_linearMap := hilbertPolyLinearMap
 
 variable [CharZero F]
 

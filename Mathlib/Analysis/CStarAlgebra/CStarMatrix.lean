@@ -413,7 +413,7 @@ def reindexₐ (R) (A) [Fintype m] [Fintype n] [Semiring R] [AddCommMonoid A] [M
     map_mul' M N := by
       ext i j
       simp only [mul_apply]
-      refine Fintype.sum_equiv e _ _ ?_
+      refine Fintype.sumEquiv e _ _ ?_
       intro k
       simp
     map_star' M := by

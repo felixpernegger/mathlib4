@@ -121,7 +121,7 @@ directed union is in bijection with the good products w.r.t. `π C (ord I · < o
 
 * `GoodProducts.smaller` is the image of good products coming from a smaller ordinal.
 
-* `GoodProducts.range_equiv`: The image of the `GoodProducts` in `C` is equivalent to the union of
+* `GoodProducts.rangeEquiv`: The image of the `GoodProducts` in `C` is equivalent to the union of
   `smaller C o'` over all ordinals `o' < o`.
 
 ### Main results
@@ -149,13 +149,16 @@ The map from the image of the `GoodProducts` in `LocallyConstant (π C (ord I ·
 `smaller C o`
 -/
 noncomputable
-def range_equiv_smaller_toFun (o : Ordinal) (x : range (π C (ord I · < o))) : smaller C o :=
+def rangeEquivSmallerToFun (o : Ordinal) (x : range (π C (ord I · < o))) : smaller C o :=
   ⟨πs C o ↑x, x.val, x.property, rfl⟩
+
+@[deprecated (since := "2026-07-18")]
+alias range_equiv_smaller_toFun := rangeEquivSmallerToFun
 
 set_option backward.isDefEq.respectTransparency.types false in
 theorem range_equiv_smaller_toFun_bijective (o : Ordinal) :
-    Function.Bijective (range_equiv_smaller_toFun C o) := by
-  dsimp +unfoldPartialApp [range_equiv_smaller_toFun]
+    Function.Bijective (rangeEquivSmallerToFun C o) := by
+  dsimp +unfoldPartialApp [rangeEquivSmallerToFun]
   refine ⟨fun a b hab ↦ ?_, fun ⟨a, b, hb⟩ ↦ ?_⟩
   · ext1
     simp only [Subtype.mk.injEq] at hab
@@ -168,11 +171,14 @@ The equivalence from the image of the `GoodProducts` in `LocallyConstant (π C (
 `smaller C o`
 -/
 noncomputable
-def range_equiv_smaller (o : Ordinal) : range (π C (ord I · < o)) ≃ smaller C o :=
-  Equiv.ofBijective (range_equiv_smaller_toFun C o) (range_equiv_smaller_toFun_bijective C o)
+def rangeEquivSmaller (o : Ordinal) : range (π C (ord I · < o)) ≃ smaller C o :=
+  Equiv.ofBijective (rangeEquivSmallerToFun C o) (range_equiv_smaller_toFun_bijective C o)
+
+@[deprecated (since := "2026-07-18")]
+alias range_equiv_smaller := rangeEquivSmaller
 
 theorem smaller_factorization (o : Ordinal) :
-    (fun (p : smaller C o) ↦ p.1) ∘ (range_equiv_smaller C o).toFun =
+    (fun (p : smaller C o) ↦ p.1) ∘ (rangeEquivSmaller C o).toFun =
     (πs C o) ∘ (fun (p : range (π C (ord I · < o))) ↦ p.1) := by rfl
 
 theorem linearIndependent_iff_smaller (o : Ordinal) :
@@ -237,18 +243,21 @@ theorem GoodProducts.union : range C = ⋃ (e : {o' // o' < o}), (smaller C e.va
 The image of the `GoodProducts` in `C` is equivalent to the union of `smaller C o'` over all
 ordinals `o' < o`.
 -/
-def GoodProducts.range_equiv : range C ≃ ⋃ (e : {o' // o' < o}), (smaller C e.val) :=
+def GoodProducts.rangeEquiv : range C ≃ ⋃ (e : {o' // o' < o}), (smaller C e.val) :=
   Equiv.setCongr (union C ho hsC)
 
+@[deprecated (since := "2026-07-18")]
+alias GoodProducts.range_equiv := GoodProducts.rangeEquiv
+
 theorem GoodProducts.range_equiv_factorization :
-    (fun (p : ⋃ (e : {o' // o' < o}), (smaller C e.val)) ↦ p.1) ∘ (range_equiv C ho hsC).toFun =
+    (fun (p : ⋃ (e : {o' // o' < o}), (smaller C e.val)) ↦ p.1) ∘ (rangeEquiv C ho hsC).toFun =
     (fun (p : range C) ↦ (p.1 : LocallyConstant C ℤ)) := rfl
 
 theorem GoodProducts.linearIndependent_iff_union_smaller :
     LinearIndependent ℤ (GoodProducts.eval C) ↔
       LinearIndependent ℤ (fun (p : ⋃ (e : {o' // o' < o}), (smaller C e.val)) ↦ p.1) := by
   rw [GoodProducts.linearIndependent_iff_range, ← range_equiv_factorization C ho hsC]
-  exact linearIndependent_equiv (range_equiv C ho hsC)
+  exact linearIndependent_equiv (rangeEquiv C ho hsC)
 
 end Limit
 

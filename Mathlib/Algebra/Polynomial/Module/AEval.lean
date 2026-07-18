@@ -161,20 +161,26 @@ variable {R M}
 variable (p : Submodule R M) (hp : p ∈ (Algebra.lsmul R R M a).invtSubmodule)
 
 /-- The natural `R`-linear equivalence between the two ways to represent an invariant submodule. -/
-def equiv_mapSubmodule :
+def equivMapSubmodule :
     p ≃ₗ[R] mapSubmodule R M a ⟨p, hp⟩ where
   toFun x := ⟨of R M a x, by simp⟩
   invFun x := ⟨((of R M _).symm (x : AEval R M a)), by obtain ⟨x, hx⟩ := x; simpa using hx⟩
   map_add' x y := rfl
   map_smul' t x := rfl
 
+@[deprecated (since := "2026-07-18")]
+alias equiv_mapSubmodule := equivMapSubmodule
+
 set_option backward.isDefEq.respectTransparency false in
 /-- The natural `R[X]`-linear equivalence between the two ways to represent an invariant submodule.
 -/
-noncomputable def restrict_equiv_mapSubmodule :
+noncomputable def restrictEquivMapSubmodule :
     (AEval R p <| (Algebra.lsmul R R M a).restrict hp) ≃ₗ[R[X]] mapSubmodule R M a ⟨p, hp⟩ :=
-  LinearEquiv.ofAEval ((Algebra.lsmul R R M a).restrict hp) (equiv_mapSubmodule a p hp)
-    (fun x ↦ by simp [equiv_mapSubmodule, X_smul_of])
+  LinearEquiv.ofAEval ((Algebra.lsmul R R M a).restrict hp) (equivMapSubmodule a p hp)
+    (fun x ↦ by simp [equivMapSubmodule, X_smul_of])
+
+@[deprecated (since := "2026-07-18")]
+alias restrict_equiv_mapSubmodule := restrictEquivMapSubmodule
 
 end Submodule
 

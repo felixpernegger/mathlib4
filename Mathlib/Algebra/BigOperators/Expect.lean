@@ -253,7 +253,7 @@ lemma expect_nbij' (i : ι → κ) (j : κ → ι) (hi : ∀ a ∈ s, i a ∈ t)
 /-- `Finset.expect_equiv` is a specialization of `Finset.expect_bij` that automatically fills in
 most arguments. -/
 lemma expect_equiv (e : ι ≃ κ) (hst : ∀ i, i ∈ s ↔ e i ∈ t) (hfg : ∀ i ∈ s, f i = g (e i)) :
-    𝔼 i ∈ s, f i = 𝔼 i ∈ t, g i := by simp_rw [expect, card_equiv e hst, sum_equiv e hst hfg]
+    𝔼 i ∈ s, f i = 𝔼 i ∈ t, g i := by simp_rw [expect, card_equiv e hst, sumEquiv e hst hfg]
 
 /-- Expectation over a product set equals the expectation of the fiberwise expectations.
 

@@ -140,16 +140,19 @@ def succAboveEmb (p : Fin (n + 1)) : Fin n ↪ Fin (n + 1) := ⟨p.succAbove, su
 
 @[simp, norm_cast] lemma coe_succAboveEmb (p : Fin (n + 1)) : p.succAboveEmb = p.succAbove := rfl
 
-/-- `Fin.natAdd_castLEEmb` as an `Embedding` from `Fin n` to `Fin m`, by appending the former
+/-- `Fin.natAddCastLEEmb` as an `Embedding` from `Fin n` to `Fin m`, by appending the former
 at the end of the latter.
-`natAdd_castLEEmb hmn i` maps `i : Fin m` to `i + (m - n) : Fin n` by adding `m - n` to `i` -/
+`natAddCastLEEmb hmn i` maps `i : Fin m` to `i + (m - n) : Fin n` by adding `m - n` to `i` -/
 @[simps!]
-def natAdd_castLEEmb (hmn : n ≤ m) : Fin n ↪ Fin m :=
+def natAddCastLEEmb (hmn : n ≤ m) : Fin n ↪ Fin m :=
   (addNatEmb (m - n)).trans (finCongr (by lia)).toEmbedding
 
+@[deprecated (since := "2026-07-18")]
+alias natAdd_castLEEmb := natAddCastLEEmb
+
 lemma range_natAdd_castLEEmb {n m : ℕ} (hmn : n ≤ m) :
-    Set.range (natAdd_castLEEmb hmn) = {i | m - n ≤ i.1} := by
-  simp only [natAdd_castLEEmb, Nat.sub_le_iff_le_add]
+    Set.range (natAddCastLEEmb hmn) = {i | m - n ≤ i.1} := by
+  simp only [natAddCastLEEmb, Nat.sub_le_iff_le_add]
   ext y
   exact ⟨fun ⟨x, hx⟩ ↦ by simp [← hx]; lia,
     fun xin ↦ ⟨subNat (m - n) (y.cast (Nat.add_sub_of_le hmn).symm)

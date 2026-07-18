@@ -374,9 +374,9 @@ theorem continuousLinearMap_apply_integral
   · intro c s hs hc
     have : IsFiniteMeasure (μ.variation.restrict s) := ⟨by simpa⟩
     simp [integral_indicator_const _ hs]
-  · intro f g _ f_int g_int hf hg
+  · intro f g _ fInt g_int hf hg
     simp only [Pi.add_apply]
-    simp [integral_fun_add, f_int, g_int, hf, hg]
+    simp [integral_fun_add, fInt, g_int, hf, hg]
   · apply isClosed_eq
     · apply C.continuous.comp continuous_integral
     · exact continuous_integral
@@ -397,10 +397,10 @@ theorem integral_continuousLinearMap_comp
     simp_rw [this]
     rw [integral_indicator_const _ hs]
     rfl
-  · intro f g _ f_int g_int hf hg
+  · intro f g _ fInt g_int hf hg
     simp only [Pi.add_apply, _root_.map_add]
-    rw [integral_fun_add (C.integrable_comp f_int) (C.integrable_comp g_int), hf, hg,
-      integral_fun_add f_int g_int]
+    rw [integral_fun_add (C.integrable_comp fInt) (C.integrable_comp g_int), hf, hg,
+      integral_fun_add fInt g_int]
   · apply isClosed_eq
     · have I (f : Lp H 1 μ.variation) : ∫ᵛ x, C (f x) ∂[B; μ] = ∫ᵛ x, (C.compLp f) x ∂[B; μ] :=
         (integral_congr_ae (coeFn_compLp _ _)).symm

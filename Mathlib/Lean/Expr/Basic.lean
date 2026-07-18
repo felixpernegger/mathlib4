@@ -520,9 +520,13 @@ def containsConst (e : Expr) (p : Name → Bool) : Bool :=
 return a `forall x, Not (p x)` and a proof for it.
 
 This function handles nested existentials. -/
-partial def forallNot_of_notExists (ex hNotEx : Expr) : MetaM (Expr × Expr) := do
+partial def forallNotOfNotExists (ex hNotEx : Expr) : MetaM (Expr × Expr) := do
   let .app (.app (.const ``Exists [lvl]) A) p := ex | failure
   go lvl A p hNotEx
+
+@[deprecated (since := "2026-07-18")]
+alias forallNot_of_notExists := forallNotOfNotExists
+
 where
   /-- Given `(hNotEx : Not (@Exists.{lvl} A p))`,
       return a `forall x, Not (p x)` and a proof for it.

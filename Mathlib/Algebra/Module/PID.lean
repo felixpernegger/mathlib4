@@ -68,7 +68,7 @@ theorem Submodule.isSemisimple_torsionBy_of_irreducible {a : R} (h : Irreducible
     IsSemisimpleModule R (torsionBy R M a) :=
   haveI := PrincipalIdealRing.isMaximal_of_irreducible h
   letI := Ideal.Quotient.field (R ∙ a)
-  (isSemisimpleModule_iff ..).mpr (submodule_torsionBy_orderIso a).complementedLattice
+  (isSemisimpleModule_iff ..).mpr (submoduleTorsionByOrderIso a).complementedLattice
 
 variable [IsDomain R]
 

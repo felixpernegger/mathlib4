@@ -619,7 +619,7 @@ instance [NonUnitalCommSemiring R] : NonUnitalCommSemiring R⟦Γ⟧ where
   mul_comm x y := by
     ext
     simp_rw [coeff_mul, mul_comm]
-    exact Finset.sum_equiv (Equiv.prodComm _ _) (fun _ ↦ swap_mem_antidiagonal.symm) <| by simp
+    exact Finset.sumEquiv (Equiv.prodComm _ _) (fun _ ↦ swap_mem_antidiagonal.symm) <| by simp
 
 instance [CommSemiring R] : CommSemiring R⟦Γ⟧ where
 instance [NonUnitalNonAssocRing R] : NonUnitalNonAssocRing R⟦Γ⟧ where

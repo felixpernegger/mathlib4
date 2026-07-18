@@ -205,46 +205,52 @@ def firstUnitCoeff {f : k⟦X⟧} (hf : f ≠ 0) : kˣ :=
     simpa [constantCoeff_divXPowOrder_eq_zero_iff.not]
   unitOfInvertible (constantCoeff (divXPowOrder f))
 
-/-- `Inv_divided_by_X_pow_order` is the inverse of the element obtained by diving a non-zero power
+/-- `InvDividedByXPowOrder` is the inverse of the element obtained by diving a non-zero power
 series by the largest power of `X` dividing it. Useful to create a term of type `Units`, done in
 `Unit_divided_by_X_pow_order` -/
-def Inv_divided_by_X_pow_order {f : k⟦X⟧} (hf : f ≠ 0) : k⟦X⟧ :=
+def InvDividedByXPowOrder {f : k⟦X⟧} (hf : f ≠ 0) : k⟦X⟧ :=
   invOfUnit (divXPowOrder f) (firstUnitCoeff hf)
+
+@[deprecated (since := "2026-07-18")]
+alias Inv_divided_by_X_pow_order := InvDividedByXPowOrder
 
 @[simp]
 theorem Inv_divided_by_X_pow_order_rightInv {f : k⟦X⟧} (hf : f ≠ 0) :
-    divXPowOrder f * Inv_divided_by_X_pow_order hf = 1 :=
+    divXPowOrder f * InvDividedByXPowOrder hf = 1 :=
   mul_invOfUnit (divXPowOrder f) (firstUnitCoeff hf) rfl
 
 @[simp]
 theorem Inv_divided_by_X_pow_order_leftInv {f : k⟦X⟧} (hf : f ≠ 0) :
-    Inv_divided_by_X_pow_order hf * divXPowOrder f = 1 := by
+    InvDividedByXPowOrder hf * divXPowOrder f = 1 := by
   rw [mul_comm]
   exact mul_invOfUnit (divXPowOrder f) (firstUnitCoeff hf) rfl
 
 open scoped Classical in
-/-- `Unit_of_divided_by_X_pow_order` is the unit power series obtained by dividing a non-zero
+/-- `UnitOfDividedByXPowOrder` is the unit power series obtained by dividing a non-zero
 power series by the largest power of `X` that divides it. -/
-def Unit_of_divided_by_X_pow_order (f : k⟦X⟧) : k⟦X⟧ˣ :=
+def UnitOfDividedByXPowOrder (f : k⟦X⟧) : k⟦X⟧ˣ :=
   if hf : f = 0 then 1
   else
     { val := divXPowOrder f
-      inv := Inv_divided_by_X_pow_order hf
+      inv := InvDividedByXPowOrder hf
       val_inv := Inv_divided_by_X_pow_order_rightInv hf
       inv_val := Inv_divided_by_X_pow_order_leftInv hf }
 
+@[deprecated (since := "2026-07-18")]
+alias Unit_of_divided_by_X_pow_order := UnitOfDividedByXPowOrder
+
 theorem isUnit_divided_by_X_pow_order {f : k⟦X⟧} (hf : f ≠ 0) :
     IsUnit (divXPowOrder f) :=
-  ⟨Unit_of_divided_by_X_pow_order f,
-    by simp only [Unit_of_divided_by_X_pow_order, dif_neg hf, Units.val_mk]⟩
+  ⟨UnitOfDividedByXPowOrder f,
+    by simp only [UnitOfDividedByXPowOrder, dif_neg hf, Units.val_mk]⟩
 
 theorem Unit_of_divided_by_X_pow_order_nonzero {f : k⟦X⟧} (hf : f ≠ 0) :
-    ↑(Unit_of_divided_by_X_pow_order f) = divXPowOrder f := by
-  simp only [Unit_of_divided_by_X_pow_order, dif_neg hf, Units.val_mk]
+    ↑(UnitOfDividedByXPowOrder f) = divXPowOrder f := by
+  simp only [UnitOfDividedByXPowOrder, dif_neg hf, Units.val_mk]
 
 @[simp]
-theorem Unit_of_divided_by_X_pow_order_zero : Unit_of_divided_by_X_pow_order (0 : k⟦X⟧) = 1 := by
-  simp only [Unit_of_divided_by_X_pow_order, dif_pos]
+theorem Unit_of_divided_by_X_pow_order_zero : UnitOfDividedByXPowOrder (0 : k⟦X⟧) = 1 := by
+  simp only [UnitOfDividedByXPowOrder, dif_pos]
 
 theorem eq_divided_by_X_pow_order_Iff_Unit {f : k⟦X⟧} (hf : f ≠ 0) :
     f = divXPowOrder f ↔ IsUnit f :=
@@ -278,7 +284,7 @@ theorem hasUnitMulPowIrreducibleFactorization :
       (by
         intro f hf
         use f.order.toNat
-        use Unit_of_divided_by_X_pow_order f
+        use UnitOfDividedByXPowOrder f
         simp only [Unit_of_divided_by_X_pow_order_nonzero hf]
         exact X_pow_order_mul_divXPowOrder)⟩
 
@@ -312,7 +318,7 @@ theorem maximalIdeal_eq_span_X : IsLocalRing.maximalIdeal (k⟦X⟧) = Ideal.spa
   rw [IsLocalRing.eq_maximalIdeal hX]
 
 instance : StrongNormalizationMonoid k⟦X⟧ where
-  normUnit f := (Unit_of_divided_by_X_pow_order f)⁻¹
+  normUnit f := (UnitOfDividedByXPowOrder f)⁻¹
   normUnit_zero := by simp only [Unit_of_divided_by_X_pow_order_zero, inv_one]
   normUnit_mul hf hg := by
     simp only [← mul_inv, inv_inj]

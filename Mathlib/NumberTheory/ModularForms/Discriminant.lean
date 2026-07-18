@@ -112,7 +112,7 @@ end auxiliary
 public section
 
 /-- The discriminant expressed as a q-expansion: `Δ(z) = q * ∏' (1 - q ^ (n + 1)) ^ 24`. -/
-lemma discriminant_eq_q_prod (z : ℍ) : Δ z = 𝕢 1 z * ∏' n, (1 - eta_q n z) ^ 24 := by
+lemma discriminant_eq_q_prod (z : ℍ) : Δ z = 𝕢 1 z * ∏' n, (1 - etaQ n z) ^ 24 := by
   simp only [discriminant, eta, mul_pow]
   congr
   · simp [Periodic.qParam, ← exp_nsmul, nsmul_eq_mul, Nat.cast_ofNat]
@@ -128,7 +128,7 @@ set_option backward.isDefEq.respectTransparency.types false in
 lemma discriminant_T_invariant : (Δ ∣[(12 : ℤ)] ModularGroup.T) = Δ := by
   ext z
   rw [SL_slash_apply, denom, modular_T_smul, ModularGroup.T]
-  simp [discriminant_eq_q_prod, eta_q, Periodic.qParam, ← exp_periodic (2 * π * I * z)]
+  simp [discriminant_eq_q_prod, etaQ, Periodic.qParam, ← exp_periodic (2 * π * I * z)]
   ring_nf
 
 /-- The transformation formula for `η` under `S : z ↦ -1 / z`: we have
@@ -153,7 +153,7 @@ lemma discriminant_S_invariant : (Δ ∣[(12 : ℤ)] ModularGroup.S) = Δ := by
   field_simp [z.ne_zero]
 
 lemma tendsto_atImInfty_tprod_one_sub_eta_q_pow :
-    Tendsto (fun x : ℍ ↦ ∏' (n : ℕ), (1 - eta_q n x) ^ 24) atImInfty (𝓝 1) := by
+    Tendsto (fun x : ℍ ↦ ∏' (n : ℕ), (1 - etaQ n x) ^ 24) atImInfty (𝓝 1) := by
   have htprod : Tendsto (fun q : ℂ ↦ ∏' (n : ℕ), (1 - q ^ (n + 1))) (𝓝 0) (𝓝 1) := by
     have := tendsto_tprod_one_add_of_dominated_convergence (𝓕 := 𝓝 0) (g := 0)
       (f := fun (q : ℂ) (n : ℕ) ↦ -q ^ (n + 1)) (bound := fun n ↦ (1 / 2 : ℝ) ^ (n + 1))
@@ -165,11 +165,11 @@ lemma tendsto_atImInfty_tprod_one_sub_eta_q_pow :
     filter_upwards [Metric.ball_mem_nhds (0 : ℂ) (by norm_num : (0 : ℝ) < 1 / 2)] with q hq k
     exact pow_le_pow_left₀ (norm_nonneg _) (mem_ball_zero_iff.mp hq).le _
   have := (htprod.comp (UpperHalfPlane.qParam_tendsto_atImInfty zero_lt_one)).pow 24
-  simp only [Periodic.qParam, ofReal_one, div_one, comp_apply, one_pow, eta_q] at *
+  simp only [Periodic.qParam, ofReal_one, div_one, comp_apply, one_pow, etaQ] at *
   convert! this using 2 with τ
   rw [Multipliable.tprod_pow]
   apply (multipliableLocallyUniformlyOn_eta.multipliable τ.2).congr
-  simp [eta_q, Periodic.qParam, ← exp_nat_mul]
+  simp [etaQ, Periodic.qParam, ← exp_nat_mul]
 
 @[deprecated (since := "2026-04-30")]
 alias discriminant_bounded_factor := tendsto_atImInfty_tprod_one_sub_eta_q_pow
@@ -188,9 +188,9 @@ lemma exp_isBigO_discriminant : (fun τ ↦ Real.exp (-2 * π * τ.im)) =O[atImI
   rw [discriminant_eq_q_prod, norm_mul, Real.norm_of_nonneg (Real.exp_pos _).le]
   have hq_norm : ‖𝕢 1 τ‖ = Real.exp (-2 * π * τ.im) := by simp [Periodic.qParam, Complex.norm_exp]
   rw [← hq_norm]
-  have hprod_bound : 1 / 2 ≤ ‖∏' n, (1 - eta_q n τ) ^ 24‖ := by
-    have hsub : ‖∏' n, (1 - eta_q n τ) ^ 24 - 1‖ < 1 / 2 := by rwa [Complex.dist_eq] at hτ
-    have h1 := norm_sub_norm_le 1 (∏' n, (1 - eta_q n τ) ^ 24)
+  have hprod_bound : 1 / 2 ≤ ‖∏' n, (1 - etaQ n τ) ^ 24‖ := by
+    have hsub : ‖∏' n, (1 - etaQ n τ) ^ 24 - 1‖ < 1 / 2 := by rwa [Complex.dist_eq] at hτ
+    have h1 := norm_sub_norm_le 1 (∏' n, (1 - etaQ n τ) ^ 24)
     grind [norm_one, norm_sub_rev]
   linarith [norm_nonneg (𝕢 1 τ), mul_le_mul_of_nonneg_left hprod_bound (norm_nonneg (𝕢 1 τ))]
 
@@ -206,7 +206,7 @@ lemma discriminant_cuspFunction_eqOn : Set.EqOn (cuspFunction 1 Δ)
       (by simpa [dist_zero_right] using hq) hq0
     simp [cuspFunction, Periodic.cuspFunction_eq_of_nonzero 1 _ hq0,
       ofComplex_apply_of_im_pos him, discriminant_eq_q_prod ⟨_, him⟩,
-      Periodic.qParam_right_inv one_ne_zero hq0, eta_q]
+      Periodic.qParam_right_inv one_ne_zero hq0, etaQ]
 
 /-- The first q-expansion coefficient of the modular discriminant is 1. -/
 lemma discriminant_qExpansion_coeff_one : (qExpansion 1 Δ).coeff 1 = 1 := by

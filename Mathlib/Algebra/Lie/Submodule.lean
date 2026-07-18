@@ -513,16 +513,19 @@ instance : IsModularLattice (LieSubmodule R L M) where
 variable (R L M)
 
 /-- The natural functor that forgets the action of `L` as an order embedding. -/
-@[simps] def toSubmodule_orderEmbedding : LieSubmodule R L M ↪o Submodule R M :=
+@[simps] def toSubmoduleOrderEmbedding : LieSubmodule R L M ↪o Submodule R M :=
   { toFun := (↑)
     inj' := toSubmodule_injective
     map_rel_iff' := Iff.rfl }
 
+@[deprecated (since := "2026-07-18")]
+alias toSubmodule_orderEmbedding := toSubmoduleOrderEmbedding
+
 instance wellFoundedGT_of_noetherian [IsNoetherian R M] : WellFoundedGT (LieSubmodule R L M) :=
-  RelHomClass.isWellFounded (toSubmodule_orderEmbedding R L M).dual.ltEmbedding
+  RelHomClass.isWellFounded (toSubmoduleOrderEmbedding R L M).dual.ltEmbedding
 
 theorem wellFoundedLT_of_isArtinian [IsArtinian R M] : WellFoundedLT (LieSubmodule R L M) :=
-  RelHomClass.isWellFounded (toSubmodule_orderEmbedding R L M).ltEmbedding
+  RelHomClass.isWellFounded (toSubmoduleOrderEmbedding R L M).ltEmbedding
 
 instance [IsArtinian R M] : IsAtomic (LieSubmodule R L M) :=
   isAtomic_of_orderBot_wellFounded_lt <| (wellFoundedLT_of_isArtinian R L M).wf

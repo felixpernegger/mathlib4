@@ -158,7 +158,7 @@ theorem sentence_realize (φ : L.Sentence) :
   exact congr rfl (Subsingleton.elim _ _)
 
 nonrec instance Product.instNonempty : Nonempty ((u : Filter α).Product M) :=
-  letI : ∀ a, Inhabited (M a) := fun _ => Classical.inhabited_of_nonempty'
+  letI : ∀ a, Inhabited (M a) := fun _ => Classical.inhabitedOfNonempty'
   inferInstance
 
 end Ultraproduct

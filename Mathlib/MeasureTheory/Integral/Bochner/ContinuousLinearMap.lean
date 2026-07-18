@@ -57,9 +57,9 @@ theorem integral_comp_commSL [CompleteSpace E] (hσ : ∀ (r : ℝ) (x : 𝕜), 
       ← integral_indicator_const (L e) s_meas]
     congr 1 with a
     rw [← Function.comp_def L, Set.indicator_comp_of_zero L.map_zero, Function.comp_apply]
-  · intro f g _ f_int g_int hf hg
-    simp [L.map_add, integral_add (μ := μ) f_int g_int,
-      integral_add (μ := μ) (L.integrable_comp f_int) (L.integrable_comp g_int), hf, hg]
+  · intro f g _ fInt g_int hf hg
+    simp [L.map_add, integral_add (μ := μ) fInt g_int,
+      integral_add (μ := μ) (L.integrable_comp fInt) (L.integrable_comp g_int), hf, hg]
   · exact isClosed_eq L.continuous_integral_comp_L1 (L.continuous.comp continuous_integral)
   · intro f g hfg _ hf
     convert! hf using 1 <;> clear hf

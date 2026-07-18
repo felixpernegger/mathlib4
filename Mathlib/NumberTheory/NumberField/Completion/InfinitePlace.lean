@@ -31,7 +31,7 @@ number field at an infinite place is then derived in this file, as `InfinitePlac
 - `NumberField.InfinitePlace.Completion.extensionEmbedding` : the embedding `v.embedding : K →+* ℂ`
   extended to `v.Completion →+* ℂ`.
 - `NumberField.InfinitePlace.Completion.extensionEmbeddingOfIsReal` : if the infinite place `v`
-  is real, then this extends the embedding `v.embedding_of_isReal : K →+* ℝ` to
+  is real, then this extends the embedding `v.embeddingOfIsReal : K →+* ℝ` to
   `v.Completion →+* ℝ`.
 - `NumberField.InfinitePlace.Completion.ringEquivRealOfIsReal` : the ring isomorphism
   `v.Completion ≃+* ℝ` when `v` is a real infinite place; the forward direction of this is
@@ -69,7 +69,7 @@ theorem isometry_embedding : Isometry (v.embedding.comp (WithAbs.equiv v.1).toRi
     simpa using! v.norm_embedding_eq (WithAbs.equiv v.1 x)
 
 theorem isometry_embedding_of_isReal (hv : v.IsReal) :
-    Isometry ((v.embedding_of_isReal hv).comp (WithAbs.equiv v.1).toRingHom) :=
+    Isometry ((v.embeddingOfIsReal hv).comp (WithAbs.equiv v.1).toRingHom) :=
   AddMonoidHomClass.isometry_of_norm _ fun x ↦ by
     simpa using! v.norm_embedding_of_isReal hv (WithAbs.equiv v.1 x)
 
@@ -237,7 +237,7 @@ theorem extensionEmbedding_coe (x : WithAbs v.1) :
 
 @[simp]
 theorem extensionEmbeddingOfIsReal_coe {v : InfinitePlace K} (hv : IsReal v) (x : WithAbs v.1) :
-    extensionEmbeddingOfIsReal hv x = embedding_of_isReal hv (WithAbs.equiv v.1 x) :=
+    extensionEmbeddingOfIsReal hv x = embeddingOfIsReal hv (WithAbs.equiv v.1 x) :=
   (v.isometry_embedding_of_isReal hv).extensionHom_coe _
 
 /-- The embedding `v.Completion →+* ℂ` is an isometry. -/

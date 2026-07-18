@@ -157,7 +157,7 @@ theorem count_le_one_of_centralizer_le_alternating
   by_contra! ⟨c, hc, d, hd, hm, hm'⟩
   let τ : Equiv.Perm g.cycleFactorsFinset := Equiv.swap ⟨c, hc⟩ ⟨d, hd⟩
   obtain ⟨a⟩ := Equiv.Perm.Basis.nonempty g
-  have hτ : τ ∈ range_toPermHom' g := fun x ↦ by
+  have hτ : τ ∈ rangeToPermHom' g := fun x ↦ by
     by_cases hx : x = ⟨c, hc⟩
     · rw [hx, Equiv.swap_apply_left]; exact hm.symm
     by_cases hx' : x = ⟨d, hd⟩

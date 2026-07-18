@@ -172,16 +172,19 @@ variable {K : Type*} [DivisionRing K] (v : Valuation K Γ₀) [RankLeOne v]
 /-- If a valuation has rank at most one and is non trivial,
 then it has rank one -/
 @[instance_reducible]
-def rankOne_of_exists (H : ∃ x ≠ 0, v x ≠ 1) : RankOne v where
+def rankOneOfExists (H : ∃ x ≠ 0, v x ≠ 1) : RankOne v where
   exists_val_nontrivial := by
     by_contra! H'
     obtain ⟨x, hx, hx'⟩ := H
     exact hx' (H' x ((ne_zero_iff v).mpr hx))
 
+@[deprecated (since := "2026-07-18")]
+alias rankOne_of_exists := rankOneOfExists
+
 /-- If a valuation has rank at most one and is non trivial,
 then it has rank one -/
 @[instance_reducible]
-def rankOne_of_nontrivial (H : Nontrivial (ValueGroup₀ (.ofClass v))ˣ) : RankOne v where
+def rankOneOfNontrivial (H : Nontrivial (ValueGroup₀ (.ofClass v))ˣ) : RankOne v where
   exists_val_nontrivial := by
     by_contra! H'
     rw [nontrivial_iff_exists_ne 1] at H
@@ -201,11 +204,14 @@ def rankOne_of_nontrivial (H : Nontrivial (ValueGroup₀ (.ofClass v))ˣ) : Rank
       simp [← hk, h] at hx
     exact h1 (H' k h0)
 
+@[deprecated (since := "2026-07-18")]
+alias rankOne_of_nontrivial := rankOneOfNontrivial
+
 theorem exists_val_lt {K : Type*} [DivisionRing K] (v : Valuation K Γ₀) [RankLeOne v] :
     Subsingleton ((ValueGroup₀ (.ofClass v))ˣ) ∨
       ∀ {γ : ℝ≥0} (_ : γ ≠ 0), ∃ (x : K), x ≠ 0 ∧ (RankLeOne.hom' v) (v.restrict x) < γ := by
   simp only [ne_eq, or_iff_not_imp_left, not_subsingleton_iff_nontrivial]
-  exact fun H ↦ (rankOne_of_nontrivial v H).exists_val_lt
+  exact fun H ↦ (rankOneOfNontrivial v H).exists_val_lt
 
 end RankLeOne
 

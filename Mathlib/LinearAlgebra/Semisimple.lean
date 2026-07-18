@@ -80,7 +80,7 @@ lemma isSemisimple_restrict_iff (p) (hp : p ∈ invtSubmodule f) :
     IsSemisimple (LinearMap.restrict f hp) ↔
     ∀ q ∈ f.invtSubmodule, q ≤ p → ∃ r ≤ p, r ∈ f.invtSubmodule ∧ Disjoint q r ∧ q ⊔ r = p := by
   let e : Submodule R[X] (AEval' (f.restrict hp)) ≃o Iic (AEval.mapSubmodule R M f ⟨p, hp⟩) :=
-    (Submodule.orderIsoMapComap <| AEval.restrict_equiv_mapSubmodule f p hp).trans
+    (Submodule.orderIsoMapComap <| AEval.restrictEquivMapSubmodule f p hp).trans
       (Submodule.mapIic _)
   simp_rw [IsSemisimple, isSemisimpleModule_iff, e.complementedLattice_iff, disjoint_iff,
     ← (OrderIso.Iic _ _).complementedLattice_iff, Iic.complementedLattice_iff, Subtype.forall,
@@ -167,7 +167,7 @@ lemma IsSemisimple.restrict {p : Submodule R M} (hp : p ∈ f.invtSubmodule) (hf
   rw [IsSemisimple] at hf ⊢
   let e : Submodule R[X] (AEval' (LinearMap.restrict f hp)) ≃o
       Iic (AEval.mapSubmodule R M f ⟨p, hp⟩) :=
-    (Submodule.orderIsoMapComap <| AEval.restrict_equiv_mapSubmodule f p hp).trans <|
+    (Submodule.orderIsoMapComap <| AEval.restrictEquivMapSubmodule f p hp).trans <|
       Submodule.mapIic _
   exact (isSemisimpleModule_iff ..).mpr (e.complementedLattice_iff.mpr inferInstance)
 

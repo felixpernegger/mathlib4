@@ -386,13 +386,16 @@ lemma antilipschitz_of_injective_of_isClosed_range (f : E →L[𝕜] F)
 
 /-- A choice of anti-Lipschitz constant for `f : E →L[𝕜] F` injective with closed range
 (assuming `E` and `F` are Banach spaces). -/
-noncomputable def antilipschitzConstant_of_injective_of_isClosed_range (f : E →L[𝕜] F)
+noncomputable def antilipschitzConstantOfInjectiveOfIsClosedRange (f : E →L[𝕜] F)
     (hf : Injective f) (hf' : IsClosed (Set.range f)) : ℝ≥0 :=
   Classical.choose (f.antilipschitz_of_injective_of_isClosed_range hf hf')
 
+@[deprecated (since := "2026-07-18")]
+alias antilipschitzConstant_of_injective_of_isClosed_range := antilipschitzConstantOfInjectiveOfIsClosedRange
+
 lemma antilipschitz_antiLipschitzConstant_of_injective_of_isClosed_range (f : E →L[𝕜] F)
     (hf : Injective f) (hf' : IsClosed (Set.range f)) :
-    AntilipschitzWith (f.antilipschitzConstant_of_injective_of_isClosed_range hf hf') f :=
+    AntilipschitzWith (f.antilipschitzConstantOfInjectiveOfIsClosedRange hf hf') f :=
   Classical.choose_spec (f.antilipschitz_of_injective_of_isClosed_range hf hf')
 
 /-- An injective bounded linear operator between Banach spaces has closed range
@@ -407,9 +410,9 @@ lemma isClosed_range_iff_antilipschitz_of_injective (f : E →L[𝕜] F)
 this is `LinearMap.leftInverse` as a continuous linear map;
 by injectivity, the junk value of `leftInverse` never matters, and continuity of the inverse
 follows form the closed range condition. -/
-noncomputable def leftInverse_of_injective_of_isClosed_range
+noncomputable def leftInverseOfInjectiveOfIsClosedRange
     (f : E →L[𝕜] F) (hf : Injective f) (hf' : IsClosed (range f)) : f.range →L[𝕜] E :=
-  letI K := f.antilipschitzConstant_of_injective_of_isClosed_range hf hf'
+  letI K := f.antilipschitzConstantOfInjectiveOfIsClosedRange hf hf'
   letI hfK := f.antilipschitz_antiLipschitzConstant_of_injective_of_isClosed_range hf hf'
   LinearMap.mkContinuous f.rangeRestrict.leftInverse K (by
     rintro ⟨y, x, rfl⟩
@@ -418,6 +421,9 @@ noncomputable def leftInverse_of_injective_of_isClosed_range
     convert! aux
     exact f.rangeRestrict.leftInverse_apply_of_inj
       (by rw [ker_codRestrict]; exact LinearMap.ker_eq_bot.mpr hf) x)
+
+@[deprecated (since := "2026-07-18")]
+alias leftInverse_of_injective_of_isClosed_range := leftInverseOfInjectiveOfIsClosedRange
 
 end
 

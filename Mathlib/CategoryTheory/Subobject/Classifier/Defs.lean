@@ -312,11 +312,14 @@ section RepresentableBy
 variable {C : Type u} [Category.{v} C] [HasPullbacks C] (𝒞 : Classifier C)
 
 /-- The subobject of `𝒞.Ω` corresponding to the `truth` morphism. -/
-abbrev truth_as_subobject : Subobject 𝒞.Ω :=
+abbrev truthAsSubobject : Subobject 𝒞.Ω :=
   Subobject.mk 𝒞.truth
 
+@[deprecated (since := "2026-07-18")]
+alias truth_as_subobject := truthAsSubobject
+
 @[deprecated (since := "2026-03-06")]
-alias _root_.CategoryTheory.Classifier.truth_as_subobject := truth_as_subobject
+alias _root_.CategoryTheory.Classifier.truthAsSubobject := truthAsSubobject
 
 lemma surjective_χ {X : C} (φ : X ⟶ 𝒞.Ω) :
     ∃ (Z : C) (i : Z ⟶ X) (_ : Mono i), φ = 𝒞.χ i :=
@@ -328,7 +331,7 @@ alias _root_.CategoryTheory.Classifier.surjective_χ := surjective_χ
 
 @[simp]
 lemma pullback_χ_obj_mk_truth {Z X : C} (i : Z ⟶ X) [Mono i] :
-    (Subobject.pullback (𝒞.χ i)).obj 𝒞.truth_as_subobject = .mk i :=
+    (Subobject.pullback (𝒞.χ i)).obj 𝒞.truthAsSubobject = .mk i :=
   Subobject.pullback_obj_mk (𝒞.isPullback i).flip
 
 @[deprecated (since := "2026-03-06")]
@@ -338,7 +341,7 @@ set_option backward.defeqAttrib.useBackward true in
 set_option backward.isDefEq.respectTransparency false in
 @[simp]
 lemma χ_pullback_obj_mk_truth_arrow {X : C} (φ : X ⟶ 𝒞.Ω) :
-    𝒞.χ ((Subobject.pullback φ).obj 𝒞.truth_as_subobject).arrow = φ := by
+    𝒞.χ ((Subobject.pullback φ).obj 𝒞.truthAsSubobject).arrow = φ := by
   obtain ⟨Z, i, _, rfl⟩ := 𝒞.surjective_χ φ
   refine (𝒞.uniq _ (?_ : IsPullback _ (𝒞.χ₀ _) _ _)).symm
   refine (IsPullback.of_hasPullback 𝒞.truth (𝒞.χ i)).flip.of_iso
@@ -357,7 +360,7 @@ set_option backward.isDefEq.respectTransparency false in
 noncomputable def representableBy :
     (Subobject.presheaf C).RepresentableBy 𝒞.Ω where
   homEquiv := {
-    toFun φ := (Subobject.pullback φ).obj 𝒞.truth_as_subobject
+    toFun φ := (Subobject.pullback φ).obj 𝒞.truthAsSubobject
     invFun x := 𝒞.χ x.arrow
     left_inv φ := by simp
     right_inv x := by simp

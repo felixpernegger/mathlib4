@@ -209,17 +209,20 @@ def retract_left (c : BinaryBicone P Q) : Retract P c.pt where
   r := c.fst
 
 /-- The retract of a binary bicone `c` given by `c.inr` and `c.snd`. -/
-def retract_right (c : BinaryBicone P Q) : Retract Q c.pt where
+def retractRight (c : BinaryBicone P Q) : Retract Q c.pt where
   i := c.inr
   r := c.snd
 
+@[deprecated (since := "2026-07-18")]
+alias retract_right := retractRight
+
 instance (c : BinaryBicone P Q) : IsSplitMono c.inl := c.retract_left.instIsSplitMonoI
 
-instance (c : BinaryBicone P Q) : IsSplitMono c.inr := c.retract_right.instIsSplitMonoI
+instance (c : BinaryBicone P Q) : IsSplitMono c.inr := c.retractRight.instIsSplitMonoI
 
 instance (c : BinaryBicone P Q) : IsSplitEpi c.fst := c.retract_left.instIsSplitEpiR
 
-instance (c : BinaryBicone P Q) : IsSplitEpi c.snd := c.retract_right.instIsSplitEpiR
+instance (c : BinaryBicone P Q) : IsSplitEpi c.snd := c.retractRight.instIsSplitEpiR
 
 set_option backward.isDefEq.respectTransparency false in
 /-- Convert a `BinaryBicone` into a `Bicone` over a pair. -/

@@ -164,8 +164,8 @@ lemma hasSum_int_evenKernel (a : ℝ) {t : ℝ} (ht : 0 < t) :
     HasSum (fun n : ℤ ↦ rexp (-π * (n + a) ^ 2 * t)) (evenKernel a t) := by
   rw [← hasSum_ofReal, evenKernel_def]
   have (n : ℤ) : cexp (-(π * (n + a) ^ 2 * t)) = cexp (-(π * a ^ 2 * t)) *
-      jacobiTheta₂_term n (a * I * t) (I * t) := by
-    rw [jacobiTheta₂_term, ← Complex.exp_add]
+      jacobiTheta₂Term n (a * I * t) (I * t) := by
+    rw [jacobiTheta₂Term, ← Complex.exp_add]
     grind [I_sq]
   simpa [this] using (hasSum_jacobiTheta₂_term _ (by simpa)).mul_left _
 
@@ -173,8 +173,8 @@ lemma hasSum_int_cosKernel (a : ℝ) {t : ℝ} (ht : 0 < t) :
     HasSum (fun n : ℤ ↦ cexp (2 * π * I * a * n) * rexp (-π * n ^ 2 * t)) ↑(cosKernel a t) := by
   rw [cosKernel_def a t]
   have (n : ℤ) : cexp (2 * π * I * a * n) * cexp (-(π * n ^ 2 * t)) =
-      jacobiTheta₂_term n a (I * ↑t) := by
-    rw [jacobiTheta₂_term, ← Complex.exp_add]
+      jacobiTheta₂Term n a (I * ↑t) := by
+    rw [jacobiTheta₂Term, ← Complex.exp_add]
     ring_nf
     simp [sub_eq_add_neg]
   simpa [this] using hasSum_jacobiTheta₂_term _ (by simpa)
@@ -226,7 +226,7 @@ lemma isBigO_atTop_evenKernel_sub (a : UnitAddCircle) : ∃ p : ℝ, 0 < p ∧
   obtain ⟨p, hp, hp'⟩ := HurwitzKernelBounds.isBigO_atTop_F_int_zero_sub b
   refine ⟨p, hp, (EventuallyEq.isBigO ?_).trans hp'⟩
   filter_upwards [eventually_gt_atTop 0] with t h
-  simp [← (hasSum_int_evenKernel b h).tsum_eq, HurwitzKernelBounds.F_int, HurwitzKernelBounds.f_int]
+  simp [← (hasSum_int_evenKernel b h).tsum_eq, HurwitzKernelBounds.FInt, HurwitzKernelBounds.fInt]
 
 /-- The function `cosKernel a - 1` has exponential decay at `+∞`, for any `a`. -/
 lemma isBigO_atTop_cosKernel_sub (a : UnitAddCircle) :
@@ -236,11 +236,11 @@ lemma isBigO_atTop_cosKernel_sub (a : UnitAddCircle) :
   refine ⟨p, hp, (Eventually.isBigO ?_).trans (hp'.const_mul_left 2)⟩
   filter_upwards [eventually_gt_atTop 0] with t ht
   simp only [eq_false_intro one_ne_zero, if_false, sub_zero,
-    ← (hasSum_nat_cosKernel₀ a ht).tsum_eq, HurwitzKernelBounds.F_nat]
+    ← (hasSum_nat_cosKernel₀ a ht).tsum_eq, HurwitzKernelBounds.FNat]
   apply tsum_of_norm_bounded ((HurwitzKernelBounds.summable_f_nat 0 1 ht).hasSum.mul_left 2)
   intro n
   rw [norm_mul, norm_mul, norm_two, mul_assoc, mul_le_mul_iff_of_pos_left two_pos,
-    norm_of_nonneg (exp_pos _).le, HurwitzKernelBounds.f_nat, pow_zero, one_mul, Real.norm_eq_abs]
+    norm_of_nonneg (exp_pos _).le, HurwitzKernelBounds.fNat, pow_zero, one_mul, Real.norm_eq_abs]
   exact mul_le_of_le_one_left (exp_pos _).le (abs_cos_le_one _)
 
 end asymp

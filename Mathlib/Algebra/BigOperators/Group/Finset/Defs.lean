@@ -522,7 +522,7 @@ than as a surjective injection.
 The difference with `Finset.sum_bij'` is that the bijection and its inverse are non-dependent
 functions, rather than being allowed to use membership of the domains of the sums.
 
-The difference with `Finset.sum_equiv` is that bijectivity is only required to hold on the domains
+The difference with `Finset.sumEquiv` is that bijectivity is only required to hold on the domains
 of the sums, rather than on the entire types. -/]
 lemma prod_nbij' (i : ι → κ) (j : κ → ι) (hi : ∀ a ∈ s, i a ∈ t) (hj : ∀ a ∈ t, j a ∈ s)
     (left_inv : ∀ a ∈ s, j (i a) = a) (right_inv : ∀ a ∈ t, i (j a) = a)
@@ -534,7 +534,7 @@ lemma prod_nbij' (i : ι → κ) (j : κ → ι) (hi : ∀ a ∈ s, i a ∈ t) (
 See `Fintype.prod_equiv` for the version where `s` and `t` are `univ`. -/
 @[to_additive /-- Specialization of `Finset.sum_nbij'` that automatically fills in most arguments.
 
-See `Fintype.sum_equiv` for the version where `s` and `t` are `univ`. -/]
+See `Fintype.sumEquiv` for the version where `s` and `t` are `univ`. -/]
 lemma prod_equiv (e : ι ≃ κ) (hst : ∀ i, i ∈ s ↔ e i ∈ t) (hfg : ∀ i ∈ s, f i = g (e i)) :
     ∏ i ∈ s, f i = ∏ i ∈ t, g i := by refine prod_nbij' e e.symm ?_ ?_ ?_ ?_ hfg <;> simp [hst]
 
@@ -735,7 +735,7 @@ automatically fills in most arguments.
 
 See `Equiv.prod_comp` for a version without `h`.
 -/
-@[to_additive /-- `Fintype.sum_equiv` is a specialization of `Finset.sum_bij` that
+@[to_additive /-- `Fintype.sumEquiv` is a specialization of `Finset.sum_bij` that
 automatically fills in most arguments.
 
 See `Equiv.sum_comp` for a version without `h`. -/]

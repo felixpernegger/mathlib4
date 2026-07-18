@@ -771,7 +771,7 @@ theorem tendsto_integral_smul_of_tendsto_average_norm_sub
     [CompleteSpace E]
     {ι : Type*} {a : ι → Set α} {l : Filter ι} {f : α → E} {c : E} {g : ι → α → ℝ} (K : ℝ)
     (hf : Tendsto (fun i ↦ ⨍ y in a i, ‖f y - c‖ ∂μ) l (𝓝 0))
-    (f_int : ∀ᶠ i in l, IntegrableOn f (a i) μ)
+    (fInt : ∀ᶠ i in l, IntegrableOn f (a i) μ)
     (hg : Tendsto (fun i ↦ ∫ y, g i y ∂μ) l (𝓝 1))
     (g_supp : ∀ᶠ i in l, Function.support (g i) ⊆ a i)
     (g_bound : ∀ᶠ i in l, ∀ x, |g i x| ≤ K / μ.real (a i)) :
@@ -781,7 +781,7 @@ theorem tendsto_integral_smul_of_tendsto_average_norm_sub
     contrapose hi
     simp only [integral_undef hi, lt_self_iff_false, not_false_eq_true]
   have I : ∀ᶠ i in l, ∫ y, g i y • (f y - c) ∂μ + (∫ y, g i y ∂μ) • c = ∫ y, g i y • f y ∂μ := by
-    filter_upwards [f_int, g_int, g_supp, g_bound] with i hif hig hisupp hibound
+    filter_upwards [fInt, g_int, g_supp, g_bound] with i hif hig hisupp hibound
     rw [← integral_smul_const, ← integral_add]
     · simp only [smul_sub, sub_add_cancel]
     · simp_rw [smul_sub]
@@ -798,7 +798,7 @@ theorem tendsto_integral_smul_of_tendsto_average_norm_sub
     have := hf.const_mul K
     simp only [mul_zero] at this
     refine squeeze_zero_norm' ?_ this
-    filter_upwards [g_supp, g_bound, f_int, (tendsto_order.1 hg).1 _ zero_lt_one]
+    filter_upwards [g_supp, g_bound, fInt, (tendsto_order.1 hg).1 _ zero_lt_one]
       with i hi h'i h''i hi_int
     have mu_ai : μ (a i) < ∞ := by
       rw [lt_top_iff_ne_top]

@@ -93,7 +93,7 @@ and showing there is a unique morphism to it from any other object. -/
 theorem hasTerminal_of_unique (X : C) [∀ Y, Nonempty (Y ⟶ X)] [∀ Y, Subsingleton (Y ⟶ X)] :
     HasTerminal C where
   has_limit F := .mk ⟨_, (isTerminalEquivUnique F X).invFun fun _ ↦
-    ⟨Classical.inhabited_of_nonempty', (Subsingleton.elim · _)⟩⟩
+    ⟨Classical.inhabitedOfNonempty', (Subsingleton.elim · _)⟩⟩
 
 theorem IsTerminal.hasTerminal {X : C} (h : IsTerminal X) : HasTerminal C :=
   { has_limit := fun F => HasLimit.mk ⟨⟨X, by cat_disch, by simp⟩,
@@ -104,7 +104,7 @@ and showing there is a unique morphism from it to any other object. -/
 theorem hasInitial_of_unique (X : C) [∀ Y, Nonempty (X ⟶ Y)] [∀ Y, Subsingleton (X ⟶ Y)] :
     HasInitial C where
   has_colimit F := .mk ⟨_, (isInitialEquivUnique F X).invFun fun _ ↦
-    ⟨Classical.inhabited_of_nonempty', (Subsingleton.elim · _)⟩⟩
+    ⟨Classical.inhabitedOfNonempty', (Subsingleton.elim · _)⟩⟩
 
 theorem IsInitial.hasInitial {X : C} (h : IsInitial X) : HasInitial C where
   has_colimit F :=

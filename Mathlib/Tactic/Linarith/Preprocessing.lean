@@ -125,7 +125,7 @@ def natToInt : GlobalBranchingPreprocessor where
     let l ← l.mapM fun h => do
       let t ← whnfR (← instantiateMVars (← inferType h))
       if ← isNatProp t then
-        let (some (h', t'), _) ← Term.TermElabM.run' (run_for g (zifyProof none h t))
+        let (some (h', t'), _) ← Term.TermElabM.run' (runFor g (zifyProof none h t))
           | throwError "zifyProof failed on {h}"
         if ← succeeds t'.ineqOrNotIneq? then
           pure h'

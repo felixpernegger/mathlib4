@@ -364,7 +364,7 @@ theorem continuous_convexComb_prod {a b : ℝ} :
 Helper definition for `convexComb_assoc`, giving one of the coefficients appearing
 when we reassociate a convex combination.
 -/
-abbrev convexComb_assoc_coeff₁ (s t : unitInterval) : unitInterval :=
+abbrev convexCombAssocCoeff₁ (s t : unitInterval) : unitInterval :=
   ⟨s * (1 - t) / (1 - s * t),
     by
       apply div_nonneg
@@ -375,16 +375,22 @@ abbrev convexComb_assoc_coeff₁ (s t : unitInterval) : unitInterval :=
       · nlinarith [s.2.2]
       · nlinarith [s.2.2, t.2.2, t.2.1]⟩
 
+@[deprecated (since := "2026-07-18")]
+alias convexComb_assoc_coeff₁ := convexCombAssocCoeff₁
+
 /--
 Helper definition for `convexComb_assoc`, giving one of the coefficients appearing
 when we reassociate a convex combination.
 -/
-abbrev convexComb_assoc_coeff₂ (s t : unitInterval) : unitInterval := s * t
+abbrev convexCombAssocCoeff₂ (s t : unitInterval) : unitInterval := s * t
+
+@[deprecated (since := "2026-07-18")]
+alias convexComb_assoc_coeff₂ := convexCombAssocCoeff₂
 
 theorem convexComb_assoc {a b : ℝ} (x y z : Icc a b) (s t : unitInterval) :
     convexComb x (convexComb y z t) s =
-      convexComb (convexComb x y (convexComb_assoc_coeff₁ s t)) z
-        (convexComb_assoc_coeff₂ s t) := by
+      convexComb (convexComb x y (convexCombAssocCoeff₁ s t)) z
+        (convexCombAssocCoeff₂ s t) := by
   simp only [convexComb, coe_mul, Subtype.mk.injEq]
   by_cases hs : (s : ℝ) = 1
   · simp only [hs]
@@ -406,23 +412,29 @@ theorem convexComb_assoc {a b : ℝ} (x y z : Icc a b) (s t : unitInterval) :
 Helper definition for `convexComb_assoc'`, giving one of the coefficients appearing
 when we reassociate a convex combination in the reverse direction.
 -/
-abbrev convexComb_assoc_coeff₁' (s t : unitInterval) : unitInterval :=
-  unitInterval.symm (convexComb_assoc_coeff₂ (unitInterval.symm t) (unitInterval.symm s))
+abbrev convexCombAssocCoeff₁' (s t : unitInterval) : unitInterval :=
+  unitInterval.symm (convexCombAssocCoeff₂ (unitInterval.symm t) (unitInterval.symm s))
+
+@[deprecated (since := "2026-07-18")]
+alias convexComb_assoc_coeff₁' := convexCombAssocCoeff₁'
 
 /--
 Helper definition for `convexComb_assoc'`, giving one of the coefficients appearing
 when we reassociate a convex combination in the reverse direction.
 -/
-abbrev convexComb_assoc_coeff₂' (s t : unitInterval) : unitInterval :=
-  unitInterval.symm (convexComb_assoc_coeff₁ (unitInterval.symm t) (unitInterval.symm s))
+abbrev convexCombAssocCoeff₂' (s t : unitInterval) : unitInterval :=
+  unitInterval.symm (convexCombAssocCoeff₁ (unitInterval.symm t) (unitInterval.symm s))
+
+@[deprecated (since := "2026-07-18")]
+alias convexComb_assoc_coeff₂' := convexCombAssocCoeff₂'
 
 theorem convexComb_assoc' {a b : ℝ} (x y z : Icc a b) (s t : unitInterval) :
     convexComb (convexComb x y s) z t =
-      convexComb x (convexComb y z (convexComb_assoc_coeff₂' s t))
-        (convexComb_assoc_coeff₁' s t) := by
+      convexComb x (convexComb y z (convexCombAssocCoeff₂' s t))
+        (convexCombAssocCoeff₁' s t) := by
   rw [← convexComb_symm, ← convexComb_symm y x, convexComb_assoc, ← convexComb_symm x,
     ← convexComb_symm z y]
-  rw [convexComb_assoc_coeff₁', convexComb_assoc_coeff₂', unitInterval.symm_symm]
+  rw [convexCombAssocCoeff₁', convexCombAssocCoeff₂', unitInterval.symm_symm]
 
 set_option backward.privateInPublic true in
 private theorem eq_convexComb.zero_le {a b : ℝ} {x y z : Icc a b} (hxy : x ≤ y) (hyz : y ≤ z) :

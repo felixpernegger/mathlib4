@@ -44,25 +44,37 @@ theorem fromTypes_cons {n} (α : Type u) (p : Fin n → Type u) (τ : Type u) :
 
 /-- The definitional equality between `0`-ary heterogeneous functions into `τ` and `τ`. -/
 @[simps!]
-def fromTypes_zero_equiv (p : Fin 0 → Type u) (τ : Type u) :
+def fromTypesZeroEquiv (p : Fin 0 → Type u) (τ : Type u) :
     FromTypes p τ ≃ τ := Equiv.refl _
+
+@[deprecated (since := "2026-07-18")]
+alias fromTypes_zero_equiv := fromTypesZeroEquiv
 
 /-- The definitional equality between `![]`-ary heterogeneous functions into `τ` and `τ`. -/
 @[simps!]
-def fromTypes_nil_equiv (τ : Type u) : FromTypes ![] τ ≃ τ :=
-  fromTypes_zero_equiv ![] τ
+def fromTypesNilEquiv (τ : Type u) : FromTypes ![] τ ≃ τ :=
+  fromTypesZeroEquiv ![] τ
+
+@[deprecated (since := "2026-07-18")]
+alias fromTypes_nil_equiv := fromTypesNilEquiv
 
 /-- The definitional equality between `p`-ary heterogeneous functions into `τ`
   and function from `vecHead p` to `(vecTail p)`-ary heterogeneous functions into `τ`. -/
 @[simps!]
-def fromTypes_succ_equiv {n} (p : Fin (n + 1) → Type u) (τ : Type u) :
+def fromTypesSuccEquiv {n} (p : Fin (n + 1) → Type u) (τ : Type u) :
     FromTypes p τ ≃ (vecHead p → FromTypes (vecTail p) τ) := Equiv.refl _
+
+@[deprecated (since := "2026-07-18")]
+alias fromTypes_succ_equiv := fromTypesSuccEquiv
 
 /-- The definitional equality between `(vecCons α p)`-ary heterogeneous functions into `τ`
   and function from `α` to `p`-ary heterogeneous functions into `τ`. -/
 @[simps!]
-def fromTypes_cons_equiv {n} (α : Type u) (p : Fin n → Type u) (τ : Type u) :
-    FromTypes (vecCons α p) τ ≃ (α → FromTypes p τ) := fromTypes_succ_equiv _ _
+def fromTypesConsEquiv {n} (α : Type u) (p : Fin n → Type u) (τ : Type u) :
+    FromTypes (vecCons α p) τ ≃ (α → FromTypes p τ) := fromTypesSuccEquiv _ _
+
+@[deprecated (since := "2026-07-18")]
+alias fromTypes_cons_equiv := fromTypesConsEquiv
 
 namespace FromTypes
 

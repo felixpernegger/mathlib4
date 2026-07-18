@@ -35,7 +35,7 @@ namespace Matrix
 def detp : R := ∑ σ ∈ ofSign s, ∏ k, A k (σ k)
 
 @[simp] lemma detp_transpose : A.transpose.detp s = A.detp s :=
-  sum_equiv (.inv _) (by simp) fun σ _ ↦ prod_equiv σ (by simp) (by simp)
+  sumEquiv (.inv _) (by simp) fun σ _ ↦ prod_equiv σ (by simp) (by simp)
 
 @[simp]
 lemma detp_one_diagonal (d : n → R) : detp 1 (diagonal d) = ∏ i, d i := by
@@ -75,7 +75,7 @@ lemma detp_neg_one_one : detp (-1) (1 : Matrix n n R) = 0 := by
 
 @[simp] lemma detp_submatrix_equiv_equiv (f g : m ≃ n) :
     (A.submatrix f g).detp s = A.detp (s * sign (f.symm.trans g)) :=
-  sum_equiv (equivCongr f g) (by simp) fun _ _ ↦ prod_equiv f (by simp) fun _ _ ↦ by simp
+  sumEquiv (equivCongr f g) (by simp) fun _ _ ↦ prod_equiv f (by simp) fun _ _ ↦ by simp
 
 lemma detp_submatrix_equiv_self (e : m ≃ n) : (A.submatrix e e).detp s = A.detp s := by
   simp
@@ -84,7 +84,7 @@ variable {A}
 
 lemma detp_eq_of_row_eq {p q : n} (hpq : p ≠ q) (hrow : A.row p = A.row q)
     (s : ℤˣ := 1) (t : ℤˣ := -1) : A.detp s = A.detp t := by
-  have : A.detp 1 = A.detp (-1) := sum_equiv (.mulRight <| swap p q) (by simp [hpq])
+  have : A.detp 1 = A.detp (-1) := sumEquiv (.mulRight <| swap p q) (by simp [hpq])
     fun _ _ ↦ prod_equiv (swap p q) (by simp) (by aesop (add simp row))
   obtain rfl | rfl := Int.units_eq_one_or s <;> obtain rfl | rfl := Int.units_eq_one_or t <;>
     first | rfl | rw [this]
@@ -110,7 +110,7 @@ lemma adjp_apply (i j : n) :
   rfl
 
 lemma adjp_transpose : A.transpose.adjp s = (A.adjp s).transpose :=
-  ext fun _ _ ↦ sum_equiv (.inv _) (by aesop) fun σ hσ ↦ prod_equiv σ (by aesop) (by simp)
+  ext fun _ _ ↦ sumEquiv (.inv _) (by aesop) fun σ hσ ↦ prod_equiv σ (by aesop) (by simp)
 
 private lemma adjp_none_right (A : Matrix (Option n) (Option n) R) (i : Option n) :
     A.adjp s i none = (A.submatrix some <| swap none i ∘ some).detp (sign (swap none i) * s) := by

@@ -65,7 +65,7 @@ lemma conjneg_ne_zero : conjneg f ≠ 0 ↔ f ≠ 0 := conjneg_eq_zero.not
 lemma conjneg_ne_one : conjneg f ≠ 1 ↔ f ≠ 1 := conjneg_eq_one.not
 
 lemma sum_conjneg [Fintype G] (f : G → R) : ∑ a, conjneg f a = ∑ a, conj (f a) :=
-  Fintype.sum_equiv (Equiv.neg _) _ _ fun _ ↦ rfl
+  Fintype.sumEquiv (Equiv.neg _) _ _ fun _ ↦ rfl
 
 @[simp] lemma support_conjneg (f : G → R) : support (conjneg f) = -support f := by
   ext; simp [starRingEnd_apply]

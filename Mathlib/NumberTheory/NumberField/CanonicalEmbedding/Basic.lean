@@ -189,12 +189,12 @@ abbrev mixedSpace :=
 
 /-- The mixed embedding of a number field `K` into the mixed space of `K`. -/
 noncomputable def _root_.NumberField.mixedEmbedding : K →+* (mixedSpace K) :=
-  RingHom.prod (RingHom.pi fun w => embedding_of_isReal w.prop)
+  RingHom.prod (RingHom.pi fun w => embeddingOfIsReal w.prop)
     (RingHom.pi fun w => w.val.embedding)
 
 @[simp]
 theorem mixedEmbedding_apply_isReal (x : K) (w : {w // IsReal w}) :
-    (mixedEmbedding K x).1 w = embedding_of_isReal w.prop x := by
+    (mixedEmbedding K x).1 w = embeddingOfIsReal w.prop x := by
   simp_rw [mixedEmbedding, RingHom.prod_apply, RingHom.pi_apply]
 
 @[simp]

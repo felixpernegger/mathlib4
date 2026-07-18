@@ -32,15 +32,18 @@ open Matrix MulOpposite
 /-- `AlgHom.mulLeftRight` for matrix algebra sends basis Eᵢⱼ⊗Eₖₗ to
   the map `f : Eₛₜ ↦ Eᵢⱼ * Eₛₜ * Eₖₗ = δⱼₛδₜₖEᵢₗ`, therefore we construct the inverse
   by sending `f` to `∑ᵢₗₛₜ f(Eₛₜ)ᵢₗ • Eᵢₛ⊗Eₜₗ`. -/
-abbrev AlgHom.mulLeftRightMatrix_inv :
+abbrev AlgHom.mulLeftRightMatrixInv :
     Module.End R (Matrix n n R) →ₗ[R] Matrix n n R ⊗[R] (Matrix n n R)ᵐᵒᵖ where
   toFun f := ∑ ⟨⟨i, j⟩, k, l⟩ : (n × n) × n × n,
     f (single j k 1) i l • (single i j 1) ⊗ₜ[R] op (single k l 1)
   map_add' f1 f2 := by simp [add_smul, Finset.sum_add_distrib]
   map_smul' r f := by simp [mul_smul, Finset.smul_sum]
 
+@[deprecated (since := "2026-07-18")]
+alias AlgHom.mulLeftRightMatrix_inv := AlgHom.mulLeftRightMatrixInv
+
 lemma AlgHom.mulLeftRightMatrix.inv_comp :
-    (AlgHom.mulLeftRightMatrix_inv R n).comp
+    (AlgHom.mulLeftRightMatrixInv R n).comp
     (AlgHom.mulLeftRight R (Matrix n n R)).toLinearMap = .id :=
   ((Matrix.stdBasis _ _ _).tensorProduct ((Matrix.stdBasis _ _ _).map (opLinearEquiv ..))).ext
   fun ⟨⟨i0, j0⟩, k0, l0⟩ ↦ by
@@ -49,7 +52,7 @@ lemma AlgHom.mulLeftRightMatrix.inv_comp :
 
 lemma AlgHom.mulLeftRightMatrix.comp_inv :
     (AlgHom.mulLeftRight R (Matrix n n R)).toLinearMap.comp
-    (AlgHom.mulLeftRightMatrix_inv R n) = .id := by
+    (AlgHom.mulLeftRightMatrixInv R n) = .id := by
   ext f : 1
   apply (Matrix.stdBasis _ _ _).ext
   intro ⟨i, j⟩
@@ -65,7 +68,7 @@ namespace IsAzumaya
 theorem matrix [Nonempty n] : IsAzumaya R (Matrix n n R) where
   eq_of_smul_eq_smul := by nontriviality R; exact eq_of_smul_eq_smul
   bij := Function.bijective_iff_has_inverse.mpr
-    ⟨AlgHom.mulLeftRightMatrix_inv R n,
+    ⟨AlgHom.mulLeftRightMatrixInv R n,
     DFunLike.congr_fun (AlgHom.mulLeftRightMatrix.inv_comp R n),
     DFunLike.congr_fun (AlgHom.mulLeftRightMatrix.comp_inv R n)⟩
 

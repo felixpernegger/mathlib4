@@ -508,7 +508,7 @@ theorem not_squarefree_mul (a aa b n : ℕ) (ha : a * a = aa) (hb : aa * b = n) 
   exact fun H => ne_of_gt h₁ (Nat.isUnit_iff.1 <| H _ ⟨_, rfl⟩)
 
 /-- Given `e` a natural numeral and `a : ℕ` with `a^2 ∣ n`, return `⊢ ¬ Squarefree e`. -/
-unsafe def prove_non_squarefree (e : expr) (n a : ℕ) : tactic expr := do
+unsafe def proveNonSquarefree (e : expr) (n a : ℕ) : tactic expr := do
   let ea := reflect a
   let eaa := reflect (a * a)
   let c ← mk_instance_cache q(Nat)
@@ -520,9 +520,12 @@ unsafe def prove_non_squarefree (e : expr) (n a : ℕ) : tactic expr := do
   guard (e' == e)
   return <| q(@not_squarefree_mul).mk_app [ea, eaa, eb, e, pa, pb, p₁]
 
+@[deprecated (since := "2026-07-18")]
+alias prove_non_squarefree := proveNonSquarefree
+
 /-- Given `en`,`en1 := bit1 en`, `n1` the value of `en1`, `ek`,
   returns `⊢ squarefree_helper en ek`. -/
-unsafe def prove_squarefree_aux :
+unsafe def proveSquarefreeAux :
     ∀ (ic : instance_cache) (en en1 : expr) (n1 : ℕ) (ek : expr) (k : ℕ), tactic expr
   | ic, en, en1, n1, ek, k => do
     let k1 := bit1 k
@@ -546,16 +549,19 @@ unsafe def prove_squarefree_aux :
             guard (c ≠ 0)
             let (ic, ec, pc) ← prove_div_mod ic en1' ek1 tt
             let (ic, p₀) ← prove_pos ic ec
-            let p₂ ← prove_squarefree_aux ic en' en1' n1' ek' k'
+            let p₂ ← proveSquarefreeAux ic en' en1' n1' ek' k'
             pure <| q(squarefreeHelper_3).mk_app [en, en', ek, ek', ec, p₁, pn', pc, p₀, p₂]
           else do
             let (ic, ec, pc) ← prove_div_mod ic en1 ek1 tt
             let (ic, p₀) ← prove_pos ic ec
-            let p₂ ← prove_squarefree_aux ic en en1 n1 ek' k'
+            let p₂ ← proveSquarefreeAux ic en en1 n1 ek' k'
             pure <| q(squarefreeHelper_2).mk_app [en, ek, ek', ec, p₁, pc, p₀, p₂]
 
+@[deprecated (since := "2026-07-18")]
+alias prove_squarefree_aux := proveSquarefreeAux
+
 /-- Given `n > 0` a squarefree natural numeral, returns `⊢ Squarefree n`. -/
-unsafe def prove_squarefree (en : expr) (n : ℕ) : tactic expr :=
+unsafe def proveSquarefree (en : expr) (n : ℕ) : tactic expr :=
   match match_numeral en with
   | match_numeral_result.one => pure q(@squarefree_one ℕ _)
   | match_numeral_result.bit0 en1 =>
@@ -563,18 +569,21 @@ unsafe def prove_squarefree (en : expr) (n : ℕ) : tactic expr :=
     | match_numeral_result.one => pure q(Nat.squarefree_two)
     | match_numeral_result.bit1 en => do
       let ic ← mk_instance_cache q(ℕ)
-      let p ← prove_squarefree_aux ic en en1 (n / 2) q((1 : ℕ)) 1
+      let p ← proveSquarefreeAux ic en en1 (n / 2) q((1 : ℕ)) 1
       pure <| q(squarefree_bit10).mk_app [en, p]
     | _ => failed
   | match_numeral_result.bit1 en' => do
     let ic ← mk_instance_cache q(ℕ)
-    let p ← prove_squarefree_aux ic en' en n q((1 : ℕ)) 1
+    let p ← proveSquarefreeAux ic en' en n q((1 : ℕ)) 1
     pure <| q(squarefree_bit1).mk_app [en', p]
   | _ => failed
 
+@[deprecated (since := "2026-07-18")]
+alias prove_squarefree := proveSquarefree
+
 /-- Evaluates the `Squarefree` predicate on naturals. -/
 @[norm_num]
-unsafe def eval_squarefree : expr → tactic (expr × expr)
+unsafe def evalSquarefree : expr → tactic (expr × expr)
   | q(@Squarefree ℕ $(inst) $(e)) => do
     is_def_eq inst q(Nat.monoid)
     let n ← e.toNat
@@ -583,9 +592,12 @@ unsafe def eval_squarefree : expr → tactic (expr × expr)
       | 1 => true_intro q(@squarefree_one ℕ _)
       | _ =>
         match n with
-        | some d => prove_non_squarefree e n d >>= false_intro
-        | none => prove_squarefree e n >>= true_intro
+        | some d => proveNonSquarefree e n d >>= false_intro
+        | none => proveSquarefree e n >>= true_intro
   | _ => failed
+
+@[deprecated (since := "2026-07-18")]
+alias eval_squarefree := evalSquarefree
 
 end NormNum
 

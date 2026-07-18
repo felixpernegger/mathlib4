@@ -300,7 +300,7 @@ theorem norm_iteratedFDerivWithin_prod_le [DecidableEq ι] [NormOneClass A'] {u 
     simp only [Finset.mem_insert, forall_eq_or_imp] at hf
     refine le_trans (norm_iteratedFDerivWithin_mul_le hf.1 (contDiffOn_prod hf.2) hs hx hn) ?_
     rw [← Finset.sum_coe_sort (Finset.sym _ _)]
-    rw [Finset.sum_equiv (Finset.symInsertEquiv hi) (t := Finset.univ)
+    rw [Finset.sumEquiv (Finset.symInsertEquiv hi) (t := Finset.univ)
       (g := (fun v ↦ v.countPerms *
           ∏ j ∈ insert i u, ‖iteratedFDerivWithin 𝕜 (v.count j) (f j) s x‖) ∘
         Sym.toMultiset ∘ Subtype.val ∘ (Finset.symInsertEquiv hi).symm)

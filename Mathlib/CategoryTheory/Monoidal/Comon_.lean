@@ -315,11 +315,14 @@ set_option backward.isDefEq.respectTransparency false in
 Comonoid objects are contravariantly equivalent to monoid objects in the opposite category.
 -/
 @[simps]
-def Comon_EquivMon_OpOp : Comon C ≌ (Mon Cᵒᵖ)ᵒᵖ where
+def ComonEquivMonOpOp : Comon C ≌ (Mon Cᵒᵖ)ᵒᵖ where
   functor := ComonToMonOpOp C
   inverse := MonOpOpToComon C
   unitIso := NatIso.ofComponents fun _ => .refl _
   counitIso := NatIso.ofComponents fun _ => .refl _
+
+@[deprecated (since := "2026-07-18")]
+alias Comon_EquivMon_OpOp := ComonEquivMonOpOp
 
 #adaptation_note /-- After https://github.com/leanprover/lean4/pull/12179
 the simpNF linter complains about `monoidal_tensorObj_comon_counit` being `@[simp]`.
@@ -342,7 +345,7 @@ This definition is via transporting back and forth to monoids in the opposite ca
   leftUnitor_hom_hom leftUnitor_inv_hom
   rightUnitor_hom_hom rightUnitor_inv_hom]
 instance monoidal [BraidedCategory C] : MonoidalCategory (Comon C) :=
-  Monoidal.transport (Comon_EquivMon_OpOp C).symm
+  Monoidal.transport (ComonEquivMonOpOp C).symm
 
 variable {C} [BraidedCategory C]
 

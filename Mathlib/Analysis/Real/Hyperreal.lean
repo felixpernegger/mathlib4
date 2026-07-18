@@ -1060,7 +1060,7 @@ private theorem hyperreal_coe_pos {r : ℝ} : 0 < r → 0 < (r : ℝ*) :=
 
 /-- Extension for the `positivity` tactic: cast from `ℝ` to `ℝ*`. -/
 @[positivity]
-unsafe def positivity_coe_real_hyperreal : expr → tactic strictness
+unsafe def positivityCoeRealHyperreal : expr → tactic strictness
   | q(@coe _ _ $(inst) $(a)) => do
     unify inst q(@coeToLift _ _ Hyperreal.hasCoeT)
     let strictness_a ← core a
@@ -1070,6 +1070,9 @@ unsafe def positivity_coe_real_hyperreal : expr → tactic strictness
       | nonzero p => nonzero <$> mk_app `` hyperreal_coe_ne_zero [p]
   | e =>
     pp e >>= fail ∘ format.bracket "The expression " " is not of the form `(r : ℝ*)` for `r : ℝ`"
+
+@[deprecated (since := "2026-07-18")]
+alias positivity_coe_real_hyperreal := positivityCoeRealHyperreal
 
 end Tactic
 -/

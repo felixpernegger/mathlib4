@@ -81,22 +81,25 @@ lemma fibres_closed [TopologicalSpace S] [TopologicalSpace T]
   · simpa using IsCompact.isClosed (isCompact_range (hσ i))
   · exact .preimage (continuous_snd.comp hπ) ⟨fun h ↦ by simp_all, by simp⟩
 
-def π_r (π : T → S × Option X) (σ : Option X → S → T) :
+def πR (π : T → S × Option X) (σ : Option X → S → T) :
     fibres π σ → S × Option X :=
   fun x ↦ π x
 
+@[deprecated (since := "2026-07-18")]
+alias π_r := πR
+
 @[grind =]
 lemma π_r_apply (π : T → S × Option X) (σ : Option X → S → T)
-    (x : fibres π σ) : π_r π σ x = π x :=
+    (x : fibres π σ) : πR π σ x = π x :=
   rfl
 
 def fibreIncl (π : T → S × Option X) (σ : Option X → S → T) :
-    (Prod.snd ∘ π_r π σ) ⁻¹' {none} → fibres π σ :=
+    (Prod.snd ∘ πR π σ) ⁻¹' {none} → fibres π σ :=
   Subtype.val
 
 @[grind =]
 lemma fibreIncl_apply (π : T → S × Option X) (σ : Option X → S → T)
-    (x : (Prod.snd ∘ π_r π σ) ⁻¹' {none}) : fibreIncl π σ x = x :=
+    (x : (Prod.snd ∘ πR π σ) ⁻¹' {none}) : fibreIncl π σ x = x :=
   rfl
 
 lemma fibres_surjective
@@ -123,7 +126,7 @@ lemma coverToFun_apply {S T X Y : Type*} (i : Y → T) (π : T → S × Option X
 lemma coverToFun_surjective (π : T → S × Option X) (σ : Option X → S → T)
     (hσ : ∀ (x : Option X) s, (π (σ x s)).1 = s)
     (hσ' : ∀ (x : Option X) (s : S), (π (σ x s)).2 = x) :
-    Function.Surjective (coverToFun (fibreIncl π σ) (π_r π σ)) := by
+    Function.Surjective (coverToFun (fibreIncl π σ) (πR π σ)) := by
   intro ⟨⟨⟨t, ht⟩, ⟨t', ht'⟩⟩, _⟩
   by_cases h : (π t).2 = none
   · exact ⟨Sum.inr ⟨(⟨⟨t, ht⟩, by grind⟩, ⟨⟨t', ht'⟩, by grind⟩), by grind⟩, by grind⟩
@@ -131,7 +134,7 @@ lemma coverToFun_surjective (π : T → S × Option X) (σ : Option X → S → 
     exact ⟨Sum.inl ⟨σ n (π t).1, by grind⟩, by grind⟩
 
 def sectionOfFibreIncl (π : T → S × Option X) (σ : Option X → S → T)
-    (hσ' : ∀ (x : Option X) (s : S), (π (σ x s)).2 = x) : S → (Prod.snd ∘ π_r π σ) ⁻¹' {none} :=
+    (hσ' : ∀ (x : Option X) (s : S), (π (σ x s)).2 = x) : S → (Prod.snd ∘ πR π σ) ⁻¹' {none} :=
   fun s ↦ ⟨⟨σ none s, by grind⟩, by grind⟩
 
 /-- Given a map `π : T → S × OnePoint X`, define a new space `S'` and a map `y : S' ⟶ S` which has

@@ -89,19 +89,25 @@ section min_max
 variable {α : Type*} [Finite α] [Nonempty α]
 
 /-- Smallest `b i` -/
-noncomputable def min_bi (b : α → ℝ) : α :=
+noncomputable def minBi (b : α → ℝ) : α :=
   Classical.choose <| Finite.exists_min b
 
+@[deprecated (since := "2026-07-18")]
+alias min_bi := minBi
+
 /-- Largest `b i` -/
-noncomputable def max_bi (b : α → ℝ) : α :=
+noncomputable def maxBi (b : α → ℝ) : α :=
   Classical.choose <| Finite.exists_max b
 
+@[deprecated (since := "2026-07-18")]
+alias max_bi := maxBi
+
 @[aesop safe apply]
-lemma min_bi_le {b : α → ℝ} (i : α) : b (min_bi b) ≤ b i :=
+lemma min_bi_le {b : α → ℝ} (i : α) : b (minBi b) ≤ b i :=
   Classical.choose_spec (Finite.exists_min b) i
 
 @[aesop safe apply]
-lemma max_bi_le {b : α → ℝ} (i : α) : b i ≤ b (max_bi b) :=
+lemma max_bi_le {b : α → ℝ} (i : α) : b i ≤ b (maxBi b) :=
   Classical.choose_spec (Finite.exists_max b) i
 
 end min_max
@@ -149,34 +155,34 @@ lemma eventually_r_le_b : ∀ᶠ (n : ℕ) in atTop, ∀ i, r i n ≤ (b i : ℝ
 lemma eventually_r_lt_n : ∀ᶠ (n : ℕ) in atTop, ∀ i, r i n < n := by
   filter_upwards [eventually_ge_atTop R.n₀] with n hn i using R.r_lt_n i n hn
 
-lemma eventually_bi_mul_le_r : ∀ᶠ (n : ℕ) in atTop, ∀ i, (b (min_bi b) / 2) * n ≤ r i n := by
-  have gt_zero : 0 < b (min_bi b) := R.b_pos (min_bi b)
+lemma eventually_bi_mul_le_r : ∀ᶠ (n : ℕ) in atTop, ∀ i, (b (minBi b) / 2) * n ≤ r i n := by
+  have gt_zero : 0 < b (minBi b) := R.b_pos (minBi b)
   have hlo := isLittleO_self_div_log_id
   rw [Asymptotics.isLittleO_iff] at hlo
-  have hlo' := hlo (by positivity : 0 < b (min_bi b) / 2)
+  have hlo' := hlo (by positivity : 0 < b (minBi b) / 2)
   filter_upwards [hlo', R.eventually_b_le_r] with n hn hn' i
   simp only [Real.norm_of_nonneg (by positivity : 0 ≤ (n : ℝ))] at hn
-  calc b (min_bi b) / 2 * n
-    _ = b (min_bi b) * n - b (min_bi b) / 2 * n := by ring
-    _ ≤ b (min_bi b) * n - ‖n / log n ^ 2‖ := by gcongr
+  calc b (minBi b) / 2 * n
+    _ = b (minBi b) * n - b (minBi b) / 2 * n := by ring
+    _ ≤ b (minBi b) * n - ‖n / log n ^ 2‖ := by gcongr
     _ ≤ b i * n - ‖n / log n ^ 2‖ := by gcongr; aesop
     _ = b i * n - n / log n ^ 2 := by
       congr
       exact Real.norm_of_nonneg <| by positivity
     _ ≤ r i n := hn' i
 
-lemma bi_min_div_two_lt_one : b (min_bi b) / 2 < 1 := by
-  have gt_zero : 0 < b (min_bi b) := R.b_pos (min_bi b)
-  calc b (min_bi b) / 2
-    _ < b (min_bi b) := by aesop (add safe apply div_two_lt_of_pos)
+lemma bi_min_div_two_lt_one : b (minBi b) / 2 < 1 := by
+  have gt_zero : 0 < b (minBi b) := R.b_pos (minBi b)
+  calc b (minBi b) / 2
+    _ < b (minBi b) := by aesop (add safe apply div_two_lt_of_pos)
     _ < 1 := R.b_lt_one _
 
-lemma bi_min_div_two_pos : 0 < b (min_bi b) / 2 := div_pos (R.b_pos _) (by simp)
+lemma bi_min_div_two_pos : 0 < b (minBi b) / 2 := div_pos (R.b_pos _) (by simp)
 
 lemma exists_eventually_const_mul_le_r :
     ∃ c ∈ Set.Ioo (0 : ℝ) 1, ∀ᶠ (n : ℕ) in atTop, ∀ i, c * n ≤ r i n := by
-  have gt_zero : 0 < b (min_bi b) := R.b_pos (min_bi b)
-  exact ⟨b (min_bi b) / 2, ⟨⟨by positivity, R.bi_min_div_two_lt_one⟩, R.eventually_bi_mul_le_r⟩⟩
+  have gt_zero : 0 < b (minBi b) := R.b_pos (minBi b)
+  exact ⟨b (minBi b) / 2, ⟨⟨by positivity, R.bi_min_div_two_lt_one⟩, R.eventually_bi_mul_le_r⟩⟩
 
 lemma eventually_r_ge (C : ℝ) : ∀ᶠ (n : ℕ) in atTop, ∀ i, C ≤ r i n := by
   obtain ⟨c, hc_mem, hc⟩ := R.exists_eventually_const_mul_le_r
@@ -202,16 +208,16 @@ lemma tendsto_atTop_r_real (i : α) : Tendsto (fun n => (r i n : ℝ)) atTop atT
 
 lemma exists_eventually_r_le_const_mul :
     ∃ c ∈ Set.Ioo (0 : ℝ) 1, ∀ᶠ (n : ℕ) in atTop, ∀ i, r i n ≤ c * n := by
-  let c := b (max_bi b) + (1 - b (max_bi b)) / 2
-  have h_max_bi_pos : 0 < b (max_bi b) := R.b_pos _
-  have h_max_bi_lt_one : 0 < 1 - b (max_bi b) := by
-    have : b (max_bi b) < 1 := R.b_lt_one _
+  let c := b (maxBi b) + (1 - b (maxBi b)) / 2
+  have h_max_bi_pos : 0 < b (maxBi b) := R.b_pos _
+  have h_max_bi_lt_one : 0 < 1 - b (maxBi b) := by
+    have : b (maxBi b) < 1 := R.b_lt_one _
     linarith
   have hc_pos : 0 < c := by positivity
-  have h₁ : 0 < (1 - b (max_bi b)) / 2 := by positivity
+  have h₁ : 0 < (1 - b (maxBi b)) / 2 := by positivity
   have hc_lt_one : c < 1 :=
-    calc b (max_bi b) + (1 - b (max_bi b)) / 2
-      _ = b (max_bi b) * (1 / 2) + 1 / 2 := by ring
+    calc b (maxBi b) + (1 - b (maxBi b)) / 2
+      _ = b (maxBi b) * (1 / 2) + 1 / 2 := by ring
       _ < 1 * (1 / 2) + 1 / 2 := by gcongr; exact R.b_lt_one _
       _ = 1 := by norm_num
   refine ⟨c, ⟨hc_pos, hc_lt_one⟩, ?_⟩
@@ -223,9 +229,9 @@ lemma exists_eventually_r_le_const_mul :
   rw [Real.norm_of_nonneg (by positivity)] at hn
   simp only [Real.norm_of_nonneg (by positivity : 0 ≤ (n : ℝ))] at hn
   calc r i n ≤ b i * n + n / log n ^ 2 := by exact hn' i
-             _ ≤ b i * n + (1 - b (max_bi b)) / 2 * n := by gcongr
-             _ = (b i + (1 - b (max_bi b)) / 2) * n := by ring
-             _ ≤ (b (max_bi b) + (1 - b (max_bi b)) / 2) * n := by gcongr; exact max_bi_le _
+             _ ≤ b i * n + (1 - b (maxBi b)) / 2 * n := by gcongr
+             _ = (b i + (1 - b (maxBi b)) / 2) * n := by ring
+             _ ≤ (b (maxBi b) + (1 - b (maxBi b)) / 2) * n := by gcongr; exact max_bi_le _
 
 lemma eventually_r_pos : ∀ᶠ (n : ℕ) in atTop, ∀ i, 0 < r i n := by
   rw [Filter.eventually_all]
@@ -508,9 +514,9 @@ lemma tendsto_zero_sumCoeffsExp : Tendsto (fun (p : ℝ) => ∑ i, a i * (b i) ^
   linarith
 
 lemma tendsto_atTop_sumCoeffsExp : Tendsto (fun (p : ℝ) => ∑ i, a i * (b i) ^ p) atBot atTop := by
-  have h₁ : Tendsto (fun p : ℝ => (a (max_bi b) : ℝ) * b (max_bi b) ^ p) atBot atTop :=
-    Tendsto.const_mul_atTop (R.a_pos (max_bi b)) <| tendsto_rpow_atBot_of_base_lt_one _
-      (by have := R.b_pos (max_bi b); linarith) (R.b_lt_one _)
+  have h₁ : Tendsto (fun p : ℝ => (a (maxBi b) : ℝ) * b (maxBi b) ^ p) atBot atTop :=
+    Tendsto.const_mul_atTop (R.a_pos (maxBi b)) <| tendsto_rpow_atBot_of_base_lt_one _
+      (by have := R.b_pos (maxBi b); linarith) (R.b_lt_one _)
   refine tendsto_atTop_mono (fun p => ?_) h₁
   refine Finset.single_le_sum (f := fun i => (a i : ℝ) * b i ^ p) (fun i _ => ?_) (mem_univ _)
   positivity [R.a_pos i, R.b_pos i]

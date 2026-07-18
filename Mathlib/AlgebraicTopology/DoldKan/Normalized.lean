@@ -12,7 +12,7 @@ public import Mathlib.AlgebraicTopology.DoldKan.FunctorN
 # Comparison with the normalized Moore complex functor
 
 In this file, we show that when the category `A` is abelian,
-there is an isomorphism `N₁_iso_normalizedMooreComplex_comp_toKaroubi` between
+there is an isomorphism `N₁IsoNormalizedMooreComplexCompToKaroubi` between
 the functor `N₁ : SimplicialObject A ⥤ Karoubi (ChainComplex A ℕ)`
 defined in `FunctorN.lean` and the composition of
 `normalizedMooreComplex A` with the inclusion
@@ -127,7 +127,7 @@ set_option backward.isDefEq.respectTransparency false in
 the functor `N₁ : SimplicialObject A ⥤ Karoubi (ChainComplex A ℕ)` defined
 using `PInfty` identifies to the composition of the normalized Moore complex functor
 and the inclusion in the Karoubi envelope. -/
-def N₁_iso_normalizedMooreComplex_comp_toKaroubi : N₁ ≅ normalizedMooreComplex A ⋙ toKaroubi _ where
+def N₁IsoNormalizedMooreComplexCompToKaroubi : N₁ ≅ normalizedMooreComplex A ⋙ toKaroubi _ where
   hom :=
     { app := fun X => { f := PInftyToNormalizedMooreComplex X } }
   inv :=
@@ -144,6 +144,9 @@ def N₁_iso_normalizedMooreComplex_comp_toKaroubi : N₁ ≅ normalizedMooreCom
       inclusionOfMooreComplexMap_comp_PInfty]
     dsimp only [Functor.comp_obj, toKaroubi]
     rw [id_comp]
+
+@[deprecated (since := "2026-07-18")]
+alias N₁_iso_normalizedMooreComplex_comp_toKaroubi := N₁IsoNormalizedMooreComplexCompToKaroubi
 
 end DoldKan
 

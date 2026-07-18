@@ -780,13 +780,16 @@ theorem _root_.Group.card_dvd_prod_orderOf [Fintype G] : Nat.card G ∣ ∏ g : 
 
 /-- If `G` has a normal Sylow `p`-subgroup, then it is the only Sylow `p`-subgroup. -/
 @[instance_reducible]
-noncomputable def unique_of_normal {p : ℕ} [Fact p.Prime] [Finite (Sylow p G)] (P : Sylow p G)
+noncomputable def uniqueOfNormal {p : ℕ} [Fact p.Prime] [Finite (Sylow p G)] (P : Sylow p G)
     (h : P.Normal) : Unique (Sylow p G) := by
   refine { uniq := fun Q ↦ ?_ }
   obtain ⟨x, h1⟩ := exists_smul_eq G P Q
   obtain ⟨x, h2⟩ := exists_smul_eq G P default
   rw [smul_eq_of_normal] at h1 h2
   rw [← h1, ← h2]
+
+@[deprecated (since := "2026-07-18")]
+alias unique_of_normal := uniqueOfNormal
 
 instance characteristic_of_subsingleton {p : ℕ} [Subsingleton (Sylow p G)] (P : Sylow p G) :
     P.Characteristic := by
@@ -800,7 +803,7 @@ theorem normal_of_subsingleton {p : ℕ} [Subsingleton (Sylow p G)] (P : Sylow p
 
 theorem characteristic_of_normal {p : ℕ} [Fact p.Prime] [Finite (Sylow p G)] (P : Sylow p G)
     (h : P.Normal) : P.Characteristic := by
-  have _ := unique_of_normal P h
+  have _ := uniqueOfNormal P h
   exact characteristic_of_subsingleton _
 
 theorem normal_of_normalizer_normal {p : ℕ} [Fact p.Prime] [Finite (Sylow p G)] (P : Sylow p G)
@@ -858,7 +861,7 @@ noncomputable def directProductOfNormal [Finite G]
     apply @MulEquiv.piCongrRight ps (fun p => ∀ P : Sylow p G, P) (fun p => P p) _ _
     rintro ⟨p, hp⟩
     haveI hp' := Fact.mk (Nat.prime_of_mem_primeFactors hp)
-    letI := unique_of_normal _ (hn (P p))
+    letI := uniqueOfNormal _ (hn (P p))
     apply MulEquiv.piUnique
   apply MulEquiv.ofBijective (Subgroup.noncommPiCoprod hcomm)
   apply (Fintype.bijective_iff_injective_and_card _).mpr

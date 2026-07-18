@@ -232,7 +232,7 @@ theorem fin_comap_jointlySurjective
       continuous_projRestrict _ _⟩ := by
   obtain ⟨J, g, h⟩ := @Profinite.exists_locallyConstant (Finset I)ᵒᵖ _ _ _
     (spanCone hC.isCompact) ℤ
-    (spanCone_isLimit hC.isCompact) f
+    (spanConeIsLimit hC.isCompact) f
   exact ⟨(Opposite.unop J), g, h⟩
 
 /-- The good products span all of `LocallyConstant C ℤ` if `C` is closed. -/

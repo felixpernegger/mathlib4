@@ -715,7 +715,7 @@ instance (a : R) {S : Type*} [SMul S R] [SMul S M] [IsScalarTower S R M] [IsScal
 
 /-- Given an `R`-module `M` and an element `a` in `R`, submodules of the `a`-torsion submodule of
 `M` do not depend on whether we take scalars to be `R` or `R ⧸ R ∙ a`. -/
-def submodule_torsionBy_orderIso (a : R) :
+def submoduleTorsionByOrderIso (a : R) :
     Submodule (R ⧸ R ∙ a) (torsionBy R M a) ≃o Submodule R (torsionBy R M a) :=
   { restrictScalarsEmbedding R (R ⧸ R ∙ a) (torsionBy R M a) with
     invFun := fun p ↦
@@ -725,6 +725,9 @@ def submodule_torsionBy_orderIso (a : R) :
         smul_mem' := by rintro ⟨b⟩; exact p.smul_mem b }
     left_inv := by intro; ext; simp [restrictScalarsEmbedding]
     right_inv := by intro; ext; simp [restrictScalarsEmbedding] }
+
+@[deprecated (since := "2026-07-18")]
+alias submodule_torsionBy_orderIso := submoduleTorsionByOrderIso
 
 instance (M : Type*) [AddCommGroup M] [Module R M] [Module.Finite R M] (I : Ideal R) :
     Module.Finite (R ⧸ I) (M ⧸ I • (⊤ : Submodule R M)) :=

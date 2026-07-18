@@ -366,7 +366,7 @@ instance NNReal.instContinuousMapZero.UniqueHom
     have e0' : e.symm 0 = 0 := e.symm_apply_eq.mpr e0
     have (ξ : C(s, ℝ≥0)₀ →⋆ₙₐ[ℝ≥0] A) (hξ : Continuous ξ) :
         (let ξ' := ξ.realContinuousMapZeroOfNNReal.comp <|
-          ContinuousMapZero.nonUnitalStarAlgHom_precomp ℝ ⟨e, e0⟩;
+          ContinuousMapZero.nonUnitalStarAlgHomPrecomp ℝ ⟨e, e0⟩;
           Continuous ξ' ∧ ξ' (.id s') = ξ (.id s)) := by
       intro ξ'
       refine ⟨ξ.continuous_realContinuousMapZeroOfNNReal hξ |>.comp <| ?_, ?_⟩
@@ -380,9 +380,9 @@ instance NNReal.instContinuousMapZero.UniqueHom
     have h' := ContinuousMapZero.UniqueHom.eq_of_continuous_of_map_id
       s' _ _ hφ' hψ' (hφ_id ▸ hψ_id ▸ h)
     have h'' := congr($(h').comp <|
-      ContinuousMapZero.nonUnitalStarAlgHom_precomp ℝ ⟨(e.symm : C(s', s)), e0'⟩)
-    have : (ContinuousMapZero.nonUnitalStarAlgHom_precomp ℝ ⟨(e : C(s, s')), e0⟩).comp
-        (ContinuousMapZero.nonUnitalStarAlgHom_precomp ℝ ⟨(e.symm : C(s', s)), e0'⟩) =
+      ContinuousMapZero.nonUnitalStarAlgHomPrecomp ℝ ⟨(e.symm : C(s', s)), e0'⟩)
+    have : (ContinuousMapZero.nonUnitalStarAlgHomPrecomp ℝ ⟨(e : C(s, s')), e0⟩).comp
+        (ContinuousMapZero.nonUnitalStarAlgHomPrecomp ℝ ⟨(e.symm : C(s', s)), e0'⟩) =
         NonUnitalStarAlgHom.id _ _ := by
       ext; simp
     simp only [NonUnitalStarAlgHom.comp_assoc, this, NonUnitalStarAlgHom.comp_id] at h''
@@ -423,7 +423,7 @@ lemma NonUnitalStarAlgHomClass.map_cfcₙ (φ : F) (f : R → R) (a : A)
   let ι : C(quasispectrum R (ψ a), quasispectrum R a)₀ :=
     ⟨⟨Set.inclusion h_spec, continuous_id.subtype_map h_spec⟩, rfl⟩
   suffices ψ.comp (cfcₙHom ha) =
-      (cfcₙHom hψa).comp (ContinuousMapZero.nonUnitalStarAlgHom_precomp R ι) by
+      (cfcₙHom hψa).comp (ContinuousMapZero.nonUnitalStarAlgHomPrecomp R ι) by
     have hf' : ContinuousOn f (quasispectrum R (ψ a)) := hf.mono h_spec
     rw [cfcₙ_apply .., cfcₙ_apply ..]
     exact DFunLike.congr_fun this _
@@ -433,7 +433,7 @@ lemma NonUnitalStarAlgHomClass.map_cfcₙ (φ : F) (f : R → R) (a : A)
     · simp [cfcₙHom_id]
     · congr
   all_goals
-    dsimp [ContinuousMapZero.nonUnitalStarAlgHom_precomp]
+    dsimp [ContinuousMapZero.nonUnitalStarAlgHomPrecomp]
     fun_prop
 
 /-- Non-unital star algebra homomorphisms commute with the non-unital continuous functional

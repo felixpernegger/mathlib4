@@ -58,7 +58,7 @@ instance IsStableUnderRetracts.isomorphisms : (isomorphisms C).IsStableUnderRetr
   of_retract {X Y Z W f g} h (_ : IsIso _) := by
     refine ⟨h.i.right ≫ inv g ≫ h.r.left, ?_, ?_⟩
     · rw [← h.i_w_assoc, IsIso.hom_inv_id_assoc, h.retract_left]
-    · rw [Category.assoc, Category.assoc, h.r_w, IsIso.inv_hom_id_assoc, h.retract_right]
+    · rw [Category.assoc, Category.assoc, h.r_w, IsIso.inv_hom_id_assoc, h.retractRight]
 
 instance (P : MorphismProperty C) [P.IsStableUnderRetracts] :
     P.op.IsStableUnderRetracts where

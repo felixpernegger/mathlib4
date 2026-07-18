@@ -436,7 +436,7 @@ variable (R) in
 /-- The functor `C(·, R)₀` from topological spaces with zero (and `ContinuousMapZero` maps) to
 non-unital star algebras. -/
 @[simps]
-def nonUnitalStarAlgHom_precomp (f : C(X, Y)₀) : C(Y, R)₀ →⋆ₙₐ[R] C(X, R)₀ where
+def nonUnitalStarAlgHomPrecomp (f : C(X, Y)₀) : C(Y, R)₀ →⋆ₙₐ[R] C(X, R)₀ where
   toFun g := g.comp f
   map_zero' := rfl
   map_add' _ _ := rfl
@@ -444,12 +444,15 @@ def nonUnitalStarAlgHom_precomp (f : C(X, Y)₀) : C(Y, R)₀ →⋆ₙₐ[R] C(
   map_star' _ := rfl
   map_smul' _ _ := rfl
 
+@[deprecated (since := "2026-07-18")]
+alias nonUnitalStarAlgHom_precomp := nonUnitalStarAlgHomPrecomp
+
 set_option backward.isDefEq.respectTransparency false in
 variable (X) in
 /-- The functor `C(X, ·)₀` from non-unital topological star algebras (with non-unital continuous
 star homomorphisms) to non-unital star algebras. -/
 @[simps apply]
-def nonUnitalStarAlgHom_postcomp (φ : R →⋆ₙₐ[M] S) (hφ : Continuous φ) :
+def nonUnitalStarAlgHomPostcomp (φ : R →⋆ₙₐ[M] S) (hφ : Continuous φ) :
     C(X, R)₀ →⋆ₙₐ[M] C(X, S)₀ where
   toFun := .comp ⟨⟨φ, hφ⟩, by simp⟩
   map_zero' := ext <| by simp
@@ -457,6 +460,9 @@ def nonUnitalStarAlgHom_postcomp (φ : R →⋆ₙₐ[M] S) (hφ : Continuous φ
   map_mul' _ _ := ext <| by simp
   map_star' _ := ext <| by simp [map_star]
   map_smul' r f := ext <| by simp
+
+@[deprecated (since := "2026-07-18")]
+alias nonUnitalStarAlgHom_postcomp := nonUnitalStarAlgHomPostcomp
 
 end CompHoms
 

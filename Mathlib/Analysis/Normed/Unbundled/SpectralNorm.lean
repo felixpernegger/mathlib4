@@ -519,7 +519,7 @@ theorem isPowMul_spectralNorm_of_finiteDimensional_normal [IsUltrametricDist K] 
 set_option linter.style.whitespace false in -- manual alignment is not recognised
 /-- The spectral norm is a `K`-algebra norm on `L` when `L/K` is finite and normal.
   See also `spectralAlgNorm` for a more general construction. -/
-def spectralAlgNorm_of_finiteDimensional_normal [IsUltrametricDist K] : AlgebraNorm K L where
+def spectralAlgNormOfFiniteDimensionalNormal [IsUltrametricDist K] : AlgebraNorm K L where
   toFun     := spectralNorm K L
   map_zero' := by rw [spectralNorm_eq_invariantExtension K L, map_zero]
   add_le'   := by rw [spectralNorm_eq_invariantExtension]; exact map_add_le_add _
@@ -533,8 +533,11 @@ def spectralAlgNorm_of_finiteDimensional_normal [IsUltrametricDist K] : AlgebraN
     simp only [spectralNorm_eq_invariantExtension]
     exact eq_zero_of_map_eq_zero _
 
+@[deprecated (since := "2026-07-18")]
+alias spectralAlgNorm_of_finiteDimensional_normal := spectralAlgNormOfFiniteDimensionalNormal
+
 theorem spectralAlgNorm_of_finiteDimensional_normal_def [IsUltrametricDist K] (x : L) :
-    spectralAlgNorm_of_finiteDimensional_normal K L x = spectralNorm K L x := rfl
+    spectralAlgNormOfFiniteDimensionalNormal K L x = spectralNorm K L x := rfl
 
 /-- The spectral norm is nonarchimedean when `L/K` is finite and normal.
   See also `isNonarchimedean_spectralNorm` for a more general result. -/

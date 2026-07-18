@@ -322,14 +322,14 @@ end Valuation
 
 end PadicSeq
 
--- Porting note: Commented out `padic_index_simp` tactic
+-- Porting note: Commented out `padicIndexSimp` tactic
 
 /-
 section
 
 open PadicSeq
 
-private unsafe def index_simp_core (hh hf hg : expr)
+private unsafe def indexSimpCore (hh hf hg : expr)
     (at_ : Interactive.Loc := Interactive.Loc.ns [none]) : tactic Unit := do
   let [v1, v2, v3] ← [hh, hf, hg].mapM fun n => tactic.mk_app `` stationary_point [n] <|> return n
   let e1 ← tactic.mk_app `` lift_index_left_left [hh, v2, v3] <|> return q(True)
@@ -342,10 +342,13 @@ private unsafe def index_simp_core (hh hf hg : expr)
 
 /-- This is a special-purpose tactic that lifts `padicNorm (f (stationary_point f))` to
 `padicNorm (f (max _ _ _))`. -/
-unsafe def tactic.interactive.padic_index_simp (l : interactive.parse interactive.types.pexpr_list)
+unsafe def tactic.interactive.padicIndexSimp (l : interactive.parse interactive.types.pexpr_list)
     (at_ : interactive.parse interactive.types.location) : tactic Unit := do
   let [h, f, g] ← l.mapM tactic.i_to_expr
-  index_simp_core h f g at_
+  indexSimpCore h f g at_
+
+@[deprecated (since := "2026-07-18")]
+alias tactic.interactive.padic_index_simp := tactic.interactive.padicIndexSimp
 
 end
 -/
@@ -371,7 +374,7 @@ theorem norm_mul (f g : PadicSeq p) : (f * g).norm = f.norm * g.norm := by
       unfold norm
       have hfg := mul_not_equiv_zero hf hg
       simp only [hfg, hf, hg, dite_false]
-      -- Porting note: originally `padic_index_simp [hfg, hf, hg]`
+      -- Porting note: originally `padicIndexSimp [hfg, hf, hg]`
       rw [lift_index_left_left hfg, lift_index_left hf, lift_index_right hg]
       apply padicNorm.mul
 
@@ -404,7 +407,7 @@ private theorem norm_eq_of_equiv_aux {f g : PadicSeq p} (hf : ¬f ≈ 0) (hg : �
   let i := max N (max (stationaryPoint hf) (stationaryPoint hg))
   have hi : N ≤ i := le_max_left _ _
   have hN' := hN _ hi
-  -- Porting note: originally `padic_index_simp [N, hf, hg] at hN' h hlt`
+  -- Porting note: originally `padicIndexSimp [N, hf, hg] at hN' h hlt`
   rw [lift_index_left hf N (stationaryPoint hg), lift_index_right hg N (stationaryPoint hf)]
     at hN' h hlt
   have hpne : padicNorm p (f i) ≠ padicNorm p (-g i) := by rwa [← padicNorm.neg (g i)] at h
@@ -438,7 +441,7 @@ theorem norm_equiv {f g : PadicSeq p} (hfg : f ≈ g) : f.norm = g.norm := by
 private theorem norm_nonarchimedean_aux {f g : PadicSeq p} (hfg : ¬f + g ≈ 0) (hf : ¬f ≈ 0)
     (hg : ¬g ≈ 0) : (f + g).norm ≤ max f.norm g.norm := by
   unfold norm; split_ifs
-  -- Porting note: originally `padic_index_simp [hfg, hf, hg]`
+  -- Porting note: originally `padicIndexSimp [hfg, hf, hg]`
   rw [lift_index_left_left hfg, lift_index_left hf, lift_index_right hg]
   apply padicNorm.nonarchimedean
 
@@ -516,7 +519,7 @@ theorem add_eq_max_of_ne {f g : PadicSeq p} (hfgne : f.norm ≠ g.norm) :
       rw [h1, h2, max_eq_left (norm_nonneg _)]
     else by
       unfold norm at hfgne ⊢; split_ifs at hfgne ⊢
-      -- Porting note: originally `padic_index_simp [hfg, hf, hg] at hfgne ⊢`
+      -- Porting note: originally `padicIndexSimp [hfg, hf, hg] at hfgne ⊢`
       rw [lift_index_left hf, lift_index_right hg] at hfgne
       · rw [lift_index_left_left hfg, lift_index_left hf, lift_index_right hg]
         exact padicNorm.add_eq_max_of_ne hfgne

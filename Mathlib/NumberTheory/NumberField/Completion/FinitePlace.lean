@@ -156,7 +156,7 @@ noncomputable instance instRankOneAdicCompletion :
 
 lemma rankOne_hom'_def :
     (instRankOneAdicCompletion K v).hom' = (toNNReal (absNorm_ne_zero v)).comp
-      (valueGroup₀_equiv_withZeroMulInt Valued.v).toMonoidWithZeroHom := rfl
+      (valueGroup₀EquivWithZeroMulInt Valued.v).toMonoidWithZeroHom := rfl
 
 /-- The `v`-adic completion of `K` is a normed field. -/
 noncomputable instance instNormedFieldValuedAdicCompletion : NormedField (adicCompletion K v) :=

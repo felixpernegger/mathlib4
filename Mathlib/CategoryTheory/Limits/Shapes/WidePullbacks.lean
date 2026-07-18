@@ -97,7 +97,7 @@ instance subsingleton_hom : Quiver.IsThin (WidePullbackShape J) := fun _ _ => by
   · rfl
 
 instance category : SmallCategory (WidePullbackShape J) :=
-  thin_category
+  thinCategory
 
 @[simp]
 theorem hom_id (X : WidePullbackShape J) : Hom.id X = 𝟙 X :=
@@ -227,7 +227,7 @@ instance subsingleton_hom : Quiver.IsThin (WidePushoutShape J) := fun _ _ => by
   repeat rfl
 
 instance category : SmallCategory (WidePushoutShape J) :=
-  thin_category
+  thinCategory
 
 @[simp]
 theorem hom_id (X : WidePushoutShape J) : Hom.id X = 𝟙 X :=

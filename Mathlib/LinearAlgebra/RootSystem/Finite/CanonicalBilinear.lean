@@ -141,7 +141,7 @@ lemma rootForm_symmetric :
 lemma rootForm_reflection_reflection_apply (i : ι) (x y : M) :
     P.RootForm (P.reflection i x) (P.reflection i y) = P.RootForm x y := by
   simp only [rootForm_apply_apply, coroot'_reflection]
-  exact Fintype.sum_equiv (P.reflectionPerm i)
+  exact Fintype.sumEquiv (P.reflectionPerm i)
     (fun j ↦ (P.coroot' (P.reflectionPerm i j) x) * (P.coroot' (P.reflectionPerm i j) y))
     (fun j ↦ P.coroot' j x * P.coroot' j y) (congrFun rfl)
 
@@ -254,7 +254,7 @@ lemma rootFormIn_self_smul_coroot (i : ι) :
   have hP : P.PolarizationIn S (P.rootSpanMem S i) =
       ∑ j : ι, P.pairingIn S i (P.reflectionPerm i j) • P.coroot (P.reflectionPerm i j) := by
     simp_rw [PolarizationIn_apply, coroot'In_rootSpanMem_eq_pairingIn]
-    exact (Fintype.sum_equiv (P.reflectionPerm i)
+    exact (Fintype.sumEquiv (P.reflectionPerm i)
           (fun j ↦ P.pairingIn S i (P.reflectionPerm i j) • P.coroot (P.reflectionPerm i j))
           (fun j ↦ P.pairingIn S i j • P.coroot j) (congrFun rfl)).symm
   rw [two_nsmul]

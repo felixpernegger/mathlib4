@@ -300,9 +300,12 @@ theorem choose_eq_descFactorial_div_factorial (n k : ℕ) : n.choose k = n.descF
 
 /-- A faster implementation of `choose`, to be used during bytecode evaluation
 and in compiled code. -/
-def fast_choose n k := Nat.descFactorial n k / Nat.factorial k
+def fastChoose n k := Nat.descFactorial n k / Nat.factorial k
 
-@[csimp] lemma choose_eq_fast_choose : Nat.choose = fast_choose :=
+@[deprecated (since := "2026-07-18")]
+alias fast_choose := fastChoose
+
+@[csimp] lemma choose_eq_fast_choose : Nat.choose = fastChoose :=
   funext (fun _ => funext (Nat.choose_eq_descFactorial_div_factorial _))
 
 

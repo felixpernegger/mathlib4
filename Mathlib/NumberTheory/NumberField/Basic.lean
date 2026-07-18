@@ -333,18 +333,24 @@ def restrict (f : M → K) (h : ∀ x, IsIntegral ℤ (f x)) (x : M) : 𝓞 K :=
 
 /-- Given `f : M →+ K` such that `∀ x, IsIntegral ℤ (f x)`, the corresponding function
 `M →+ 𝓞 K`. -/
-def restrict_addMonoidHom [AddZeroClass M] (f : M →+ K) (h : ∀ x, IsIntegral ℤ (f x)) :
+def restrictAddMonoidHom [AddZeroClass M] (f : M →+ K) (h : ∀ x, IsIntegral ℤ (f x)) :
     M →+ 𝓞 K where
   toFun := restrict f h
   map_zero' := by simp only [restrict, map_zero]; rfl
   map_add' x y := by simp only [restrict, map_add]; rfl
 
+@[deprecated (since := "2026-07-18")]
+alias restrict_addMonoidHom := restrictAddMonoidHom
+
 /-- Given `f : M →* K` such that `∀ x, IsIntegral ℤ (f x)`, the corresponding function
 `M →* 𝓞 K`. -/
-def restrict_monoidHom [MulOneClass M] (f : M →* K) (h : ∀ x, IsIntegral ℤ (f x)) : M →* 𝓞 K where
+def restrictMonoidHom [MulOneClass M] (f : M →* K) (h : ∀ x, IsIntegral ℤ (f x)) : M →* 𝓞 K where
   toFun := restrict f h
   map_one' := by simp only [restrict, map_one]; rfl
   map_mul' x y := by simp only [restrict, map_mul]; rfl
+
+@[deprecated (since := "2026-07-18")]
+alias restrict_monoidHom := restrictMonoidHom
 
 section extension
 

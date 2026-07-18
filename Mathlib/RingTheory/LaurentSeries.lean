@@ -81,7 +81,7 @@ type with a zero. They are denoted `R⸨X⸩`.
   equivalence: `LaurentSeries.LaurentSeriesAlgEquiv` is the *topological, algebra equivalence*
   `K⸨X⸩ ≃ₐ[K] RatFuncAdicCompl K`.
 * In order to compare `K⟦X⟧` with the valuation subring in the `X`-adic completion of
-  `K⟮X⟯` we consider its alias `LaurentSeries.powerSeries_as_subring` as a subring of `K⸨X⸩`,
+  `K⟮X⟯` we consider its alias `LaurentSeries.powerSeriesAsSubring` as a subring of `K⸨X⸩`,
   that is itself clearly isomorphic (via the inverse of `LaurentSeries.powerSeriesEquivSubring`)
   to `K⟦X⟧`.
 
@@ -1129,11 +1129,14 @@ section PowerSeries
 
 /-- In order to compare `K⟦X⟧` with the valuation subring in the `X`-adic completion of
 `K⟮X⟯` we consider its alias as a subring of `K⸨X⸩`. -/
-abbrev powerSeries_as_subring : Subring K⸨X⸩ :=
+abbrev powerSeriesAsSubring : Subring K⸨X⸩ :=
   Subring.map (HahnSeries.ofPowerSeries ℤ K) ⊤
 
-/-- The ring `K⟦X⟧` is isomorphic to the subring `powerSeries_as_subring K` -/
-abbrev powerSeriesEquivSubring : K⟦X⟧ ≃+* powerSeries_as_subring K :=
+@[deprecated (since := "2026-07-18")]
+alias powerSeries_as_subring := powerSeriesAsSubring
+
+/-- The ring `K⟦X⟧` is isomorphic to the subring `powerSeriesAsSubring K` -/
+abbrev powerSeriesEquivSubring : K⟦X⟧ ≃+* powerSeriesAsSubring K :=
   ((Subring.topEquiv).symm).trans (Subring.equivMapOfInjective ⊤ (ofPowerSeries ℤ K)
     ofPowerSeries_injective)
 
@@ -1168,7 +1171,7 @@ theorem exists_powerSeries_of_memIntegers {x : RatFuncAdicCompl K}
   exact ⟨F, by rw [hF, hf, RingEquiv.symm_apply_apply]⟩
 
 theorem powerSeries_ext_subring :
-    Subring.map (LaurentSeriesRingEquiv K).toRingHom (powerSeries_as_subring K) =
+    Subring.map (LaurentSeriesRingEquiv K).toRingHom (powerSeriesAsSubring K) =
       ((idealX K).adicCompletionIntegers K⟮X⟯).toSubring := by
   ext x
   refine ⟨fun ⟨f, ⟨F, _, coe_F⟩, hF⟩ ↦ ?_, fun H ↦ ?_⟩

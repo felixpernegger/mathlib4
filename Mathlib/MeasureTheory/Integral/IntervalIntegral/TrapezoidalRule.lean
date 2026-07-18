@@ -31,18 +31,24 @@ open MeasureTheory intervalIntegral Interval Finset HasDerivWithinAt Set
 `f`.  (Note the off-by-one problem here: `N` counts the number of trapezoids, not the number of
 evaluations.) -/
 @[wikidata Q833293]
-noncomputable def trapezoidal_integral (f : ℝ → ℝ) (N : ℕ) (a b : ℝ) : ℝ :=
+noncomputable def trapezoidalIntegral (f : ℝ → ℝ) (N : ℕ) (a b : ℝ) : ℝ :=
   ((b - a) / N) * ((f a + f b) / 2 + ∑ k ∈ range (N - 1), f (a + (k + 1) * (b - a) / N))
 
+@[deprecated (since := "2026-07-18")]
+alias trapezoidal_integral := trapezoidalIntegral
+
 /-- The absolute error of trapezoidal integration. -/
-noncomputable def trapezoidal_error (f : ℝ → ℝ) (N : ℕ) (a b : ℝ) : ℝ :=
-  (trapezoidal_integral f N a b) - (∫ x in a..b, f x)
+noncomputable def trapezoidalError (f : ℝ → ℝ) (N : ℕ) (a b : ℝ) : ℝ :=
+  (trapezoidalIntegral f N a b) - (∫ x in a..b, f x)
+
+@[deprecated (since := "2026-07-18")]
+alias trapezoidal_error := trapezoidalError
 
 /-- Just like exact integration, the trapezoidal approximation retains the same magnitude but
 changes sign when the endpoints are swapped. -/
 theorem trapezoidal_integral_symm (f : ℝ → ℝ) {N : ℕ} (N_nonzero : 0 < N) (a b : ℝ) :
-    trapezoidal_integral f N a b = -(trapezoidal_integral f N b a) := by
-  unfold trapezoidal_integral
+    trapezoidalIntegral f N a b = -(trapezoidalIntegral f N b a) := by
+  unfold trapezoidalIntegral
   rw [neg_mul_eq_neg_mul, neg_div', neg_sub, add_comm (f b) (f a), ← sum_range_reflect]
   congr 2
   apply sum_congr rfl
@@ -54,33 +60,33 @@ theorem trapezoidal_integral_symm (f : ℝ → ℝ) {N : ℕ} (N_nonzero : 0 < N
 
 /-- The absolute error of the trapezoidal rule does not change when the endpoints are swapped. -/
 theorem trapezoidal_error_symm (f : ℝ → ℝ) {N : ℕ} (N_nonzero : 0 < N) (a b : ℝ) :
-    trapezoidal_error f N a b = -trapezoidal_error f N b a := by
-  unfold trapezoidal_error
+    trapezoidalError f N a b = -trapezoidalError f N b a := by
+  unfold trapezoidalError
   rw [trapezoidal_integral_symm f N_nonzero a b, integral_symm, neg_sub_neg, neg_sub]
 
 /-- Just like exact integration, the trapezoidal integration from `a` to `a` is zero. -/
 @[simp]
-theorem trapezoidal_integral_eq (f : ℝ → ℝ) (N : ℕ) (a : ℝ) : trapezoidal_integral f N a a = 0 := by
-  simp [trapezoidal_integral]
+theorem trapezoidal_integral_eq (f : ℝ → ℝ) (N : ℕ) (a : ℝ) : trapezoidalIntegral f N a a = 0 := by
+  simp [trapezoidalIntegral]
 
 /-- The error of the trapezoidal integration from `a` to `a` is zero. -/
 @[simp]
-theorem trapezoidal_error_eq (f : ℝ → ℝ) (N : ℕ) (a : ℝ) : trapezoidal_error f N a a = 0 := by
-  simp [trapezoidal_error]
+theorem trapezoidal_error_eq (f : ℝ → ℝ) (N : ℕ) (a : ℝ) : trapezoidalError f N a a = 0 := by
+  simp [trapezoidalError]
 
 /-- An exact formula for integration with a single trapezoid (the "midpoint rule"). -/
 @[simp]
 theorem trapezoidal_integral_one (f : ℝ → ℝ) (a b : ℝ) :
-    trapezoidal_integral f 1 a b = (b - a) / 2 * (f a + f b) := by
-  simp [trapezoidal_integral, mul_comm_div]
+    trapezoidalIntegral f 1 a b = (b - a) / 2 * (f a + f b) := by
+  simp [trapezoidalIntegral, mul_comm_div]
 
 /-- A basic trapezoidal equivalent to `IntervalIntegral.sum_integral_adjacent_intervals`. More
 general theorems are certainly possible, but many of them can be derived from repeated applications
 of this one. -/
 theorem sum_trapezoidal_integral_adjacent_intervals {f : ℝ → ℝ} {N : ℕ} {a h : ℝ}
-    (N_nonzero : 0 < N) : ∑ i ∈ range N, trapezoidal_integral f 1 (a + i * h) (a + (i + 1) * h)
-      = trapezoidal_integral f N a (a + N * h) := by
-  simp_rw [trapezoidal_integral_one, add_sub_add_left_eq_sub, ← sub_mul, trapezoidal_integral,
+    (N_nonzero : 0 < N) : ∑ i ∈ range N, trapezoidalIntegral f 1 (a + i * h) (a + (i + 1) * h)
+      = trapezoidalIntegral f N a (a + N * h) := by
+  simp_rw [trapezoidal_integral_one, add_sub_add_left_eq_sub, ← sub_mul, trapezoidalIntegral,
     add_sub_cancel_left, one_mul, ← mul_sum, ← mul_div, show N * (h / N) = h by field]
   rw [sum_add_distrib, ← Nat.sub_one_add_one_eq_of_pos N_nonzero, sum_range_succ', sum_range_succ,
     add_add_add_comm, ← sum_add_distrib, add_comm, Nat.sub_one_add_one_eq_of_pos N_nonzero]
@@ -89,8 +95,8 @@ theorem sum_trapezoidal_integral_adjacent_intervals {f : ℝ → ℝ} {N : ℕ} 
 
 /-- A simplified version of the previous theorem, for use in proofs by induction and the like. -/
 theorem trapezoidal_integral_ext {f : ℝ → ℝ} {N : ℕ} {a h : ℝ} (N_nonzero : 0 < N) :
-    trapezoidal_integral f N a (a + N * h) + trapezoidal_integral f 1 (a + N * h) (a + (N + 1) * h)
-      = trapezoidal_integral f (N + 1) a (a + (N + 1) * h) := by
+    trapezoidalIntegral f N a (a + N * h) + trapezoidalIntegral f 1 (a + N * h) (a + (N + 1) * h)
+      = trapezoidalIntegral f (N + 1) a (a + (N + 1) * h) := by
   rw [← Nat.cast_add_one, ← sum_trapezoidal_integral_adjacent_intervals N_nonzero,
       ← sum_trapezoidal_integral_adjacent_intervals (Nat.add_pos_left N_nonzero 1),
       sum_range_succ, Nat.cast_add_one]
@@ -100,9 +106,9 @@ it's natural to combine them into a similar formula for the error.  This theorem
 used in the proof of the general error bound. -/
 theorem sum_trapezoidal_error_adjacent_intervals {f : ℝ → ℝ} {N : ℕ} {a h : ℝ} (N_nonzero : 0 < N)
     (h_f_int : IntervalIntegrable f volume a (a + N * h)) :
-    ∑ i ∈ range N, trapezoidal_error f 1 (a + i * h) (a + (i + 1) * h)
-      = trapezoidal_error f N a (a + N * h) := by
-  unfold trapezoidal_error
+    ∑ i ∈ range N, trapezoidalError f 1 (a + i * h) (a + (i + 1) * h)
+      = trapezoidalError f N a (a + N * h) := by
+  unfold trapezoidalError
   rw [sum_sub_distrib, sum_trapezoidal_integral_adjacent_intervals N_nonzero]
   norm_cast
   rw [sum_integral_adjacent_intervals]
@@ -121,15 +127,15 @@ private lemma trapezoidal_error_le_of_lt' {f : ℝ → ℝ} {ζ : ℝ} {a b : �
     (h_df : DifferentiableOn ℝ f (Icc a b))
     (h_ddf : DifferentiableOn ℝ (derivWithin f (Icc a b)) (Icc a b))
     (fpp_bound : ∀ x, |iteratedDerivWithin 2 f (Icc a b) x| ≤ ζ) :
-    |trapezoidal_error f 1 a b| ≤ (b - a) ^ 3 * ζ / 12 := by
+    |trapezoidalError f 1 a b| ≤ (b - a) ^ 3 * ζ / 12 := by
   rw [mul_div_assoc, mul_comm]
-  let g (t : ℝ) := trapezoidal_error f 1 a t
+  let g (t : ℝ) := trapezoidalError f 1 a t
   -- Hand-computed expressions for g' and g''.
   let dg (t : ℝ) := (1 / 2) * (f a + f t) + ((t - a) / 2) * (derivWithin f (Icc a b) t) - f t
   let ddg (t : ℝ) := ((t - a) / 2) * (iteratedDerivWithin 2 f (Icc a b) t)
   -- Compute g' by applying standard derivative identities.
   have h_dg (y : ℝ) (hy : y ∈ Icc a b) : HasDerivWithinAt g (dg y) (Icc a b) y := by
-    unfold g trapezoidal_error trapezoidal_integral
+    unfold g trapezoidalError trapezoidalIntegral
     simp only [Nat.cast_one, div_one, tsub_self, Finset.range_zero, sum_empty, add_zero]
     simp_rw [← mul_comm_div]
     refine fun_sub (fun_mul (div_const (sub_const _ (hasDerivWithinAt_id _ _)) _)
@@ -179,7 +185,7 @@ private lemma trapezoidal_error_le_of_lt {f : ℝ → ℝ} {ζ : ℝ} {a b : ℝ
     (h_ddf : DifferentiableOn ℝ (derivWithin f (Icc a b)) (Icc a b))
     (fpp_bound : ∀ x, |iteratedDerivWithin 2 f (Icc a b) x| ≤ ζ)
     {N : ℕ} (N_nonzero : 0 < N) :
-    |trapezoidal_error f N a b| ≤ (b - a) ^ 3 * ζ / (12 * N ^ 2) := by
+    |trapezoidalError f N a b| ≤ (b - a) ^ 3 * ζ / (12 * N ^ 2) := by
   let h := (b - a) / N
   let ak (k : ℕ) := a + k * h
   have h0 : ∀ k : ℕ, ak (k + 1) - ak k = h := by simp [ak, ← sub_mul]
@@ -189,7 +195,7 @@ private lemma trapezoidal_error_le_of_lt {f : ℝ → ℝ} {ζ : ℝ} {a b : ℝ
   rw [hb, ← sum_trapezoidal_error_adjacent_intervals N_nonzero
     (hb ▸ h_df.continuousOn.intervalIntegrable_of_Icc a_lt_b.le)]
   grw [abs_sum_le_sum_abs]
-  suffices ∀ k ∈ range N, |trapezoidal_error f 1 (ak k) (ak (k + 1))| ≤ (ζ / 12) * h ^ 3 by
+  suffices ∀ k ∈ range N, |trapezoidalError f 1 (ak k) (ak (k + 1))| ≤ (ζ / 12) * h ^ 3 by
     norm_cast
     calc
       _ ≤ ∑ k ∈ range N, ζ / 12 * h ^ 3 := sum_le_sum this
@@ -227,7 +233,7 @@ theorem trapezoidal_error_le {f : ℝ → ℝ} {a b : ℝ}
     (h_df : DifferentiableOn ℝ f [[a, b]])
     (h_ddf : DifferentiableOn ℝ (derivWithin f [[a, b]]) [[a, b]]) {ζ : ℝ}
     (fpp_bound : ∀ x, |iteratedDerivWithin 2 f [[a, b]] x| ≤ ζ) {N : ℕ} (N_nonzero : 0 < N) :
-    |trapezoidal_error f N a b| ≤ |b - a| ^ 3 * ζ / (12 * N ^ 2) := by
+    |trapezoidalError f N a b| ≤ |b - a| ^ 3 * ζ / (12 * N ^ 2) := by
   rcases lt_trichotomy a b with h_lt | h_eq | h_gt
   -- Standard case: a < b
   · rw [uIcc_of_lt h_lt] at *
@@ -245,7 +251,7 @@ theorem trapezoidal_error_le {f : ℝ → ℝ} {a b : ℝ}
 `f` is `C^2`. -/
 theorem trapezoidal_error_le_of_c2 {f : ℝ → ℝ} {a b : ℝ} (h_f_c2 : ContDiffOn ℝ 2 f [[a, b]])
     {ζ : ℝ} (fpp_bound : ∀ x, |iteratedDerivWithin 2 f [[a, b]] x| ≤ ζ) {N : ℕ}
-    (N_nonzero : 0 < N) : |trapezoidal_error f N a b| ≤ |b - a| ^ 3 * ζ / (12 * N ^ 2) := by
+    (N_nonzero : 0 < N) : |trapezoidalError f N a b| ≤ |b - a| ^ 3 * ζ / (12 * N ^ 2) := by
   -- This use of rcases slightly duplicates effort from the proof of trapezoidal_error_le, but doing
   -- it any other way that I can think of would be worse.
   rcases eq_or_ne a b with h_eq | h_ne

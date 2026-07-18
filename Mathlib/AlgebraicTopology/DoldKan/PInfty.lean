@@ -150,8 +150,11 @@ noncomputable def natTransPInfty : alternatingFaceMapComplex C ⟶ alternatingFa
 
 /-- The natural transformation in each degree that is induced by `natTransPInfty`. -/
 @[simps!]
-noncomputable def natTransPInfty_f (n : ℕ) :=
+noncomputable def natTransPInftyF (n : ℕ) :=
   natTransPInfty C ◫ 𝟙 (HomologicalComplex.eval _ _ n)
+
+@[deprecated (since := "2026-07-18")]
+alias natTransPInfty_f := natTransPInftyF
 
 variable {C}
 
@@ -189,8 +192,8 @@ theorem karoubi_PInfty_f {Y : Karoubi (SimplicialObject C)} (n : ℕ) :
     congr 1
   have h₁₄ := Idempotents.natTrans_eq
     ((𝟙 (karoubiFunctorCategoryEmbedding SimplexCategoryᵒᵖ C)) ◫
-      (natTransPInfty_f (Karoubi C) n)) Y
-  dsimp [natTransPInfty_f] at h₁₄
+      (natTransPInftyF (Karoubi C) n)) Y
+  dsimp [natTransPInftyF] at h₁₄
   rw [id_comp, id_comp, comp_id, comp_id] at h₁₄
   -- We use the three equalities h₃₂, h₄₃, h₁₄.
   rw [← h₃₂, ← h₄₃, h₁₄]

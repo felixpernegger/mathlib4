@@ -19,7 +19,7 @@ public import Mathlib.Topology.OpenPartialHomeomorph.Composition
 * `OpenPartialHomeomorph.pi`: the product of a finite family of open partial homeomorphisms
 * `OpenPartialHomeomorph.disjointUnion`: combine two open partial homeomorphisms with disjoint
   sources and disjoint targets
-* `OpenPartialHomeomorph.lift_openEmbedding`: extend an open partial homeomorphism `X → Y`
+* `OpenPartialHomeomorph.liftOpenEmbedding`: extend an open partial homeomorphism `X → Y`
   under an open embedding `X → X'`, to an open partial homeomorphism `X' → Z`.
   (This is used to define the disjoint union of charted spaces.)
 -/
@@ -341,7 +341,7 @@ end subtypeRestr
 /-!
 ## Extending along an open embedding
 -/
-section lift_openEmbedding
+section liftOpenEmbedding
 
 variable {X X' Z : Type*} [TopologicalSpace X] [TopologicalSpace X'] [TopologicalSpace Z]
   [Nonempty Z] {f : X → X'}
@@ -349,7 +349,7 @@ variable {X X' Z : Type*} [TopologicalSpace X] [TopologicalSpace X'] [Topologica
 /-- Extend an open partial homeomorphism `e : X → Z` to `X' → Z`, using an open embedding
 `ι : X → X'`. On `ι(X)`, the extension is specified by `e`; its value elsewhere is arbitrary
 (and uninteresting). -/
-noncomputable def lift_openEmbedding (e : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) :
+noncomputable def liftOpenEmbedding (e : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) :
     OpenPartialHomeomorph X' Z where
   toFun := extend f e (fun _ ↦ (Classical.arbitrary Z))
   invFun := f ∘ e.invFun
@@ -386,44 +386,47 @@ noncomputable def lift_openEmbedding (e : OpenPartialHomeomorph X Z) (hf : IsOpe
     exact ContinuousOn.congr this heq
   continuousOn_invFun := hf.continuous.comp_continuousOn e.continuousOn_invFun
 
+@[deprecated (since := "2026-07-18")]
+alias lift_openEmbedding := liftOpenEmbedding
+
 @[simp, mfld_simps]
 lemma lift_openEmbedding_toFun (e : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) :
-    (e.lift_openEmbedding hf) = extend f e (fun _ ↦ (Classical.arbitrary Z)) := rfl
+    (e.liftOpenEmbedding hf) = extend f e (fun _ ↦ (Classical.arbitrary Z)) := rfl
 
 lemma lift_openEmbedding_apply (e : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) {x : X} :
-    (lift_openEmbedding e hf) (f x) = e x := by
+    (liftOpenEmbedding e hf) (f x) = e x := by
   simp_rw [e.lift_openEmbedding_toFun]
   apply hf.injective.extend_apply
 
 @[simp, mfld_simps]
 lemma lift_openEmbedding_source (e : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) :
-    (e.lift_openEmbedding hf).source = f '' e.source := rfl
+    (e.liftOpenEmbedding hf).source = f '' e.source := rfl
 
 @[simp, mfld_simps]
 lemma lift_openEmbedding_target (e : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) :
-    (e.lift_openEmbedding hf).target = e.target := rfl
+    (e.liftOpenEmbedding hf).target = e.target := rfl
 
 @[simp, mfld_simps]
 lemma lift_openEmbedding_symm (e : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) :
-    (e.lift_openEmbedding hf).symm = f ∘ e.symm := rfl
+    (e.liftOpenEmbedding hf).symm = f ∘ e.symm := rfl
 
 @[simp, mfld_simps]
 lemma lift_openEmbedding_symm_source (e : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) :
-    (e.lift_openEmbedding hf).symm.source = e.target := rfl
+    (e.liftOpenEmbedding hf).symm.source = e.target := rfl
 
 @[simp, mfld_simps]
 lemma lift_openEmbedding_symm_target (e : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) :
-    (e.lift_openEmbedding hf).symm.target = f '' e.source := by
+    (e.liftOpenEmbedding hf).symm.target = f '' e.source := by
   rw [OpenPartialHomeomorph.symm_target, e.lift_openEmbedding_source]
 
 lemma lift_openEmbedding_trans_apply
     (e e' : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) (z : Z) :
-    (e.lift_openEmbedding hf).symm.trans (e'.lift_openEmbedding hf) z = (e.symm.trans e') z := by
+    (e.liftOpenEmbedding hf).symm.trans (e'.liftOpenEmbedding hf) z = (e.symm.trans e') z := by
   simp [hf.injective.extend_apply e']
 
 @[simp, mfld_simps]
 lemma lift_openEmbedding_trans (e e' : OpenPartialHomeomorph X Z) (hf : IsOpenEmbedding f) :
-    (e.lift_openEmbedding hf).symm.trans (e'.lift_openEmbedding hf) = e.symm.trans e' := by
+    (e.liftOpenEmbedding hf).symm.trans (e'.liftOpenEmbedding hf) = e.symm.trans e' := by
   ext z
   · exact e.lift_openEmbedding_trans_apply e' hf z
   · simp [hf.injective.extend_apply e]
@@ -433,6 +436,6 @@ lemma lift_openEmbedding_trans (e e' : OpenPartialHomeomorph X Z) (hf : IsOpenEm
     rw [mem_preimage]; rw [comp_apply] at hxy
     exact (hf.injective hxy) ▸ hy
 
-end lift_openEmbedding
+end liftOpenEmbedding
 
 end OpenPartialHomeomorph

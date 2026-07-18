@@ -39,7 +39,7 @@ In Mathlib, the quasispectrum is the domain of the continuous functions associat
 + `PreQuasiregular R`: a structure wrapping `R` that inherits a distinct `Monoid` instance when `R`
   is a non-unital semiring.
 + `Unitization.unitsFstOne`: the subgroup with carrier `{ x : (Unitization R A)ˣ | x.fst = 1 }`.
-+ `unitsFstOne_mulEquiv_quasiregular`: the group isomorphism between
++ `unitsFstOneMulEquivQuasiregular`: the group isomorphism between
   `Unitization.unitsFstOne` and the units of `PreQuasiregular` (i.e., the quasiregular elements)
   which sends `(1, x) ↦ x`.
 + `IsQuasiregular x`: the proposition that `x : R` is a unit with respect to the monoid structure on
@@ -143,7 +143,7 @@ variable (R) in
 scalar part is `1 : R` (i.e., `Unitization.unitsFstOne`) is isomorphic to the group of units of
 `PreQuasiregular A`. -/
 @[simps]
-def unitsFstOne_mulEquiv_quasiregular : unitsFstOne R A ≃* (PreQuasiregular A)ˣ where
+def unitsFstOneMulEquivQuasiregular : unitsFstOne R A ≃* (PreQuasiregular A)ˣ where
   toFun x :=
     { val := PreQuasiregular.equiv x.val.val.snd
       inv := PreQuasiregular.equiv x⁻¹.val.val.snd
@@ -171,6 +171,9 @@ def unitsFstOne_mulEquiv_quasiregular : unitsFstOne R A ≃* (PreQuasiregular A)
   left_inv x := Subtype.ext <| Units.ext <| by simpa using x.val.val.inl_fst_add_inr_snd_eq
   right_inv x := Units.ext <| by simp [-PreQuasiregular.equiv_symm_apply]
   map_mul' x y := Units.ext <| PreQuasiregular.equiv.symm.injective <| by simp
+
+@[deprecated (since := "2026-07-18")]
+alias unitsFstOne_mulEquiv_quasiregular := unitsFstOneMulEquivQuasiregular
 
 end Unitization
 
@@ -238,8 +241,8 @@ lemma isQuasiregular_iff_isUnit' (R : Type*) {A : Type*} [CommSemiring R] [NonUn
     IsQuasiregular x ↔ IsUnit (1 + x : Unitization R A) := by
   refine ⟨?_, fun hx ↦ ?_⟩
   · rintro ⟨u, rfl⟩
-    exact (Unitization.unitsFstOne_mulEquiv_quasiregular R).symm u |>.val.isUnit
-  · exact ⟨(Unitization.unitsFstOne_mulEquiv_quasiregular R) ⟨hx.unit, by simp⟩, by simp⟩
+    exact (Unitization.unitsFstOneMulEquivQuasiregular R).symm u |>.val.isUnit
+  · exact ⟨(Unitization.unitsFstOneMulEquivQuasiregular R) ⟨hx.unit, by simp⟩, by simp⟩
 
 variable (R : Type*) {A : Type*} [CommSemiring R] [NonUnitalRing A]
   [Module R A]

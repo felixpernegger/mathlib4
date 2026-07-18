@@ -53,7 +53,7 @@ private noncomputable def auxDFT (Φ : ZMod N → E) (k : ZMod N) : E :=
 
 private lemma auxDFT_neg (Φ : ZMod N → E) : auxDFT (fun j ↦ Φ (-j)) = fun k ↦ auxDFT Φ (-k) := by
   ext1 k; simpa only [auxDFT] using
-    Fintype.sum_equiv (Equiv.neg _) _ _ (fun j ↦ by rw [Equiv.neg_apply, neg_mul_neg])
+    Fintype.sumEquiv (Equiv.neg _) _ _ (fun j ↦ by rw [Equiv.neg_apply, neg_mul_neg])
 
 /-- Fourier inversion formula, discrete case. -/
 private lemma auxDFT_auxDFT (Φ : ZMod N → E) : auxDFT (auxDFT Φ) = fun j ↦ (N : ℂ) • Φ (-j) := by
@@ -181,7 +181,7 @@ end inversion
 
 lemma dft_comp_unitMul (Φ : ZMod N → E) (u : (ZMod N)ˣ) (k : ZMod N) :
     𝓕 (fun j ↦ Φ (u.val * j)) k = 𝓕 Φ (u⁻¹.val * k) := by
-  refine Fintype.sum_equiv u.mulLeft _ _ fun x ↦ ?_
+  refine Fintype.sumEquiv u.mulLeft _ _ fun x ↦ ?_
   simp only [mul_comm u.val, u.mulLeft_apply, ← mul_assoc, u.mul_inv_cancel_right]
 
 section signs

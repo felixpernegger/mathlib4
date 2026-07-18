@@ -85,12 +85,12 @@ theorem uniformContinuous_algebraMap_liesOver :
   let e := v.asIdeal.ramificationIdx' w.asIdeal
   -- push `γL` to `ℤᵐ⁰`
   let σL := WithVal.valueGroupOrderIso₀ (w.valuation L)
-  let σw := valueGroup₀_equiv_withZeroMulInt (w.valuation L)
+  let σw := valueGroup₀EquivWithZeroMulInt (w.valuation L)
   let σwV := ValuativeRel.ValueGroupWithZero.orderMonoidIso (WithVal.valuation (w.valuation L))
   let m : ℤᵐ⁰ := σw (σL (σwV γL))
   -- `ℤᵐ⁰` values in `K` exponentiate by `e` in `L` so take the `e`th root and pull back to `γK`
   let σvV := ValuativeRel.ValueGroupWithZero.orderMonoidIso (WithVal.valuation (v.valuation K))
-  let σv := valueGroup₀_equiv_withZeroMulInt (v.valuation K)
+  let σv := valueGroup₀EquivWithZeroMulInt (v.valuation K)
   let σK := WithVal.valueGroupOrderIso₀ (v.valuation K)
   let γK := σvV.symm (σK.symm (σv.symm (exp (m.log / e))))
   have hγK : γK ≠ 0 := by simp [γK, EmbeddingLike.map_eq_zero_iff (f := σK.symm)]

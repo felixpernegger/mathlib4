@@ -25,7 +25,7 @@ Hausdorff spaces as a cofiltered limit in `Profinite` indexed by `Finset ι`.
   limit cone in `Profinite` on `indexFunctor` to the cone point of `indexCone` is an
   isomorphism
 - `Profinite.asLimitindexConeIso` is the induced isomorphism of cones.
-- `Profinite.indexCone_isLimit` says that `indexCone` is a limit cone.
+- `Profinite.indexConeIsLimit` says that `indexCone` is a limit cone.
 
 -/
 
@@ -46,9 +46,12 @@ open ContinuousMap
 def obj : Set ((i : {i : ι // J i}) → X i) := ContinuousMap.precomp (Subtype.val (p := J)) '' C
 
 /-- The projection maps in the limit cone `indexCone`. -/
-def π_app : C(C, obj C J) :=
+def πApp : C(C, obj C J) :=
   ⟨Set.MapsTo.restrict (precomp (Subtype.val (p := J))) _ _ (Set.mapsTo_image _ _),
     Continuous.restrict _ (Pi.continuous_precomp' _)⟩
+
+@[deprecated (since := "2026-07-18")]
+alias π_app := πApp
 
 variable {J K}
 
@@ -60,21 +63,21 @@ def map (h : ∀ i, J i → K i) : C(obj C K, obj C J) :=
     exact ⟨y, hy.1, rfl⟩), Continuous.restrict _ (Pi.continuous_precomp' _)⟩
 
 theorem surjective_π_app :
-    Function.Surjective (π_app C J) := by
+    Function.Surjective (πApp C J) := by
   intro x
   obtain ⟨y, hy⟩ := x.prop
   exact ⟨⟨y, hy.1⟩, Subtype.ext hy.2⟩
 
-theorem map_comp_π_app (h : ∀ i, J i → K i) : map C h ∘ π_app C K = π_app C J := rfl
+theorem map_comp_π_app (h : ∀ i, J i → K i) : map C h ∘ πApp C K = πApp C J := rfl
 
 variable {C}
 
 theorem eq_of_forall_π_app_eq (a b : C)
-    (h : ∀ (J : Finset ι), π_app C (· ∈ J) a = π_app C (· ∈ J) b) : a = b := by
+    (h : ∀ (J : Finset ι), πApp C (· ∈ J) a = πApp C (· ∈ J) b) : a = b := by
   ext i
   specialize h ({i} : Finset ι)
   rw [Subtype.ext_iff] at h
-  simp only [π_app, ContinuousMap.precomp, ContinuousMap.coe_mk] at h
+  simp only [πApp, ContinuousMap.precomp, ContinuousMap.coe_mk] at h
   exact congr_fun h ⟨i, Finset.mem_singleton.mpr rfl⟩
 
 end IndexFunctor
@@ -95,7 +98,7 @@ def indexFunctor (hC : IsCompact C) : (Finset ι)ᵒᵖ ⥤ Profinite.{u} where
 noncomputable
 def indexCone (hC : IsCompact C) : Cone (indexFunctor hC) where
   pt := @Profinite.of C _ (by rwa [← isCompact_iff_compactSpace]) _ _
-  π := { app := fun J ↦ ConcreteCategory.ofHom (π_app C (· ∈ unop J)) }
+  π := { app := fun J ↦ ConcreteCategory.ofHom (πApp C (· ∈ unop J)) }
 
 variable (hC : IsCompact C)
 
@@ -109,28 +112,28 @@ instance isIso_indexCone_lift :
       · refine eq_of_forall_π_app_eq a b (fun J ↦ ?_)
         apply_fun fun f : (limitCone.{u, u} (indexFunctor hC)).pt => f.val (op J) at h
         exact h
-      · rsuffices ⟨b, hb⟩ : ∃ (x : C), ∀ (J : Finset ι), π_app C (· ∈ J) x = a.val (op J)
+      · rsuffices ⟨b, hb⟩ : ∃ (x : C), ∀ (J : Finset ι), πApp C (· ∈ J) x = a.val (op J)
         · use b
           apply Subtype.ext
           apply funext
           intro J
           exact hb (unop J)
-        have hc : ∀ (J : Finset ι) s, IsClosed ((π_app C (· ∈ J)) ⁻¹' {s}) := by
+        have hc : ∀ (J : Finset ι) s, IsClosed ((πApp C (· ∈ J)) ⁻¹' {s}) := by
           intro J s
-          refine IsClosed.preimage (π_app C (· ∈ J)).continuous ?_
+          refine IsClosed.preimage (πApp C (· ∈ J)).continuous ?_
           exact T1Space.t1 s
         have H₁ : ∀ (Q₁ Q₂ : Finset ι), Q₁ ≤ Q₂ →
-            π_app C (· ∈ Q₁) ⁻¹' {a.val (op Q₁)} ⊇
-            π_app C (· ∈ Q₂) ⁻¹' {a.val (op Q₂)} := by
+            πApp C (· ∈ Q₁) ⁻¹' {a.val (op Q₁)} ⊇
+            πApp C (· ∈ Q₂) ⁻¹' {a.val (op Q₂)} := by
           intro J K h x hx
           simp only [Set.mem_preimage] at hx ⊢
           rw [← map_comp_π_app C h, Function.comp_apply,
             hx, ← a.prop (homOfLE h).op]
           rfl
         obtain ⟨x, hx⟩ :
-            Set.Nonempty (⋂ (J : Finset ι), π_app C (· ∈ J) ⁻¹' {a.val (op J)}) :=
+            Set.Nonempty (⋂ (J : Finset ι), πApp C (· ∈ J) ⁻¹' {a.val (op J)}) :=
           IsCompact.nonempty_iInter_of_directed_nonempty_isCompact_isClosed
-            (fun J : Finset ι => π_app C (· ∈ J) ⁻¹' {a.val (op J)}) (directed_of_isDirected_le H₁)
+            (fun J : Finset ι => πApp C (· ∈ J) ⁻¹' {a.val (op J)}) (directed_of_isDirected_le H₁)
             (fun J => (Set.singleton_nonempty _).preimage (surjective_π_app _))
             (fun J => (hc J (a.val (op J))).isCompact) fun J => hc J (a.val (op J))
         exact ⟨x, Set.mem_iInter.1 hx⟩)
@@ -150,7 +153,10 @@ def asLimitindexConeIso : indexCone hC ≅ Profinite.limitCone.{u, u} _ :=
 
 /-- `indexCone` is a limit cone. -/
 noncomputable
-def indexCone_isLimit : CategoryTheory.Limits.IsLimit (indexCone hC) :=
+def indexConeIsLimit : CategoryTheory.Limits.IsLimit (indexCone hC) :=
   Limits.IsLimit.ofIsoLimit (Profinite.limitConeIsLimit _) (asLimitindexConeIso hC).symm
+
+@[deprecated (since := "2026-07-18")]
+alias indexCone_isLimit := indexConeIsLimit
 
 end Profinite

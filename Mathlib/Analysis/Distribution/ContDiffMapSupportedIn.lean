@@ -278,11 +278,14 @@ protected theorem continuous (f : 𝓓^{n}_{K}(E, F)) : Continuous f :=
 /-- Inclusion of unbundled `n`-times continuously differentiable function with support included
 in a compact `K` into the space `𝓓^{n}_{K}`. -/
 @[simps]
-protected def of_support_subset {f : E → F} (hf : ContDiff ℝ n f) (hsupp : support f ⊆ K) :
+protected def ofSupportSubset {f : E → F} (hf : ContDiff ℝ n f) (hsupp : support f ⊆ K) :
     𝓓^{n}_{K}(E, F) where
   toFun := f
   contDiff' := hf
   zero_on_compl' := support_subset_iff'.mp hsupp
+
+@[deprecated (since := "2026-07-18")]
+alias of_support_subset := ofSupportSubset
 
 protected theorem bounded_iteratedFDeriv (f : 𝓓^{n}_{K}(E, F)) {i : ℕ} (hi : i ≤ n) :
     ∃ C, ∀ x, ‖iteratedFDeriv ℝ i f x‖ ≤ C :=
@@ -351,7 +354,7 @@ noncomputable def monoLM :
     𝓓^{n₁}_{K₁}(E, F) →ₗ[𝕜] 𝓓^{n₂}_{K₂}(E, F) where
   toFun f :=
     if h : n₂ ≤ n₁ ∧ K₁ ≤ K₂ then
-      .of_support_subset (f.contDiff.of_le (mod_cast h.1)) (f.support_subset.trans h.2)
+      .ofSupportSubset (f.contDiff.of_le (mod_cast h.1)) (f.support_subset.trans h.2)
     else 0
   map_add' f g := by split_ifs <;> ext <;> simp
   map_smul' c f := by split_ifs <;> ext <;> simp
@@ -382,7 +385,7 @@ noncomputable def fderivLM :
     𝓓^{n}_{K}(E, F) →ₗ[𝕜] 𝓓^{k}_{K}(E, E →L[ℝ] F) where
   toFun f :=
     if hk : k + 1 ≤ n then
-      .of_support_subset
+      .ofSupportSubset
         (f.contDiff.fderiv_right <| mod_cast hk)
         ((support_fderiv_subset ℝ).trans f.tsupport_subset)
     else 0
@@ -440,7 +443,7 @@ noncomputable def iteratedFDerivLM (i : ℕ) :
   -/
   toFun f :=
     if hi : k + i ≤ n then
-      .of_support_subset
+      .ofSupportSubset
         (f.contDiff.iteratedFDeriv_right <| mod_cast hi)
         ((support_iteratedFDeriv_subset i).trans f.tsupport_subset)
     else 0

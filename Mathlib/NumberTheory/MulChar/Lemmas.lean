@@ -109,7 +109,7 @@ lemma ofRootOfUnity_spec {ζ : Rˣ} (hζ : ζ ∈ rootsOfUnity (Fintype.card Mˣ
 variable (M R) in
 /-- The group of multiplicative characters on a finite monoid `M` with cyclic unit group `Mˣ`
 of order `n` is isomorphic to the group of `n`th roots of unity in the target `R`. -/
-noncomputable def equiv_rootsOfUnity [inst_cyc : IsCyclic Mˣ] :
+noncomputable def equivRootsOfUnity [inst_cyc : IsCyclic Mˣ] :
     MulChar M R ≃* rootsOfUnity (Fintype.card Mˣ) R where
   toFun χ :=
     ⟨χ.toUnitHom <| Classical.choose inst_cyc.exists_generator, by
@@ -123,6 +123,9 @@ noncomputable def equiv_rootsOfUnity [inst_cyc : IsCyclic Mˣ] :
     simp only [toUnitHom_eq, coe_equivToUnitHom, ofRootOfUnity_spec]
   map_mul' x y := by
     simp only [toUnitHom_eq, equivToUnitHom_mul_apply, MulMemClass.mk_mul_mk]
+
+@[deprecated (since := "2026-07-18")]
+alias equiv_rootsOfUnity := equivRootsOfUnity
 
 end IsCyclic
 
@@ -147,7 +150,7 @@ lemma exists_mulChar_orderOf {n : ℕ} (h : n ∣ Fintype.card F - 1) {ζ : R}
     refine Nat.pos_of_ne_zero fun hn ↦ ?_
     simp only [hn, zero_dvd_iff, Nat.sub_eq_zero_iff_le] at h
     exact (Fintype.one_lt_card.trans_le h).false
-  let e := MulChar.equiv_rootsOfUnity F R
+  let e := MulChar.equivRootsOfUnity F R
   let ζ' : Rˣ := (hζ.isUnit hn₀.ne').unit
   have h' : ζ' ^ (Fintype.card Fˣ : ℕ) = 1 :=
     Units.ext_iff.mpr <| (hζ.pow_eq_one_iff_dvd _).mpr <| Fintype.card_units (α := F) ▸ h

@@ -39,7 +39,7 @@ theorem aemeasurable_piecewise {μ : Measure α} [MeasurableSpace β] [Countable
   filter_upwards [ae_all_iff.2 hq] with x hx using hx (hs.index x)
 
 /-- This is the analogue of `SimpleFunc.piecewise` for `IndexedPartition`. -/
-def simpleFunc_piecewise [Finite ι] (hs : IndexedPartition s)
+def simpleFuncPiecewise [Finite ι] (hs : IndexedPartition s)
     (hm : ∀ i, MeasurableSet (s i)) (f : ι → SimpleFunc α β) : SimpleFunc α β where
   toFun := hs.piecewise (fun i => f i)
   measurableSet_fiber' := fun _ =>
@@ -48,13 +48,16 @@ def simpleFunc_piecewise [Finite ι] (hs : IndexedPartition s)
   finite_range' := (finite_iUnion (fun i => (f i).finite_range)).subset
     (hs.range_piecewise_subset _)
 
+@[deprecated (since := "2026-07-18")]
+alias simpleFunc_piecewise := simpleFuncPiecewise
+
 @[fun_prop]
 theorem stronglyMeasurable_piecewise [Countable ι] (hs : IndexedPartition s)
     (hm : ∀ i, MeasurableSet (s i)) [TopologicalSpace β] (hf : ∀ i, StronglyMeasurable (f i)) :
     StronglyMeasurable (hs.piecewise f) := by
   by_cases Fi : Finite ι
-  · refine ⟨fun n => simpleFunc_piecewise hs hm (fun i => (hf i).approx n), fun x => ?_⟩
-    simp [simpleFunc_piecewise, piecewise_apply, StronglyMeasurable.tendsto_approx]
+  · refine ⟨fun n => simpleFuncPiecewise hs hm (fun i => (hf i).approx n), fun x => ?_⟩
+    simp [simpleFuncPiecewise, piecewise_apply, StronglyMeasurable.tendsto_approx]
   simp only [not_finite_iff_infinite] at Fi
   obtain ⟨e, -⟩ := exists_true_iff_nonempty.mpr (nonempty_equiv_of_countable (α := ℕ) (β := ι))
   classical
@@ -70,10 +73,10 @@ theorem stronglyMeasurable_piecewise [Countable ι] (hs : IndexedPartition s)
     · simp [hb]
       grind
   have G (n : ℕ) := hs.coarserPartition (g n) (sg n)
-  refine ⟨fun n => (G n).simpleFunc_piecewise (fun i => ?_) (fun i => (hf (e i)).approx n),
+  refine ⟨fun n => (G n).simpleFuncPiecewise (fun i => ?_) (fun i => (hf (e i)).approx n),
     fun x => ?_⟩
   · exact .biUnion (to_countable _) fun _ _ ↦ hm _
-  simp only [simpleFunc_piecewise, SimpleFunc.coe_mk, piecewise_apply]
+  simp only [simpleFuncPiecewise, SimpleFunc.coe_mk, piecewise_apply]
   have : ∀ᶠ n in atTop, e ((G n).index x) = hs.index x := by
     obtain ⟨y, hy⟩ := e.bijective.2 (hs.index x)
     refine eventually_atTop.mpr ⟨y + 1, fun b hb => ?_⟩

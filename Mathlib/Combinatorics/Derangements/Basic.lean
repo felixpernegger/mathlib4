@@ -77,7 +77,7 @@ universe u
 /-- The set of permutations that fix either `a` or nothing is equivalent to the sum of:
 - derangements on `α`
 - derangements on `α` minus `a`. -/
-def atMostOneFixedPointEquivSum_derangements [DecidableEq α] (a : α) :
+def atMostOneFixedPointEquivSumDerangements [DecidableEq α] (a : α) :
     { f : Perm α // fixedPoints f ⊆ {a} } ≃ (derangements ({a}ᶜ : Set α)) ⊕ (derangements α) :=
   calc
     { f : Perm α // fixedPoints f ⊆ {a} } ≃
@@ -106,6 +106,9 @@ def atMostOneFixedPointEquivSum_derangements [DecidableEq α] (a : α) :
           (subtypeEquivRight fun f => mem_derangements_iff_fixedPoints_eq_empty.symm)
       rw [eq_comm, Set.ext_iff]
       simp_rw [Set.mem_compl_iff, Classical.not_not]
+
+@[deprecated (since := "2026-07-18")]
+alias atMostOneFixedPointEquivSum_derangements := atMostOneFixedPointEquivSumDerangements
 
 namespace Equiv
 
@@ -192,7 +195,7 @@ def derangementsRecursionEquiv :
     derangements (Option α) ≃
       Σ a : α, derangements (({a}ᶜ : Set α) : Type _) ⊕ derangements α :=
   derangementsOptionEquivSigmaAtMostOneFixedPoint.trans
-    (sigmaCongrRight atMostOneFixedPointEquivSum_derangements)
+    (sigmaCongrRight atMostOneFixedPointEquivSumDerangements)
 
 end Option
 

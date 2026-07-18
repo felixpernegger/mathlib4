@@ -19,7 +19,7 @@ sheaf condition.
 
 The functor between sheaf categories is called `sheafCompose J F`.
 Given a natural transformation `η : F ⟶ G`, we obtain a natural transformation
-`sheafCompose J F ⟶ sheafCompose J G`, which we call `sheafCompose_map J η`.
+`sheafCompose J F ⟶ sheafCompose J G`, which we call `sheafComposeMap J η`.
 
 -/
 
@@ -93,15 +93,18 @@ set_option backward.defeqAttrib.useBackward true in
 If `η : F ⟶ G` is a natural transformation then we obtain a morphism of functors
 `sheafCompose J F ⟶ sheafCompose J G` by whiskering with `η` on the level of presheaves.
 -/
-def sheafCompose_map : sheafCompose J F ⟶ sheafCompose J G where
+def sheafComposeMap : sheafCompose J F ⟶ sheafCompose J G where
   app := fun _ => .mk <| whiskerLeft _ η
 
+@[deprecated (since := "2026-07-18")]
+alias sheafCompose_map := sheafComposeMap
+
 @[simp]
-lemma sheafCompose_id : sheafCompose_map (F := F) J (𝟙 _) = 𝟙 _ := rfl
+lemma sheafCompose_id : sheafComposeMap (F := F) J (𝟙 _) = 𝟙 _ := rfl
 
 @[simp]
 lemma sheafCompose_comp :
-    sheafCompose_map J (η ≫ γ) = sheafCompose_map J η ≫ sheafCompose_map J γ := rfl
+    sheafComposeMap J (η ≫ γ) = sheafComposeMap J η ≫ sheafComposeMap J γ := rfl
 
 namespace GrothendieckTopology.Cover
 

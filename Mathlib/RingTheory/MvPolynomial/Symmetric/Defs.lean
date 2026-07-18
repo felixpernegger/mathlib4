@@ -314,7 +314,7 @@ theorem hsymm_zero : hsymm σ R 0 = 1 := by simp [hsymm, eq_nil_of_card_zero]
 @[simp]
 theorem hsymm_one : hsymm σ R 1 = ∑ i, X i := by
   symm
-  apply Fintype.sum_equiv oneEquiv
+  apply Fintype.sumEquiv oneEquiv
   simp only [oneEquiv_apply, Multiset.map_singleton, Multiset.prod_singleton, implies_true]
 
 theorem hsymmPart_zero : hsymmPart σ R (.indiscrete 0) = 1 := by simp [hsymmPart]
@@ -328,7 +328,7 @@ theorem map_hsymm (n : ℕ) (f : R →+* S) : map f (hsymm σ R n) = hsymm σ S 
 
 theorem rename_hsymm (n : ℕ) (e : σ ≃ τ) : rename e (hsymm σ R n) = hsymm τ R n := by
   simp_rw [hsymm, map_sum, ← prod_hom', rename_X]
-  apply Fintype.sum_equiv (equivCongr e)
+  apply Fintype.sumEquiv (equivCongr e)
   simp
 
 theorem hsymm_isSymmetric (n : ℕ) : IsSymmetric (hsymm σ R n) := rename_hsymm _ _ n
@@ -389,9 +389,9 @@ theorem msymm_one : msymm σ R (.indiscrete 1) = ∑ i, X i := by
       (fun x ↦ Nat.Partition.ofSym x = Nat.Partition.indiscrete 1) := by
     simp_rw [Set.mem_univ, Nat.Partition.ofSym_one]
   symm
-  rw [Fintype.sum_equiv (Equiv.trans Sym.oneEquiv (Equiv.Set.univ (Sym σ 1)).symm)
+  rw [Fintype.sumEquiv (Equiv.trans Sym.oneEquiv (Equiv.Set.univ (Sym σ 1)).symm)
     _ (fun s ↦ (s.1.1.map X).prod)]
-  · apply Fintype.sum_equiv (Equiv.subtypeEquivProp this)
+  · apply Fintype.sumEquiv (Equiv.subtypeEquivProp this)
     intro x
     congr
   · intro x
@@ -402,7 +402,7 @@ theorem msymm_one : msymm σ R (.indiscrete 1) = ∑ i, X i := by
 theorem rename_msymm (μ : n.Partition) (e : σ ≃ τ) :
     rename e (msymm σ R μ) = msymm τ R μ := by
   rw [msymm, map_sum]
-  apply Fintype.sum_equiv (Nat.Partition.ofSymShapeEquiv μ e)
+  apply Fintype.sumEquiv (Nat.Partition.ofSymShapeEquiv μ e)
   intro
   rw [← Multiset.prod_hom, Multiset.map_map, Nat.Partition.ofSymShapeEquiv]
   simp

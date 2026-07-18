@@ -212,12 +212,15 @@ def findCDot : Syntax → Array Syntax
       | _ =>  dargs
   |_ => #[]
 
-/-- `unwanted_cdot stx` returns an array of syntax atoms within `stx`
+/-- `unwantedCdot stx` returns an array of syntax atoms within `stx`
 corresponding to `cdot`s that are not written with the character `·`.
 This is precisely what the `cdot` linter flags.
 -/
-def unwanted_cdot (stx : Syntax) : Array Syntax :=
+def unwantedCdot (stx : Syntax) : Array Syntax :=
   (findCDot stx).filter (!isCDot? ·)
+
+@[deprecated (since := "2026-07-18")]
+alias unwanted_cdot := unwantedCdot
 
 namespace Style
 
@@ -227,7 +230,7 @@ def cdotLinter : Linter where run := withSetOptionIn fun stx ↦ do
       return
     if (← MonadState.get).messages.hasErrors then
       return
-    for s in unwanted_cdot stx do
+    for s in unwantedCdot stx do
       Linter.logLint linter.style.cdot s
         m!"Please, use '·' (typed as `\\.`) instead of '.' as 'cdot'."
     -- We also check for isolated cdot's, i.e. when the cdot is on its own line.

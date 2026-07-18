@@ -209,7 +209,7 @@ variable {K}
 The component of `expMap` at the place `w`.
 -/
 @[simps]
-def expMap_single (w : InfinitePlace K) : OpenPartialHomeomorph ℝ ℝ where
+def expMapSingle (w : InfinitePlace K) : OpenPartialHomeomorph ℝ ℝ where
   toFun := fun x ↦ Real.exp ((w.mult : ℝ)⁻¹ * x)
   invFun := fun x ↦ w.mult * Real.log x
   source := Set.univ
@@ -223,38 +223,44 @@ def expMap_single (w : InfinitePlace K) : OpenPartialHomeomorph ℝ ℝ where
   continuousOn_toFun := (continuousOn_const.mul continuousOn_id).rexp
   continuousOn_invFun := continuousOn_const.mul (Real.continuousOn_log.mono (by simp))
 
+@[deprecated (since := "2026-07-18")]
+alias expMap_single := expMapSingle
+
 /--
-The derivative of `expMap_single`, see `hasDerivAt_expMap_single`.
+The derivative of `expMapSingle`, see `hasDerivAt_expMap_single`.
 -/
-abbrev deriv_expMap_single (w : InfinitePlace K) (x : ℝ) : ℝ :=
-  (expMap_single w x) * (w.mult : ℝ)⁻¹
+abbrev derivExpMapSingle (w : InfinitePlace K) (x : ℝ) : ℝ :=
+  (expMapSingle w x) * (w.mult : ℝ)⁻¹
+
+@[deprecated (since := "2026-07-18")]
+alias deriv_expMap_single := derivExpMapSingle
 
 theorem hasDerivAt_expMap_single (w : InfinitePlace K) (x : ℝ) :
-    HasDerivAt (expMap_single w) (deriv_expMap_single w x) x := by
-  simpa [expMap_single, mul_comm] using!
+    HasDerivAt (expMapSingle w) (derivExpMapSingle w x) x := by
+  simpa [expMapSingle, mul_comm] using!
     (HasDerivAt.comp x (Real.hasDerivAt_exp _) (hasDerivAt_mul_const (w.mult : ℝ)⁻¹))
 
 
 variable [NumberField K]
 
 /--
-The map from `realSpace K → realSpace K` whose components is given by `expMap_single`. It is, in
+The map from `realSpace K → realSpace K` whose components is given by `expMapSingle`. It is, in
 some respect, a right inverse of `logMap`, see `logMap_expMap`.
 -/
 def expMap : OpenPartialHomeomorph (realSpace K) (realSpace K) :=
-  OpenPartialHomeomorph.pi fun w ↦ expMap_single w
+  OpenPartialHomeomorph.pi fun w ↦ expMapSingle w
 
 variable (K)
 
 theorem expMap_source :
     expMap.source = (Set.univ : Set (realSpace K)) := by
   simp_rw [expMap, OpenPartialHomeomorph.pi_toPartialHomeomorph,
-    PartialEquiv.pi_source, expMap_single, Set.pi_univ Set.univ]
+    PartialEquiv.pi_source, expMapSingle, Set.pi_univ Set.univ]
 
 theorem expMap_target :
     expMap.target = Set.univ.pi fun (_ : InfinitePlace K) ↦ Set.Ioi 0 := by
   simp_rw [expMap, OpenPartialHomeomorph.pi_toPartialHomeomorph,
-    PartialEquiv.pi_target, expMap_single]
+    PartialEquiv.pi_target, expMapSingle]
 
 theorem injective_expMap :
     Function.Injective (expMap : realSpace K → realSpace K) :=
@@ -308,12 +314,15 @@ theorem sum_expMap_symm_apply {x : K} (hx : x ≠ 0) :
 /--
 The derivative of `expMap`, see `hasFDerivAt_expMap`.
 -/
-abbrev fderiv_expMap (x : realSpace K) : realSpace K →L[ℝ] realSpace K :=
-  .pi fun w ↦ (ContinuousLinearMap.smulRight (1 : ℝ →L[ℝ] ℝ) (deriv_expMap_single w (x w))).comp
+abbrev fderivExpMap (x : realSpace K) : realSpace K →L[ℝ] realSpace K :=
+  .pi fun w ↦ (ContinuousLinearMap.smulRight (1 : ℝ →L[ℝ] ℝ) (derivExpMapSingle w (x w))).comp
     (.proj w)
 
-theorem hasFDerivAt_expMap (x : realSpace K) : HasFDerivAt expMap (fderiv_expMap x) x := by
-  simpa [expMap, fderiv_expMap, hasFDerivAt_pi', OpenPartialHomeomorph.pi_apply,
+@[deprecated (since := "2026-07-18")]
+alias fderiv_expMap := fderivExpMap
+
+theorem hasFDerivAt_expMap (x : realSpace K) : HasFDerivAt expMap (fderivExpMap x) x := by
+  simpa [expMap, fderivExpMap, hasFDerivAt_pi', OpenPartialHomeomorph.pi_apply,
     ContinuousLinearMap.proj_pi] using!
     fun w ↦ (hasDerivAt_expMap_single w _).hasFDerivAt.comp x (hasFDerivAt_apply w x)
 
@@ -557,10 +566,10 @@ theorem normAtAllPlaces_image_preimage_expMapBasis (s : Set (realSpace K)) :
 
 open scoped Classical in
 theorem prod_deriv_expMap_single (x : realSpace K) :
-    ∏ w, deriv_expMap_single w ((completeBasis K).equivFun.symm x w) =
+    ∏ w, derivExpMapSingle w ((completeBasis K).equivFun.symm x w) =
       Real.exp (x w₀) ^ Module.finrank ℚ K * (∏ w : {w // IsComplex w}, expMapBasis x w.1)⁻¹ *
         (2⁻¹) ^ nrComplexPlaces K := by
-  simp only [deriv_expMap_single, expMap_single_apply]
+  simp only [derivExpMapSingle, expMap_single_apply]
   rw [Finset.prod_mul_distrib]
   congr 1
   · simp_rw [← prod_expMapBasis_pow, prod_eq_prod_mul_prod, expMapBasis_apply, expMap_apply,
@@ -573,22 +582,25 @@ variable (K)
 /--
 The derivative of `expMapBasis`, see `hasFDerivAt_expMapBasis`.
 -/
-abbrev fderiv_expMapBasis (x : realSpace K) : realSpace K →L[ℝ] realSpace K :=
-  (fderiv_expMap ((completeBasis K).equivFun.symm x)).comp
+abbrev fderivExpMapBasis (x : realSpace K) : realSpace K →L[ℝ] realSpace K :=
+  (fderivExpMap ((completeBasis K).equivFun.symm x)).comp
     (completeBasis K).equivFunL.symm.toContinuousLinearMap
 
+@[deprecated (since := "2026-07-18")]
+alias fderiv_expMapBasis := fderivExpMapBasis
+
 theorem hasFDerivAt_expMapBasis (x : realSpace K) :
-    HasFDerivAt expMapBasis (fderiv_expMapBasis K x) x := by
-  change HasFDerivAt (expMap ∘ (completeBasis K).equivFunL.symm) (fderiv_expMapBasis K x) x
+    HasFDerivAt expMapBasis (fderivExpMapBasis K x) x := by
+  change HasFDerivAt (expMap ∘ (completeBasis K).equivFunL.symm) (fderivExpMapBasis K x) x
   exact (hasFDerivAt_expMap _).comp x (completeBasis K).equivFunL.symm.hasFDerivAt
 
 open Classical ContinuousLinearMap in
 theorem abs_det_fderiv_expMapBasis (x : realSpace K) :
-    |(fderiv_expMapBasis K x).det| =
+    |(fderivExpMapBasis K x).det| =
       Real.exp (x w₀ * Module.finrank ℚ K) *
       (∏ w : {w // IsComplex w}, expMapBasis x w.1)⁻¹ * 2⁻¹ ^ nrComplexPlaces K *
         (Module.finrank ℚ K) * regulator K := by
-  simp_rw [fderiv_expMapBasis, det, toLinearMap_comp, LinearMap.det_comp, fderiv_expMap, coe_pi,
+  simp_rw [fderivExpMapBasis, det, toLinearMap_comp, LinearMap.det_comp, fderivExpMap, coe_pi,
     toLinearMap_comp, coe_proj, LinearMap.det_pi, LinearMap.det_ring, ContinuousLinearMap.coe_coe,
     smulRight_apply, one_apply_eq_self, one_smul, abs_mul, abs_det_completeBasis_equivFunL_symm,
     prod_deriv_expMap_single]

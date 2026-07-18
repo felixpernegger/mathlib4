@@ -42,11 +42,18 @@ For example, here's how you can use an `Invertible 1` instance:
 ```lean
 variable {α : Type*} [Monoid α]
 
-def something_that_needs_inverses (x : α) [Invertible x] := sorry
+def somethingThatNeedsInverses (x : α) [Invertible x] := sorry
+
+@[deprecated (since := "2026-07-18")]
+alias something_that_needs_inverses := somethingThatNeedsInverses
 
 section
 attribute [local instance] invertibleOne
-def something_one := something_that_needs_inverses 1
+def somethingOne := somethingThatNeedsInverses 1
+
+@[deprecated (since := "2026-07-18")]
+alias something_one := somethingOne
+
 end
 ```
 

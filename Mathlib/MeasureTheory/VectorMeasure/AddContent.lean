@@ -33,7 +33,7 @@ variable {α : Type*} {hα : MeasurableSpace α} {E : Type*} [NormedAddCommGroup
 
 /-- A finitely additive vector measure which is dominated by a finite positive measure is in
 fact countably additive. -/
-def of_additive_of_le_measure
+def ofAdditiveOfLeMeasure
     (m : Set α → E) (hm : ∀ s, ‖m s‖ₑ ≤ μ s) [IsFiniteMeasure μ]
     (h'm : ∀ s t, MeasurableSet s → MeasurableSet t → Disjoint s t → m (s ∪ t) = m s + m t)
     (h''m : ∀ s, ¬ MeasurableSet s → m s = 0) : VectorMeasure α E where
@@ -83,6 +83,9 @@ def of_additive_of_le_measure
     exact tendsto_measure_biUnion_Ici_zero_of_pairwise_disjoint
       (fun i ↦ (f_meas i).nullMeasurableSet) f_disj
 
+@[deprecated (since := "2026-07-18")]
+alias of_additive_of_le_measure := ofAdditiveOfLeMeasure
+
 open scoped ENNReal
 
 set_option backward.isDefEq.respectTransparency.types false in
@@ -100,7 +103,7 @@ lemma exists_extension_of_isSetRing_of_le_measure_of_dense [IsFiniteMeasure μ]
   the extension is still finitely additive by approximating disjoint measurable sets by disjoint
   measurable sets in `C`. Moreover, the extension is still dominated by `μ`.
   The countable additivity follows from these two properties and
-  Lemma `VectorMeasure.of_additive_of_le_measure`. -/
+  Lemma `VectorMeasure.ofAdditiveOfLeMeasure`. -/
   classical
   -- Express things inside `MeasuredSets μ`.
   let C' : Set (MeasuredSets μ) := {s | ∃ c ∈ C, s = c}
@@ -227,7 +230,7 @@ lemma exists_extension_of_isSetRing_of_le_measure_of_dense [IsFiniteMeasure μ]
   -- defines a vector measure satisfying the required properties
   let m' (s : Set α) := if hs : MeasurableSet s then m₁ ⟨s, hs⟩ else 0
   let m'' : VectorMeasure α E := by
-    apply VectorMeasure.of_additive_of_le_measure m' (μ := μ)
+    apply VectorMeasure.ofAdditiveOfLeMeasure m' (μ := μ)
     · intro s
       by_cases hs : MeasurableSet s
       · simpa [hs, m'] using! hBound _

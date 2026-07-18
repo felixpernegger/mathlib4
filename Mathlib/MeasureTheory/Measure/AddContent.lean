@@ -48,7 +48,7 @@ If `C` is a set ring (`MeasureTheory.IsSetRing C`), we have
 
 * `MeasureTheory.addContent_union_le`: for `s, t ∈ C`, `m (s ∪ t) ≤ m s + m t`
 * `MeasureTheory.addContent_le_sdiff`: for `s, t ∈ C`, `m s - m t ≤ m (s \ t)`
-* `IsSetRing.addContent_of_union`: a function on a ring of sets which is additive on pairs of
+* `IsSetRing.addContentOfUnion`: a function on a ring of sets which is additive on pairs of
   disjoint sets defines an additive content
 * `addContent_iUnion_eq_sum_of_tendsto_zero`: if an additive content is continuous at `∅`, then
   its value on a countable disjoint union is the sum of the values
@@ -521,7 +521,7 @@ lemma addContent_accumulate (m : AddContent G C) (hC : IsSetRing C)
 
 /-- A function which is additive on disjoint elements in a ring of sets `C` defines an
 additive content on `C`. -/
-def IsSetRing.addContent_of_union (m : Set α → G) (hC : IsSetRing C) (m_empty : m ∅ = 0)
+def IsSetRing.addContentOfUnion (m : Set α → G) (hC : IsSetRing C) (m_empty : m ∅ = 0)
     (m_add : ∀ {s t : Set α} (_hs : s ∈ C) (_ht : t ∈ C), Disjoint s t → m (s ∪ t) = m s + m t) :
     AddContent G C where
   toFun := m
@@ -542,6 +542,9 @@ def IsSetRing.addContent_of_union (m : Set α → G) (hC : IsSetRing C) (m_empty
       rw [Set.sUnion_insert, m_add h_ss.1 h_sUnion_mem (Set.disjoint_sUnion_right.mpr h_dis.2),
         Finset.sum_insert hsI, h h_ss.2 h_dis.1]
       rwa [Set.sUnion_insert] at h_mem
+
+@[deprecated (since := "2026-07-18")]
+alias IsSetRing.addContent_of_union := IsSetRing.addContentOfUnion
 
 variable [PartialOrder G] [CanonicallyOrderedAdd G]
 

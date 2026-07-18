@@ -220,7 +220,7 @@ set_option backward.defeqAttrib.useBackward true in
 Given a limiting pullback cone, the fork in `SingleEqualizerCondition` is limiting iff the diagram
 in `Presheaf.isSheaf_iff_isLimit_coverage` is limiting.
 -/
-noncomputable def isLimit_forkOfι_equiv (P : Cᵒᵖ ⥤ D) {X B : C} (π : X ⟶ B)
+noncomputable def isLimitForkOfιEquiv (P : Cᵒᵖ ⥤ D) {X B : C} (π : X ⟶ B)
     (c : PullbackCone π π) (hc : IsLimit c) :
     IsLimit (Fork.ofι (P.map π.op) (equalizerCondition_w P c)) ≃
     IsLimit (P.mapCone (Sieve.ofArrows (fun (_ : Unit) ↦ X) fun _ ↦ π).arrows.cocone.op) := by
@@ -239,15 +239,18 @@ noncomputable def isLimit_forkOfι_equiv (P : Cᵒᵖ ⥤ D) {X B : C} (π : X �
   rintro ⟨_ | _⟩
   all_goals aesop
 
+@[deprecated (since := "2026-07-18")]
+alias isLimit_forkOfι_equiv := isLimitForkOfιEquiv
+
 lemma equalizerConditionMap_iff_nonempty_isLimit (P : Cᵒᵖ ⥤ D) ⦃X B : C⦄ (π : X ⟶ B)
     [HasPullback π π] : SingleEqualizerCondition P π ↔
       Nonempty (IsLimit (P.mapCone
         (Sieve.ofArrows (fun (_ : Unit) => X) (fun _ => π)).arrows.cocone.op)) := by
   constructor
   · intro h
-    exact ⟨isLimit_forkOfι_equiv _ _ _ (pullbackIsPullback π π) (h _ (pullbackIsPullback π π)).some⟩
+    exact ⟨isLimitForkOfιEquiv _ _ _ (pullbackIsPullback π π) (h _ (pullbackIsPullback π π)).some⟩
   · intro ⟨h⟩
-    exact fun c hc ↦ ⟨(isLimit_forkOfι_equiv _ _ _ hc).symm h⟩
+    exact fun c hc ↦ ⟨(isLimitForkOfιEquiv _ _ _ hc).symm h⟩
 
 lemma equalizerCondition_iff_isSheaf (F : Cᵒᵖ ⥤ D) [Preregular C]
     [∀ {Y X : C} (f : Y ⟶ X) [EffectiveEpi f], HasPullback f f] :

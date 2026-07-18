@@ -854,12 +854,12 @@ theorem setIntegral_nonpos_le {s : Set X} (hs : MeasurableSet s) (hf : StronglyM
     integral_mono (hfi.indicator (hf.measurableSet_le stronglyMeasurable_const))
       (hfi.indicator hs) (indicator_nonpos_le_indicator s f)
 
-lemma Integrable.measure_le_integral {f : X → ℝ} (f_int : Integrable f μ) (f_nonneg : 0 ≤ᵐ[μ] f)
+lemma Integrable.measure_le_integral {f : X → ℝ} (fInt : Integrable f μ) (f_nonneg : 0 ≤ᵐ[μ] f)
     {s : Set X} (hs : ∀ x ∈ s, 1 ≤ f x) :
     μ s ≤ ENNReal.ofReal (∫ x, f x ∂μ) := by
-  rw [ofReal_integral_eq_lintegral_ofReal f_int f_nonneg]
+  rw [ofReal_integral_eq_lintegral_ofReal fInt f_nonneg]
   apply meas_le_lintegral₀
-  · exact ENNReal.continuous_ofReal.measurable.comp_aemeasurable f_int.1.aemeasurable
+  · exact ENNReal.continuous_ofReal.measurable.comp_aemeasurable fInt.1.aemeasurable
   · intro x hx
     simpa using ENNReal.ofReal_le_ofReal (hs x hx)
 

@@ -88,10 +88,13 @@ attribute [nolint simpNF] mk.injEq
 
 /-- This definition makes `cases x` and `induction x` use `toSnowflaking` instead of `mk`. -/
 @[elab_as_elim, cases_eliminator, induction_eliminator]
-def casesOn_toSnowflaking {motive : Snowflaking X α hα₀ hα₁ → Sort*}
+def casesOnToSnowflaking {motive : Snowflaking X α hα₀ hα₁ → Sort*}
     (toSnowflaking : ∀ x, motive (Snowflaking.toSnowflaking x)) (x : Snowflaking X α hα₀ hα₁) :
     motive x :=
   toSnowflaking x.val
+
+@[deprecated (since := "2026-07-18")]
+alias casesOn_toSnowflaking := casesOnToSnowflaking
 
 @[simp]
 theorem mk_eq_toSnowflaking : (mk : X → Snowflaking X α hα₀ hα₁) = toSnowflaking := rfl

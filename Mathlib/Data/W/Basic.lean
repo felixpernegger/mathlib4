@@ -136,7 +136,7 @@ variable [∀ a : α, Encodable (β a)]
 
 set_option backward.privateInPublic true in
 @[instance_reducible]
-private def encodable_zero : Encodable (WType' β 0) :=
+private def encodableZero : Encodable (WType' β 0) :=
   let f : WType' β 0 → Empty := fun ⟨_, h⟩ => False.elim <| not_lt_of_ge h (WType.depth_pos _)
   let finv : Empty → WType' β 0 := by
     intro x
@@ -161,18 +161,21 @@ variable [Encodable α]
 
 set_option backward.privateInPublic true in
 @[instance_reducible]
-private def encodable_succ (n : Nat) (_ : Encodable (WType' β n)) : Encodable (WType' β (n + 1)) :=
+private def encodableSucc (n : Nat) (_ : Encodable (WType' β n)) : Encodable (WType' β (n + 1)) :=
   Encodable.ofLeftInverse (f n) (finv n)
     (by
       rintro ⟨⟨_, _⟩, _⟩
       rfl)
+
+@[deprecated (since := "2026-07-18")]
+alias encodable_succ := encodableSucc
 
 set_option backward.privateInPublic true in
 set_option backward.privateInPublic.warn false in
 /-- `WType` is encodable when `α` is an encodable fintype and for every `a : α`, `β a` is
 encodable. -/
 instance : Encodable (WType β) := by
-  haveI h' : ∀ n, Encodable (WType' β n) := fun n => Nat.rec encodable_zero encodable_succ n
+  haveI h' : ∀ n, Encodable (WType' β n) := fun n => Nat.rec encodableZero encodableSucc n
   let f : WType β → Σ n, WType' β n := fun t => ⟨t.depth, ⟨t, le_rfl⟩⟩
   let finv : (Σ n, WType' β n) → WType β := fun p => p.2.1
   have : ∀ t, finv (f t) = t := fun t => rfl

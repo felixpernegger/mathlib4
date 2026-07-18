@@ -369,7 +369,7 @@ theorem _root_.LinearMap.existsUnique_eq_smul_id_of_finrank_eq_one
 
 /-- Endomorphisms of a free module of rank one are homotheties. -/
 @[simps apply]
-noncomputable def _root_.LinearEquiv.smul_id_of_finrank_eq_one (d1 : Module.finrank R M = 1) :
+noncomputable def _root_.LinearEquiv.smulIdOfFinrankEqOne (d1 : Module.finrank R M = 1) :
     R ≃ₗ[R] (M →ₗ[R] M) where
   toFun := fun c ↦ c • LinearMap.id
   map_add' c d := by ext; simp [add_smul]
@@ -378,6 +378,9 @@ noncomputable def _root_.LinearEquiv.smul_id_of_finrank_eq_one (d1 : Module.finr
   left_inv c := by
     simp [← (LinearMap.existsUnique_eq_smul_id_of_finrank_eq_one d1 _).choose_spec.2 c]
   right_inv u := ((u.existsUnique_eq_smul_id_of_finrank_eq_one d1).choose_spec.1).symm
+
+@[deprecated (since := "2026-07-18")]
+alias _root_.LinearEquiv.smul_id_of_finrank_eq_one := _root_.LinearEquiv.smulIdOfFinrankEqOne
 
 end Module
 

@@ -138,7 +138,7 @@ set_option backward.isDefEq.respectTransparency.types false in
 lemma IsAcyclic.isTree_connectedComponent (h : G.IsAcyclic) (c : G.ConnectedComponent) :
     c.toSimpleGraph.IsTree where
   connected := c.connected_toSimpleGraph
-  isAcyclic := h.comap c.toSimpleGraph_hom <| by simp [ConnectedComponent.toSimpleGraph_hom]
+  isAcyclic := h.comap c.toSimpleGraphHom <| by simp [ConnectedComponent.toSimpleGraphHom]
 
 theorem IsAcyclic.of_card_le_two (h : ENat.card V ≤ 2) : G.IsAcyclic := by
   intro v p hp

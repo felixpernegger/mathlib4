@@ -360,7 +360,7 @@ theorem eq_of_mem_smul_span_of_index_eq_index {x y : ι → ℝ} (hx : x ∈ (n 
     (hy : y ∈ (n : ℝ)⁻¹ • L) (h : index n x = index n y) : x = y := by
   rw [← tag_index_eq_self_of_mem_smul_span n hx, ← tag_index_eq_self_of_mem_smul_span n hy, h]
 
-private def tendsto_card_div_pow₁ {c : ℝ} (hc : c ≠ 0) :
+private def tendstoCardDivPow₁ {c : ℝ} (hc : c ≠ 0) :
     ↑(s ∩ c⁻¹ • L) ≃ ↑(c • s ∩ L) :=
   Equiv.subtypeEquiv (Equiv.smulRight hc) (fun x ↦ by
     simp_rw [Set.mem_inter_iff, Equiv.smulRight_apply, Set.smul_mem_smul_set_iff₀ hc,
@@ -370,8 +370,8 @@ private theorem tendsto_card_div_pow₂ (hs₁ : IsBounded s)
     (hs₄ : ∀ ⦃x y : ℝ⦄, 0 < x → x ≤ y → x • s ⊆ y • s) {x y : ℝ} (hx : 0 < x) (hy : x ≤ y) :
     Nat.card ↑(s ∩ x⁻¹ • L) ≤ Nat.card ↑(s ∩ y⁻¹ • L) := by
   have := Fintype.ofFinite ι
-  rw [Nat.card_congr (tendsto_card_div_pow₁ s hx.ne'),
-      Nat.card_congr (tendsto_card_div_pow₁ s (hx.trans_le hy).ne')]
+  rw [Nat.card_congr (tendstoCardDivPow₁ s hx.ne'),
+      Nat.card_congr (tendstoCardDivPow₁ s (hx.trans_le hy).ne')]
   refine Nat.card_mono ?_ ?_
   · exact ZSpan.setFinite_inter _ (IsBounded.smul₀ hs₁ y)
   · exact Set.inter_subset_inter_left _ <| hs₄ hx hy

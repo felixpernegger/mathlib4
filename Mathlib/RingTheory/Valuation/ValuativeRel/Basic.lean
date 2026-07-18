@@ -1219,7 +1219,10 @@ lemma leftInverse_embedding_orderMonoidIso : Function.LeftInverse embedding
 
 /-- The isomorphism between `ValueGroupWithZero R` and `ValueGroup₀ (valuation R)`. -/
 @[deprecated "use ValueGroupWithZero.orderMonoidIso instead" (since := "2026-03-17")]
-def valueGroupWithZero_equiv_valueGroup₀ := orderMonoidIso (valuation R)
+def valueGroupWithZeroEquivValueGroup₀ := orderMonoidIso (valuation R)
+
+@[deprecated (since := "2026-07-18")]
+alias valueGroupWithZero_equiv_valueGroup₀ := valueGroupWithZeroEquivValueGroup₀
 
 end ValueGroupWithZero
 

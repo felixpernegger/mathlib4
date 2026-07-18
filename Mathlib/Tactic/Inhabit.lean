@@ -21,14 +21,20 @@ namespace Lean.Elab.Tactic
 
 /-- Derives `Inhabited α` from `Nonempty α` with `Classical.choice`. -/
 @[instance_reducible]
-noncomputable def nonempty_to_inhabited (α : Sort*) (_ : Nonempty α) : Inhabited α :=
+noncomputable def nonemptyToInhabited (α : Sort*) (_ : Nonempty α) : Inhabited α :=
   Inhabited.mk (Classical.ofNonempty)
+
+@[deprecated (since := "2026-07-18")]
+alias nonempty_to_inhabited := nonemptyToInhabited
 
 /-- Derives `Inhabited α` from `Nonempty α` without `Classical.choice`
 assuming `α` is of type `Prop`. -/
 @[instance_reducible]
-def nonempty_prop_to_inhabited (α : Prop) (α_nonempty : Nonempty α) : Inhabited α :=
+def nonemptyPropToInhabited (α : Prop) (α_nonempty : Nonempty α) : Inhabited α :=
   Inhabited.mk <| Nonempty.elim α_nonempty id
+
+@[deprecated (since := "2026-07-18")]
+alias nonempty_prop_to_inhabited := nonemptyPropToInhabited
 
 /--
 `inhabit α` tries to derive a `Nonempty α` instance and
@@ -51,8 +57,8 @@ def evalInhabit (goal : MVarId) (h_name : Option Ident) (term : Syntax) : Tactic
       | some h_name => h_name.getId
       | none => `inhabited_h
     let pf ←
-      if ← isProp e then Meta.mkAppM ``nonempty_prop_to_inhabited #[e, nonempty_e_pf]
-      else Meta.mkAppM ``nonempty_to_inhabited #[e, nonempty_e_pf]
+      if ← isProp e then Meta.mkAppM ``nonemptyPropToInhabited #[e, nonempty_e_pf]
+      else Meta.mkAppM ``nonemptyToInhabited #[e, nonempty_e_pf]
     let (_, r) ← (← goal.assert h_name inhabited_e pf).intro1P
     return r
 

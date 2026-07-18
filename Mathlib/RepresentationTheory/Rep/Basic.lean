@@ -499,23 +499,29 @@ def ActionToRep : Action (ModuleCat.{w} k) G ⥤ Rep.{w} k G where
   map f := ofHom ⟨f.hom.hom, fun g ↦ by simpa using ModuleCat.hom_ext_iff.1 (f.comm g)⟩
 
 /-- `unitIso` of the equivalence between `Action` and `Rep`. -/
-def RepToAction_ActionToRep (A : Action (ModuleCat.{w} k) G) :
+def RepToActionActionToRep (A : Action (ModuleCat.{w} k) G) :
     (RepToAction k G).obj ((ActionToRep k G).obj A) ≅ A where
   hom := ⟨𝟙 _, fun g ↦ by rfl⟩
   inv := ⟨𝟙 _, fun g ↦ by rfl⟩
 
+@[deprecated (since := "2026-07-18")]
+alias RepToAction_ActionToRep := RepToActionActionToRep
+
 /-- `counitIso` of the equivalence between `Action` and `Rep`. -/
-def ActionToRep_RepToAction (X : Rep.{w} k G) :
+def ActionToRepRepToAction (X : Rep.{w} k G) :
     (ActionToRep k G).obj ((RepToAction k G).obj X) ≅ X where
   hom := ofHom ⟨LinearMap.id, fun g ↦ show LinearMap.id ∘ₗ X.ρ g = X.ρ g ∘ₗ LinearMap.id by simp⟩
   inv := ofHom ⟨LinearMap.id, fun g ↦ show LinearMap.id ∘ₗ X.ρ g = X.ρ g ∘ₗ LinearMap.id by simp⟩
+
+@[deprecated (since := "2026-07-18")]
+alias ActionToRep_RepToAction := ActionToRepRepToAction
 
 /-- The category equivalence between `Rep` and `Action`. -/
 def repIsoAction : Rep.{w} k G ≌ Action (ModuleCat.{w} k) G where
   functor := RepToAction k G
   inverse := ActionToRep k G
-  unitIso := NatIso.ofComponents (ActionToRep_RepToAction k G)
-  counitIso := NatIso.ofComponents (RepToAction_ActionToRep k G)
+  unitIso := NatIso.ofComponents (ActionToRepRepToAction k G)
+  counitIso := NatIso.ofComponents (RepToActionActionToRep k G)
 
 instance : (RepToAction k G).IsEquivalence :=
   repIsoAction k G |>.isEquivalence_functor

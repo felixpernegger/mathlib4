@@ -254,7 +254,7 @@ lemma LFunction_def_even (hΦ : Φ.Even) (s : ℂ) :
   simp only [LFunction, hurwitzZeta, mul_add (Φ _), sum_add_distrib]
   congr 1
   simp only [add_eq_left, ← neg_eq_self, ← sum_neg_distrib]
-  refine Fintype.sum_equiv (.neg _) _ _ fun i ↦ ?_
+  refine Fintype.sumEquiv (.neg _) _ _ fun i ↦ ?_
   simp only [Equiv.neg_apply, hΦ i, map_neg, hurwitzZetaOdd_neg, mul_neg]
 
 lemma LFunction_def_odd (hΦ : Φ.Odd) (s : ℂ) :
@@ -262,7 +262,7 @@ lemma LFunction_def_odd (hΦ : Φ.Odd) (s : ℂ) :
   simp only [LFunction, hurwitzZeta, mul_add (Φ _), sum_add_distrib]
   congr 1
   simp only [add_eq_right, ← neg_eq_self, ← sum_neg_distrib]
-  refine Fintype.sum_equiv (.neg _) _ _ fun i ↦ ?_
+  refine Fintype.sumEquiv (.neg _) _ _ fun i ↦ ?_
   simp only [Equiv.neg_apply, hΦ i, map_neg, hurwitzZetaEven_neg, neg_mul]
 
 /-- Explicit formula for `LFunction Φ 0` when `Φ` is even. -/
@@ -421,7 +421,7 @@ private lemma completedLFunction_one_sub_of_one_lt_even (hΦ : Φ.Even) {s : ℂ
   -- expand out `LFunction (𝓕 Φ)` and use parity:
   simp only [cosZeta_eq, ← mul_div_assoc _ _ (2 : ℂ), mul_add, ← sum_div, sum_add_distrib,
     LFunction_dft Φ (.inr hs₁), map_neg, div_eq_iff (two_ne_zero' ℂ), mul_two, add_left_inj]
-  exact Fintype.sum_equiv (.neg _) _ _ (by simp [hΦ _])
+  exact Fintype.sumEquiv (.neg _) _ _ (by simp [hΦ _])
 
 /--
 First form of functional equation for completed L-functions (odd case).
@@ -447,7 +447,7 @@ private lemma completedLFunction_one_sub_of_one_lt_odd (hΦ : Φ.Odd) {s : ℂ} 
     simp only [sinZeta_eq, ← mul_div_assoc, mul_sub, sub_div, sum_sub_distrib, sum_div, map_neg]
   _ = (∑ x, Φ (-x) * expZeta (toAddCircle (-x)) s) / (_) - (_) := by
     congrm ?_ / _ - _
-    exact (Fintype.sum_equiv (.neg _) _ _ fun x ↦ by rfl).symm
+    exact (Fintype.sumEquiv (.neg _) _ _ fun x ↦ by rfl).symm
   _ = -I⁻¹ * LFunction (𝓕 Φ) s := by
     simp only [hΦ _, neg_mul, sum_neg_distrib, LFunction_dft Φ (.inl hΦ.map_zero)]
     ring

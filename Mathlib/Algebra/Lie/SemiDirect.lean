@@ -156,9 +156,12 @@ end
 variable (R K L) in
 /-- The product of two Lie algebras realized through a semidirect sum with trivial `ψ` -/
 @[simps!]
-def prod_iso : (K ⋊⁅(0 : L →ₗ⁅R⁆ (LieDerivation R K K))⁆ L) ≃ₗ⁅R⁆ (K × L) where
+def prodIso : (K ⋊⁅(0 : L →ₗ⁅R⁆ (LieDerivation R K K))⁆ L) ≃ₗ⁅R⁆ (K × L) where
   __ := toProdl 0
   map_lie' {_ _} := by simp
+
+@[deprecated (since := "2026-07-18")]
+alias prod_iso := prodIso
 
 end SemiDirectSum
 end LieAlgebra

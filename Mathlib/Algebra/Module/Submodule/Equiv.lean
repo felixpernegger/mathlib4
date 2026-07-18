@@ -234,13 +234,16 @@ theorem equivSubtypeMap_symm_apply {p : Submodule R M} {q : Submodule R p} (x : 
 /-- A linear injection `M ↪ N` restricts to an equivalence `f⁻¹ p ≃ p` for any submodule `p`
 contained in its range. -/
 @[simps! apply]
-noncomputable def comap_equiv_self_of_inj_of_le {f : M →ₗ[R] N} {p : Submodule R N}
+noncomputable def comapEquivSelfOfInjOfLe {f : M →ₗ[R] N} {p : Submodule R N}
     (hf : Injective f) (h : p ≤ LinearMap.range f) :
     p.comap f ≃ₗ[R] p :=
   LinearEquiv.ofBijective
   ((f ∘ₗ (p.comap f).subtype).codRestrict p <| fun ⟨_, hx⟩ ↦ mem_comap.mp hx)
   (⟨fun x y hxy ↦ by simpa using hf (Subtype.ext_iff.mp hxy),
     fun ⟨x, hx⟩ ↦ by obtain ⟨y, rfl⟩ := h hx; exact ⟨⟨y, hx⟩, by simp [Subtype.ext_iff]⟩⟩)
+
+@[deprecated (since := "2026-07-18")]
+alias comap_equiv_self_of_inj_of_le := comapEquivSelfOfInjOfLe
 
 end Module
 

@@ -175,29 +175,32 @@ variable [TopologicalSpace F] [AddCommGroup F] [Module ℝ F]
 
 variable (X Y f) in
 /-- The set of parameters `z` in the segment `[y, y']` such that `f b z ≤ f b' y`. -/
-def setOfPred_sublevelLeft_subset (b b' : β) (y y' : Y) : Set (segment ℝ y.val y'.val) :=
+def setOfPredSublevelLeftSubset (b b' : β) (y y' : Y) : Set (segment ℝ y.val y'.val) :=
     {z | sublevelLeft X f b z ⊆ sublevelLeft X f b' y}
 
+@[deprecated (since := "2026-07-18")]
+alias setOfPred_sublevelLeft_subset := setOfPredSublevelLeftSubset
+
 @[deprecated (since := "2026-07-09")]
-alias setOf_sublevelLeft_subset := setOfPred_sublevelLeft_subset
+alias setOf_sublevelLeft_subset := setOfPredSublevelLeftSubset
 
 include ne_X kX hfx hfx' cY hfy hfy' in
-/-- Under suitable inequalities, `setOfPred_sublevelLeft_subset` is closed -/
+/-- Under suitable inequalities, `setOfPredSublevelLeftSubset` is closed -/
 theorem isClosed_setOfPred_sublevelLeft_subset
     (a : E) (b b' : β) (y y' : Y)
     (ha : ∀ x ∈ X, f a y ⊔ f a y' ≤ f x y ⊔ f x y')
     (hb : ∀ y ∈ Y, ∃ x ∈ X, f x y ≤ b)
     (hb' : b' < f a y ⊔ f a y')
     (hbb' : b < b') :
-    IsClosed (setOfPred_sublevelLeft_subset X Y f b b' y y') := by
-  set J := setOfPred_sublevelLeft_subset X Y f b b' y y'
-  -- Write `J` for `setOfPred_sublevelLeft_subset X Y f b b' y y'`.
+    IsClosed (setOfPredSublevelLeftSubset X Y f b b' y y') := by
+  set J := setOfPredSublevelLeftSubset X Y f b b' y y'
+  -- Write `J` for `setOfPredSublevelLeftSubset X Y f b b' y y'`.
   rw [isClosed_iff_clusterPt]
   /- Let `z in segment ℝ y y'` be a cluster point of `J`;
      we have to show that `z ∈ J`, i.e `sublevelLeft t z ⊆ sublevelLeft t' y1`.
      Let `x ∈ sublevelLeft t z` and let us prove that `x ∈ sublevelLeft X f b' y`. -/
   intro z hz x hx
-  suffices ∃ z' ∈ setOfPred_sublevelLeft_subset X Y f b b' y y', x ∈ sublevelLeft X f b' (z' : F) by
+  suffices ∃ z' ∈ setOfPredSublevelLeftSubset X Y f b b' y y', x ∈ sublevelLeft X f b' (z' : F) by
     obtain ⟨z', hz', hxz'⟩ := this
     /- We need to prove `x ∈ sublevelLeft X f b' y`.
        Assume that there is `z' ∈ J` such that `x ∈ sublevelLeft b' z'`.
@@ -224,9 +227,9 @@ theorem isClosed_setOfPred_sublevelLeft_subset
   rw [clusterPt_principal_subtype_iff_frequently (cY.segment_subset y.prop y'.prop)] at hz
   suffices ∀ᶠ z' : F in nhdsWithin z Y,
     (∃ hz' : z' ∈ segment ℝ y.val y'.val,
-      (⟨z', hz'⟩ : segment ℝ y.val y'.val) ∈ setOfPred_sublevelLeft_subset X Y f b b' y y') →
+      (⟨z', hz'⟩ : segment ℝ y.val y'.val) ∈ setOfPredSublevelLeftSubset X Y f b b' y y') →
       ∃ hz' : z' ∈ segment ℝ y.val y'.val, x ∈ sublevelLeft X f b' z'
-        ∧ (⟨z', hz'⟩ : segment ℝ y.val y'.val) ∈ setOfPred_sublevelLeft_subset X Y f b b' y y' by
+        ∧ (⟨z', hz'⟩ : segment ℝ y.val y'.val) ∈ setOfPredSublevelLeftSubset X Y f b b' y y' by
     obtain ⟨z', hz', hxz'1, hxz'2⟩ := hz.mp this |>.exists
     exact ⟨⟨z', hz'⟩, ⟨hxz'2, hxz'1⟩⟩
   exact hfx.mp <| .of_forall fun z hzt' ⟨hz, hz'⟩ ↦ ⟨hz, ⟨hzt'.le, hz'⟩⟩
@@ -247,15 +250,15 @@ public theorem exists_lt_iInf_of_lt_iInf_of_sup
   obtain ⟨t', htt', ht'⟩ := exists_between (ht a ha)
   lift y1 to Y using hy1
   lift y2 to Y using hy2
-  let J1 := setOfPred_sublevelLeft_subset X Y f t t' y1 y2
+  let J1 := setOfPredSublevelLeftSubset X Y f t t' y1 y2
   have mem_J1_iff (z : segment ℝ (y1 : F) y2) :
       z ∈ J1 ↔ sublevelLeft X f t z ⊆ sublevelLeft X f t' y1 := by
-    simp [J1, setOfPred_sublevelLeft_subset]
+    simp [J1, setOfPredSublevelLeftSubset]
   let φ : segment ℝ (y1 : F) y2 ≃ₜ segment ℝ (y2 : F) y1 := .setCongr (segment_symm ℝ (y1 : F) y2)
-  let J2 := φ ⁻¹' (setOfPred_sublevelLeft_subset X Y f t t' y2 y1)
+  let J2 := φ ⁻¹' (setOfPredSublevelLeftSubset X Y f t t' y2 y1)
   have mem_J2_iff (z : segment ℝ (y1 : F) y2) :
       z ∈ J2 ↔ sublevelLeft X f t z ⊆ sublevelLeft X f t' y2 := by
-    simp [J2, setOfPred_sublevelLeft_subset, φ, Homeomorph.setCongr]
+    simp [J2, setOfPredSublevelLeftSubset, φ, Homeomorph.setCongr]
   have h_mem_Y (z : segment ℝ (y1 : F) y2) : (z : F) ∈ Y := cY.segment_subset y1.2 y2.2 z.prop
   have hJ1J2 : J1 ∩ J2 = ∅ := by
     rw [Set.eq_empty_iff_forall_notMem]

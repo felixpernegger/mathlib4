@@ -38,13 +38,16 @@ def pathGraph.bicoloring (n : ℕ) :
     rintro (h | h) <;> simp [← h, not_iff, Nat.succ_mod_two_eq_zero_iff]
 
 /-- Embedding of `pathGraph 2` into the first two elements of `pathGraph n` for `2 ≤ n` -/
-def pathGraph_two_embedding (n : ℕ) (h : 2 ≤ n) : pathGraph 2 ↪g pathGraph n where
+def pathGraphTwoEmbedding (n : ℕ) (h : 2 ≤ n) : pathGraph 2 ↪g pathGraph n where
   toFun v := ⟨v, trans v.2 h⟩
   inj' := by
     rintro v w
     rw [Fin.mk.injEq]
     exact Fin.ext
   map_rel_iff' := by simp [pathGraph]
+
+@[deprecated (since := "2026-07-18")]
+alias pathGraph_two_embedding := pathGraphTwoEmbedding
 
 theorem chromaticNumber_pathGraph (n : ℕ) (h : 2 ≤ n) :
     (pathGraph n).chromaticNumber = 2 := by
@@ -82,7 +85,7 @@ theorem Walk.three_le_chromaticNumber_of_odd_loop {α} {G : SimpleGraph α} {u :
   simp_all
 
 /-- Bicoloring of a cycle graph of even size -/
-def cycleGraph.bicoloring_of_even (n : ℕ) (h : Even n) : Coloring (cycleGraph n) Bool :=
+def cycleGraph.bicoloringOfEven (n : ℕ) (h : Even n) : Coloring (cycleGraph n) Bool :=
   Coloring.mk (fun u ↦ u.val % 2 = 0) <| by
     intro u v hadj
     match n with
@@ -98,9 +101,12 @@ def cycleGraph.bicoloring_of_even (n : ℕ) (h : Even n) : Coloring (cycleGraph 
         apply Classical.not_iff.mpr
         simp [Fin.not_odd_iff_even_of_even h, Fin.not_even_iff_odd_of_even h]
 
+@[deprecated (since := "2026-07-18")]
+alias cycleGraph.bicoloring_of_even := cycleGraph.bicoloringOfEven
+
 theorem chromaticNumber_cycleGraph_of_even (n : ℕ) (h : 2 ≤ n) (hEven : Even n) :
     (cycleGraph n).chromaticNumber = 2 := by
-  have hc := (cycleGraph.bicoloring_of_even n hEven).colorable
+  have hc := (cycleGraph.bicoloringOfEven n hEven).colorable
   apply le_antisymm
   · apply hc.chromaticNumber_le
   · have hadj : (cycleGraph n).Adj ⟨0, Nat.zero_lt_of_lt h⟩ ⟨1, h⟩ := by
@@ -179,7 +185,7 @@ lemma two_colorable_iff_forall_loop_even {α : Type*} {G : SimpleGraph α} :
     use fun a ↦ Fin.ofNat 2 (c.connected_toSimpleGraph ⟨_, hv⟩ a).some.length
     intro a b hab he
     apply h _ <| (((c.connected_toSimpleGraph ⟨_, hv⟩ a).some.concat hab).append
-                 (c.connected_toSimpleGraph ⟨_, hv⟩ b).some.reverse).map c.toSimpleGraph_hom
+                 (c.connected_toSimpleGraph ⟨_, hv⟩ b).some.reverse).map c.toSimpleGraphHom
     rw [length_map, length_append, length_concat, length_reverse, add_right_comm]
     have : ((Nonempty.some (c.connected_toSimpleGraph ⟨_, hv⟩ a)).length) % 2 =
         (Nonempty.some (c.connected_toSimpleGraph ⟨_, hv⟩ b)).length % 2 := by

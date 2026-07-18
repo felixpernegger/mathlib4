@@ -121,16 +121,22 @@ variable {B : Type u} [Bicategory.{w, v} B]
 abbrev op2 {a b : B} {f g : a ⟶ b} (η : f ≅ g) : f.op ≅ g.op := (opFunctor a b).mapIso η
 
 /-- A 2-isomorphism in `B` gives a 2-isomorphism in `Bᵒᵖ` -/
-abbrev op2_unop {a b : Bᵒᵖ} {f g : a ⟶ b} (η : f.unop ≅ g.unop) : f ≅ g :=
+abbrev op2Unop {a b : Bᵒᵖ} {f g : a ⟶ b} (η : f.unop ≅ g.unop) : f ≅ g :=
   (opFunctor b.unop a.unop).mapIso η
+
+@[deprecated (since := "2026-07-18")]
+alias op2_unop := op2Unop
 
 /-- A 2-isomorphism in `Bᵒᵖ` gives a 2-isomorphism in `B` -/
 abbrev unop2 {a b : Bᵒᵖ} {f g : a ⟶ b} (η : f ≅ g) : f.unop ≅ g.unop :=
   (unopFunctor a b).mapIso η
 
 /-- A 2-isomorphism in `Bᵒᵖ` gives a 2-isomorphism in `B` -/
-abbrev unop2_op {a b : B} {f g : a ⟶ b} (η : f.op ≅ g.op) : f ≅ g :=
+abbrev unop2Op {a b : B} {f g : a ⟶ b} (η : f.op ≅ g.op) : f ≅ g :=
   (unopFunctor (op b) (op a)).mapIso η
+
+@[deprecated (since := "2026-07-18")]
+alias unop2_op := unop2Op
 
 @[simp]
 theorem unop2_op2 {a b : Bᵒᵖ} {f g : a ⟶ b} (η : f ≅ g) : η.unop2.op2 = η := rfl
@@ -159,9 +165,9 @@ instance bicategory : Bicategory.{w, v} Bᵒᵖ where
   homCategory := homCategory
   whiskerLeft f g h η := op2 <| (unop2 η) ▷ f.unop
   whiskerRight η h := op2 <| h.unop ◁ unop2 η
-  associator f g h := (associator h.unop g.unop f.unop).op2_unop.symm
-  leftUnitor f := (rightUnitor f.unop).op2_unop
-  rightUnitor f := (leftUnitor f.unop).op2_unop
+  associator f g h := (associator h.unop g.unop f.unop).op2Unop.symm
+  leftUnitor f := (rightUnitor f.unop).op2Unop
+  rightUnitor f := (leftUnitor f.unop).op2Unop
   whisker_exchange η θ := congrArg op2 <| (whisker_exchange _ _).symm
   whisker_assoc f g g' η i := congrArg op2 <| by simp
   pentagon f g h i := congrArg op2 <| by simp

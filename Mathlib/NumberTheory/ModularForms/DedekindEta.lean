@@ -40,24 +40,27 @@ local notation "ℍₒ" => upperHalfPlaneSet
 namespace ModularForm
 
 /-- The q term inside the product defining the eta function. It is defined as
-`eta_q n z = e ^ (2 π i (n + 1) z)`. -/
-noncomputable abbrev eta_q (n : ℕ) (z : ℂ) := (𝕢 1 z) ^ (n + 1)
+`etaQ n z = e ^ (2 π i (n + 1) z)`. -/
+noncomputable abbrev etaQ (n : ℕ) (z : ℂ) := (𝕢 1 z) ^ (n + 1)
 
-lemma eta_q_eq_cexp (n : ℕ) (z : ℂ) : eta_q n z = cexp (2 * π * I * (n + 1) * z) := by
-  simp [eta_q, Periodic.qParam, ← Complex.exp_nsmul]
+@[deprecated (since := "2026-07-18")]
+alias eta_q := etaQ
+
+lemma eta_q_eq_cexp (n : ℕ) (z : ℂ) : etaQ n z = cexp (2 * π * I * (n + 1) * z) := by
+  simp [etaQ, Periodic.qParam, ← Complex.exp_nsmul]
   ring_nf
 
-lemma eta_q_eq_pow (n : ℕ) (z : ℂ) : eta_q n z = cexp (2 * π * I * z) ^ (n + 1) := by
-  simp [eta_q, Periodic.qParam]
+lemma eta_q_eq_pow (n : ℕ) (z : ℂ) : etaQ n z = cexp (2 * π * I * z) ^ (n + 1) := by
+  simp [etaQ, Periodic.qParam]
 
-lemma one_sub_eta_q_ne_zero (n : ℕ) {z : ℂ} (hz : z ∈ ℍₒ) : 1 - eta_q n z ≠ 0 := by
+lemma one_sub_eta_q_ne_zero (n : ℕ) {z : ℂ} (hz : z ∈ ℍₒ) : 1 - etaQ n z ≠ 0 := by
   rw [eta_q_eq_cexp, sub_ne_zero]
   intro h
   simpa [← mul_assoc, ← h] using norm_exp_two_pi_I_lt_one ⟨(n + 1) • z, by
     simpa [(show 0 < (n + 1 : ℝ) by positivity)] using hz⟩
 
 /-- The eta function, whose value at z is `q^ 1 / 24 * ∏' 1 - q ^ (n + 1)` for `q = e ^ 2 π i z`. -/
-noncomputable def eta (z : ℂ) := 𝕢 24 z * ∏' n, (1 - eta_q n z)
+noncomputable def eta (z : ℂ) := 𝕢 24 z * ∏' n, (1 - etaQ n z)
 
 /-- Notation for the Dedekind eta function. -/
 scoped[ModularForm] notation "η" => eta
@@ -99,19 +102,19 @@ lemma differentiableOn_tprod_one_sub_pow_pow (k : ℕ) :
   (differentiableOn_tprod_one_sub_pow.fun_pow k).congr fun _ hq ↦
     (multipliable_one_sub_pow (by simpa using hq)).tprod_pow k
 
-theorem summable_eta_q (z : ℍ) : Summable fun n ↦ ‖-eta_q n z‖ := by
+theorem summable_eta_q (z : ℍ) : Summable fun n ↦ ‖-etaQ n z‖ := by
   simpa [summable_nat_add_iff] using
     summable_geometric_of_lt_one (norm_nonneg _) (mod_cast norm_qParam_lt_one 1 z)
 
 lemma multipliableLocallyUniformlyOn_eta :
-    MultipliableLocallyUniformlyOn (fun n a ↦ 1 - eta_q n a) ℍₒ :=
+    MultipliableLocallyUniformlyOn (fun n a ↦ 1 - etaQ n a) ℍₒ :=
   multipliableLocallyUniformlyOn_one_sub_pow.comp (𝕢 1)
     (fun z hz ↦ by simpa using norm_qParam_lt_one 1 ⟨z, hz⟩) (by fun_prop)
 
-lemma eta_tprod_ne_zero {z : ℂ} (hz : z ∈ ℍₒ) : ∏' n, (1 - eta_q n z) ≠ 0 := by
-  refine tprod_one_add_ne_zero_of_summable (f := fun n ↦ -eta_q n z) ?_ ?_
+lemma eta_tprod_ne_zero {z : ℂ} (hz : z ∈ ℍₒ) : ∏' n, (1 - etaQ n z) ≠ 0 := by
+  refine tprod_one_add_ne_zero_of_summable (f := fun n ↦ -etaQ n z) ?_ ?_
   · exact fun i ↦ by simpa using! one_sub_eta_q_ne_zero i hz
-  · simpa [eta_q, ← summable_norm_iff] using! summable_eta_q ⟨z, hz⟩
+  · simpa [etaQ, ← summable_norm_iff] using! summable_eta_q ⟨z, hz⟩
 
 /-- Eta is non-vanishing on the upper half plane. -/
 lemma eta_ne_zero {z : ℂ} (hz : z ∈ ℍₒ) : η z ≠ 0 :=
@@ -130,20 +133,20 @@ lemma logDeriv_one_sub_mul_cexp_comp (r : ℂ) {g : ℂ → ℂ} (hg : Different
   ring
 
 private theorem one_sub_eta_logDeriv_eq (z : ℂ) (n : ℕ) :
-    logDeriv (1 - eta_q n ·) z = 2 * π * I * (n + 1) * -eta_q n z / (1 - eta_q n z) := by
+    logDeriv (1 - etaQ n ·) z = 2 * π * I * (n + 1) * -etaQ n z / (1 - etaQ n z) := by
   have h2 : (fun x ↦ 1 - cexp (2 * ↑π * I * (n + 1) * x)) =
       ((fun z ↦ 1 - 1 * cexp z) ∘ fun x ↦ 2 * ↑π * I * (n + 1) * x) := by aesop
   simp_rw [eta_q_eq_cexp, h2, logDeriv_one_sub_mul_cexp_comp 1
     (g := fun x ↦ (2 * π * I * (n + 1) * x)) (by fun_prop), deriv_const_mul_id]
   simp
 
-lemma tsum_logDeriv_eta_q (z : ℂ) : ∑' n, logDeriv (fun x ↦ 1 - eta_q n x) z =
-    (2 * π * I) * ∑' n, (n + 1) * (-eta_q n z) / (1 - eta_q n z) := by
+lemma tsum_logDeriv_eta_q (z : ℂ) : ∑' n, logDeriv (fun x ↦ 1 - etaQ n x) z =
+    (2 * π * I) * ∑' n, (n + 1) * (-etaQ n z) / (1 - etaQ n z) := by
   rw [tsum_congr (one_sub_eta_logDeriv_eq z), ← tsum_mul_left]
   grind
 
 lemma differentiableAt_eta_tprod {z : ℂ} (hz : z ∈ ℍₒ) :
-    DifferentiableAt ℂ (fun x ↦ ∏' n, (1 - eta_q n x)) z := by
+    DifferentiableAt ℂ (fun x ↦ ∏' n, (1 - etaQ n x)) z := by
   have hq : 𝕢 1 z ∈ Metric.ball 0 1 := by simpa using norm_qParam_lt_one 1 ⟨z, hz⟩
   exact (differentiableOn_tprod_one_sub_pow.differentiableAt
     (Metric.isOpen_ball.mem_nhds hq)).comp z (by fun_prop)
@@ -160,7 +163,7 @@ lemma logDeriv_qParam (h : ℝ) (z : ℂ) : logDeriv (𝕢 h) z = 2 * π * I / h
   simp [logDeriv_exp]
 
 lemma summable_logDeriv_one_sub_eta_q {z : ℂ} (hz : z ∈ ℍₒ) :
-    Summable fun i ↦ logDeriv (1 - eta_q i ·) z := by
+    Summable fun i ↦ logDeriv (1 - etaQ i ·) z := by
   have := summable_norm_pow_mul_geometric_div_one_sub 1 (norm_qParam_lt_one 1 ⟨z, hz⟩)
   convert! ((summable_nat_add_iff 1).mpr this).mul_left (-2 * π * I) using 1 with n
   grind [one_sub_eta_logDeriv_eq]

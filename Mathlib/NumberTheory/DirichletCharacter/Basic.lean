@@ -417,16 +417,19 @@ noncomputable def mul {m : ℕ} (χ₁ : DirichletCharacter R n) (χ₂ : Dirich
 
 /-- Primitive character associated to multiplication of Dirichlet characters,
 after changing both levels to the same -/
-noncomputable def primitive_mul {m : ℕ} (χ₁ : DirichletCharacter R n)
+noncomputable def primitiveMul {m : ℕ} (χ₁ : DirichletCharacter R n)
     (χ₂ : DirichletCharacter R m) : DirichletCharacter R (mul χ₁ χ₂).conductor :=
   primitiveCharacter (mul χ₁ χ₂)
 
+@[deprecated (since := "2026-07-18")]
+alias primitive_mul := primitiveMul
+
 lemma mul_def {n m : ℕ} {χ : DirichletCharacter R n} {ψ : DirichletCharacter R m} :
-    χ.primitive_mul ψ = primitiveCharacter (mul χ ψ) :=
+    χ.primitiveMul ψ = primitiveCharacter (mul χ ψ) :=
   rfl
 
 lemma primitive_mul_isPrimitive {m : ℕ} (ψ : DirichletCharacter R m) :
-    IsPrimitive (primitive_mul χ ψ) :=
+    IsPrimitive (primitiveMul χ ψ) :=
   primitiveCharacter_isPrimitive _
 
 /-- The conductor of `χ * ψ` divides the lcm of the conductors of `χ` and `ψ`. -/

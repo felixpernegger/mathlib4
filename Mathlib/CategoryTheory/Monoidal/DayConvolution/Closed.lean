@@ -152,7 +152,7 @@ set_option backward.defeqAttrib.useBackward true in
 as the internal hom `[F, G]`, then this is the transformation
 corresponding to the component at `G` of the "evaluation" natural morphism
 `F ⊛ [F, _] ⟶ 𝟭`. -/
-def ev_app : F ⊛ H ⟶ G :=
+def evApp : F ⊛ H ⟶ G :=
   DayConvolution.corepresentableBy F H |>.homEquiv.symm <|
     { app x := MonoidalClosed.uncurry <| ℌ.π x.2 x.1
       naturality {x y} f := by
@@ -168,22 +168,25 @@ def ev_app : F ⊛ H ⟶ G :=
         rw [reassoc_of% this]
         simp }
 
+@[deprecated (since := "2026-07-18")]
+alias ev_app := evApp
+
 set_option backward.defeqAttrib.useBackward true in
 set_option backward.isDefEq.respectTransparency false in
 @[reassoc (attr := simp)]
 lemma unit_app_ev_app_app (x y : C) :
-    ((DayConvolution.unit F H).app (x, y) ≫ (ℌ.ev_app).app (x ⊗ y)) =
+    ((DayConvolution.unit F H).app (x, y) ≫ (ℌ.evApp).app (x ⊗ y)) =
     MonoidalClosed.uncurry (ℌ.π y x) := by
   have := Functor.descOfIsLeftKanExtension_fac_app (F ⊛ H)
     (DayConvolution.unit F H) G
   dsimp at this
-  simp [this, ev_app]
+  simp [this, evApp]
 
 set_option backward.defeqAttrib.useBackward true in
 set_option backward.isDefEq.respectTransparency false in
 lemma ev_naturality_app {G' H' : C ⥤ V} (ℌ' : DayConvolutionInternalHom F G' H')
     [DayConvolution F H'] (η : G ⟶ G') :
-    DayConvolution.map (𝟙 F) (ℌ.map η ℌ') ≫ ℌ'.ev_app = ℌ.ev_app ≫ η := by
+    DayConvolution.map (𝟙 F) (ℌ.map η ℌ') ≫ ℌ'.evApp = ℌ.evApp ≫ η := by
   apply DayConvolution.corepresentableBy F H |>.homEquiv.injective
   dsimp
   ext ⟨x, y⟩
@@ -202,7 +205,7 @@ set_option backward.isDefEq.respectTransparency false in
 as the internal hom `[F, G]`, then this is the transformation
 corresponding to the component at `G` of the "coevaluation" natural morphism
 `𝟭 ⟶ [F, F ⊛ _]`. -/
-def coev_app : G ⟶ H where
+def coevApp : G ⟶ H where
   app c :=
     Wedge.IsLimit.lift (ℌ.isLimitWedge c)
       (fun c' => MonoidalClosed.curry <|
@@ -236,12 +239,15 @@ def coev_app : G ⟶ H where
     rw [← this]
     simp [MonoidalClosed.curry_eq]
 
+@[deprecated (since := "2026-07-18")]
+alias coev_app := coevApp
+
 set_option backward.isDefEq.respectTransparency false in
 @[reassoc (attr := simp)]
 lemma coev_app_π (c j : C) :
-    ℌ.coev_app.app c ≫ ℌ.π c j =
+    ℌ.coevApp.app c ≫ ℌ.π c j =
     MonoidalClosed.curry ((DayConvolution.unit F G).app (j, c)) := by
-  dsimp [coev_app]
+  dsimp [coevApp]
   rw [← Wedge.mk_ι
       (F := dayConvolutionInternalHomDiagramFunctor F |>.obj _ |>.obj c)
       (H.obj c) (ℌ.π c) (ℌ.hπ c),
@@ -251,8 +257,8 @@ set_option backward.defeqAttrib.useBackward true in
 set_option backward.isDefEq.respectTransparency false in
 lemma coev_naturality_app {G' H' : C ⥤ V} [DayConvolution F G'] (η : G ⟶ G')
     (ℌ' : DayConvolutionInternalHom F (F ⊛ G') H') :
-    η ≫ ℌ'.coev_app =
-    ℌ.coev_app ≫ ℌ.map (DayConvolution.map (𝟙 _) η) ℌ' := by
+    η ≫ ℌ'.coevApp =
+    ℌ.coevApp ≫ ℌ.map (DayConvolution.map (𝟙 _) η) ℌ' := by
   ext c
   dsimp
   apply Wedge.IsLimit.hom_ext <| ℌ'.isLimitWedge c
@@ -271,7 +277,7 @@ set_option backward.defeqAttrib.useBackward true in
 set_option backward.isDefEq.respectTransparency false in
 theorem left_triangle_components (G : C ⥤ V) [DayConvolution F G]
     (ℌ : DayConvolutionInternalHom F (F ⊛ G) H) [DayConvolution F H] :
-    DayConvolution.map (𝟙 F) ℌ.coev_app ≫ ℌ.ev_app = 𝟙 (F ⊛ G) := by
+    DayConvolution.map (𝟙 F) ℌ.coevApp ≫ ℌ.evApp = 𝟙 (F ⊛ G) := by
   apply DayConvolution.corepresentableBy F G |>.homEquiv.injective
   dsimp
   ext ⟨x, y⟩
@@ -283,7 +289,7 @@ set_option backward.isDefEq.respectTransparency false in
 theorem right_triangle_components (G : C ⥤ V) [DayConvolution F H]
     (ℌ : DayConvolutionInternalHom F G H) {H' : C ⥤ V}
     (ℌ' : DayConvolutionInternalHom F (F ⊛ H) H') :
-    ℌ'.coev_app ≫ ℌ'.map ℌ.ev_app ℌ = 𝟙 H := by
+    ℌ'.coevApp ≫ ℌ'.map ℌ.evApp ℌ = 𝟙 H := by
   ext c
   apply Wedge.IsLimit.hom_ext <| ℌ.isLimitWedge c
   intro j

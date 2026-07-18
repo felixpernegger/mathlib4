@@ -1101,7 +1101,7 @@ theorem HasFTaylorSeriesUpToOn.comp {n : WithTop ℕ∞} {g : F → G} {f : E �
       simp only [Nat.succ_eq_add_one, Fintype.sum_option, ContinuousMultilinearMap.curryLeft_apply,
         FormalMultilinearSeries.compAlongOrderedFinpartition_apply, sum_apply, add_apply]
     rw [Finset.sum_sigma']
-    exact Fintype.sum_equiv (OrderedFinpartition.extendEquiv m) _ _ (fun p ↦ rfl)
+    exact Fintype.sumEquiv (OrderedFinpartition.extendEquiv m) _ _ (fun p ↦ rfl)
   · intro m hm
     apply continuousOn_finsetSum _ (fun c _ ↦ ?_)
     let B := c.compAlongOrderedFinpartitionL 𝕜 E F G

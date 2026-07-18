@@ -151,7 +151,7 @@ theorem det_mul (M N : Matrix n n R) : det (M * N) = det M * det N :=
       simp only [mul_comm, mul_left_comm, prod_mul_distrib, mul_assoc]
     _ = ∑ σ : Perm n, ∑ τ : Perm n, (∏ i, N (σ i) i) * (ε σ * ε τ) * ∏ i, M (τ i) i :=
       (sum_congr rfl fun σ _ =>
-        Fintype.sum_equiv (Equiv.mulRight σ⁻¹) _ _ fun τ => by
+        Fintype.sumEquiv (Equiv.mulRight σ⁻¹) _ _ fun τ => by
           have : (∏ j, M (τ j) (σ j)) = ∏ j, M ((τ * σ⁻¹) j) j := by
             rw [← (σ⁻¹ : _ ≃ _).prod_comp]
             simp
@@ -224,7 +224,7 @@ theorem det_permute' (σ : Perm n) (M : Matrix n n R) :
 theorem det_submatrix_equiv_self (e : n ≃ m) (A : Matrix m m R) :
     det (A.submatrix e e) = det A := by
   rw [det_apply', det_apply']
-  apply Fintype.sum_equiv (Equiv.permCongr e)
+  apply Fintype.sumEquiv (Equiv.permCongr e)
   intro σ
   rw [Equiv.Perm.sign_permCongr e σ]
   congr 1

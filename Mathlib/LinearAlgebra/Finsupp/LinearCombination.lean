@@ -505,7 +505,7 @@ lemma Submodule.mem_span_set' {m : M} {s : Set M} :
     have A : c.support ≃ Fin c.support.card := Finset.equivFin _
     refine ⟨_, fun i ↦ c (A.symm i), fun i ↦ ⟨A.symm i, cs (A.symm i).2⟩, ?_⟩
     rw [Finsupp.sum, ← Finset.sum_coe_sort c.support]
-    exact Fintype.sum_equiv A.symm _ (fun j ↦ c j • (j : M)) (fun i ↦ rfl)
+    exact Fintype.sumEquiv A.symm _ (fun j ↦ c j • (j : M)) (fun i ↦ rfl)
   · rintro ⟨n, f, g, rfl⟩
     exact Submodule.sum_mem _ (fun i _ ↦ Submodule.smul_mem _ _ (Submodule.subset_span (g i).2))
 

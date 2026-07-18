@@ -241,7 +241,7 @@ theorem spanNorm_spanNorm_of_bot_or_top (eq_bot_or_top : ∀ I : Ideal R, I = �
   · rw [h, spanNorm_eq_bot_iff, spanNorm_eq_bot_iff, spanNorm_eq_bot_iff.mp h]
   · exact h ▸ (eq_top_iff_one _).mpr <| le_spanNorm_spanNorm R T I <| (eq_top_iff_one _).mp h
 
-attribute [local instance] Localization.AtPrime.algebra_localization_localization
+attribute [local instance] Localization.AtPrime.algebraLocalizationLocalization
 
 theorem spanNorm_spanNorm [IsDedekindDomain R] [IsDedekindDomain T] [IsDedekindDomain S]
     (I : Ideal S) : spanNorm R (spanNorm T I) = spanNorm R I := by

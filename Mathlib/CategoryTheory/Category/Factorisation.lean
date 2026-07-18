@@ -115,12 +115,19 @@ instance : Unique (d ⟶ (Factorisation.terminal : Factorisation f)) where
 open Limits
 
 /-- The initial factorisation is an initial object -/
-def IsInitial_initial : IsInitial (Factorisation.initial : Factorisation f) := IsInitial.ofUnique _
+def IsInitialInitial : IsInitial (Factorisation.initial : Factorisation f) := IsInitial.ofUnique _
+
+@[deprecated (since := "2026-07-18")]
+alias IsInitial_initial := IsInitialInitial
 
 instance : HasInitial (Factorisation f) := Limits.hasInitial_of_unique Factorisation.initial
 
 /-- The terminal factorisation is a terminal object -/
-def IsTerminal_terminal : IsTerminal (Factorisation.terminal : Factorisation f) :=
+def IsTerminalTerminal : IsTerminal (Factorisation.terminal : Factorisation f) :=
+
+@[deprecated (since := "2026-07-18")]
+alias IsTerminal_terminal := IsTerminalTerminal
+
 IsTerminal.ofUnique _
 
 instance : HasTerminal (Factorisation f) := Limits.hasTerminal_of_unique Factorisation.terminal

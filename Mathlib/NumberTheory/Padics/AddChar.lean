@@ -23,13 +23,13 @@ equivalent if `NormMulClass R` holds.
 
 ## Main definitions and theorems:
 
-* `addChar_of_value_at_one`: given a topologically nilpotent `r : R`, construct a continuous
+* `addCharOfValueAtOne`: given a topologically nilpotent `r : R`, construct a continuous
   additive character of `ℤ_[p]` mapping `1` to `1 + r`.
 * `continuousAddCharEquiv`: for any complete, ultrametric normed `ℤ_[p]`-algebra `R`, the map
-  `addChar_of_value_at_one` defines a bijection between continuous additive characters `ℤ_[p] → R`
+  `addCharOfValueAtOne` defines a bijection between continuous additive characters `ℤ_[p] → R`
   and topologically nilpotent elements of `R`.
-* `continuousAddCharEquiv_of_norm_mul`: if the norm on `R` is strictly multiplicative (not just
-  sub-multiplicative), then `addChar_of_value_at_one` is a bijection between continuous additive
+* `continuousAddCharEquivOfNormMul`: if the norm on `R` is strictly multiplicative (not just
+  sub-multiplicative), then `addCharOfValueAtOne` is a bijection between continuous additive
   characters `ℤ_[p] → R` and elements of `R` with `‖r‖ < 1`.
 
 ## TODO:
@@ -56,7 +56,7 @@ namespace PadicInt
 variable [CompleteSpace R]
 
 /-- The unique continuous additive character of `ℤ_[p]` mapping `1` to `1 + r`. -/
-noncomputable def addChar_of_value_at_one (r : R) (hr : Tendsto (r ^ ·) atTop (𝓝 0)) :
+noncomputable def addCharOfValueAtOne (r : R) (hr : Tendsto (r ^ ·) atTop (𝓝 0)) :
     AddChar ℤ_[p] R where
   toFun := mahlerSeries (r ^ ·)
   map_zero_eq_one' := by
@@ -76,25 +76,28 @@ noncomputable def addChar_of_value_at_one (r : R) (hr : Tendsto (r ^ ·) atTop (
       (continuous_mul.comp (map_continuous <| F.prodMap F)) (funext fun ⟨m, n⟩ ↦ ?_)) (a, b)
     simp [← Nat.cast_add, hF, ContinuousMap.prodMap_apply, pow_add]
 
+@[deprecated (since := "2026-07-18")]
+alias addChar_of_value_at_one := addCharOfValueAtOne
+
 @[fun_prop]
 lemma continuous_addChar_of_value_at_one {r : R} (hr : Tendsto (r ^ ·) atTop (𝓝 0)) :
-    Continuous (addChar_of_value_at_one r hr : ℤ_[p] → R) :=
+    Continuous (addCharOfValueAtOne r hr : ℤ_[p] → R) :=
   map_continuous (mahlerSeries (r ^ ·))
 
 lemma coe_addChar_of_value_at_one {r : R} (hr : Tendsto (r ^ ·) atTop (𝓝 0)) :
-    (addChar_of_value_at_one r hr : ℤ_[p] → R) = mahlerSeries (r ^ ·) :=
+    (addCharOfValueAtOne r hr : ℤ_[p] → R) = mahlerSeries (r ^ ·) :=
   rfl
 
 @[simp]
 lemma addChar_of_value_at_one_def {r : R} (hr : Tendsto (r ^ ·) atTop (𝓝 0)) :
-    addChar_of_value_at_one r hr (1 : ℤ_[p]) = 1 + r := by
+    addCharOfValueAtOne r hr (1 : ℤ_[p]) = 1 + r := by
   change mahlerSeries (r ^ ·) ↑(1 : ℕ) = _
   rw [mahlerSeries_apply_nat hr le_rfl, Finset.sum_range_succ, Finset.sum_range_one,
     Nat.choose_zero_right, Nat.choose_self, one_smul, one_smul, pow_zero, pow_one]
 
 lemma eq_addChar_of_value_at_one {r : R} (hr : Tendsto (r ^ ·) atTop (𝓝 0))
     {κ : AddChar ℤ_[p] R} (hκ : Continuous κ) (hκ' : κ 1 = 1 + r) :
-    κ = addChar_of_value_at_one r hr :=
+    κ = addCharOfValueAtOne r hr :=
   denseRange_natCast.addChar_eq_of_eval_one_eq hκ (by fun_prop) (by simp [hκ'])
 
 variable (p R) in
@@ -112,7 +115,7 @@ noncomputable def continuousAddCharEquiv :
 
 @[simp] lemma continuousAddCharEquiv_symm_apply {r : R} (hr : Tendsto (r ^ ·) atTop (𝓝 0)) :
     (continuousAddCharEquiv p R).symm ⟨r, hr⟩ =
-    (addChar_of_value_at_one r hr : AddChar ℤ_[p] R) :=
+    (addCharOfValueAtOne r hr : AddChar ℤ_[p] R) :=
   rfl
 
 section NormMulClass
@@ -121,17 +124,20 @@ variable [NormMulClass R]
 variable (p R) in
 /-- Equivalence between continuous additive characters `ℤ_[p] → R`, and `r ∈ R` with `‖r‖ < 1`,
 for rings with strictly multiplicative norm. -/
-noncomputable def continuousAddCharEquiv_of_norm_mul :
+noncomputable def continuousAddCharEquivOfNormMul :
     {κ : AddChar ℤ_[p] R // Continuous κ} ≃ {r : R // ‖r‖ < 1} :=
   (continuousAddCharEquiv p R).trans <|
     .subtypeEquivProp (by simp only [tendsto_pow_atTop_nhds_zero_iff_norm_lt_one])
 
+@[deprecated (since := "2026-07-18")]
+alias continuousAddCharEquiv_of_norm_mul := continuousAddCharEquivOfNormMul
+
 @[simp] lemma continuousAddCharEquiv_of_norm_mul_apply {κ : AddChar ℤ_[p] R} (hκ : Continuous κ) :
-    continuousAddCharEquiv_of_norm_mul p R ⟨κ, hκ⟩ = κ 1 - 1 :=
+    continuousAddCharEquivOfNormMul p R ⟨κ, hκ⟩ = κ 1 - 1 :=
   rfl
 
 @[simp] lemma continuousAddCharEquiv_of_norm_mul_symm_apply {r : R} (hr : ‖r‖ < 1) :
-    (continuousAddCharEquiv_of_norm_mul p R).symm ⟨r, hr⟩ = (addChar_of_value_at_one r
+    (continuousAddCharEquivOfNormMul p R).symm ⟨r, hr⟩ = (addCharOfValueAtOne r
     (tendsto_pow_atTop_nhds_zero_iff_norm_lt_one.mpr hr) : AddChar ℤ_[p] R) :=
   rfl
 

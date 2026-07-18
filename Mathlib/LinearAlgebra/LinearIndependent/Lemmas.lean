@@ -753,7 +753,7 @@ set_option backward.isDefEq.respectTransparency false in
 /-- Equivalence between `k + 1` vectors of length `n` and `k` vectors of length `n` along with a
 vector in the complement of their span.
 -/
-def equiv_linearIndependent (n : ℕ) :
+def equivLinearIndependent (n : ℕ) :
     { s : Fin (n + 1) → V // LinearIndependent K s } ≃
       Σ s : { s : Fin n → V // LinearIndependent K s },
         ((Submodule.span K (Set.range (s : Fin n → V)))ᶜ : Set V) where
@@ -764,6 +764,9 @@ def equiv_linearIndependent (n : ℕ) :
   left_inv _ := by simp only [Fin.cons_self_tail, Subtype.coe_eta]
   right_inv := fun ⟨_, _⟩ => by simp only [Fin.cons_zero, Subtype.coe_eta, Sigma.mk.inj_iff,
     Fin.tail_cons, heq_eq_eq, and_self]
+
+@[deprecated (since := "2026-07-18")]
+alias equiv_linearIndependent := equivLinearIndependent
 
 theorem linearIndependent_fin2 {f : Fin 2 → V} :
     LinearIndependent K f ↔ f 1 ≠ 0 ∧ ∀ a : K, a • f 1 ≠ f 0 := by

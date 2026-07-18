@@ -56,7 +56,7 @@ lemma generalLinearGroup_smul_def (g : LinearMap.GeneralLinearGroup K V) (x : �
 
 lemma matrixSpecialLinearGroup_smul_def {ι F : Type*} [Fintype ι] [DecidableEq ι] [Field F]
     (g : Matrix.SpecialLinearGroup ι F) (x : ℙ F (ι → F)) :
-    g • x = g.toLin'_equiv • x := by
+    g • x = g.toLin'Equiv • x := by
   rfl
 
 @[simp]
@@ -178,7 +178,7 @@ variable {ι : Type*} [Fintype ι] [DecidableEq ι]
 
 instance : IsMultiplyPretransitive (Matrix.SpecialLinearGroup ι K) (ℙ K (ι → K)) 2 :=
   let φ : SpecialLinearGroup K (ι → K) →* Matrix.SpecialLinearGroup ι K :=
-    Matrix.SpecialLinearGroup.toLin'_equiv.symm.toMonoidHom
+    Matrix.SpecialLinearGroup.toLin'Equiv.symm.toMonoidHom
   let f : ℙ K (ι → K) →ₑ[φ] ℙ K (ι → K) :=
     { toFun := id
       map_smul' g D := by simp [φ, matrixSpecialLinearGroup_smul_def]}

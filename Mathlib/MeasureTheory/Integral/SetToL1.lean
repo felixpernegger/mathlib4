@@ -1263,17 +1263,17 @@ theorem tendsto_setToFun_of_dominated_convergence (hT : DominatedFinMeasAdditive
   -- all functions we consider are integrable
   have fs_int : ∀ n, Integrable (fs n) μ := fun n =>
     bound_integrable.mono' (fs_measurable n) (h_bound _)
-  have f_int : Integrable f μ :=
+  have fInt : Integrable f μ :=
     ⟨f_measurable,
       hasFiniteIntegral_of_dominated_convergence bound_integrable.hasFiniteIntegral h_bound
         h_lim⟩
   -- it suffices to prove the result for the corresponding L1 functions
   suffices
     Tendsto (fun n => L1.setToL1 hT ((fs_int n).toL1 (fs n))) atTop
-      (𝓝 (L1.setToL1 hT (f_int.toL1 f))) by
+      (𝓝 (L1.setToL1 hT (fInt.toL1 f))) by
     convert! this with n
     · exact setToFun_eq hT (fs_int n)
-    · exact setToFun_eq hT f_int
+    · exact setToFun_eq hT fInt
   -- the convergence of setToL1 follows from the convergence of the L1 functions
   refine L1.tendsto_setToL1 hT _ _ ?_
   -- up to some rewriting, what we need to prove is `h_lim`
@@ -1288,7 +1288,7 @@ theorem tendsto_setToFun_of_dominated_convergence (hT : DominatedFinMeasAdditive
   congr 1
   refine lintegral_congr_ae ?_
   rw [← Integrable.toL1_sub]
-  refine ((fs_int n).sub f_int).coeFn_toL1.mono fun x hx => ?_
+  refine ((fs_int n).sub fInt).coeFn_toL1.mono fun x hx => ?_
   dsimp only
   rw [hx, ofReal_norm, Pi.sub_apply]
 

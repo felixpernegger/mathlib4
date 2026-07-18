@@ -218,7 +218,7 @@ set_option backward.isDefEq.respectTransparency false in
 If `c` is a cocone of `F` such that `Quot.desc F c` is bijective, then `c` is a colimit
 cocone of `F`.
 -/
-noncomputable def isColimit_of_bijective_desc [DecidableEq J]
+noncomputable def isColimitOfBijectiveDesc [DecidableEq J]
      (h : Function.Bijective (Quot.desc F c)) : IsColimit c where
   desc s := AddCommGrpCat.ofHom ((Quot.desc F s).comp (AddEquiv.ofBijective
     (Quot.desc F c) h).symm.toAddMonoidHom)
@@ -236,6 +236,9 @@ noncomputable def isColimit_of_bijective_desc [DecidableEq J]
     suffices eq : m.hom.comp (AddEquiv.ofBijective (Quot.desc F c) h) = Quot.desc F s by
       rw [← eq]; rfl
     exact Quot.addMonoidHom_ext F (by simp [← hm])
+
+@[deprecated (since := "2026-07-18")]
+alias isColimit_of_bijective_desc := isColimitOfBijectiveDesc
 
 set_option backward.defeqAttrib.useBackward true in
 set_option backward.isDefEq.respectTransparency false in
@@ -266,7 +269,7 @@ theorem Quot.desc_colimitCocone [DecidableEq J] (F : J ⥤ AddCommGrpCat.{w}) [S
 -/
 noncomputable def colimitCoconeIsColimit [DecidableEq J] [Small.{w} (Quot F)] :
     IsColimit (colimitCocone F) := by
-  refine isColimit_of_bijective_desc F _ ?_
+  refine isColimitOfBijectiveDesc F _ ?_
   rw [Quot.desc_colimitCocone]
   exact Shrink.addEquiv.symm.bijective
 

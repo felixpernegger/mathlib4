@@ -82,17 +82,20 @@ theorem divX_X_pow : divX (X ^ n : R[X]) = if (n = 0) then 0 else X ^ (n - 1) :=
 
 /-- `divX` as an additive homomorphism. -/
 noncomputable
-def divX_hom : R[X] →+ R[X] :=
+def divXHom : R[X] →+ R[X] :=
   { toFun := divX
     map_zero' := divX_zero
     map_add' := fun _ _ => divX_add }
 
-@[simp] theorem divX_hom_toFun : divX_hom p = divX p := rfl
+@[deprecated (since := "2026-07-18")]
+alias divX_hom := divXHom
+
+@[simp] theorem divX_hom_toFun : divXHom p = divX p := rfl
 
 theorem natDegree_divX_eq_natDegree_tsub_one : p.divX.natDegree = p.natDegree - 1 := by
-  apply map_natDegree_eq_sub (φ := divX_hom)
+  apply map_natDegree_eq_sub (φ := divXHom)
   · intro f
-    simpa [divX_hom, divX_eq_zero_iff] using eq_C_of_natDegree_eq_zero
+    simpa [divXHom, divX_eq_zero_iff] using eq_C_of_natDegree_eq_zero
   · intro n c c0
     rw [← C_mul_X_pow_eq_monomial, divX_hom_toFun, divX_C_mul, divX_X_pow]
     split_ifs with n0

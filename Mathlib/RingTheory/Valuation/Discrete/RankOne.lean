@@ -13,7 +13,7 @@ public import Mathlib.Data.Int.WithZero
 # Discrete valuations have rank one
 
 ## Main Definitions and Results
-* `Valuation.IsRankOneDiscrete.valueGroup₀_equiv_withZeroMulInt` : the order-preserving isomorphism
+* `Valuation.IsRankOneDiscrete.valueGroup₀EquivWithZeroMulInt` : the order-preserving isomorphism
   between the `ValueGroup₀` of a discrete valuation and `ℤᵐ⁰`.
 * `Valuation.IsRankOneDiscrete.rankOne` : a discrete valuation has rank one.
 
@@ -40,7 +40,7 @@ variable (v : Valuation R Γ) [hv : v.IsRankOneDiscrete]
 /-- An order-preserving isomorphism between the `ValueGroup₀` of a discrete valuation and `ℤᵐ⁰`.
 TODO: rename this into lowerCamelCase. -/
 @[simps!]
-noncomputable def valueGroup₀_equiv_withZeroMulInt : ValueGroup₀ (.ofClass v) ≃*o ℤᵐ⁰ where
+noncomputable def valueGroup₀EquivWithZeroMulInt : ValueGroup₀ (.ofClass v) ≃*o ℤᵐ⁰ where
   __ := MulEquiv.withZero (intEquivOfZPowersEqTop _
     (Subgroup.zpowers_inv (g := hv.generator') ▸ hv.generator'_zpowers_eq_top)).symm
   map_le_map_iff' {x y} := by
@@ -48,11 +48,14 @@ noncomputable def valueGroup₀_equiv_withZeroMulInt : ValueGroup₀ (.ofClass v
     (Subgroup.zpowers_inv (g := hv.generator') ▸ hv.generator'_zpowers_eq_top)
     (Left.one_lt_inv_iff.mpr hv.generator'_lt_one)))).le_iff_le]
 
+@[deprecated (since := "2026-07-18")]
+alias valueGroup₀_equiv_withZeroMulInt := valueGroup₀EquivWithZeroMulInt
+
 lemma valueGroup₀_equiv_withZeroMulInt_apply_zero :
-    valueGroup₀_equiv_withZeroMulInt v 0 = 0 := by simp
+    valueGroup₀EquivWithZeroMulInt v 0 = 0 := by simp
 
 lemma valueGroup₀_equiv_withZeroMulInt_apply_zpow (k : ℤ) :
-    valueGroup₀_equiv_withZeroMulInt v (hv.generator' ^ k) = WithZero.exp (- k) := by
+    valueGroup₀EquivWithZeroMulInt v (hv.generator' ^ k) = WithZero.exp (- k) := by
   simp only [map_zpow₀, valueGroup₀_equiv_withZeroMulInt_apply, WithZero.map'_coe,
     MonoidHom.coe_coe]
   rw [← WithZero.coe_zpow, WithZero.exp, WithZero.coe_inj, ← map_zpow]
@@ -60,7 +63,7 @@ lemma valueGroup₀_equiv_withZeroMulInt_apply_zpow (k : ℤ) :
     (Subgroup.zpowers_inv (g := hv.generator') ▸ hv.generator'_zpowers_eq_top)]
 
 lemma valueGroup₀_equiv_withZeroMulInt_strictMono :
-    StrictMono (valueGroup₀_equiv_withZeroMulInt v) := by
+    StrictMono (valueGroup₀EquivWithZeroMulInt v) := by
   intro x y hxy
   rwa [(WithZero.map'_strictMono (MulEquiv.strictMono_symm (mulintEquivOfZPowersEqTop_strictMono
     (Subgroup.zpowers_inv (g := hv.generator') ▸ hv.generator'_zpowers_eq_top)
@@ -70,7 +73,7 @@ lemma valueGroup₀_equiv_withZeroMulInt_strictMono :
 @[instance_reducible]
 noncomputable def rankOne {e : ℝ≥0} (he : 1 < e) : v.RankOne where
   hom' := (toNNReal (ne_of_gt (lt_trans zero_lt_one he))).comp
-      (.ofClass (valueGroup₀_equiv_withZeroMulInt v))
+      (.ofClass (valueGroup₀EquivWithZeroMulInt v))
   strictMono' := (toNNReal_strictMono he).comp (valueGroup₀_equiv_withZeroMulInt_strictMono v)
   exists_val_nontrivial := IsNontrivial.exists_val_nontrivial
 
@@ -82,7 +85,7 @@ variable {v : Valuation R ℤᵐ⁰} [hv : v.IsRankOneDiscrete]
 
 set_option backward.isDefEq.respectTransparency.types false in
 lemma valueGroup₀_equiv_withZeroMulInt_restrict_apply_of_surjective (hsurj : Function.Surjective v)
-    (x : R) : (valueGroup₀_equiv_withZeroMulInt v) (v.restrict x) = v x := by
+    (x : R) : (valueGroup₀EquivWithZeroMulInt v) (v.restrict x) = v x := by
   simp only [Valuation.restrict_def, ValueGroup₀.restrict₀_apply,
     valueGroup₀_equiv_withZeroMulInt_apply]
   split_ifs with h0 <;>

@@ -89,7 +89,7 @@ set_option backward.isDefEq.respectTransparency.types false in
 /-- Given a functor `F : J ⥤ TopCat` and a cone `c : Cone (F ⋙ forget)`
 of the underlying functor to types, this is a cone for `F` whose point is
 `c.pt` with the infimum of the induced topologies by the maps `c.π.app j`. -/
-@[simps pt π_app]
+@[simps pt πApp]
 def coneOfConeForget : Cone F where
   pt := of (conePtOfConeForget c)
   π :=

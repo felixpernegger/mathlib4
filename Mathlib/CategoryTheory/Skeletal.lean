@@ -359,7 +359,7 @@ noncomputable instance fromThinSkeleton_isEquivalence : (fromThinSkeleton C).IsE
 variable {C}
 
 theorem equiv_of_both_ways {X Y : C} (f : X ⟶ Y) (g : Y ⟶ X) : X ≈ Y :=
-  ⟨iso_of_both_ways f g⟩
+  ⟨isoOfBothWays f g⟩
 
 instance thinSkeletonPartialOrder : PartialOrder (ThinSkeleton C) :=
   { CategoryTheory.ThinSkeleton.preorder C with

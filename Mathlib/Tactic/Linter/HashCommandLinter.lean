@@ -57,11 +57,14 @@ partial def withSetOptionIn' (cmd : CommandElab) : CommandElab := fun stx => do
   else
     cmd stx
 
-/-- `allowed_commands` is the `HashSet` of `#`-commands that are allowed in 'Mathlib'. -/
-abbrev allowed_commands : Std.HashSet String := { "#adaptation_note" }
+/-- `allowedCommands` is the `HashSet` of `#`-commands that are allowed in 'Mathlib'. -/
+abbrev allowedCommands : Std.HashSet String := { "#adaptation_note" }
+
+@[deprecated (since := "2026-07-18")]
+alias allowed_commands := allowedCommands
 
 /-- Checks that no command beginning with `#` is present in 'Mathlib',
-except for the ones in `allowed_commands`.
+except for the ones in `allowedCommands`.
 
 If `warningAsError` is `true`, then the linter logs an info (rather than a warning).
 This means that CI will eventually fail on `#`-commands, but does not stop it from continuing.
@@ -74,7 +77,7 @@ def hashCommandLinter : Linter where run := withSetOptionIn' fun stx => do
   then
     if let some sa := stx.getHead? then
       let a := sa.getAtomVal
-      if (a.front == '#' && ! allowed_commands.contains a) then
+      if (a.front == '#' && ! allowedCommands.contains a) then
         let msg := m!"`#`-commands, such as '{a}', are not allowed in 'Mathlib'"
         if warningAsError.get (← getOptions) then
           logInfoAt sa (msg ++ " [linter.hashCommand]")

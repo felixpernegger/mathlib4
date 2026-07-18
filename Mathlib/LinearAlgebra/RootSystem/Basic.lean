@@ -70,12 +70,15 @@ set_option backward.privateInPublic true in
 set_option backward.privateInPublic.warn false in
 /-- The bijection on the indexing set induced by reflection. -/
 @[simps]
-protected def equiv_of_mapsTo :
+protected def equivOfMapsTo :
     ι ≃ ι where
   toFun j := (exist_eq_reflection_of_mapsTo p root coroot i j h).choose
   invFun j := (exist_eq_reflection_of_mapsTo p root coroot i j h).choose
   left_inv j := choose_choose_eq_of_mapsTo p root coroot i j h hp
   right_inv j := choose_choose_eq_of_mapsTo p root coroot i j h hp
+
+@[deprecated (since := "2026-07-18")]
+alias equiv_of_mapsTo := equivOfMapsTo
 
 end reflectionPerm
 
@@ -181,7 +184,7 @@ def mk' [CharZero R] [IsDomain R] [IsTorsionFree R M]
   root := root
   coroot := coroot
   root_coroot_two := hp
-  reflectionPerm i := RootPairing.equiv_of_mapsTo p root coroot i hr hp
+  reflectionPerm i := RootPairing.equivOfMapsTo p root coroot i hr hp
   reflectionPerm_root i j := by
     simp [(exist_eq_reflection_of_mapsTo p root coroot i j hr).choose_spec, preReflection_apply]
   reflectionPerm_coroot i j := by
@@ -261,7 +264,7 @@ def mk'' :
     RootPairing ι k M N :=
   .mk' p root coroot hp hs <| by
     rintro i - ⟨j, rfl⟩
-    use RootPairing.equiv_of_mapsTo p root coroot i hs hp j
+    use RootPairing.equivOfMapsTo p root coroot i hs hp j
     refine (coroot_eq_coreflection_of_root_eq_of_span_eq_top p root coroot hp hs hsp ?_)
     rw [equiv_of_mapsTo_apply, (exist_eq_reflection_of_mapsTo p root coroot i j hs).choose_spec]
 

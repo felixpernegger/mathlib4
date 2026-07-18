@@ -972,9 +972,12 @@ def subtypePermOfSupport (c : Perm α) : Perm c.support :=
   subtypePerm c fun _ : α => apply_mem_support
 
 /-- Restrict a permutation to a Finset containing its support -/
-def subtypePerm_of_support_le (c : Perm α) {s : Finset α}
+def subtypePermOfSupportLe (c : Perm α) {s : Finset α}
     (hcs : c.support ⊆ s) : Equiv.Perm s :=
   subtypePerm c (isInvariant_of_support_le hcs)
+
+@[deprecated (since := "2026-07-18")]
+alias subtypePerm_of_support_le := subtypePermOfSupportLe
 
 /-- Support of a cycle is nonempty -/
 theorem IsCycle.nonempty_support {g : Perm α} (hg : g.IsCycle) :

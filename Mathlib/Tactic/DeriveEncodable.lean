@@ -48,28 +48,34 @@ inductive T (α : Type) where
 ```
 The deriving handler constructs the following declarations:
 ```lean
-def encodableT_toS {α} [Encodable α] (x : T α) : S :=
+def encodableTToS {α} [Encodable α] (x : T α) : S :=
   match x with
   | T.a a a_1 a_2 =>
     S.cons (S.nat 0)
       (S.cons (S.nat (Encodable.encode a))
-        (S.cons (S.nat (Encodable.encode a_1)) (S.cons (encodableT_toS a_2) (S.nat 0))))
+        (S.cons (S.nat (Encodable.encode a_1)) (S.cons (encodableTToS a_2) (S.nat 0))))
   | T.b => S.cons (S.nat 1) (S.nat 0)
 
-private def encodableT_fromS {α} [Encodable α] : S → Option (T α) := fun
+@[deprecated (since := "2026-07-18")]
+alias encodableT_toS := encodableTToS
+
+private def encodableTFromS {α} [Encodable α] : S → Option (T α) := fun
   | S.cons (S.nat 0) (S.cons (S.nat a) (S.cons (S.nat a_1) (S.cons a_2 (S.nat 0)))) =>
-    match Encodable.decode a, Encodable.decode a_1, encodableT_fromS a_2 with
+    match Encodable.decode a, Encodable.decode a_1, encodableTFromS a_2 with
     | some a, some a_1, some a_2 => some <| T.a a a_1 a_2
     | _, _, _ => none
   | S.cons (S.nat 1) (S.nat 0) => some <| T.b
   | _ => none
 
+@[deprecated (since := "2026-07-18")]
+alias encodableT_fromS := encodableTFromS
+
 private theorem encodableT {α} [Encodable α] (x : @T α) :
-    encodableT_fromS (encodableT_toS x) = some x := by
-  cases x <;> (unfold encodableT_toS encodableT_fromS; simp only [Encodable.encodek, encodableT])
+    encodableTFromS (encodableTToS x) = some x := by
+  cases x <;> (unfold encodableTToS encodableTFromS; simp only [Encodable.encodek, encodableT])
 
 instance {α} [Encodable α] : Encodable (@T α) :=
-  Encodable.ofLeftInjection encodableT_toS encodableT_fromS encodableT
+  Encodable.ofLeftInjection encodableTToS encodableTFromS encodableT
 ```
 The idea is that each constructor gets encoded as a linked list made of `S.cons` constructors
 that is tagged with the constructor index.
@@ -101,7 +107,7 @@ private def S.decode (n : ℕ) : S :=
     have := nat_unpair_lt_2 h
     S.cons (S.decode (p.1 - 1)) (S.decode p.2)
 
-private def S_equiv : S ≃ ℕ where
+private def SEquiv : S ≃ ℕ where
   toFun := S.encode
   invFun := S.decode
   left_inv s := by
@@ -130,7 +136,10 @@ private def S_equiv : S ≃ ℕ where
         · have := Nat.unpair_lt (by lia : 1 ≤ n' + 1)
           lia
 
-private instance : Encodable S := Encodable.ofEquiv ℕ S_equiv
+@[deprecated (since := "2026-07-18")]
+alias S_equiv := SEquiv
+
+private instance : Encodable S := Encodable.ofEquiv ℕ SEquiv
 
 public meta section
 

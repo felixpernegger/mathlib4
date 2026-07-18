@@ -66,9 +66,12 @@ variable {E : Type u₃} [Category.{v₃} E]
 /-- `G ∘ F` is a functorial if both `F` and `G` are.
 -/
 @[instance_reducible]
-def functorial_comp (F : C → D) [Functorial.{v₁, v₂} F] (G : D → E) [Functorial.{v₂, v₃} G] :
+def functorialComp (F : C → D) [Functorial.{v₁, v₂} F] (G : D → E) [Functorial.{v₂, v₃} G] :
     Functorial.{v₁, v₃} (G ∘ F) :=
   { Functor.of F ⋙ Functor.of G with map := fun f => map G (map F f) }
+
+@[deprecated (since := "2026-07-18")]
+alias functorial_comp := functorialComp
 
 end
 

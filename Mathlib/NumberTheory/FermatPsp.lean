@@ -183,18 +183,18 @@ greater than `p`, see `psp_from_prime_gt_p`.
 This lemma is intended to be used when `2 ≤ b`, `2 < p`, `p` is prime, and `¬p ∣ b * (b ^ 2 - 1)`,
 because those are the hypotheses for `psp_from_prime_psp`.
 -/
-private def psp_from_prime (b : ℕ) (p : ℕ) : ℕ :=
+private def pspFromPrime (b : ℕ) (p : ℕ) : ℕ :=
   (b ^ p - 1) / (b - 1) * ((b ^ p + 1) / (b + 1))
 
 /--
-This is a proof that the number produced using `psp_from_prime` is actually pseudoprime to base `b`.
+This is a proof that the number produced using `pspFromPrime` is actually pseudoprime to base `b`.
 The primary purpose of this lemma is to help prove `exists_infinite_pseudoprimes`.
 
 We use <https://primes.utm.edu/notes/proofs/a_pseudoprimes.html> as a rough outline of the proof.
 -/
 private theorem psp_from_prime_psp {b : ℕ} (b_ge_two : 2 ≤ b) {p : ℕ} (p_prime : p.Prime)
-    (p_gt_two : 2 < p) (not_dvd : ¬p ∣ b * (b ^ 2 - 1)) : FermatPsp (psp_from_prime b p) b := by
-  unfold psp_from_prime
+    (p_gt_two : 2 < p) (not_dvd : ¬p ∣ b * (b ^ 2 - 1)) : FermatPsp (pspFromPrime b p) b := by
+  unfold pspFromPrime
   set A := (b ^ p - 1) / (b - 1)
   set B := (b ^ p + 1) / (b + 1)
   -- Inequalities
@@ -285,12 +285,12 @@ private theorem psp_from_prime_psp {b : ℕ} (b_ge_two : 2 ≤ b) {p : ℕ} (p_p
   exact dvd_trans ha₇ ha₈
 
 /--
-This is a proof that the number produced using `psp_from_prime` is greater than the prime `p` used
+This is a proof that the number produced using `pspFromPrime` is greater than the prime `p` used
 to create it. The primary purpose of this lemma is to help prove `exists_infinite_pseudoprimes`.
 -/
 private theorem psp_from_prime_gt_p {b : ℕ} (b_ge_two : 2 ≤ b) {p : ℕ} (p_gt_two : 2 < p) :
-    p < psp_from_prime b p := by
-  unfold psp_from_prime
+    p < pspFromPrime b p := by
+  unfold pspFromPrime
   set A := (b ^ p - 1) / (b - 1)
   set B := (b ^ p + 1) / (b + 1)
   have hA : p < A := a_id_helper b_ge_two p_gt_two
@@ -324,7 +324,7 @@ theorem exists_infinite_pseudoprimes {b : ℕ} (h : 1 ≤ b) (m : ℕ) :
     have h₈ : 2 ≤ b * (b ^ 2 - 1) := le_trans b_ge_two h₇
     have h₉ : 2 < p := lt_of_le_of_lt h₈ h₅
     have h₁₀ := psp_from_prime_gt_p b_ge_two h₉
-    use psp_from_prime b p
+    use pspFromPrime b p
     constructor
     · exact psp_from_prime_psp b_ge_two hp₂ h₉ h₆
     · exact le_trans (show m ≤ p by lia) (le_of_lt h₁₀)

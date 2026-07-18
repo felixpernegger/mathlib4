@@ -78,8 +78,11 @@ theorem nonempty_plift {α} : Nonempty (PLift α) ↔ Nonempty α :=
 `Inhabited` instance. `Classical.inhabited_of_nonempty` already exists, in `Init/Classical.lean`,
 but the assumption is not a type class argument, which makes it unsuitable for some applications. -/
 @[instance_reducible]
-noncomputable def Classical.inhabited_of_nonempty' {α} [h : Nonempty α] : Inhabited α :=
+noncomputable def Classical.inhabitedOfNonempty' {α} [h : Nonempty α] : Inhabited α :=
   ⟨Classical.choice h⟩
+
+@[deprecated (since := "2026-07-18")]
+alias Classical.inhabited_of_nonempty' := Classical.inhabitedOfNonempty'
 
 /-- Using `Classical.choice`, extracts a term from a `Nonempty` type. -/
 protected noncomputable abbrev Nonempty.some {α} (h : Nonempty α) : α :=

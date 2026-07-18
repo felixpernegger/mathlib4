@@ -404,7 +404,7 @@ theorem unit_mul_pow_congr_unit {ϖ : R} (hirr : Irreducible ϖ) (u v : Rˣ) (m 
 /-- The `ℕ∞`-valued additive valuation on a DVR. -/
 noncomputable def addVal (R : Type u) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R] :
     AddValuation R ℕ∞ :=
-  multiplicity_addValuation (Classical.choose_spec (exists_prime R))
+  multiplicityAddValuation (Classical.choose_spec (exists_prime R))
 
 theorem addVal_def (r : R) (u : Rˣ) {ϖ : R} (hϖ : Irreducible ϖ) (n : ℕ) (hr : r = u * ϖ ^ n) :
     addVal R r = n := by

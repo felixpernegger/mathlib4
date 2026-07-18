@@ -875,7 +875,7 @@ def _root_.LinearIsometryEquiv.piLpCongrLeft (e : ι ≃ ι') :
       exact e.symm.iSup_congr fun _ => rfl
     · simp only [norm_eq_sum (zero_lt_one.trans_le h)]
       congr 1
-      exact Fintype.sum_equiv e.symm _ _ fun _ => rfl
+      exact Fintype.sumEquiv e.symm _ _ fun _ => rfl
 
 variable {p 𝕜 E}
 

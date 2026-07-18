@@ -377,16 +377,16 @@ protected noncomputable def limitCLM [Algebra ℝ 𝕜] [IsScalarTower ℝ 𝕜 
     set K : Compacts E := ⟨tsupport f ∪ tsupport g, .union f.hasCompactSupport g.hasCompactSupport⟩
     have K_sub_Ω : (K : Set E) ⊆ Ω := union_subset f.tsupport_subset g.tsupport_subset
     let f_K : 𝓓^{n}_{K}(E, F) :=
-      .of_support_subset f.contDiff (subset_closure.trans subset_union_left)
+      .ofSupportSubset f.contDiff (subset_closure.trans subset_union_left)
     let g_K : 𝓓^{n}_{K}(E, F) :=
-      .of_support_subset g.contDiff (subset_closure.trans subset_union_right)
+      .ofSupportSubset g.contDiff (subset_closure.trans subset_union_right)
     change toFun (ofSupportedIn K_sub_Ω (f_K + g_K)) =
       toFun (ofSupportedIn K_sub_Ω f_K) + toFun (ofSupportedIn K_sub_Ω g_K)
     simp [toFun_eq_T]
   haveI toFun_smul (c : 𝕜) (f : 𝓓^{n}(Ω, F)) : toFun (c • f) = c • toFun f := by
     set K : Compacts E := ⟨tsupport f, f.hasCompactSupport⟩
     have K_sub_Ω : (K : Set E) ⊆ Ω := f.tsupport_subset
-    let f_K : 𝓓^{n}_{K}(E, F) := .of_support_subset f.contDiff subset_closure
+    let f_K : 𝓓^{n}_{K}(E, F) := .ofSupportSubset f.contDiff subset_closure
     change toFun (ofSupportedIn K_sub_Ω (c • f_K)) = c • toFun (ofSupportedIn K_sub_Ω f_K)
     simp [toFun_eq_T]
   TestFunction.mkCLM 𝕜 toFun toFun_add toFun_smul

@@ -81,7 +81,7 @@ variable {α : Type}
 /-- Copy of `Lean.Elab.Tactic.run` that can return a value. -/
 -- We need this because Lean 4 core only provides `TacticM` functions for building simp contexts,
 -- making it quite painful to call `simp` from `MetaM`.
-def run_for (mvarId : MVarId) (x : TacticM α) : TermElabM (Option α × List MVarId) :=
+def runFor (mvarId : MVarId) (x : TacticM α) : TermElabM (Option α × List MVarId) :=
   mvarId.withContext do
     let pendingMVarsSaved := (← get).pendingMVars
     modify fun s => { s with pendingMVars := [] }
@@ -102,5 +102,8 @@ def run_for (mvarId : MVarId) (x : TacticM α) : TermElabM (Option α × List MV
       aux.runCore' { elaborator := .anonymous } { goals := [mvarId] }
     finally
       modify fun s => { s with pendingMVars := pendingMVarsSaved }
+
+@[deprecated (since := "2026-07-18")]
+alias run_for := runFor
 
 end Lean.Elab.Tactic

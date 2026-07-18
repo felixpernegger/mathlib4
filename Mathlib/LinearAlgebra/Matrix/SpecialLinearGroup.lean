@@ -266,7 +266,7 @@ theorem mem_center_iff {A : SpecialLinearGroup n R} :
 set_option backward.isDefEq.respectTransparency false in
 /-- An equivalence of groups, from the center of the special linear group to the roots of unity. -/
 @[simps]
-def center_equiv_rootsOfUnity' (i : n) :
+def centerEquivRootsOfUnity' (i : n) :
     center (SpecialLinearGroup n R) ≃* rootsOfUnity (Fintype.card n) R where
   toFun A :=
     haveI : Nonempty n := ⟨i⟩
@@ -290,11 +290,14 @@ def center_equiv_rootsOfUnity' (i : n) :
     rw [← scalar_eq_coe_self_center A i, ← scalar_eq_coe_self_center B i]
     simp
 
+@[deprecated (since := "2026-07-18")]
+alias center_equiv_rootsOfUnity' := centerEquivRootsOfUnity'
+
 open scoped Classical in
 /-- An equivalence of groups, from the center of the special linear group to the roots of unity.
 
-See also `center_equiv_rootsOfUnity'`. -/
-noncomputable def center_equiv_rootsOfUnity :
+See also `centerEquivRootsOfUnity'`. -/
+noncomputable def centerEquivRootsOfUnity :
     center (SpecialLinearGroup n R) ≃* rootsOfUnity (max (Fintype.card n) 1) R :=
   (isEmpty_or_nonempty n).by_cases
   (fun hn ↦ by
@@ -303,12 +306,15 @@ noncomputable def center_equiv_rootsOfUnity :
     exact MulEquiv.ofUnique)
   (fun _ ↦
     (max_eq_left (NeZero.one_le : 1 ≤ Fintype.card n)).symm ▸
-      center_equiv_rootsOfUnity' (Classical.arbitrary n))
+      centerEquivRootsOfUnity' (Classical.arbitrary n))
+
+@[deprecated (since := "2026-07-18")]
+alias center_equiv_rootsOfUnity := centerEquivRootsOfUnity
 
 theorem eq_scalar_center_equiv_rootsOfUnity
     (A : center (SpecialLinearGroup n R)) :
-    A = scalar n ((Matrix.SpecialLinearGroup.center_equiv_rootsOfUnity A : Rˣ) : R) := by
-  unfold center_equiv_rootsOfUnity Or.by_cases
+    A = scalar n ((Matrix.SpecialLinearGroup.centerEquivRootsOfUnity A : Rˣ) : R) := by
+  unfold centerEquivRootsOfUnity Or.by_cases
   split_ifs with h
   · subsingleton
   dsimp only

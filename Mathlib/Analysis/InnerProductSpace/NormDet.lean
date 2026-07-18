@@ -154,7 +154,7 @@ theorem normDet_ne_zero_tfae (f : U →ₗ[𝕜] V) :
   tfae_have 2 ↔ 5 := ker_eq_bot
   tfae_finish
 
-private noncomputable def orthonormalBasis_range {ι : Type*} [Fintype ι] {f : U →ₗ[𝕜] V}
+private noncomputable def orthonormalBasisRange {ι : Type*} [Fintype ι] {f : U →ₗ[𝕜] V}
     (hf : f.ker = ⊥) (b : OrthonormalBasis ι 𝕜 U) : OrthonormalBasis ι 𝕜 f.range :=
   let h : Nonempty (OrthonormalBasis (Fin (finrank 𝕜 U)) 𝕜 f.range) :=
     (f.normDet_ne_zero_tfae.out 1 3).mp hf
@@ -230,7 +230,7 @@ theorem normDet_of_subsingleton [Subsingleton U] (f : U →ₗ[𝕜] V) : f.norm
   have h : f.ker = ⊥ := Submodule.eq_bot_of_subsingleton
   have hrank : finrank 𝕜 U = 0 := finrank_zero_iff.mpr ‹_›
   let bu : OrthonormalBasis (Fin 0) 𝕜 U := (stdOrthonormalBasis 𝕜 U).reindex (by rw [hrank])
-  let bv := orthonormalBasis_range h bu
+  let bv := orthonormalBasisRange h bu
   simp [normDet_eq_norm_det_toMatrix_rangeRestrict f bu bv]
 
 @[simp]
@@ -307,7 +307,7 @@ theorem normDet_sq_eq_det_gram {ι : Type*} [Fintype ι] [DecidableEq ι] (f : U
   suffices ↑(f.normDet ^ 2) = (Matrix.gram 𝕜 (f.rangeRestrict <| b ·)).det by
     simpa
   by_cases h : f.ker = ⊥
-  · let bv := orthonormalBasis_range h b
+  · let bv := orthonormalBasisRange h b
     rw [Matrix.gram_eq_conjTranspose_mul bv, Matrix.det_mul, Matrix.det_conjTranspose]
     rw [RCLike.star_def, RCLike.conj_mul, f.normDet_eq_norm_det_toMatrix_rangeRestrict b bv]
     simp only [map_pow]

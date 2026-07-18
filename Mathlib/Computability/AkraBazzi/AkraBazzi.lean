@@ -217,13 +217,13 @@ include R
 lemma isBigO_apply_r_sub_b (q : ℝ → ℝ) (hq_diff : DifferentiableOn ℝ q (Set.Ioi 1))
     (hq_poly : GrowsPolynomially fun x => ‖deriv q x‖) (i : α) :
     (fun n => q (r i n) - q (b i * n)) =O[atTop] fun n => (deriv q n) * (r i n - b i * n) := by
-  let b' := b (min_bi b) / 2
-  have hb_pos : 0 < b' := by have := R.b_pos (min_bi b); positivity
-  have hb_lt_one : b' < 1 := calc b (min_bi b) / 2
-    _ < b (min_bi b) := div_two_lt_of_pos (R.b_pos (min_bi b))
-    _ < 1 := R.b_lt_one (min_bi b)
+  let b' := b (minBi b) / 2
+  have hb_pos : 0 < b' := by have := R.b_pos (minBi b); positivity
+  have hb_lt_one : b' < 1 := calc b (minBi b) / 2
+    _ < b (minBi b) := div_two_lt_of_pos (R.b_pos (minBi b))
+    _ < 1 := R.b_lt_one (minBi b)
   have hb : b' ∈ Set.Ioo 0 1 := ⟨hb_pos, hb_lt_one⟩
-  have hb' (i) : b' ≤ b i := calc b (min_bi b) / 2
+  have hb' (i) : b' ≤ b i := calc b (minBi b) / 2
     _ ≤ b i / 2 := by gcongr; aesop
     _ ≤ b i := le_of_lt <| div_two_lt_of_pos (R.b_pos i)
   obtain ⟨c₁, _, c₂, _, hq_poly⟩ := hq_poly b' hb
@@ -447,7 +447,7 @@ lemma T_isBigO_smoothingFn_mul_asympBound :
   · exact Eventually.of_forall fun h => R.T_nonneg _
   · filter_upwards [R.eventually_asympBound_pos, eventually_one_sub_smoothingFn_pos] with n hn hn₂
     positivity
-  let b' := b (min_bi b) / 2
+  let b' := b (minBi b) / 2
   have hb_pos : 0 < b' := R.bi_min_div_two_pos
   obtain ⟨c₁, hc₁, h_sumTransform_aux⟩ := R.eventually_atTop_sumTransform_ge
   filter_upwards [eventually_ge_atTop R.n₀] with n₀ n₀_ge_Rn₀
@@ -553,7 +553,7 @@ lemma smoothingFn_mul_asympBound_isBigO_T :
   · filter_upwards [R.eventually_asympBound_pos, eventually_one_add_smoothingFn_pos] with n hn hn₂
     positivity
   · exact Eventually.of_forall fun h => R.T_pos _
-  let b' := b (min_bi b) / 2
+  let b' := b (minBi b) / 2
   have hb_pos : 0 < b' := R.bi_min_div_two_pos
   obtain ⟨c₁, hc₁, h_sumTransform_aux⟩ := R.eventually_atTop_sumTransform_le
   filter_upwards [eventually_ge_atTop R.n₀] with n₀ n₀_ge_Rn₀

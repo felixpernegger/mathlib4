@@ -78,23 +78,26 @@ set_option backward.privateInPublic.warn false in
 /-- If `X` and `Y` forms an exact pairing in a braided category, then so does `Y` and `X`
 by composing the coevaluation and evaluation morphisms with associators. -/
 @[instance_reducible]
-def exactPairing_swap (X Y : C) [ExactPairing X Y] : ExactPairing Y X where
+def exactPairingSwap (X Y : C) [ExactPairing X Y] : ExactPairing Y X where
   coevaluation' := η_ X Y ≫ (β_ Y X).inv
   evaluation' := (β_ X Y).hom ≫ ε_ X Y
   coevaluation_evaluation' := coevaluation_evaluation_braided'
   evaluation_coevaluation' := evaluation_coevaluation_braided'
 
+@[deprecated (since := "2026-07-18")]
+alias exactPairing_swap := exactPairingSwap
+
 /-- If `X` has a right dual in a braided category, then it has a left dual. -/
 @[instance_reducible]
 def hasLeftDualOfHasRightDual [HasRightDual X] : HasLeftDual X where
   leftDual := Xᘁ
-  exact := exactPairing_swap X Xᘁ
+  exact := exactPairingSwap X Xᘁ
 
 /-- If `X` has a left dual in a braided category, then it has a right dual. -/
 @[instance_reducible]
 def hasRightDualOfHasLeftDual [HasLeftDual X] : HasRightDual X where
   rightDual := ᘁX
-  exact := exactPairing_swap ᘁX X
+  exact := exactPairingSwap ᘁX X
 
 /-- If a braided category is right-rigid, then it is left-rigid.
 Not registered as an instance as this is not canonical enough. -/

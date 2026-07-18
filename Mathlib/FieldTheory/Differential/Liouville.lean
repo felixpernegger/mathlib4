@@ -151,7 +151,7 @@ private local instance isLiouville_of_finiteDimensional_galois [FiniteDimensiona
       change e v₁ = v₁
       simp only [v₁, map_div₀, map_sum, map_natCast]
       congr 1
-      apply Fintype.sum_equiv (Equiv.mulLeft e)
+      apply Fintype.sumEquiv (Equiv.mulLeft e)
       simp
     rw [ffb, IntermediateField.mem_bot] at this
     obtain ⟨v₀, hv₀⟩ := this
@@ -206,7 +206,7 @@ instance isLiouville_of_finiteDimensional [FiniteDimensional F K] :
   let B : IntermediateField F K'' := IntermediateField.restrict
     (F := K') (IntermediateField.le_normalClosure ..)
   have kequiv : K ≃ₐ[F] ↥B := (show K ≃ₐ[F] K' from AlgEquiv.ofInjectiveField map).trans
-    (IntermediateField.restrict_algEquiv _)
+    (IntermediateField.restrictAlgEquiv _)
   IsLiouville.equiv kequiv.symm
 
 end Algebraic

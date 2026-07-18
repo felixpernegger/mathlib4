@@ -89,7 +89,7 @@ theorem isSatisfiable_onTheory_iff {L' : Language.{w, w'}} {φ : L →ᴸ L'} (h
     (φ.onTheory T).IsSatisfiable ↔ T.IsSatisfiable := by
   classical
     refine ⟨isSatisfiable_of_isSatisfiable_onTheory φ, fun h' => ?_⟩
-    have : Inhabited h'.some := Classical.inhabited_of_nonempty'
+    have : Inhabited h'.some := Classical.inhabitedOfNonempty'
     exact Model.isSatisfiable (h'.some.defaultExpansion h)
 
 theorem IsSatisfiable.isFinitelySatisfiable (h : T.IsSatisfiable) : T.IsFinitelySatisfiable :=

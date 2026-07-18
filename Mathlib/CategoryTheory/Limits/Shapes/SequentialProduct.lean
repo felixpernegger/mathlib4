@@ -46,14 +46,20 @@ noncomputable def functorObj : ℕ → C :=
   fun n ↦ ∏ᶜ (fun m ↦ if _ : m < n then M m else N m)
 
 /-- The projection map from `functorObj M N n` to `M m`, when `m < n` -/
-noncomputable def functorObjProj_pos (n m : ℕ) (h : m < n) :
+noncomputable def functorObjProjPos (n m : ℕ) (h : m < n) :
     functorObj M N n ⟶ M m :=
   Pi.π (fun m ↦ if _ : m < n then M m else N m) m ≫ eqToHom (functorObj_eq_pos (by lia))
 
+@[deprecated (since := "2026-07-18")]
+alias functorObjProj_pos := functorObjProjPos
+
 /-- The projection map from `functorObj M N n` to `N m`, when `m ≥ n` -/
-noncomputable def functorObjProj_neg (n m : ℕ) (h : ¬(m < n)) :
+noncomputable def functorObjProjNeg (n m : ℕ) (h : ¬(m < n)) :
     functorObj M N n ⟶ N m :=
   Pi.π (fun m ↦ if _ : m < n then M m else N m) m ≫ eqToHom (functorObj_eq_neg (by lia))
+
+@[deprecated (since := "2026-07-18")]
+alias functorObjProj_neg := functorObjProjNeg
 
 /-- The transition maps in the sequential limit of products -/
 noncomputable def functorMap : ∀ n,

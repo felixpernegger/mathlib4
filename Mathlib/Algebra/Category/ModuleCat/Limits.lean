@@ -146,18 +146,21 @@ instance (priority := high) hasLimits' : HasLimits (ModuleCat.{u} R) :=
 
 /-- An auxiliary declaration to speed up typechecking.
 -/
-def forget₂AddCommGroup_preservesLimitsAux :
+def forget₂AddCommGroupPreservesLimitsAux :
     IsLimit ((forget₂ (ModuleCat R) AddCommGrpCat).mapCone (limitCone F)) :=
   letI : Small.{w} (Functor.sections ((F ⋙ forget₂ _ AddCommGrpCat) ⋙ forget _)) :=
     inferInstanceAs <| Small.{w} (Functor.sections (F ⋙ forget (ModuleCat R)))
   AddCommGrpCat.limitConeIsLimit
     (F ⋙ forget₂ (ModuleCat.{w} R) _ : J ⥤ AddCommGrpCat.{w})
 
+@[deprecated (since := "2026-07-18")]
+alias forget₂AddCommGroup_preservesLimitsAux := forget₂AddCommGroupPreservesLimitsAux
+
 /-- The forgetful functor from R-modules to abelian groups preserves all limits. -/
 instance forget₂AddCommGroup_preservesLimit :
     PreservesLimit F (forget₂ (ModuleCat R) AddCommGrpCat) :=
   preservesLimit_of_preserves_limit_cone (limitConeIsLimit F)
-    (forget₂AddCommGroup_preservesLimitsAux F)
+    (forget₂AddCommGroupPreservesLimitsAux F)
 
 /-- The forgetful functor from R-modules to abelian groups preserves all limits.
 -/

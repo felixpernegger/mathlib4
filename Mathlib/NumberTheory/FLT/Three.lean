@@ -699,7 +699,7 @@ lemma formula3 :
 
 /-- Given `S : Solution`, we construct `S₁ : Solution'`, with smaller multiplicity of `λ` in
   `c` (see `Solution'_descent_multiplicity_lt` below.). -/
-noncomputable def Solution'_descent : Solution' hζ where
+noncomputable def Solution'Descent : Solution' hζ where
   a := S.Y
   b := S.u₄ * S.Z
   c := λ ^ (S.multiplicity - 1) * S.X
@@ -714,19 +714,22 @@ noncomputable def Solution'_descent : Solution' hζ where
     simpa [h] using S.two_le_multiplicity
   H := formula3 S
 
-/-- We have that `S.Solution'_descent.multiplicity = S.multiplicity - 1`. -/
-lemma Solution'_descent_multiplicity : S.Solution'_descent.multiplicity = S.multiplicity - 1 := by
+@[deprecated (since := "2026-07-18")]
+alias Solution'_descent := Solution'Descent
+
+/-- We have that `S.Solution'Descent.multiplicity = S.multiplicity - 1`. -/
+lemma Solution'_descent_multiplicity : S.Solution'Descent.multiplicity = S.multiplicity - 1 := by
   refine multiplicity_eq_of_dvd_of_not_dvd
-    (by simp [Solution'_descent]) (fun h ↦ S.lambda_not_dvd_X ?_)
+    (by simp [Solution'Descent]) (fun h ↦ S.lambda_not_dvd_X ?_)
   obtain ⟨k, hk : λ ^ (S.multiplicity - 1) * S.X = λ ^ (S.multiplicity - 1 + 1) * k⟩ := h
   rw [pow_succ, mul_assoc] at hk
   simp only [mul_eq_mul_left_iff, pow_eq_zero_iff', hζ.zeta_sub_one_prime'.ne_zero, ne_eq,
     false_and, or_false] at hk
   simp [hk]
 
-/-- We have that `S.Solution'_descent.multiplicity < S.multiplicity`. -/
+/-- We have that `S.Solution'Descent.multiplicity < S.multiplicity`. -/
 lemma Solution'_descent_multiplicity_lt :
-    (Solution'_descent S).multiplicity < S.multiplicity := by
+    (Solution'Descent S).multiplicity < S.multiplicity := by
   rw [Solution'_descent_multiplicity S, Nat.sub_one]
   exact Nat.pred_lt <| by have := S.two_le_multiplicity; lia
 
@@ -734,7 +737,7 @@ lemma Solution'_descent_multiplicity_lt :
   `S₁.multiplicity < S.multiplicity` -/
 theorem exists_Solution_multiplicity_lt :
     ∃ S₁ : Solution hζ, S₁.multiplicity < S.multiplicity := by
-  obtain ⟨S', hS'⟩ := exists_Solution_of_Solution' (Solution'_descent S)
+  obtain ⟨S', hS'⟩ := exists_Solution_of_Solution' (Solution'Descent S)
   exact ⟨S', hS' ▸ Solution'_descent_multiplicity_lt S⟩
 
 end Solution

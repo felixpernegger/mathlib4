@@ -36,7 +36,7 @@ set_option backward.isDefEq.respectTransparency.types false in
 /-- A natural transformation between functors `Karoubi C ⥤ D` is determined
 by its value on objects coming from `C`. -/
 theorem natTrans_eq {F G : Karoubi C ⥤ D} (φ : F ⟶ G) (P : Karoubi C) :
-    φ.app P = F.map (decompId_i P) ≫ φ.app P.X ≫ G.map (decompId_p P) := by
+    φ.app P = F.map (decompIdI P) ≫ φ.app P.X ≫ G.map (decompIdP P) := by
   rw [← φ.naturality, ← assoc, ← F.map_comp]
   conv_lhs => rw [← id_comp (φ.app P), ← F.map_id]
   congr
@@ -125,21 +125,21 @@ def KaroubiUniversal₁.counitIso :
     (fun G =>
       { hom :=
           { app := fun P =>
-              { f := (G.map (decompId_p P)).f
+              { f := (G.map (decompIdP P)).f
                 comm := by
                   simpa only [hom_ext_iff, G.map_comp, G.map_id] using!
                     G.congr_map
-                      (show (toKaroubi C).map P.p ≫ P.decompId_p ≫ 𝟙 _ = P.decompId_p by simp) }
+                      (show (toKaroubi C).map P.p ≫ P.decompIdP ≫ 𝟙 _ = P.decompIdP by simp) }
             naturality := fun P Q f => by
               simpa only [hom_ext_iff, G.map_comp]
                 using! (G.congr_map (decompId_p_naturality f)).symm }
         inv :=
           { app := fun P =>
-              { f := (G.map (decompId_i P)).f
+              { f := (G.map (decompIdI P)).f
                 comm := by
                   simpa only [hom_ext_iff, G.map_comp, G.map_id] using!
                     G.congr_map
-                      (show 𝟙 _ ≫ P.decompId_i ≫ (toKaroubi C).map P.p = P.decompId_i by simp) }
+                      (show 𝟙 _ ≫ P.decompIdI ≫ (toKaroubi C).map P.p = P.decompIdI by simp) }
             naturality := fun P Q f => by
               simpa only [hom_ext_iff, G.map_comp] using! G.congr_map (decompId_i_naturality f) }
         hom_inv_id := by
@@ -254,7 +254,7 @@ set_option backward.defeqAttrib.useBackward true in
 theorem whiskeringLeft_obj_preimage_app {F G : Karoubi C ⥤ D}
     (τ : toKaroubi _ ⋙ F ⟶ toKaroubi _ ⋙ G) (P : Karoubi C) :
     (((whiskeringLeft _ _ _).obj (toKaroubi _)).preimage τ).app P =
-      F.map P.decompId_i ≫ τ.app P.X ≫ G.map P.decompId_p := by
+      F.map P.decompIdI ≫ τ.app P.X ≫ G.map P.decompIdP := by
   rw [natTrans_eq]
   congr 2
   rw [← congr_app (((whiskeringLeft _ _ _).obj (toKaroubi _)).map_preimage τ) P.X]
@@ -270,12 +270,12 @@ variable {C D} in
 def whiskeringLeftObjToKaroubiFullyFaithful :
     ((Functor.whiskeringLeft C (Karoubi C) D).obj (toKaroubi C)).FullyFaithful where
   preimage {F G} τ :=
-    { app P := F.map P.decompId_i ≫ τ.app P.X ≫ G.map P.decompId_p
+    { app P := F.map P.decompIdI ≫ τ.app P.X ≫ G.map P.decompIdP
       naturality X Y f := by
         dsimp at τ ⊢
-        have h₁ : f ≫ Y.decompId_i = X.decompId_i ≫ (toKaroubi C).map f.f := by simp
+        have h₁ : f ≫ Y.decompIdI = X.decompIdI ≫ (toKaroubi C).map f.f := by simp
         have h₂ := τ.naturality f.f
-        have h₃ : X.decompId_p ≫ f = (toKaroubi C).map f.f ≫ Y.decompId_p := by simp
+        have h₃ : X.decompIdP ≫ f = (toKaroubi C).map f.f ≫ Y.decompIdP := by simp
         dsimp at h₂
         rw [Category.assoc, Category.assoc, ← F.map_comp_assoc,
           h₁, F.map_comp_assoc, reassoc_of% h₂, ← G.map_comp, ← h₃, G.map_comp] }

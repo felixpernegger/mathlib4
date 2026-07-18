@@ -47,7 +47,7 @@ We compute this subgroup as follows.
 * This action defines a group morphism `Equiv.Perm.OnCycleFactors.toPermHom g`
   from `Subgroup.centralizer {g}` to `Equiv.Perm g.cycleFactorsFinset`.
 
-* `Equiv.Perm.OnCycleFactors.range_toPermHom'` is the subgroup of
+* `Equiv.Perm.OnCycleFactors.rangeToPermHom'` is the subgroup of
   `Equiv.Perm g.cycleFactorsFinset` consisting of permutations that
   preserve the cardinality of the support.
 
@@ -129,7 +129,7 @@ lemma Subgroup.Centralizer.toConjAct_smul_mem_cycleFactorsFinset {k c : Perm α}
 /-- The action by conjugation of `Subgroup.centralizer {g}`
   on the cycles of a given permutation -/
 @[instance_reducible]
-def Subgroup.Centralizer.cycleFactorsFinset_mulAction :
+def Subgroup.Centralizer.cycleFactorsFinsetMulAction :
     MulAction (centralizer {g}) g.cycleFactorsFinset where
   smul k c := ⟨ConjAct.toConjAct (k : Perm α) • c.val,
     Subgroup.Centralizer.toConjAct_smul_mem_cycleFactorsFinset k.prop c.prop⟩
@@ -143,9 +143,12 @@ def Subgroup.Centralizer.cycleFactorsFinset_mulAction :
       ConjAct.toConjAct (k : Perm α) • (ConjAct.toConjAct (l : Perm α)) • c.val
     simp only [map_mul, mul_smul]
 
+@[deprecated (since := "2026-07-18")]
+alias Subgroup.Centralizer.cycleFactorsFinset_mulAction := Subgroup.Centralizer.cycleFactorsFinsetMulAction
+
 /-- The conjugation action of `Subgroup.centralizer {g}` on `g.cycleFactorsFinset` -/
 scoped instance : MulAction (centralizer {g}) (g.cycleFactorsFinset) :=
-  (Subgroup.Centralizer.cycleFactorsFinset_mulAction g)
+  (Subgroup.Centralizer.cycleFactorsFinsetMulAction g)
 
 /-- The canonical morphism from `Subgroup.centralizer {g}`
   to the group of permutations of `g.cycleFactorsFinset` -/
@@ -170,7 +173,7 @@ theorem coe_toPermHom (k : centralizer {g}) (c : g.cycleFactorsFinset) :
 /-- The range of `Equiv.Perm.OnCycleFactors.toPermHom`.
 
 The equality is proved by `Equiv.Perm.OnCycleFactors.range_toPermHom_eq_range_toPermHom'`. -/
-def range_toPermHom' : Subgroup (Perm g.cycleFactorsFinset) where
+def rangeToPermHom' : Subgroup (Perm g.cycleFactorsFinset) where
   carrier := {τ | ∀ c, #(τ c).val.support = #c.val.support}
   one_mem' := by simp
   mul_mem' hσ hτ := by
@@ -184,9 +187,12 @@ def range_toPermHom' : Subgroup (Perm g.cycleFactorsFinset) where
     rw [← hσ _ (by simp)]
     simp
 
+@[deprecated (since := "2026-07-18")]
+alias range_toPermHom' := rangeToPermHom'
+
 variable {g} in
 theorem mem_range_toPermHom'_iff {τ : Perm g.cycleFactorsFinset} :
-    τ ∈ range_toPermHom' g ↔ ∀ c, #(τ c).val.support = #c.val.support :=
+    τ ∈ rangeToPermHom' g ↔ ∀ c, #(τ c).val.support = #c.val.support :=
   Iff.rfl
 
 variable (k : centralizer {g})
@@ -242,7 +248,7 @@ theorem sameCycle {x : α} (hx : g.cycleOf x ∈ g.cycleFactorsFinset) :
     g.SameCycle (a ⟨g.cycleOf x, hx⟩) x :=
   (mem_support_cycleOf_iff.mp (a.mem_support_self ⟨g.cycleOf x, hx⟩)).1.symm
 
-variable (τ : range_toPermHom' g)
+variable (τ : rangeToPermHom' g)
 
 /-- The function that will provide a right inverse `toCentralizer` to `toPermHom` -/
 def ofPermHomFun (x : α) : α :=
@@ -330,7 +336,7 @@ theorem ofPermHomFun_commute_zpow_apply (x : α) (j : ℤ) :
       ← mul_apply, ← zpow_add]
     exact zpow_apply_mem_support_of_mem_cycleFactorsFinset_iff.mpr hc
 
-theorem ofPermHomFun_mul (σ τ : range_toPermHom' g) (x) :
+theorem ofPermHomFun_mul (σ τ : rangeToPermHom' g) (x) :
     ofPermHomFun a (σ * τ) x = (ofPermHomFun a σ) (ofPermHomFun a τ x) := by
   rcases mem_fixedPoints_or_exists_zpow_eq a x with (hx | ⟨c, hc, m, hm⟩)
   · simp only [ofPermHomFun_apply_of_mem_fixedPoints a _ hx]
@@ -349,7 +355,7 @@ set_option backward.isDefEq.respectTransparency false in
 /-- Given `a : g.Basis` and a permutation of `g.cycleFactorsFinset` that
   preserve the lengths of the cycles, a permutation of `α` that
   moves the `Basis` and commutes with `g` -/
-noncomputable def ofPermHom : range_toPermHom' g →* Perm α where
+noncomputable def ofPermHom : rangeToPermHom' g →* Perm α where
   toFun τ := {
     toFun := ofPermHomFun a τ
     invFun := ofPermHomFun a τ⁻¹
@@ -400,9 +406,9 @@ theorem ofPermHom_mem_centralizer :
 
 /-- Given `a : Equiv.Perm.Basis g`,
 we define a right inverse of `Equiv.Perm.OnCycleFactors.toPermHom`,
-on `range_toPermHom' g` -/
+on `rangeToPermHom' g` -/
 noncomputable def toCentralizer :
-    range_toPermHom' g →* centralizer {g} where
+    rangeToPermHom' g →* centralizer {g} where
   toFun τ := ⟨ofPermHom a τ, ofPermHom_mem_centralizer a τ⟩
   map_one' := by simp only [map_one, mk_eq_one]
   map_mul' σ τ := by simp only [map_mul, MulMemClass.mk_mul_mk]
@@ -455,7 +461,7 @@ theorem mem_range_toPermHom_iff' {τ} : τ ∈ (toPermHom g).range ↔
 
 /-- Computes the range of `Equiv.Perm.toPermHom g` -/
 theorem range_toPermHom_eq_range_toPermHom' :
-    (toPermHom g).range = range_toPermHom' g := by
+    (toPermHom g).range = rangeToPermHom' g := by
   ext τ
   rw [mem_range_toPermHom_iff, mem_range_toPermHom'_iff]
 

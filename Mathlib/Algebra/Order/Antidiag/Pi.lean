@@ -121,7 +121,7 @@ def piAntidiag (s : Finset ι) (n : μ) : Finset (ι → μ) := by
   · ext f
     simp only [mem_map, mem_finAntidiagonal]
     refine Equiv.exists_congr ((e₁.symm.trans e₂).arrowCongr <| .refl _) fun g ↦ ?_
-    have := Fintype.sum_equiv (e₂.symm.trans e₁) _ g fun _ ↦ rfl
+    have := Fintype.sumEquiv (e₂.symm.trans e₁) _ g fun _ ↦ rfl
     simp_all
 
 variable {s : Finset ι} {n : μ} {f : ι → μ}
@@ -134,11 +134,11 @@ set_option backward.isDefEq.respectTransparency false in
   constructor
   · rintro ⟨f, ⟨hf, rfl⟩, rfl⟩
     rw [sum_dite_of_true fun _ ↦ id]
-    exact ⟨Fintype.sum_equiv e _ _ (by simp), by simp +contextual⟩
+    exact ⟨Fintype.sumEquiv e _ _ (by simp), by simp +contextual⟩
   · rintro ⟨rfl, hf⟩
     refine ⟨f ∘ (↑) ∘ e.symm, ?_, by grind⟩
     rw [← sum_attach s]
-    exact Fintype.sum_equiv e.symm _ _ (by simp)
+    exact Fintype.sumEquiv e.symm _ _ (by simp)
 
 @[simp] lemma piAntidiag_empty_zero : piAntidiag (∅ : Finset ι) (0 : μ) = {0} := by
   ext; simp [funext_iff]

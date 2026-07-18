@@ -234,10 +234,13 @@ lemma mapArrowLeft_comp {f₁'' : Arrow C₁} (sq₁₂'' : F.PushoutObjObj f₁
   `f₂ : Arrow C₂`, and an isomorphism `f₁ ≅ f₁'`, this defines an isomorphism of the induced
   pushout maps. -/
 @[simps]
-def ι_iso_of_iso_left (iso : f₁ ≅ f₁') :
+def ιIsoOfIsoLeft (iso : f₁ ≅ f₁') :
     Arrow.mk sq₁₂.ι ≅ Arrow.mk sq₁₂'.ι where
   hom := mapArrowLeft sq₁₂ sq₁₂' iso.hom
   inv := mapArrowLeft sq₁₂' sq₁₂ iso.inv
+
+@[deprecated (since := "2026-07-18")]
+alias ι_iso_of_iso_left := ιIsoOfIsoLeft
 
 variable {f₁ : Arrow C₁} {f₂ f₂' : Arrow C₂}
     (sq₁₂ : F.PushoutObjObj f₁.hom f₂.hom)
@@ -282,10 +285,13 @@ lemma mapArrowRight_comp {f₂'' : Arrow C₂} (sq₁₂'' : F.PushoutObjObj f�
   `f₂' : Arrow C₂`, and an isomorphism `f₂ ≅ f₂'`, this defines an isomorphism of the induced
   pushout maps. -/
 @[simps]
-def ι_iso_of_iso_right (iso : f₂ ≅ f₂') :
+def ιIsoOfIsoRight (iso : f₂ ≅ f₂') :
     Arrow.mk sq₁₂.ι ≅ Arrow.mk sq₁₂'.ι where
   hom := mapArrowRight sq₁₂ sq₁₂' iso.hom
   inv := mapArrowRight sq₁₂' sq₁₂ iso.inv
+
+@[deprecated (since := "2026-07-18")]
+alias ι_iso_of_iso_right := ιIsoOfIsoRight
 
 end Arrow
 
@@ -464,10 +470,13 @@ lemma mapArrowLeft_comp {f₁'' : Arrow C₁} (sq₁₃'' : G.PullbackObjObj f�
   `f₃ : Arrow C₃`, and an isomorphism `f₁ ≅ f₁'`, this defines an isomorphism of the induced
   pullback maps. -/
 @[simps]
-def π_iso_of_iso_left (iso : f₁ ≅ f₁') :
+def πIsoOfIsoLeft (iso : f₁ ≅ f₁') :
     Arrow.mk sq₁₃.π ≅ Arrow.mk sq₁₃'.π where
   hom := mapArrowLeft sq₁₃ sq₁₃' iso.inv
   inv := mapArrowLeft sq₁₃' sq₁₃ iso.hom
+
+@[deprecated (since := "2026-07-18")]
+alias π_iso_of_iso_left := πIsoOfIsoLeft
 
 variable {f₁ : Arrow C₁} {f₃ f₃' : Arrow C₃}
   (sq₁₃ : G.PullbackObjObj f₁.hom f₃.hom)
@@ -511,10 +520,13 @@ lemma mapArrowRight_comp {f₃'' : Arrow C₃} (sq₁₃'' : G.PullbackObjObj f�
   `f₃' : Arrow C₃`, and an isomorphism `f₃ ≅ f₃'`, this defines an isomorphism of the induced
   pullback maps. -/
 @[simps]
-def π_iso_of_iso_right (iso : f₃ ≅ f₃') :
+def πIsoOfIsoRight (iso : f₃ ≅ f₃') :
     Arrow.mk sq₁₃.π ≅ Arrow.mk sq₁₃'.π where
   hom := mapArrowRight sq₁₃ sq₁₃' iso.hom
   inv := mapArrowRight sq₁₃' sq₁₃ iso.inv
+
+@[deprecated (since := "2026-07-18")]
+alias π_iso_of_iso_right := πIsoOfIsoRight
 
 end Arrow
 

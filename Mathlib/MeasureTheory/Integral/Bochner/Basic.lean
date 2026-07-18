@@ -1222,9 +1222,9 @@ theorem integral_unique [Unique α] (f : α → E) : ∫ x, f x ∂μ = μ.real 
     _ = μ.real univ • f default := by rw [integral_const]
 
 theorem integral_pos_of_integrable_nonneg_nonzero [TopologicalSpace α] [Measure.IsOpenPosMeasure μ]
-    {f : α → ℝ} {x : α} (f_cont : Continuous f) (f_int : Integrable f μ) (f_nonneg : 0 ≤ f)
+    {f : α → ℝ} {x : α} (f_cont : Continuous f) (fInt : Integrable f μ) (f_nonneg : 0 ≤ f)
     (f_x : f x ≠ 0) : 0 < ∫ x, f x ∂μ :=
-  (integral_pos_iff_support_of_nonneg f_nonneg f_int).2
+  (integral_pos_iff_support_of_nonneg f_nonneg fInt).2
     (IsOpen.measure_pos μ f_cont.isOpen_support ⟨x, f_x⟩)
 
 end Properties

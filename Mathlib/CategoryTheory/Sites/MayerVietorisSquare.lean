@@ -118,7 +118,7 @@ set_option backward.isDefEq.respectTransparency false in
 a pullback square `sq` such that `sq.f₂₄` and `sq.f₃₄` are two monomorphisms
 which form a covering of `S.X₄`. -/
 @[simps! toSquare]
-noncomputable def mk_of_isPullback (sq : Square C) [Mono sq.f₂₄] [Mono sq.f₃₄]
+noncomputable def mkOfIsPullback (sq : Square C) [Mono sq.f₂₄] [Mono sq.f₃₄]
     (h₁ : sq.IsPullback) (h₂ : Sieve.ofTwoArrows sq.f₂₄ sq.f₃₄ ∈ J sq.X₄) :
     J.MayerVietorisSquare :=
   have : Mono sq.f₁₃ := h₁.mono_f₁₃
@@ -145,6 +145,9 @@ noncomputable def mk_of_isPullback (sq : Square C) [Mono sq.f₂₄] [Mono sq.f�
         exact hm₁
       · rw [F.2.amalgamateOfArrows_map _ _ _ _ WalkingPair.right]
         exact hm₂)
+
+@[deprecated (since := "2026-07-18")]
+alias mk_of_isPullback := mkOfIsPullback
 
 variable (S : J.MayerVietorisSquare)
 

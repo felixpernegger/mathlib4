@@ -184,7 +184,7 @@ lemma Subgroup.isLeast_of_closure_iff_eq_mabs {a b : G} :
 
 /-- If an element of a linearly ordered archimedean additive group is the least positive element,
 then the whole group is isomorphic (and order-isomorphic) to the integers. -/
-noncomputable def LinearOrderedAddCommGroup.int_orderAddMonoidIso_of_isLeast_pos {G : Type*}
+noncomputable def LinearOrderedAddCommGroup.intOrderAddMonoidIsoOfIsLeastPos {G : Type*}
     [AddCommGroup G] [LinearOrder G] [IsOrderedAddMonoid G] [Archimedean G] {x : G}
     (h : IsLeast {y : G | 0 < y} x) : G ≃+o ℤ := by
   have : IsLeast {y : G | y ∈ (⊤ : AddSubgroup G) ∧ 0 < y} x := by simpa using h
@@ -202,14 +202,20 @@ noncomputable def LinearOrderedAddCommGroup.int_orderAddMonoidIso_of_isLeast_pos
   let f := closure_equiv_closure x (1 : ℤ) (by simp [h.left.ne'])
   exact ((((e.trans e').trans f).trans g').trans g : G ≃+o ℤ)
 
+@[deprecated (since := "2026-07-18")]
+alias LinearOrderedAddCommGroup.int_orderAddMonoidIso_of_isLeast_pos := LinearOrderedAddCommGroup.intOrderAddMonoidIsoOfIsLeastPos
+
 set_option backward.isDefEq.respectTransparency false in
 /-- If an element of a linearly ordered mul-archimedean group is the least element greater than 1,
 then the whole group is isomorphic (and order-isomorphic) to the multiplicative integers. -/
-noncomputable def LinearOrderedCommGroup.multiplicative_int_orderMonoidIso_of_isLeast_one_lt
+noncomputable def LinearOrderedCommGroup.multiplicativeIntOrderMonoidIsoOfIsLeastOneLt
     {x : G} (h : IsLeast {y : G | 1 < y} x) : G ≃*o Multiplicative ℤ := by
   have : IsLeast {y : Additive G | 0 < y} (.ofMul x) := h
-  let f' := LinearOrderedAddCommGroup.int_orderAddMonoidIso_of_isLeast_pos (G := Additive G) this
+  let f' := LinearOrderedAddCommGroup.intOrderAddMonoidIsoOfIsLeastPos (G := Additive G) this
   exact f'.toMultiplicativeRight
+
+@[deprecated (since := "2026-07-18")]
+alias LinearOrderedCommGroup.multiplicative_int_orderMonoidIso_of_isLeast_one_lt := LinearOrderedCommGroup.multiplicativeIntOrderMonoidIsoOfIsLeastOneLt
 
 /-- Any locally finite linear additive group is archimedean. -/
 lemma Archimedean.of_locallyFiniteOrder {G : Type*} [AddCommGroup G] [LinearOrder G]
@@ -232,7 +238,7 @@ lemma LinearOrderedAddCommGroup.discrete_or_denselyOrdered (G : Type*)
     Nonempty (G ≃+o ℤ) ∨ DenselyOrdered G := by
   by_cases! H : ∃ x, IsLeast {y : G | 0 < y} x
   · obtain ⟨x, hx⟩ := H
-    exact Or.inl ⟨(int_orderAddMonoidIso_of_isLeast_pos hx)⟩
+    exact Or.inl ⟨(intOrderAddMonoidIsoOfIsLeastPos hx)⟩
   · refine Or.inr ⟨?_⟩
     intro x y hxy
     specialize H (y - x)

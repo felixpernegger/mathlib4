@@ -23,7 +23,7 @@ This file constructs the direct limit of a directed system of first-order embedd
 - `FirstOrder.Language.DirectLimit.lift` is the universal property of the direct limit: maps
   from the components to another module that respect the directed system structure give rise to
   a unique map out of the direct limit.
-- `FirstOrder.Language.DirectLimit.equiv_lift` is the equivalence between limits of
+- `FirstOrder.Language.DirectLimit.equivLift` is the equivalence between limits of
   isomorphic direct systems.
 -/
 
@@ -386,7 +386,7 @@ variable (g : ∀ i, G i ≃[L] G' i)
 variable [DirectedSystem G' fun i j h => f' i j h]
 
 /-- The isomorphism between limits of isomorphic systems. -/
-noncomputable def equiv_lift (H_commuting : ∀ i j hij x, g j (f i j hij x) = f' i j hij (g i x)) :
+noncomputable def equivLift (H_commuting : ∀ i j hij x, g j (f i j hij x) = f' i j hij (g i x)) :
     DirectLimit G f ≃[L] DirectLimit G' f' := by
   let U i : G i ↪[L] DirectLimit G' f' := (of L _ G' f' i).comp (g i).toEmbedding
   let F : DirectLimit G f ↪[L] DirectLimit G' f' := lift L _ G f U <| by
@@ -400,10 +400,13 @@ noncomputable def equiv_lift (H_commuting : ∀ i j hij x, g j (f i j hij x) = f
     rfl
   exact ⟨Equiv.ofBijective F ⟨F.injective, surj_f⟩, F.map_fun', F.map_rel'⟩
 
+@[deprecated (since := "2026-07-18")]
+alias equiv_lift := equivLift
+
 variable (H_commuting : ∀ i j hij x, g j (f i j hij x) = f' i j hij (g i x))
 
 theorem equiv_lift_of {i : ι} (x : G i) :
-    equiv_lift L ι G f G' f' g H_commuting (of L ι G f i x) = of L ι G' f' i (g i x) := rfl
+    equivLift L ι G f G' f' g H_commuting (of L ι G f i x) = of L ι G' f' i (g i x) := rfl
 
 variable {L ι G f}
 
@@ -459,7 +462,7 @@ lemma rangeLiftInclusion : (liftInclusion S).toHom.range = ⨆ i, S i := by
   simp_rw [liftInclusion, range_lift, Substructure.range_subtype]
 
 /-- The isomorphism between a direct limit of a system of substructures and their union. -/
-noncomputable def Equiv_iSup :
+noncomputable def EquivISup :
     DirectLimit (fun i ↦ S i) (fun _ _ h ↦ Substructure.inclusion (S.monotone h)) ≃[L]
     (iSup S : L.Substructure M) := by
   have liftInclusion_in_sup : ∀ x, liftInclusion S x ∈ (⨆ i, S i) := by
@@ -473,20 +476,23 @@ noncomputable def Equiv_iSup :
     simpa only [F, Embedding.codRestrict_apply', Subtype.mk.injEq]
   exact ⟨Equiv.ofBijective F ⟨F.injective, F_surj⟩, F.map_fun', F.map_rel'⟩
 
+@[deprecated (since := "2026-07-18")]
+alias Equiv_iSup := EquivISup
+
 theorem Equiv_isup_of_apply {i : ι} (x : S i) :
-    Equiv_iSup S (of L ι _ (fun _ _ h ↦ Substructure.inclusion (S.monotone h)) i x)
+    EquivISup S (of L ι _ (fun _ _ h ↦ Substructure.inclusion (S.monotone h)) i x)
     = Substructure.inclusion (le_iSup _ _) x := rfl
 
 theorem Equiv_isup_symm_inclusion_apply {i : ι} (x : S i) :
-    (Equiv_iSup S).symm (Substructure.inclusion (le_iSup _ _) x)
+    (EquivISup S).symm (Substructure.inclusion (le_iSup _ _) x)
     = of L ι _ (fun _ _ h ↦ Substructure.inclusion (S.monotone h)) i x := by
-  apply (Equiv_iSup S).injective
+  apply (EquivISup S).injective
   simp only [Equiv.apply_symm_apply]
   rfl
 
 @[simp]
 theorem Equiv_isup_symm_inclusion (i : ι) :
-    (Equiv_iSup S).symm.toEmbedding.comp (Substructure.inclusion (le_iSup _ _))
+    (EquivISup S).symm.toEmbedding.comp (Substructure.inclusion (le_iSup _ _))
     = of L ι _ (fun _ _ h ↦ Substructure.inclusion (S.monotone h)) i := by
   ext x; exact Equiv_isup_symm_inclusion_apply _ x
 

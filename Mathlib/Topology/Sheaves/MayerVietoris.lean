@@ -38,7 +38,7 @@ a Mayer-Vietoris square. -/
 noncomputable def mayerVietorisSquare' (sq : Square (Opens T))
     (h₄ : sq.X₄ = sq.X₂ ⊔ sq.X₃) (h₁ : sq.X₁ = sq.X₂ ⊓ sq.X₃) :
     (Opens.grothendieckTopology T).MayerVietorisSquare :=
-  GrothendieckTopology.MayerVietorisSquare.mk_of_isPullback
+  GrothendieckTopology.MayerVietorisSquare.mkOfIsPullback
     (J := (Opens.grothendieckTopology T)) sq
     (Square.IsPullback.mk _ (by
       refine PullbackCone.IsLimit.mk _ ?_ ?_ ?_ ?_

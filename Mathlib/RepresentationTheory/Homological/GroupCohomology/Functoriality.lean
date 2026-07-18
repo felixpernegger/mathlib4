@@ -368,7 +368,7 @@ noncomputable def H1InfRes :
   X₁ := groupCohomology (A.quotientToInvariants S) 1
   X₂ := groupCohomology A 1
   X₃ := groupCohomology (res S.subtype A) 1
-  f := map (QuotientGroup.mk' S) (ofHom <| A.ρ.quotientToInvariants_lift S) 1
+  f := map (QuotientGroup.mk' S) (ofHom <| A.ρ.quotientToInvariantsLift S) 1
   g := map S.subtype (𝟙 _) 1
   zero := by rw [← map_comp, Category.comp_id, congr (QuotientGroup.mk'_comp_subtype S)
     (fun f φ => map f φ 1), map₁_one]
@@ -557,7 +557,7 @@ sending `A : Rep k G` to `Hⁿ(G ⧸ S, A^S)` and to `Hⁿ(G, A)`. -/
 @[simps]
 noncomputable def infNatTrans (S : Subgroup G) [S.Normal] (n : ℕ) :
     quotientToInvariantsFunctor k S ⋙ functor k (G ⧸ S) n ⟶ functor k G n where
-  app A := map (QuotientGroup.mk' S) (ofHom <| A.ρ.quotientToInvariants_lift S) n
+  app A := map (QuotientGroup.mk' S) (ofHom <| A.ρ.quotientToInvariantsLift S) n
   naturality {X Y} φ := by
     simp only [Functor.comp_map, functor_map, ← cancel_epi (groupCohomology.π _ n),
       HomologicalComplex.homologyπ_naturality_assoc, HomologicalComplex.homologyπ_naturality,

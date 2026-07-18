@@ -145,7 +145,7 @@ lemma totalWeight_eq_finrank : totalWeight K = Module.finrank ℚ K := by
 variable (K) in
 @[grind! .]
 lemma totalWeight_pos : 0 < totalWeight K := by
-  have : Inhabited (InfinitePlace K) := Classical.inhabited_of_nonempty'
+  have : Inhabited (InfinitePlace K) := Classical.inhabitedOfNonempty'
   simpa [totalWeight, archAbsVal, multisetInfinitePlace]
     using Fintype.sum_pos
       (Function.ne_iff.mpr ⟨default, (default : InfinitePlace K).mult_ne_zero⟩).pos

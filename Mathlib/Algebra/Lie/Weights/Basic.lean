@@ -198,7 +198,7 @@ lemma weightSpace_le_genWeightSpace (χ : L → R) :
     weightSpace M χ ≤ genWeightSpace M χ := by
   apply le_iInf
   intro x
-  rw [← (LieSubmodule.toSubmodule_orderEmbedding R L M).le_iff_le]
+  rw [← (LieSubmodule.toSubmoduleOrderEmbedding R L M).le_iff_le]
   apply (iInf_le _ x).trans
   exact ((toEnd R L M x).genEigenspace (χ x)).monotone le_top
 

@@ -19,7 +19,7 @@ power morphism* if it is compatible with these divided power structures.
   `B`-ideal `J`, a ring morphism `A →+* B` is a divided power morphism if it is compatible with
   these divided power structures.
 * `DividedPowers.DPMorphism` : a bundled version of `IsDPMorphism`.
-* `DividedPowers.ideal_from_ringHom` : given a ring homomorphism `A →+* B` and ideals `I ⊆ A` and
+* `DividedPowers.idealFromRingHom` : given a ring homomorphism `A →+* B` and ideals `I ⊆ A` and
   `J ⊆ B` such that `I.map f ≤ J`, this is the `A`-ideal on which
   `f (hI.dpow n x) = hJ.dpow n (f x)`.
 * `DividedPowers.DPMorphism.fromGens` : the `DPMorphism` induced by a ring morphism, given that
@@ -136,7 +136,7 @@ set_option linter.style.whitespace false in -- manual alignment is not recognise
 /-- Given a ring homomorphism `A → B` and ideals `I ⊆ A` and `J ⊆ B` such that `I.map f ≤ J`,
   this is the `A`-ideal on which `f (hI.dpow n x) = hJ.dpow n (f x)`.
   See [N. Roby, *Les algèbres à puissances dividées* (Proposition 2)][Roby-1965]. -/
-def _root_.DividedPowers.ideal_from_ringHom {f : A →+* B} (hf : I.map f ≤ J) : Ideal A where
+def _root_.DividedPowers.idealFromRingHom {f : A →+* B} (hf : I.map f ≤ J) : Ideal A where
   carrier  := {x ∈ I | ∀ n : ℕ, f (hI.dpow n (x : A)) = hJ.dpow n (f (x : A))}
   add_mem' := fun hx hy ↦ by
     simp only [mem_ofPred_eq, map_add] at hx hy ⊢
@@ -157,6 +157,9 @@ def _root_.DividedPowers.ideal_from_ringHom {f : A →+* B} (hf : I.map f ≤ J)
     rw [smul_eq_mul, hI.dpow_mul hx.1, map_mul, map_mul, map_pow,
       hJ.dpow_mul (hf (mem_map_of_mem f hx.1)), hx.2 n]
 
+@[deprecated (since := "2026-07-18")]
+alias _root_.DividedPowers.ideal_from_ringHom := _root_.DividedPowers.idealFromRingHom
+
 set_option linter.style.whitespace false in -- manual alignment is not recognised
 /-- The `DPMorphism` induced by a ring morphism, given that divided powers are compatible on a
   generating set.
@@ -166,8 +169,8 @@ def fromGens {f : A →+* B} {S : Set A} (hS : I = span S) (hf : I.map f ≤ J)
   toRingHom          := f
   ideal_comp         := hf
   dpow_comp {n} x hx := by
-    have hS' : S ⊆ ideal_from_ringHom hI hJ hf := fun y hy ↦ by
-      simp only [mem_coe, ideal_from_ringHom, Submodule.mem_mk]
+    have hS' : S ⊆ idealFromRingHom hI hJ hf := fun y hy ↦ by
+      simp only [mem_coe, idealFromRingHom, Submodule.mem_mk]
       exact ⟨hS ▸ subset_span hy, fun n => h y hy⟩
     rw [← span_le, ← hS] at hS'
     exact ((hS' hx).2 n).symm

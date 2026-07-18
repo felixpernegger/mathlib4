@@ -126,15 +126,18 @@ lemma volumeIoiPow_apply_Iio (n : ℕ) (x : Ioi (0 : ℝ)) :
 
 /-- The intervals `(0, k + 1)` have finite measure `MeasureTheory.Measure.volumeIoiPow _`
 and cover the whole open ray `(0, +∞)`. -/
-def finiteSpanningSetsIn_volumeIoiPow_range_Iio (n : ℕ) :
+def finiteSpanningSetsInVolumeIoiPowRangeIio (n : ℕ) :
     FiniteSpanningSetsIn (volumeIoiPow n) (range Iio) where
   set k := Iio ⟨k + 1, mem_Ioi.2 k.cast_add_one_pos⟩
   set_mem _ := mem_range_self _
   finite k := by simp [volumeIoiPow_apply_Iio]
   spanning := iUnion_eq_univ_iff.2 fun x ↦ ⟨⌊x.1⌋₊, Nat.lt_floor_add_one x.1⟩
 
+@[deprecated (since := "2026-07-18")]
+alias finiteSpanningSetsIn_volumeIoiPow_range_Iio := finiteSpanningSetsInVolumeIoiPowRangeIio
+
 instance (n : ℕ) : SigmaFinite (volumeIoiPow n) :=
-  (finiteSpanningSetsIn_volumeIoiPow_range_Iio n).sigmaFinite
+  (finiteSpanningSetsInVolumeIoiPowRangeIio n).sigmaFinite
 
 /-- The homeomorphism `homeomorphUnitSphereProd E` sends an additive Haar measure `μ`
 to the product of `μ.toSphere` and `MeasureTheory.Measure.volumeIoiPow (dim E - 1)`,
@@ -147,7 +150,7 @@ theorem measurePreserving_homeomorphUnitSphereProd :
   refine prod_eq_generateFrom generateFrom_measurableSet
     ((borel_eq_generateFrom_Iio _).symm.trans BorelSpace.measurable_eq.symm)
     isPiSystem_measurableSet isPiSystem_Iio
-    μ.toSphere.toFiniteSpanningSetsIn (finiteSpanningSetsIn_volumeIoiPow_range_Iio _)
+    μ.toSphere.toFiniteSpanningSetsIn (finiteSpanningSetsInVolumeIoiPowRangeIio _)
     fun s hs ↦ forall_mem_range.2 fun r ↦ ?_
   have : Ioo (0 : ℝ) r = r.1 • Ioo (0 : ℝ) 1 := by simp [LinearOrderedField.smul_Ioo r.2.out]
   have hpos : 0 < dim E := Module.finrank_pos

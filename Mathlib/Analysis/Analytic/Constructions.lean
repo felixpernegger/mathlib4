@@ -839,46 +839,49 @@ section Geometric
 variable (𝕜 A)
 
 /-- The geometric series `1 + x + x ^ 2 + ...` as a `FormalMultilinearSeries`. -/
-def formalMultilinearSeries_geometric : FormalMultilinearSeries 𝕜 A A :=
+def formalMultilinearSeriesGeometric : FormalMultilinearSeries 𝕜 A A :=
   fun n ↦ ContinuousMultilinearMap.mkPiAlgebraFin 𝕜 n A
+
+@[deprecated (since := "2026-07-18")]
+alias formalMultilinearSeries_geometric := formalMultilinearSeriesGeometric
 
 /-- The geometric series as an `ofScalars` series. -/
 theorem formalMultilinearSeries_geometric_eq_ofScalars :
-    formalMultilinearSeries_geometric 𝕜 A =
+    formalMultilinearSeriesGeometric 𝕜 A =
       FormalMultilinearSeries.ofScalars A fun _ ↦ (1 : 𝕜) := by
   simp_rw [FormalMultilinearSeries.ext_iff, FormalMultilinearSeries.ofScalars,
-    formalMultilinearSeries_geometric, one_smul, implies_true]
+    formalMultilinearSeriesGeometric, one_smul, implies_true]
 
 lemma formalMultilinearSeries_geometric_apply_norm_le (n : ℕ) :
-    ‖formalMultilinearSeries_geometric 𝕜 A n‖ ≤ max 1 ‖(1 : A)‖ :=
+    ‖formalMultilinearSeriesGeometric 𝕜 A n‖ ≤ max 1 ‖(1 : A)‖ :=
   ContinuousMultilinearMap.norm_mkPiAlgebraFin_le
 
 lemma formalMultilinearSeries_geometric_apply_norm [NormOneClass A] (n : ℕ) :
-    ‖formalMultilinearSeries_geometric 𝕜 A n‖ = 1 :=
+    ‖formalMultilinearSeriesGeometric 𝕜 A n‖ = 1 :=
   ContinuousMultilinearMap.norm_mkPiAlgebraFin
 
 lemma one_le_formalMultilinearSeries_geometric_radius :
-    1 ≤ (formalMultilinearSeries_geometric 𝕜 A).radius := by
+    1 ≤ (formalMultilinearSeriesGeometric 𝕜 A).radius := by
   convert!
     formalMultilinearSeries_geometric_eq_ofScalars 𝕜 A ▸
       FormalMultilinearSeries.inv_le_ofScalars_radius_of_tendsto A _ one_ne_zero (by simp)
   simp
 
 lemma formalMultilinearSeries_geometric_radius [NormOneClass A] :
-    (formalMultilinearSeries_geometric 𝕜 A).radius = 1 :=
+    (formalMultilinearSeriesGeometric 𝕜 A).radius = 1 :=
   formalMultilinearSeries_geometric_eq_ofScalars 𝕜 A ▸
     FormalMultilinearSeries.ofScalars_radius_eq_of_tendsto A _ one_ne_zero (by simp)
 
 lemma hasFPowerSeriesOnBall_inverse_one_sub [HasSummableGeomSeries A] :
     HasFPowerSeriesOnBall (fun x : A ↦ (1 - x)⁻¹ʳ)
-      (formalMultilinearSeries_geometric 𝕜 A) 0 1 := by
+      (formalMultilinearSeriesGeometric 𝕜 A) 0 1 := by
   constructor
   · exact one_le_formalMultilinearSeries_geometric_radius 𝕜 A
   · exact one_pos
   · intro y hy
     simp only [Metric.mem_eball, edist_dist, dist_zero_right, ofReal_lt_one] at hy
     simp only [zero_add, NormedRing.inverse_one_sub _ hy, Units.oneSub, Units.inv_mk,
-      formalMultilinearSeries_geometric, ContinuousMultilinearMap.mkPiAlgebraFin_apply,
+      formalMultilinearSeriesGeometric, ContinuousMultilinearMap.mkPiAlgebraFin_apply,
       List.ofFn_const, List.prod_replicate]
     exact (summable_geometric_of_norm_lt_one hy).hasSum
 
@@ -893,7 +896,7 @@ def alternatingGeometricSeries : FormalMultilinearSeries 𝕜 A A :=
 
 lemma alternatingGeometricSeries_eq_formalMultilinearSeries_geometric_comp_neg :
     alternatingGeometricSeries 𝕜 A =
-    (formalMultilinearSeries_geometric 𝕜 A).compContinuousLinearMap
+    (formalMultilinearSeriesGeometric 𝕜 A).compContinuousLinearMap
       (-ContinuousLinearMap.id 𝕜 A) := by
   simp [formalMultilinearSeries_geometric_eq_ofScalars, alternatingGeometricSeries,
     FormalMultilinearSeries.ofScalars_comp_neg_id]
@@ -922,7 +925,7 @@ lemma hasFPowerSeriesOnBall_inverse_one_add [HasSummableGeomSeries A] [Nontrivia
       (alternatingGeometricSeries 𝕜 A) 0 1 := by
   rw [alternatingGeometricSeries_eq_formalMultilinearSeries_geometric_comp_neg]
   convert_to HasFPowerSeriesOnBall ((fun x ↦ Ring.inverse (1 - x)) ∘ (-ContinuousLinearMap.id 𝕜 A))
-    ((formalMultilinearSeries_geometric 𝕜 A).compContinuousLinearMap (-ContinuousLinearMap.id 𝕜 A))
+    ((formalMultilinearSeriesGeometric 𝕜 A).compContinuousLinearMap (-ContinuousLinearMap.id 𝕜 A))
     0 1
   · ext; simp
   convert HasFPowerSeriesOnBall.compContinuousLinearMap _ (r := 1)
@@ -974,7 +977,7 @@ lemma analyticOnNhd_inverse [HasSummableGeomSeries A] :
 
 variable (𝕜 𝕝) in
 lemma hasFPowerSeriesOnBall_inv_one_sub :
-    HasFPowerSeriesOnBall (fun x : 𝕝 ↦ (1 - x)⁻¹) (formalMultilinearSeries_geometric 𝕜 𝕝) 0 1 := by
+    HasFPowerSeriesOnBall (fun x : 𝕝 ↦ (1 - x)⁻¹) (formalMultilinearSeriesGeometric 𝕜 𝕝) 0 1 := by
   convert! hasFPowerSeriesOnBall_inverse_one_sub 𝕜 𝕝
   exact Ring.inverse_eq_inv'.symm
 

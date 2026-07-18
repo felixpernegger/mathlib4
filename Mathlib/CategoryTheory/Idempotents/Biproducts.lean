@@ -94,10 +94,10 @@ set_option backward.isDefEq.respectTransparency false in
 instance (P : Karoubi C) : HasBinaryBiproduct P P.complement :=
   hasBinaryBiproduct_of_total
     { pt := P.X
-      fst := P.decompId_p
-      snd := P.complement.decompId_p
-      inl := P.decompId_i
-      inr := P.complement.decompId_i
+      fst := P.decompIdP
+      snd := P.complement.decompIdP
+      inl := P.decompIdI
+      inr := P.complement.decompIdI
       inl_fst := P.decompId.symm
       inl_snd := by
         simp only [zero_def, hom_ext_iff, complement_X, comp_f,
@@ -119,8 +119,8 @@ set_option backward.isDefEq.respectTransparency false in
 preadditive category is actually a direct factor of the image `(toKaroubi C).obj P.X`
 of `P.X` in the category `Karoubi C` -/
 def decomposition (P : Karoubi C) : P ⊞ P.complement ≅ (toKaroubi _).obj P.X where
-  hom := biprod.desc P.decompId_i P.complement.decompId_i
-  inv := biprod.lift P.decompId_p P.complement.decompId_p
+  hom := biprod.desc P.decompIdI P.complement.decompIdI
+  inv := biprod.lift P.decompIdP P.complement.decompIdP
   hom_inv_id := by
     apply biprod.hom_ext'
     · rw [biprod.inl_desc_assoc, comp_id, biprod.lift_eq, comp_add, ← decompId_assoc,

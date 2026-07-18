@@ -83,17 +83,20 @@ private lemma reduce_aux {A : Δ m} (h : (A.1 1 0) ≠ 0) :
 
 /-- Reduction lemma for integral FixedDetMatrices. -/
 @[elab_as_elim]
-def reduce_rec {C : Δ m → Sort*}
+def reduceRec {C : Δ m → Sort*}
     (base : ∀ A : Δ m, (A.1 1 0) = 0 → C A)
     (step : ∀ A : Δ m, (A.1 1 0) ≠ 0 → C (reduceStep A) → C A) :
     ∀ A, C A := fun A => by
   by_cases h : (A.1 1 0) = 0
   · exact base _ h
-  · exact step A h (reduce_rec base step (reduceStep A))
+  · exact step A h (reduceRec base step (reduceStep A))
   termination_by A => Int.natAbs (A.1 1 0)
   decreasing_by
     zify
     exact reduce_aux h
+
+@[deprecated (since := "2026-07-18")]
+alias reduce_rec := reduceRec
 
 /-- Map from `Δ m → Δ m` which reduces a `FixedDetMatrix` towards a representative element
 in reps -/
@@ -176,7 +179,7 @@ lemma T_S_rel_smul (A : Δ m) : S • S • S • T • S • T • S • A = T�
 
 set_option backward.isDefEq.respectTransparency false in
 lemma reduce_mem_reps {m : ℤ} (hm : m ≠ 0) (A : Δ m) : reduce A ∈ reps m := by
-  induction A using reduce_rec with
+  induction A using reduceRec with
   | step A h1 h2 => simpa only [reduce_reduceStep h1] using h2
   | base A h =>
     have hd := A_d_ne_zero h hm
@@ -245,7 +248,7 @@ theorem induction_on {C : Δ m → Prop} {A : Δ m} (hm : m ≠ 0)
     rcases reduce_mem_reps hm A with ⟨H1, H2, H3, H4⟩
     exact h0 _ H1 H2 H3 H4
   suffices ∀ A : Δ m, C (reduce A) → C A from this _ h_reduce
-  apply reduce_rec
+  apply reduceRec
   · intro A h
     by_cases h1 : 0 < A.1 0 0
     · simp only [reduce_of_pos h h1, prop_red_T_pow hS hT, imp_self]

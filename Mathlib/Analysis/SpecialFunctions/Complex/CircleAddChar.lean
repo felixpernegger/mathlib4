@@ -28,10 +28,13 @@ open Complex Function
 open scoped Real
 
 /-- The canonical map from the additive to the multiplicative circle, as an `AddChar`. -/
-noncomputable def AddCircle.toCircle_addChar {T : ℝ} : AddChar (AddCircle T) Circle where
+noncomputable def AddCircle.toCircleAddChar {T : ℝ} : AddChar (AddCircle T) Circle where
   toFun := toCircle
   map_zero_eq_one' := toCircle_zero
   map_add_eq_mul' := toCircle_add
+
+@[deprecated (since := "2026-07-18")]
+alias AddCircle.toCircle_addChar := AddCircle.toCircleAddChar
 
 open AddCircle
 
@@ -48,11 +51,11 @@ variable {N : ℕ} [NeZero N]
 /-- The additive character from `ZMod N` to the unit circle in `ℂ`, sending `j mod N` to
 `exp (2 * π * I * j / N)`. -/
 noncomputable def toCircle : AddChar (ZMod N) Circle :=
-  toCircle_addChar.compAddMonoidHom toAddCircle
+  toCircleAddChar.compAddMonoidHom toAddCircle
 
 lemma toCircle_intCast (j : ℤ) :
     toCircle (j : ZMod N) = exp (2 * π * I * j / N) := by
-  rw [toCircle, AddChar.compAddMonoidHom_apply, toCircle_addChar, AddChar.coe_mk,
+  rw [toCircle, AddChar.compAddMonoidHom_apply, toCircleAddChar, AddChar.coe_mk,
     AddCircle.toCircle, toAddCircle_intCast, Function.Periodic.lift_coe, Circle.coe_exp]
   push_cast
   ring_nf

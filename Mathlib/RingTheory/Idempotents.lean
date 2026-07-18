@@ -175,7 +175,7 @@ lemma CompleteOrthogonalIdempotents.map_injective_iff (hf : Function.Injective f
 lemma CompleteOrthogonalIdempotents.equiv {J} [Fintype J] (i : J ≃ I) :
     CompleteOrthogonalIdempotents (e ∘ i) ↔ CompleteOrthogonalIdempotents e := by
   simp only [completeOrthogonalIdempotents_iff, OrthogonalIdempotents.equiv, Function.comp_apply,
-    Fintype.sum_equiv i _ e (fun _ ↦ rfl)]
+    Fintype.sumEquiv i _ e (fun _ ↦ rfl)]
 
 @[nontriviality]
 lemma CompleteOrthogonalIdempotents.of_subsingleton [Subsingleton R] :

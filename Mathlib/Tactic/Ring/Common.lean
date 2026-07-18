@@ -335,7 +335,7 @@ instance (u : Lean.Level) (α : Q(Type u)) (BaseType : Q($α) → Type) [∀ e, 
   derive := default
   isOne := default
   one :=
-    have (e : Q($α)) : Inhabited (BaseType e) := Classical.inhabited_of_nonempty'
+    have (e : Q($α)) : Inhabited (BaseType e) := Classical.inhabitedOfNonempty'
     default
 }⟩
 

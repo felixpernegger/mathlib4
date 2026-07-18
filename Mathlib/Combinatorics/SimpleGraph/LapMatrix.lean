@@ -171,22 +171,25 @@ lemma mem_ker_toLin'_lapMatrix_of_connectedComponent {G : SimpleGraph V} [Decida
   rw [LinearMap.mem_ker, toLin'_apply, lapMatrix_mulVec_eq_zero_iff_forall_reachable]
   grind [ConnectedComponent.eq]
 
-/-- Given a connected component `c` of a graph `G`, `lapMatrix_ker_basis_aux c` is the map
+/-- Given a connected component `c` of a graph `G`, `lapMatrixKerBasisAux c` is the map
 `V → ℝ` which is `1` on the vertices in `c` and `0` elsewhere.
 The family of these maps indexed by the connected components of `G` proves to be a basis
 of the kernel of `lapMatrix G R` -/
-def lapMatrix_ker_basis_aux (c : G.ConnectedComponent) :
+def lapMatrixKerBasisAux (c : G.ConnectedComponent) :
     LinearMap.ker (Matrix.toLin' (G.lapMatrix ℝ)) :=
   ⟨fun i ↦ if G.connectedComponentMk i = c then (1 : ℝ) else 0,
     mem_ker_toLin'_lapMatrix_of_connectedComponent c⟩
 
+@[deprecated (since := "2026-07-18")]
+alias lapMatrix_ker_basis_aux := lapMatrixKerBasisAux
+
 lemma linearIndependent_lapMatrix_ker_basis_aux :
-    LinearIndependent ℝ (lapMatrix_ker_basis_aux G) := by
+    LinearIndependent ℝ (lapMatrixKerBasisAux G) := by
   rw [Fintype.linearIndependent_iff]
   intro g h0
   rw [Subtype.ext_iff] at h0
-  have h : ∑ c, g c • lapMatrix_ker_basis_aux G c = fun i ↦ g (connectedComponentMk G i) := by
-    simp only [lapMatrix_ker_basis_aux, SetLike.mk_smul_mk]
+  have h : ∑ c, g c • lapMatrixKerBasisAux G c = fun i ↦ g (connectedComponentMk G i) := by
+    simp only [lapMatrixKerBasisAux, SetLike.mk_smul_mk]
     repeat rw [AddSubmonoid.coe_finsetSum]
     ext i
     simp only [Finset.sum_apply, Pi.smul_apply, smul_eq_mul, mul_ite, mul_one, mul_zero, sum_ite_eq,
@@ -198,23 +201,26 @@ lemma linearIndependent_lapMatrix_ker_basis_aux :
 
 set_option backward.isDefEq.respectTransparency.types false in
 lemma top_le_span_range_lapMatrix_ker_basis_aux :
-    ⊤ ≤ Submodule.span ℝ (Set.range (lapMatrix_ker_basis_aux G)) := by
+    ⊤ ≤ Submodule.span ℝ (Set.range (lapMatrixKerBasisAux G)) := by
   intro x _
   rw [Submodule.mem_span_range_iff_exists_fun]
   use Quot.lift x.val (by rw [← lapMatrix_mulVec_eq_zero_iff_forall_reachable,
     ← toLin'_apply, LinearMap.map_coe_ker])
   ext j
-  simp only [lapMatrix_ker_basis_aux]
+  simp only [lapMatrixKerBasisAux]
   rw [AddSubmonoid.coe_finsetSum]
   simp only [SetLike.mk_smul_mk, Finset.sum_apply, Pi.smul_apply, smul_eq_mul, mul_ite, mul_one,
     mul_zero, sum_ite_eq, mem_univ, ↓reduceIte]
   rfl
 
-/-- `lapMatrix_ker_basis G` is a basis of the nullspace indexed by its connected components,
+/-- `lapMatrixKerBasis G` is a basis of the nullspace indexed by its connected components,
 the basis is made up of the functions `V → ℝ` which are `1` on the vertices of the given
 connected component and `0` elsewhere. -/
-noncomputable def lapMatrix_ker_basis :=
+noncomputable def lapMatrixKerBasis :=
   Basis.mk G.linearIndependent_lapMatrix_ker_basis_aux G.top_le_span_range_lapMatrix_ker_basis_aux
+
+@[deprecated (since := "2026-07-18")]
+alias lapMatrix_ker_basis := lapMatrixKerBasis
 
 end
 
@@ -222,6 +228,6 @@ end
 theorem card_connectedComponent_eq_finrank_ker_toLin'_lapMatrix :
     Fintype.card G.ConnectedComponent = Module.finrank ℝ (G.lapMatrix ℝ).toLin'.ker := by
   classical
-  rw [Module.finrank_eq_card_basis G.lapMatrix_ker_basis]
+  rw [Module.finrank_eq_card_basis G.lapMatrixKerBasis]
 
 end SimpleGraph

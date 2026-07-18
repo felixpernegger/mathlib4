@@ -85,7 +85,7 @@ open UnicodeLinter in
 /--
 Create the underlying error message for a given `StyleError`.
 
-Note: changes to the texts here must be accounted for in `parse?_errorContext`!
+Note: changes to the texts here must be accounted for in `parse?ErrorContext`!
 -/
 def StyleError.errorMessage (err : StyleError) : String := match err with
   | StyleError.adaptationNote =>
@@ -121,7 +121,7 @@ def StyleError.errorMessage (err : StyleError) : String := match err with
       s!"Unexpected unicode variant selector: \"{s}\" ({oldHex}). \
         Consider deleting it."
 
-/-- The error code for a given style error. Keep this in sync with `parse?_errorContext` below! -/
+/-- The error code for a given style error. Keep this in sync with `parse?ErrorContext` below! -/
 -- FUTURE: we're matching the old codes in `lint-style.py` for compatibility;
 -- in principle, we could also print something more readable.
 def StyleError.errorCode (err : StyleError) : String := match err with
@@ -165,15 +165,18 @@ def compare (existing new : ErrorContext) : ComparisonResult :=
   if existing.path.components != new.path.components then ComparisonResult.Different
   -- We entirely ignore their line numbers: not sure if this is best.
 
-  -- NB: keep the following in sync with `parse?_errorContext` below.
+  -- NB: keep the following in sync with `parse?ErrorContext` below.
   -- Generally, comparable errors must have equal `StyleError`s.
   else
     if existing.error == new.error then ComparisonResult.Comparable else ComparisonResult.Different
 
 /-- Find the first style exception in `exceptions` (if any) which covers a style exception `e`. -/
-def ErrorContext.find?_comparable (e : ErrorContext) (exceptions : Array ErrorContext) :
+def ErrorContext.find?Comparable (e : ErrorContext) (exceptions : Array ErrorContext) :
     Option ErrorContext :=
   exceptions.find? (fun new ↦ compare e new == ComparisonResult.Comparable)
+
+@[deprecated (since := "2026-07-18")]
+alias ErrorContext.find?_comparable := ErrorContext.find?Comparable
 
 /-- Output the formatted error message, containing its context.
 `style` specifies if the error should be formatted for humans to read, github problem matchers
@@ -204,9 +207,9 @@ This should be the inverse of `fun ctx ↦ outputMessage ctx .exceptionsFile`
 Used for, e.g., parsing the "exceptions" file.
 
 Need to ensure (see unit tests in `MathlibTest/LintStyle.lean`) that
-  `∀ (ec : ErrorContext), (parse?_errorContext <| outputMessage ec .exceptionsFile) = some ec`
+  `∀ (ec : ErrorContext), (parse?ErrorContext <| outputMessage ec .exceptionsFile) = some ec`
 -/
-def parse?_errorContext (line : String) : Option ErrorContext := Id.run do
+def parse?ErrorContext (line : String) : Option ErrorContext := Id.run do
   let parts := line.splitToList (· == ' ')
   match parts with
     | filename :: ":" :: "line" :: lineNumber :: ":" :: errorCode :: ":" :: errorMessage =>
@@ -252,11 +255,14 @@ def parse?_errorContext (line : String) : Option ErrorContext := Id.run do
     -- anyway as the style exceptions file is mostly automatically generated.
     | _ => none
 
+@[deprecated (since := "2026-07-18")]
+alias parse?_errorContext := parse?ErrorContext
+
 /-- Parse all style exceptions for a line of input.
 Return an array of all exceptions which could be parsed: invalid input is ignored. -/
 def parseStyleExceptions (lines : Array String) : Array ErrorContext := Id.run do
   -- We treat all lines starting with "--" as a comment and ignore them.
-  Array.filterMap (parse?_errorContext ·) (lines.filter (fun line ↦ !line.startsWith "--"))
+  Array.filterMap (parse?ErrorContext ·) (lines.filter (fun line ↦ !line.startsWith "--"))
 
 /-- Print information about all errors encountered to standard output.
 `style` specifies if the error should be formatted for humans to read, github problem matchers
@@ -481,7 +487,7 @@ def lintFile (opts : LinterOptions) (path : FilePath) (exceptions : Array ErrorC
         -- check if any exception applies:
         if new_errors.any fun (e, idx) ↦
           (idx - 1 == lineIdx) -- Subtract 1 since linter's line numbers are one-based
-          ∧ (ErrorContext.find?_comparable ⟨e, lineIdx, path⟩ exceptions).isNone
+          ∧ (ErrorContext.find?Comparable ⟨e, lineIdx, path⟩ exceptions).isNone
         then
           c[lineIdx]! -- no exception applies. Assign linter's suggestion.
         else
@@ -498,7 +504,7 @@ def lintFile (opts : LinterOptions) (path : FilePath) (exceptions : Array ErrorC
 
   -- Filter exceptions. Note: This list is not sorted. For github, this is fine.
   errors := errors.append
-    (allOutput.flatten.filter (fun e ↦ (e.find?_comparable exceptions).isNone))
+    (allOutput.flatten.filter (fun e ↦ (e.find?Comparable exceptions).isNone))
   return (errors, if changes_made then some changed else none)
 
 /-- Enables the old Python-based style linters. -/

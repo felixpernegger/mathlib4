@@ -221,7 +221,7 @@ theorem trace_eq_sum_embeddings_gen (pb : PowerBasis K L)
       (@Finset.univ _ (PowerBasis.AlgHom.fintype pb)).sum fun σ => σ pb.gen := by
   let := Classical.decEq E
   let : Fintype (L →ₐ[K] E) := PowerBasis.AlgHom.fintype pb
-  rw [pb.trace_gen_eq_sum_roots hE, Fintype.sum_equiv pb.liftEquiv', Finset.sum_mem_multiset,
+  rw [pb.trace_gen_eq_sum_roots hE, Fintype.sumEquiv pb.liftEquiv', Finset.sum_mem_multiset,
     Finset.sum_eq_multiset_sum, Multiset.toFinset_val, Multiset.dedup_eq_self.mpr _,
     Multiset.map_id]
   · exact nodup_roots ((separable_map _).mpr hfx)
@@ -240,7 +240,7 @@ theorem sum_embeddings_eq_finrank_mul [FiniteDimensional K F] [Algebra.IsSeparab
   have : FiniteDimensional L F := FiniteDimensional.right K L F
   have : Algebra.IsSeparable L F := Algebra.isSeparable_tower_top_of_isSeparable K L F
   let : Fintype (L →ₐ[K] E) := PowerBasis.AlgHom.fintype pb
-  rw [Fintype.sum_equiv algHomEquivSigma (fun σ : F →ₐ[K] E => _) fun σ => σ.1 pb.gen,
+  rw [Fintype.sumEquiv algHomEquivSigma (fun σ : F →ₐ[K] E => _) fun σ => σ.1 pb.gen,
     ← Finset.univ_sigma_univ, Finset.sum_sigma, ← Finset.sum_nsmul]
   · refine Finset.sum_congr rfl fun σ _ => ?_
     let : Algebra L E := σ.toRingHom.toAlgebra
@@ -264,7 +264,7 @@ theorem trace_eq_sum_automorphisms (x : L) [FiniteDimensional K L] [IsGalois K L
     algebraMap K L (Algebra.trace K L x) = ∑ σ : Gal(L/K), σ x := by
   apply FaithfulSMul.algebraMap_injective L (AlgebraicClosure L)
   rw [_root_.map_sum (algebraMap L (AlgebraicClosure L))]
-  rw [← Fintype.sum_equiv (Normal.algHomEquivAut K (AlgebraicClosure L) L)]
+  rw [← Fintype.sumEquiv (Normal.algHomEquivAut K (AlgebraicClosure L) L)]
   · rw [← trace_eq_sum_embeddings (AlgebraicClosure L) (x := x)]
     simp only [algebraMap_eq_smul_one, smul_one_smul]
   · intro σ
