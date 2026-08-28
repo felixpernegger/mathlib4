@@ -8,6 +8,7 @@ module
 public import Mathlib.Combinatorics.SimpleGraph.Metric
 public import Mathlib.Combinatorics.SimpleGraph.Paths
 public import Mathlib.Combinatorics.SimpleGraph.Sum
+public import Mathlib.Logic.Equiv.Fin.Basic
 
 /-!
 # Graph products
@@ -57,6 +58,10 @@ def strongProd (G : SimpleGraph α) (H : SimpleGraph β) : SimpleGraph (α × β
 /-- Strong product of simple graphs. It relates `(a₁, b₁)` and `(a₂, b₂)` if `a₁` and `a₂` are
 equal or `G` relates, and if `b₁` and `b₂` are equal or `H` them. -/
 infixl:70 " ⊠ " => strongProd
+
+def strongPow (G : SimpleGraph α) : (n : ℕ) → SimpleGraph (Fin n → α)
+  | Nat.zero => completeGraph (Fin 0 → α)
+  | Nat.succ n => (Fin.succFunEquiv α n).symm.simpleGraph <| strongPow G n ⊠ G
 
 @[simp]
 theorem strongProd_adj {x y : α × β} :
