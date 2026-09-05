@@ -247,6 +247,55 @@ lemma notMem_primesBelow (n : ℕ) : n ∉ primesBelow n :=
 lemma notMem_primesLE (n : ℕ) : n + 1 ∉ primesLE n :=
   notMem_primesBelow (n + 1)
 
+section List
+
+open List
+
+def primesBelowList : ℕ → List ℕ
+  | 0 => []
+  | n + 1 =>
+    if n.Prime then (primesBelowList n).concat n else primesBelowList n
+
+@[simp]
+theorem primesBelowList_zero : primesBelowList 0 = [] := rfl
+
+@[simp]
+theorem primesBelowList_one : primesBelowList 0 = [] := rfl
+
+theorem primesBelowList_succ (n : ℕ) :
+    primesBelowList (n + 1) = if n.Prime then (primesBelowList n).concat n else primesBelowList n :=
+  rfl
+
+theorem primesBelowList_sorted (n : ℕ) : n.primesBelowList.SortedLT := by
+  induction n with
+  | zero =>
+    simp
+    grind
+  | succ n ih =>
+    rw [primesBelowList_succ n]
+    by_cases hn : Prime n <;> simp only [hn, ↓reduceIte, concat_eq_append, ih]
+    rw [sortedLT_iff_pairwise]
+
+
+    sorry --yk
+
+@[simp]
+theorem primesBelowList_mem (n a : ℕ) : a ∈ primesBelowList n ↔ a ∈ primesBelow n := by
+  induction n with
+  | zero => simp
+  | succ n ih =>
+    by_cases hn : n.Prime <;> simp [primesBelowList_succ, hn, ih, primesBelow_succ, Or.comm]
+
+theorem primesBelow_toList : (primesBelow n).toList.mergeSort = primesBelowList n := by
+  apply?
+  sorry
+
+
+example : primesBelowList 12 = [2, 3, 5, 7, 11] := by rfl
+
+
+end List
+
 end PrimeSets
 
 /-- The cardinality of the finset `primesBelow n` equals the counting function
