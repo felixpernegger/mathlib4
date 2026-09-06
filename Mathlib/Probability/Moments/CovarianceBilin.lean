@@ -214,7 +214,7 @@ lemma covarianceOperator_apply (hμ : MemLp id 2 μ) (x : E) :
   rw [real_inner_comm, ← integral_inner]
   · simp_rw [inner_smul_right, ← continuousLinearMapOfBilin_apply, ← covarianceOperator_inner hμ]
     rfl
-  exact memLp_one_iff_integrable.1 <| hμ.smul (hμ.const_inner x)
+  exact memLp_one_iff_integrable.1 <| (hμ.const_inner x).smul hμ
 
 lemma isPositive_covarianceOperator : (covarianceOperator μ).toLinearMap.IsPositive := by
   by_cases hμ : MemLp id 2 μ

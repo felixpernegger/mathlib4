@@ -180,6 +180,16 @@ end SameSpace
 
 section Bilinear
 
+/-!
+In this section, we show that `‖fg‖_{L^r} ≤ ‖f‖_{L^p} ‖g‖_{L^q}` when `1/r = 1/p + 1/q`, in a more
+general version involving a general bilinear form.
+
+There is one edge case where this formula does not hold with our conventions: if `r = p = 0`, `f`
+is measurable but `fg` is not, then `‖fg‖_{L^r} = ∞` while `‖f‖_{L^p} ‖g‖_{L^q} = 0 * ∞ = 0`.
+So, we should either assume that `r` is nonzero, or the functions are measurable. Most lemmas
+are given in the two versions, with the main one assuming measurability, and the other version
+(suffixed with `of_pos`) assume `0 < r`. -/
+
 variable {α E F G : Type*} {m : MeasurableSpace α}
   [NormedAddCommGroup E] [NormedAddCommGroup F] [NormedAddCommGroup G] {μ : Measure α}
   {f : α → E} {g : α → F}
@@ -223,7 +233,7 @@ theorem eLpNorm_le_eLpNorm_mul_eLpNorm_of_not_aestronglyMeasurable
       rwa [← eLpNorm_eq_zero_iff hp]
     simp [mul_eq_zero, hc.ne', this]
 
-theorem eLpNorm_le_eLpNorm_top_mul_eLpNorm (p : ℝ≥0∞)
+theorem eLpNorm_le_eLpNorm_top_mul_eLpNorm_of_pos (p : ℝ≥0∞)
     (b : E → F → G) (c : ℝ≥0) (hb : Continuous b.uncurry)
     (h : ∀ᵐ x ∂μ, ‖b (f x) (g x)‖₊ ≤ c * ‖f x‖₊ * ‖g x‖₊) (hp : 0 < p) :
     eLpNorm (fun x => b (f x) (g x)) p μ ≤ c * eLpNorm f ∞ μ * eLpNorm g p μ := by
@@ -246,8 +256,7 @@ theorem eLpNorm_le_eLpNorm_top_mul_eLpNorm (p : ℝ≥0∞)
   · rw [← eLpNorm_norm f hf, ← eLpNorm_norm g hg]
     rw [eLpNorm_exponent_top hprod, eLpNorm_exponent_top hf.norm,
       eLpNorm_exponent_top hg.norm]
-    simp only [
-      eLpNormEssSup_eq_essSup_enorm, enorm_mul, enorm_norm]
+    simp only [eLpNormEssSup_eq_essSup_enorm, enorm_mul, enorm_norm]
     exact ENNReal.essSup_mul_le (‖f ·‖ₑ) (‖g ·‖ₑ)
   obtain ⟨hp₁, hp₂⟩ := ENNReal.toReal_pos_iff.mp hp
   rw [eLpNorm_eq_lintegral_rpow_enorm_toReal hp₁.ne' hp₂.ne hprod,
@@ -263,16 +272,55 @@ theorem eLpNorm_le_eLpNorm_top_mul_eLpNorm (p : ℝ≥0∞)
   gcongr
   exact hf
 
-theorem eLpNorm_le_eLpNorm_mul_eLpNorm_top (p : ℝ≥0∞) (b : E → F → G)
+theorem eLpNorm_le_eLpNorm_top_mul_eLpNorm (p : ℝ≥0∞)
+    (b : E → F → G) (c : ℝ≥0) (hb : Continuous b.uncurry) (hf : AEStronglyMeasurable f μ)
+    (h : ∀ᵐ x ∂μ, ‖b (f x) (g x)‖₊ ≤ c * ‖f x‖₊ * ‖g x‖₊) :
+    eLpNorm (fun x => b (f x) (g x)) p μ ≤ c * eLpNorm f ∞ μ * eLpNorm g p μ := by
+  rcases eq_zero_or_pos p with rfl | hp; swap
+  · apply eLpNorm_le_eLpNorm_top_mul_eLpNorm_of_pos p b c hb h hp
+  rcases eq_zero_or_pos c with rfl | hc
+  · have : ∀ᵐ x ∂μ, b (f x) (g x) = 0 := by
+      filter_upwards [h] with x hx using by simpa using hx
+    rw [eLpNorm_congr_ae this]
+    simp
+  by_cases h'f : f =ᵐ[μ] 0
+  · have : ∀ᵐ x ∂μ, b (f x) (g x) = 0 := by
+      filter_upwards [h, h'f] with x hx h'x using by simpa [h'x] using hx
+    rw [eLpNorm_congr_ae this]
+    simp
+  by_cases hg : AEStronglyMeasurable g μ
+  · have hbf : AEStronglyMeasurable (fun x => b (f x) (g x)) μ :=
+      Continuous.comp_aestronglyMeasurable₂ hb hf hg
+    simp [hbf]
+  rw [eLpNorm_of_not_aestronglyMeasurable hg]
+  apply le_top.trans_eq
+  rw [mul_top]
+  have : eLpNorm f ∞ μ ≠ 0 := by
+    contrapose! h'f
+    rwa [← eLpNorm_eq_zero_iff top_ne_zero]
+  simp [mul_eq_zero, hc.ne', this]
+
+theorem eLpNorm_le_eLpNorm_mul_eLpNorm_top_of_pos (p : ℝ≥0∞) (b : E → F → G)
     (c : ℝ≥0) (hb : Continuous b.uncurry)
     (h : ∀ᵐ x ∂μ, ‖b (f x) (g x)‖₊ ≤ c * ‖f x‖₊ * ‖g x‖₊) (hp : 0 < p) :
     eLpNorm (fun x => b (f x) (g x)) p μ ≤ c * eLpNorm f p μ * eLpNorm g ∞ μ :=
   calc
     eLpNorm (fun x ↦ b (f x) (g x)) p μ ≤ c * eLpNorm g ∞ μ * eLpNorm f p μ := by
-      apply eLpNorm_le_eLpNorm_top_mul_eLpNorm p (flip b) c ?_ (by
+      apply eLpNorm_le_eLpNorm_top_mul_eLpNorm_of_pos p (flip b) c (hb.comp continuous_swap) (by
         convert! h using 3 with x
         simp only [mul_assoc, mul_comm ‖f x‖₊]) hp
-      exact hb.comp continuous_swap
+    _ = c * eLpNorm f p μ * eLpNorm g ∞ μ := by
+      simp only [mul_assoc]; rw [mul_comm (eLpNorm _ _ _)]
+
+theorem eLpNorm_le_eLpNorm_mul_eLpNorm_top (p : ℝ≥0∞) (b : E → F → G)
+    (c : ℝ≥0) (hb : Continuous b.uncurry) (hg : AEStronglyMeasurable g μ)
+    (h : ∀ᵐ x ∂μ, ‖b (f x) (g x)‖₊ ≤ c * ‖f x‖₊ * ‖g x‖₊) :
+    eLpNorm (fun x => b (f x) (g x)) p μ ≤ c * eLpNorm f p μ * eLpNorm g ∞ μ :=
+  calc
+    eLpNorm (fun x ↦ b (f x) (g x)) p μ ≤ c * eLpNorm g ∞ μ * eLpNorm f p μ := by
+      apply eLpNorm_le_eLpNorm_top_mul_eLpNorm p (flip b) c (hb.comp continuous_swap) hg <| by
+        convert! h using 3 with x
+        simp only [mul_assoc, mul_comm ‖f x‖₊]
     _ = c * eLpNorm f p μ * eLpNorm g ∞ μ := by
       simp only [mul_assoc]; rw [mul_comm (eLpNorm _ _ _)]
 
@@ -299,29 +347,27 @@ theorem eLpNorm'_le_eLpNorm'_mul_eLpNorm' {p q r : ℝ} (hf : AEStronglyMeasurab
 
 /-- Hölder's inequality, as an inequality on the `ℒp` seminorm of an elementwise operation
 `fun x => b (f x) (g x)`. -/
-theorem eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm {p q r : ℝ≥0∞} (b : E → F → G) (c : ℝ≥0)
-    (hb : Continuous b.uncurry) (h : ∀ᵐ x ∂μ, ‖b (f x) (g x)‖₊ ≤ c * ‖f x‖₊ * ‖g x‖₊)
-    (hr : 0 < r) [hpqr : HolderTriple p q r] :
+theorem eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm
+    {p q r : ℝ≥0∞} (b : E → F → G) (c : ℝ≥0) (hb : Continuous b.uncurry)
+    (hf : AEStronglyMeasurable f μ) (hg : AEStronglyMeasurable g μ)
+    (h : ∀ᵐ x ∂μ, ‖b (f x) (g x)‖₊ ≤ c * ‖f x‖₊ * ‖g x‖₊)
+    [hpqr : HolderTriple p q r] :
     eLpNorm (fun x => b (f x) (g x)) r μ ≤ c * eLpNorm f p μ * eLpNorm g q μ := by
-  by_cases hfg : AEStronglyMeasurable f μ ∧ AEStronglyMeasurable g μ; swap
-  · have hp : 0 < p := hr.trans_le hpqr.le
-    have hq : 0 < q := hr.trans_le hpqr.symm.le
-    exact eLpNorm_le_eLpNorm_mul_eLpNorm_of_not_aestronglyMeasurable p q r b c h hfg
-      hp.ne' hq.ne'
-  rcases hfg with ⟨hf, hg⟩
   have hbf : AEStronglyMeasurable (fun x => b (f x) (g x)) μ :=
     Continuous.comp_aestronglyMeasurable₂ hb hf hg
+  rcases eq_zero_or_pos r with rfl | hr
+  · simp [hbf]
   have hpqr := hpqr.one_div_eq
   obtain (rfl | rfl | hp) := ENNReal.trichotomy p
   · simp_all
   · have : r = q := by simpa using hpqr
     rw [← this]
-    apply eLpNorm_le_eLpNorm_top_mul_eLpNorm r b c hb h hr
+    apply eLpNorm_le_eLpNorm_top_mul_eLpNorm_of_pos r b c hb h hr
   obtain (rfl | rfl | hq) := ENNReal.trichotomy q
   · simp_all
   · have : r = p := by simpa using hpqr
     rw [← this]
-    apply eLpNorm_le_eLpNorm_mul_eLpNorm_top r b c hb h hr
+    apply eLpNorm_le_eLpNorm_mul_eLpNorm_top_of_pos r b c hb h hr
   obtain ⟨hp₁, hp₂⟩ := ENNReal.toReal_pos_iff.mp hp
   obtain ⟨hq₁, hq₂⟩ := ENNReal.toReal_pos_iff.mp hq
   have hpqr' : 1 / r.toReal = 1 / p.toReal + 1 / q.toReal := by
@@ -339,11 +385,33 @@ theorem eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm {p q r : ℝ≥0∞} (b : E →
 
 /-- Hölder's inequality, as an inequality on the `ℒp` seminorm of an elementwise operation
 `fun x => b (f x) (g x)`. -/
-theorem eLpNorm_le_eLpNorm_mul_eLpNorm'_of_norm {p q r : ℝ≥0∞} (b : E → F → G) (c : ℝ≥0)
+theorem eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm_of_pos {p q r : ℝ≥0∞} (b : E → F → G) (c : ℝ≥0)
+    (hb : Continuous b.uncurry) (h : ∀ᵐ x ∂μ, ‖b (f x) (g x)‖₊ ≤ c * ‖f x‖₊ * ‖g x‖₊)
+    (hr : 0 < r) [hpqr : HolderTriple p q r] :
+    eLpNorm (fun x => b (f x) (g x)) r μ ≤ c * eLpNorm f p μ * eLpNorm g q μ := by
+  by_cases hfg : AEStronglyMeasurable f μ ∧ AEStronglyMeasurable g μ; swap
+  · have hp : 0 < p := hr.trans_le hpqr.le
+    have hq : 0 < q := hr.trans_le hpqr.symm.le
+    exact eLpNorm_le_eLpNorm_mul_eLpNorm_of_not_aestronglyMeasurable p q r b c h hfg
+      hp.ne' hq.ne'
+  exact eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm b c hb hfg.1 hfg.2 h
+
+/-- Hölder's inequality, as an inequality on the `ℒp` seminorm of an elementwise operation
+`fun x => b (f x) (g x)`. -/
+theorem eLpNorm_le_eLpNorm_mul_eLpNorm_of_norm
+    {p q r : ℝ≥0∞} (b : E → F → G) (c : ℝ≥0) (hb : Continuous b.uncurry)
+    (hf : AEStronglyMeasurable f μ) (hg : AEStronglyMeasurable g μ)
+    (h : ∀ᵐ x ∂μ, ‖b (f x) (g x)‖ ≤ c * ‖f x‖ * ‖g x‖) [hpqr : HolderTriple p q r] :
+    eLpNorm (fun x => b (f x) (g x)) r μ ≤ c * eLpNorm f p μ * eLpNorm g q μ :=
+  eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm b c hb hf hg h
+
+/-- Hölder's inequality, as an inequality on the `ℒp` seminorm of an elementwise operation
+`fun x => b (f x) (g x)`. -/
+theorem eLpNorm_le_eLpNorm_mul_eLpNorm_of_norm_of_pos {p q r : ℝ≥0∞} (b : E → F → G) (c : ℝ≥0)
     (hb : Continuous b.uncurry)
     (h : ∀ᵐ x ∂μ, ‖b (f x) (g x)‖ ≤ c * ‖f x‖ * ‖g x‖) (hr : 0 < r) [hpqr : HolderTriple p q r] :
     eLpNorm (fun x => b (f x) (g x)) r μ ≤ c * eLpNorm f p μ * eLpNorm g q μ :=
-  eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm b c hb h hr
+  eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm_of_pos b c hb h hr
 
 open NNReal in
 theorem MemLp.of_bilin {p q r : ℝ≥0∞} {f : α → E} {g : α → F} (b : E → F → G) (c : ℝ≥0)
@@ -351,11 +419,9 @@ theorem MemLp.of_bilin {p q r : ℝ≥0∞} {f : α → E} {g : α → F} (b : E
     (h : ∀ᵐ (x : α) ∂μ, ‖b (f x) (g x)‖₊ ≤ c * ‖f x‖₊ * ‖g x‖₊)
     [hpqr : HolderTriple p q r] :
     MemLp (fun x ↦ b (f x) (g x)) r μ := by
-  rcases eq_zero_or_pos r with rfl| hr
-  · simp only [memLp_zero_iff_aestronglyMeasurable]
-    exact Continuous.comp_aestronglyMeasurable₂ hb hf.aestronglyMeasurable hg.aestronglyMeasurable
-  · apply (eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm b c hb h (p := p) (q := q) hr).trans_lt
-    finiteness [hf, hg]
+  apply (eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm b c hb
+    hf.aestronglyMeasurable hg.aestronglyMeasurable h (p := p) (q := q)).trans_lt
+  finiteness [hf, hg]
 
 end Bilinear
 
@@ -363,19 +429,29 @@ section IsBoundedSMul
 
 variable {𝕜 α E : Type*} {m : MeasurableSpace α} {μ : Measure α} [NormedRing 𝕜]
   [NormedAddCommGroup E] [MulActionWithZero 𝕜 E] [IsBoundedSMul 𝕜 E]
-  {f : α → E}
+  {f : α → E} {φ : α → 𝕜}
 
-theorem eLpNorm_smul_le_eLpNorm_top_mul_eLpNorm (p : ℝ≥0∞) (φ : α → 𝕜) (hp : 0 < p) :
+theorem eLpNorm_smul_le_eLpNorm_top_mul_eLpNorm_of_pos (p : ℝ≥0∞) (hp : 0 < p) :
+    eLpNorm (φ • f) p μ ≤ eLpNorm φ ∞ μ * eLpNorm f p μ := by
+  simpa using! eLpNorm_le_eLpNorm_top_mul_eLpNorm_of_pos p (· • ·) 1
+    continuous_smul (.of_forall fun _ => by simpa using! nnnorm_smul_le _ _) hp
+
+theorem eLpNorm_smul_le_eLpNorm_top_mul_eLpNorm (p : ℝ≥0∞) (hφ : AEStronglyMeasurable φ μ) :
     eLpNorm (φ • f) p μ ≤ eLpNorm φ ∞ μ * eLpNorm f p μ := by
   simpa using! eLpNorm_le_eLpNorm_top_mul_eLpNorm p (· • ·) 1
+    continuous_smul hφ (.of_forall fun _ => by simpa using! nnnorm_smul_le _ _)
+
+theorem eLpNorm_smul_le_eLpNorm_mul_eLpNorm_top_of_pos (p : ℝ≥0∞) (hp : 0 < p) :
+    eLpNorm (φ • f) p μ ≤ eLpNorm φ p μ * eLpNorm f ∞ μ := by
+  simpa using! eLpNorm_le_eLpNorm_mul_eLpNorm_top_of_pos p (· • ·) 1
     continuous_smul (.of_forall fun _ => by simpa using! nnnorm_smul_le _ _) hp
 
-theorem eLpNorm_smul_le_eLpNorm_mul_eLpNorm_top (p : ℝ≥0∞) (φ : α → 𝕜) (f : α → E) (hp : 0 < p) :
+theorem eLpNorm_smul_le_eLpNorm_mul_eLpNorm_top (p : ℝ≥0∞) (hf : AEStronglyMeasurable f μ) :
     eLpNorm (φ • f) p μ ≤ eLpNorm φ p μ * eLpNorm f ∞ μ := by
   simpa using! eLpNorm_le_eLpNorm_mul_eLpNorm_top p (· • ·) 1
-    continuous_smul (.of_forall fun _ => by simpa using! nnnorm_smul_le _ _) hp
+    continuous_smul hf (.of_forall fun _ => by simpa using! nnnorm_smul_le _ _)
 
-theorem eLpNorm'_smul_le_mul_eLpNorm' {p q r : ℝ} {f : α → E} (hf : AEStronglyMeasurable f μ)
+theorem eLpNorm'_smul_le_mul_eLpNorm' {p q r : ℝ} (hf : AEStronglyMeasurable f μ)
     {φ : α → 𝕜} (hφ : AEStronglyMeasurable φ μ) (hp0_lt : 0 < p) (hpq : p < q)
     (hpqr : 1 / p = 1 / q + 1 / r) : eLpNorm' (φ • f) p μ ≤ eLpNorm' φ q μ * eLpNorm' f r μ := by
   simpa using! eLpNorm'_le_eLpNorm'_mul_eLpNorm' hφ hf (· • ·) 1
@@ -383,11 +459,18 @@ theorem eLpNorm'_smul_le_mul_eLpNorm' {p q r : ℝ} {f : α → E} (hf : AEStron
     hp0_lt hpq hpqr
 
 /-- Hölder's inequality, as an inequality on the `ℒp` seminorm of a scalar product `φ • f`. -/
-theorem eLpNorm_smul_le_mul_eLpNorm {p q r : ℝ≥0∞} (φ : α → 𝕜) (f : α → E)
-    (hr : 0 < r) [hpqr : HolderTriple p q r] :
+theorem eLpNorm_smul_le_mul_eLpNorm_of_pos {p q r : ℝ≥0∞} (hr : 0 < r) [hpqr : HolderTriple p q r] :
     eLpNorm (φ • f) r μ ≤ eLpNorm φ p μ * eLpNorm f q μ := by
-  simpa using! eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm (· • ·) 1 continuous_smul
+  simpa using! eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm_of_pos (· • ·) 1 continuous_smul
       (.of_forall fun _ => by simpa using! nnnorm_smul_le _ _) hr
+
+/-- Hölder's inequality, as an inequality on the `ℒp` seminorm of a scalar product `φ • f`. -/
+theorem eLpNorm_smul_le_mul_eLpNorm {p q r : ℝ≥0∞}
+    (hφ : AEStronglyMeasurable φ μ) (hf : AEStronglyMeasurable f μ)
+    [hpqr : HolderTriple p q r] :
+    eLpNorm (φ • f) r μ ≤ eLpNorm φ p μ * eLpNorm f q μ := by
+  simpa using! eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm (· • ·) 1 continuous_smul hφ hf
+      (.of_forall fun _ => by simpa using! nnnorm_smul_le _ _)
 
 theorem MemLp.smul {p q r : ℝ≥0∞} {f : α → E} {φ : α → 𝕜} (hφ : MemLp φ p μ) (hf : MemLp f q μ)
     [hpqr : HolderTriple p q r] : MemLp (φ • f) r μ := by

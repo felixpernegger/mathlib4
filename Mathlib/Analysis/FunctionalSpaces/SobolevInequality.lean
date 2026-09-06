@@ -685,7 +685,8 @@ theorem eLpNorm_le_eLpNorm_fderiv_of_le [FiniteDimensional ℝ F]
       = eLpNorm u q (μ.restrict s) := by
         rw [eLpNorm_restrict_eq_of_support_subset hu.continuous.aestronglyMeasurable h2u]
     _ ≤ eLpNorm u p' (μ.restrict s) * t := by
-        convert! eLpNorm_le_eLpNorm_mul_rpow_measure_univ this hu.continuous.aestronglyMeasurable
+        have hqpos : (0 : ℝ≥0∞) < q := ENNReal.coe_pos.2 (by positivity)
+        convert! eLpNorm_le_eLpNorm_mul_rpow_measure_univ this hqpos
         rw [ENNReal.coe_rpow_of_nonneg]
         · simp [ENNReal.coe_toNNReal hs.measure_lt_top.ne]
         · rw [one_div, one_div]

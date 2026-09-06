@@ -176,10 +176,10 @@ variable [NormedRing 𝕜] [NormedAddCommGroup E] [MulActionWithZero 𝕜 E] [Is
 /-- Heterogeneous scalar multiplication of `MeasureTheory.Lp` functions by `MeasureTheory.Lp`
 functions when the exponents satisfy `ENNReal.HolderTriple p q r`. -/
 instance : HSMul (Lp 𝕜 p μ) (Lp E q μ) (Lp E r μ) where
-  hSMul f g := (Lp.memLp g).smul (Lp.memLp f) |>.toLp (⇑f • ⇑g)
+  hSMul f g := (Lp.memLp f).smul (Lp.memLp g) |>.toLp (⇑f • ⇑g)
 
 lemma smul_def {f : Lp 𝕜 p μ} {g : Lp E q μ} :
-    f • g = ((Lp.memLp g).smul (Lp.memLp f)).toLp (⇑f • ⇑g) :=
+    f • g = ((Lp.memLp f).smul (Lp.memLp g)).toLp (⇑f • ⇑g) :=
   rfl
 
 lemma coeFn_lpSMul (f : Lp 𝕜 p μ) (g : Lp E q μ) :
@@ -189,10 +189,13 @@ lemma coeFn_lpSMul (f : Lp 𝕜 p μ) (g : Lp E q μ) :
 
 protected lemma norm_smul_le (f : Lp 𝕜 p μ) (g : Lp E q μ) :
     ‖f • g‖ ≤ ‖f‖ * ‖g‖ := by
+  rcases eq_zero_or_pos r with rfl | hr
+  · rw [norm_exponent_zero, Lp.norm_def, Lp.norm_def]
+    positivity
   simp only [Lp.norm_def, ← ENNReal.toReal_mul]
   refine ENNReal.toReal_mono (by finiteness) ?_
   rw [eLpNorm_congr_ae (coeFn_lpSMul f g)]
-  exact eLpNorm_smul_le_mul_eLpNorm (Lp.aestronglyMeasurable g) (Lp.aestronglyMeasurable f)
+  exact eLpNorm_smul_le_mul_eLpNorm _ _ hr
 
 end MulActionWithZero
 
