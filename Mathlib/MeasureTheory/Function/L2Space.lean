@@ -122,15 +122,9 @@ theorem eLpNorm_inner_lt_top (f g : α →₂[μ] E) : eLpNorm (fun x : α => �
       _ ≤ 2 * ‖f x‖ * ‖g x‖ := by
         gcongr
         exact le_mul_of_one_le_left (norm_nonneg _) one_le_two
-      -- TODO(kmill): the type ascription is getting around an elaboration error
-      _ ≤ ‖(‖f x‖ ^ 2 + ‖g x‖ ^ 2 : ℝ)‖ := (two_mul_le_add_sq _ _).trans (le_abs_self _)
-  have hf : AEStronglyMeasurable (fun x ↦ ‖f x‖ ^ (2 : ℝ)) μ :=
-    ((Lp.aestronglyMeasurable f).norm.aemeasurable.pow_const 2).aestronglyMeasurable
-  have hg : AEStronglyMeasurable (fun x ↦ ‖g x‖ ^ (2 : ℝ)) μ :=
-    ((Lp.aestronglyMeasurable g).norm.aemeasurable.pow_const 2).aestronglyMeasurable
+      _ ≤ ‖‖f x‖ ^ 2 + ‖g x‖ ^ 2‖ := (two_mul_le_add_sq _ _).trans (le_abs_self _)
   refine (eLpNorm_mono_ae ((Lp.aestronglyMeasurable f).inner
-    (Lp.aestronglyMeasurable g)) (ae_of_all _ h)).trans_lt
-      ((eLpNorm_add_le (hf.add hg) le_rfl).trans_lt ?_)
+    (Lp.aestronglyMeasurable g)) (ae_of_all _ h)).trans_lt ((eLpNorm_add_le le_rfl).trans_lt ?_)
   rw [ENNReal.add_lt_top]
   exact ⟨eLpNorm_rpow_two_norm_lt_top f, eLpNorm_rpow_two_norm_lt_top g⟩
 

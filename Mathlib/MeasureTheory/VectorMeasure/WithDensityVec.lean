@@ -139,12 +139,7 @@ lemma variation_withDensity' [CompleteSpace G]
     have hfg : AEStronglyMeasurable (f - ⇑g) μ.variation :=
       aestronglyMeasurable_of_eLpNorm_ne_top (ne_of_lt (h'g.trans_le le_top))
     refine ⟨g, ?_, gmem⟩
-    have hfgc : AEStronglyMeasurable (f - ⇑g) (‖B‖₊ • μ.variation) :=
-      by simpa only using hfg.smul_measure (R := NNReal) ‖B‖₊
-    have : AEStronglyMeasurable (f - ⇑g) (μ.transpose B).variation := by
-      apply AEStronglyMeasurable.mono_measure hfgc
-      exact variation_transpose_le μ B
-    refine (eLpNorm_mono_measure _ (variation_transpose_le μ B) this).trans ?_
+    refine (eLpNorm_mono_measure _ (variation_transpose_le μ B)).trans ?_
     rw [eLpNorm_smul_measure_of_ne_top' (p := 1) (μ := μ.variation) (by simp)
       ‖B‖₊ (f - ⇑g) hfg]
     grw [h'g.le]

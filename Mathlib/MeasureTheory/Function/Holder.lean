@@ -46,8 +46,7 @@ namespace ContinuousLinearMap
 variable (r) in
 theorem memLp_of_bilin {f : α → E} {g : α → F} (hf : MemLp f p μ) (hg : MemLp g q μ) :
     MemLp (fun x ↦ B (f x) (g x)) r μ :=
-  MeasureTheory.MemLp.of_bilin (r := r) (B · ·) ‖B‖₊ hf hg
-    (B.aestronglyMeasurable_comp₂ hf.aestronglyMeasurable hg.aestronglyMeasurable)
+  MeasureTheory.MemLp.of_bilin (r := r) (B · ·) ‖B‖₊ hf hg B.continuous₂
     (.of_forall fun _ ↦ B.le_opNorm₂ _ _)
 
 theorem integrable_of_bilin_of_bdd_left {f : α → E} {g : α → F} (C : ℝ)
@@ -74,13 +73,12 @@ lemma coeFn_holder (f : Lp E p μ) (g : Lp F q μ) :
 
 lemma nnnorm_holder_apply_apply_le (f : Lp E p μ) (g : Lp F q μ) :
     ‖B.holder r f g‖₊ ≤ ‖B‖₊ * ‖f‖₊ * ‖g‖₊ := by
+  rcases eq_zero_or_pos r with rfl | hr
+  · simp
   simp_rw [← ENNReal.coe_le_coe, ENNReal.coe_mul, ← enorm_eq_nnnorm, Lp.enorm_def]
   apply eLpNorm_congr_ae (coeFn_holder B f g) |>.trans_le
-  exact eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm (Lp.memLp f).aestronglyMeasurable
-    (Lp.memLp g).aestronglyMeasurable (B · ·) ‖B‖₊
-    (B.aestronglyMeasurable_comp₂ (Lp.memLp f).aestronglyMeasurable
-      (Lp.memLp g).aestronglyMeasurable)
-    (.of_forall fun _ ↦ B.le_opNorm₂ _ _)
+  exact eLpNorm_le_eLpNorm_mul_eLpNorm_of_nnnorm (B · ·) ‖B‖₊ B.continuous₂
+    (.of_forall fun _ ↦ B.le_opNorm₂ _ _) hr
 
 lemma norm_holder_apply_apply_le (f : Lp E p μ) (g : Lp F q μ) :
     ‖B.holder r f g‖ ≤ ‖B‖ * ‖f‖ * ‖g‖ :=

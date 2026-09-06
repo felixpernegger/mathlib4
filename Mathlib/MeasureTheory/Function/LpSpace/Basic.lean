@@ -309,6 +309,12 @@ theorem norm_measure_zero (f : Lp E p (0 : MeasureTheory.Measure α)) : ‖f‖ 
   -- Squeezed for performance reasons
   simp_rw [norm_def, eLpNorm_exponent_zero (Lp.aestronglyMeasurable f), ENNReal.toReal_zero]
 
+@[simp] theorem nnnorm_exponent_zero (f : Lp E 0 μ) : ‖f‖₊ = 0 := by
+  simp [nnnorm]
+
+@[simp] theorem enorm_exponent_zero (f : Lp E 0 μ) : ‖f‖ₑ = 0 := by
+  simp [enorm]
+
 theorem eq_zero_iff_ae_eq_zero {f : Lp E p μ} : f = 0 ↔ f =ᵐ[μ] 0 := by
   rw [Lp.ext_iff]
   exact EventuallyEq.congr_right AEEqFun.coeFn_zero
