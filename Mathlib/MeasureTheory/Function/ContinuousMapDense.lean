@@ -119,10 +119,9 @@ theorem exists_continuous_eLpNorm_sub_le_of_closed [μ.OuterRegular] (hp : p ≠
     refine Function.support_subset_iff'.2 fun x hx => ?_
     simp only [hgv hx, Pi.zero_apply, zero_smul]
   have gc_mem : MemLp (fun x => g x • c) p μ := by
-    refine MemLp.smul (memLp_top_const _) ?_ (p := p) (q := ∞)
-    unfold MemLp
+    refine MemLp.smul ?_ (memLp_top_const _) (p := p) (q := ∞)
     have hv : MeasurableSet v := u_open.measurableSet.inter V_open.measurableSet
-    have : eLpNorm (v.indicator fun _x => (1 : ℝ)) p μ < ⊤ :=
+    have : eLpNorm (v.indicator fun _x => (1 : ℝ)) p μ < ∞ :=
       (eLpNorm_indicator_const_le _ _ hv.nullMeasurableSet).trans_lt <| by
         simp [lt_top_iff_ne_top, hμv.ne]
     refine (eLpNorm_mono g.continuous.aestronglyMeasurable fun x => ?_).trans_lt this
@@ -151,14 +150,11 @@ theorem MemLp.exists_hasCompactSupport_eLpNorm_sub_le
   -- It suffices to check that the set of functions we consider approximates characteristic
   -- functions, is stable under addition and consists of ae strongly measurable functions.
   -- First check the latter easy facts.
-  apply hf.induction_dense hp _ _ _ _ hε
+  apply hf.induction_dense hp _ _ _ hε
   rotate_left
   -- stability under addition
   · rintro f g ⟨f_cont, f_mem, hf⟩ ⟨g_cont, g_mem, hg⟩
     exact ⟨f_cont.add g_cont, f_mem.add g_mem, hf.add hg⟩
-  -- ae strong measurability
-  · rintro f ⟨_f_cont, f_mem, _hf⟩
-    exact f_mem.aestronglyMeasurable
   -- We are left with approximating characteristic functions.
   -- This follows from `exists_continuous_eLpNorm_sub_le_of_closed`.
   intro c t ht htμ ε hε
@@ -181,13 +177,9 @@ theorem MemLp.exists_hasCompactSupport_eLpNorm_sub_le
   rcases exists_continuous_eLpNorm_sub_le_of_closed hp s_closed isOpen_interior sk hsμ.ne c δpos.ne'
     with ⟨f, f_cont, I2, _f_bound, f_support, f_mem⟩
   have I3 : eLpNorm (f - t.indicator fun _y => c) p μ ≤ ε := by
-    convert!
-      (hδ _ _ ((f_mem.aestronglyMeasurable.sub
-            (aestronglyMeasurable_const.indicator s_closed.measurableSet)).add
-            ((aestronglyMeasurable_const.indicator s_closed.measurableSet).sub
-              (aestronglyMeasurable_const.indicator ht)))
-          I2 I1).le using 2
-    simp only [sub_add_sub_cancel]
+    convert! (hδ _ _ I2 I1).le using 2
+    ext x
+    simp
   refine ⟨f, I3, f_cont, f_mem, HasCompactSupport.intro k_compact fun x hx => ?_⟩
   rw [← Function.notMem_support]
   contrapose hx
@@ -254,7 +246,7 @@ theorem MemLp.exists_boundedContinuous_eLpNorm_sub_le [μ.WeaklyRegular] (hp : p
   -- It suffices to check that the set of functions we consider approximates characteristic
   -- functions, is stable under addition and made of ae strongly measurable functions.
   -- First check the latter easy facts.
-  apply hf.induction_dense hp _ _ _ _ hε
+  apply hf.induction_dense hp _ _ _ hε
   rotate_left
   -- stability under addition
   · rintro f g ⟨f_cont, f_mem, f_bd⟩ ⟨g_cont, g_mem, g_bd⟩
@@ -262,8 +254,6 @@ theorem MemLp.exists_boundedContinuous_eLpNorm_sub_le [μ.WeaklyRegular] (hp : p
     let f' : α →ᵇ E := ⟨⟨f, f_cont⟩, Metric.isBounded_range_iff.1 f_bd⟩
     let g' : α →ᵇ E := ⟨⟨g, g_cont⟩, Metric.isBounded_range_iff.1 g_bd⟩
     exact (f' + g').isBounded_range
-  -- ae strong measurability
-  · exact fun f ⟨_, h, _⟩ => h.aestronglyMeasurable
   -- We are left with approximating characteristic functions.
   -- This follows from `exists_continuous_eLpNorm_sub_le_of_closed`.
   intro c t ht htμ ε hε
@@ -284,13 +274,9 @@ theorem MemLp.exists_boundedContinuous_eLpNorm_sub_le [μ.WeaklyRegular] (hp : p
       δpos.ne' with
     ⟨f, f_cont, I2, f_bound, -, f_mem⟩
   have I3 : eLpNorm (f - t.indicator fun _y => c) p μ ≤ ε := by
-    convert!
-      (hδ _ _ ((f_mem.aestronglyMeasurable.sub
-            (aestronglyMeasurable_const.indicator s_closed.measurableSet)).add
-            ((aestronglyMeasurable_const.indicator s_closed.measurableSet).sub
-              (aestronglyMeasurable_const.indicator ht)))
-          I2 I1).le using 2
-    simp only [sub_add_sub_cancel]
+    convert! (hδ _ _ I2 I1).le using 2
+    ext x
+    simp
   refine ⟨f, I3, f_cont, f_mem, ?_⟩
   exact (BoundedContinuousFunction.ofNormedAddCommGroup f f_cont _ f_bound).isBounded_range
 

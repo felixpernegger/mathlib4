@@ -735,54 +735,57 @@ section ContinuousENorm
 
 variable {ε : Type*} [TopologicalSpace ε] [ContinuousENorm ε]
 
-/-- Use `eLpNorm_smul_measure_of_ne_top` instead. -/
--- TODO: remove `hf` assumption
-private theorem eLpNorm_smul_measure_of_ne_zero_of_ne_top {p : ℝ≥0∞} (hp_ne_zero : p ≠ 0)
-    (hp_ne_top : p ≠ ∞) {f : α → ε} (hf : AEStronglyMeasurable f μ) (c : ℝ≥0∞) :
+theorem eLpNorm_smul_measure_of_ne_zero_of_ne_top {p : ℝ≥0∞} (hp_ne_zero : p ≠ 0)
+    (hp_ne_top : p ≠ ∞) {f : α → ε} (c : ℝ≥0∞) :
     eLpNorm f p (c • μ) = c ^ (1 / p).toReal • eLpNorm f p μ := by
-  rw [eLpNorm_eq_eLpNorm' hp_ne_zero hp_ne_top (hf.smul_measure c),
-    eLpNorm_eq_eLpNorm' hp_ne_zero hp_ne_top hf]
-  rw [eLpNorm'_smul_measure ENNReal.toReal_nonneg]
-  congr
-  simp_rw [one_div]
-  rw [ENNReal.toReal_inv]
+  by_cases hf : AEStronglyMeasurable f μ
+  · rw [eLpNorm_eq_eLpNorm' hp_ne_zero hp_ne_top (hf.smul_measure c),
+      eLpNorm_eq_eLpNorm' hp_ne_zero hp_ne_top hf]
+    rw [eLpNorm'_smul_measure ENNReal.toReal_nonneg]
+    congr
+    simp_rw [one_div]
+    rw [ENNReal.toReal_inv]
+  have hp' : 0 < p.toReal := ENNReal.toReal_pos hp_ne_zero hp_ne_top
+  rcases eq_zero_or_pos c with rfl | hc
+  · simp [hp']
+  · have : ¬AEStronglyMeasurable f (c • μ) := by
+      contrapose! hf
+      exact AEStronglyMeasurable.mono_ac (Measure.AbsolutelyContinuous.smul_right .rfl hc.ne') hf
+    simp only [this, not_false_eq_true, eLpNorm_of_not_aestronglyMeasurable, one_div,
+      ENNReal.toReal_inv, hf, smul_eq_mul]
+    rw [ENNReal.mul_top]
+    simp [hc.ne']
 
 /-- See `eLpNorm_smul_measure_of_ne_zero'` for a version with scalar multiplication by `ℝ≥0`. -/
 theorem eLpNorm_smul_measure_of_ne_zero {c : ℝ≥0∞} (hc : c ≠ 0) (f : α → ε) (p : ℝ≥0∞)
-    (μ : Measure α) (hf : AEStronglyMeasurable f μ) :
+    (μ : Measure α) :
     eLpNorm f p (c • μ) = c ^ (1 / p).toReal • eLpNorm f p μ := by
-  by_cases hp0 : p = 0
-  · simp [hp0, hf.smul_measure c, hf]
-  by_cases hp_top : p = ∞
-  · simp [*, eLpNorm_exponent_top (hf.smul_measure c), eLpNorm_exponent_top hf]
-  apply eLpNorm_smul_measure_of_ne_zero_of_ne_top hp0 hp_top hf
+  by_cases hf : AEStronglyMeasurable f μ
+  · by_cases hp0 : p = 0
+    · simp [hp0, hf.smul_measure c, hf]
+    by_cases hp_top : p = ∞
+    · simp [*, eLpNorm_exponent_top (hf.smul_measure c), eLpNorm_exponent_top hf]
+    apply eLpNorm_smul_measure_of_ne_zero_of_ne_top hp0 hp_top
+  · have : ¬AEStronglyMeasurable f (c • μ) := by
+      contrapose! hf
+      exact AEStronglyMeasurable.mono_ac (Measure.AbsolutelyContinuous.smul_right .rfl hc) hf
+    simp only [this, not_false_eq_true, eLpNorm_of_not_aestronglyMeasurable, one_div,
+      ENNReal.toReal_inv, hf, smul_eq_mul]
+    rw [ENNReal.mul_top]
+    simp [hc]
 
 theorem eLpNorm_smul_measure_le (c : ℝ≥0∞) (f : α → ε) (p : ℝ≥0∞) (μ : Measure α) :
     eLpNorm f p (c • μ) ≤ c ^ (1 / p).toReal • eLpNorm f p μ := by
-  by_cases hf : AEStronglyMeasurable f μ
-  · rcases eq_or_ne c 0 with rfl | hc
-    · simp
-    · exact (eLpNorm_smul_measure_of_ne_zero hc f p μ hf).le
-  rw [eLpNorm_of_not_aestronglyMeasurable hf]
   rcases eq_or_ne c 0 with rfl | hc
   · simp
-  · simp only [one_div, ENNReal.toReal_inv, smul_eq_mul]
-    rw [ENNReal.mul_top (by simp [hc])]
-    exact le_top
-
+  · exact (eLpNorm_smul_measure_of_ne_zero hc f p μ).le
 
 /-- See `eLpNorm_smul_measure_of_ne_zero` for a version with scalar multiplication by `ℝ≥0∞`. -/
 lemma eLpNorm_smul_measure_of_ne_zero' {c : ℝ≥0} (hc : c ≠ 0) (f : α → ε) (p : ℝ≥0∞)
     (μ : Measure α) :
-    eLpNorm f p (c • μ) = c ^ p.toReal⁻¹ • eLpNorm f p μ := by
-  by_cases hf : AEStronglyMeasurable f μ
-  · exact (eLpNorm_smul_measure_of_ne_zero (ENNReal.coe_ne_zero.2 hc) f p μ hf).trans
+    eLpNorm f p (c • μ) = c ^ p.toReal⁻¹ • eLpNorm f p μ :=
+  (eLpNorm_smul_measure_of_ne_zero (ENNReal.coe_ne_zero.2 hc) f p μ).trans
       (by simp; norm_cast)
-  · rw [eLpNorm_of_not_aestronglyMeasurable hf, eLpNorm_of_not_aestronglyMeasurable]
-    · simp [ENNReal.smul_top (c ^ p.toReal⁻¹), hc]
-    · contrapose! hf
-      convert hf.smul_measure c⁻¹
-      simp [← smul_assoc, inv_mul_cancel₀ hc]
 
 /-- See `eLpNorm_smul_measure_of_ne_top'` for a version with scalar multiplication by `ℝ≥0`. -/
 theorem eLpNorm_smul_measure_of_ne_top {p : ℝ≥0∞} (hp_ne_top : p ≠ ∞) (f : α → ε)
@@ -790,7 +793,7 @@ theorem eLpNorm_smul_measure_of_ne_top {p : ℝ≥0∞} (hp_ne_top : p ≠ ∞) 
     eLpNorm f p (c • μ) = c ^ (1 / p).toReal • eLpNorm f p μ := by
   by_cases hp0 : p = 0
   · simp [hp0, hf.smul_measure c, hf]
-  · apply eLpNorm_smul_measure_of_ne_zero_of_ne_top hp0 hp_ne_top hf
+  · apply eLpNorm_smul_measure_of_ne_zero_of_ne_top hp0 hp_ne_top
 
 /-- See `eLpNorm_smul_measure_of_ne_top'` for a version with scalar multiplication by `ℝ≥0∞`. -/
 lemma eLpNorm_smul_measure_of_ne_top' (hp : p ≠ ∞) (c : ℝ≥0) (f : α → ε)
@@ -800,9 +803,9 @@ lemma eLpNorm_smul_measure_of_ne_top' (hp : p ≠ ∞) (c : ℝ≥0) (f : α →
   refine (eLpNorm_smul_measure_of_ne_top hp f c hf).trans ?_
   simp [ENNReal.smul_def, ENNReal.coe_rpow_of_nonneg, this]
 
-theorem eLpNorm_one_smul_measure {f : α → ε} (c : ℝ≥0∞) (hf : AEStronglyMeasurable f μ) :
+theorem eLpNorm_one_smul_measure {f : α → ε} (c : ℝ≥0∞) :
     eLpNorm f 1 (c • μ) = c * eLpNorm f 1 μ := by
-  rw [eLpNorm_smul_measure_of_ne_top ENNReal.one_ne_top f c hf]
+  rw [eLpNorm_smul_measure_of_ne_zero_of_ne_top one_ne_zero ENNReal.one_ne_top c]
   simp
 
 theorem eLpNorm_le_of_measure_le_smul {c : ℝ≥0∞} {μ μ' : Measure α} (h : μ' ≤ c • μ) {f : α → ε}

@@ -595,8 +595,7 @@ theorem Integrable.essSup_smul {R : Type*} [NormedRing R] [Module R β] [IsBound
   have hg' : eLpNorm g ∞ μ ≠ ∞ := by rwa [eLpNorm_exponent_top g_aestronglyMeasurable]
   calc
     eLpNorm (fun x : α => g x • f x) 1 μ ≤ _ := by
-      simpa using! MeasureTheory.eLpNorm_smul_le_mul_eLpNorm hf.aestronglyMeasurable
-        g_aestronglyMeasurable (p := ∞) (q := 1)
+      simpa using! MeasureTheory.eLpNorm_smul_le_mul_eLpNorm g f (p := ∞) (q := 1) zero_lt_one
     _ < ∞ := ENNReal.mul_lt_top hg'.lt_top hf
 
 /-- Hölder's inequality for integrable functions: the scalar multiplication of an integrable
@@ -609,8 +608,7 @@ theorem Integrable.smul_essSup {𝕜 : Type*} [NormedRing 𝕜] [MulActionWithZe
   have hg' : eLpNorm g ∞ μ ≠ ∞ := by rwa [eLpNorm_exponent_top g_aestronglyMeasurable]
   calc
     eLpNorm (fun x : α => f x • g x) 1 μ ≤ _ := by
-      simpa using! MeasureTheory.eLpNorm_smul_le_mul_eLpNorm g_aestronglyMeasurable
-        hf.aestronglyMeasurable (p := 1) (q := ∞)
+      simpa using! MeasureTheory.eLpNorm_smul_le_mul_eLpNorm f g (p := 1) (q := ∞) zero_lt_one
     _ < ∞ := ENNReal.mul_lt_top hf hg'.lt_top
 
 theorem integrable_enorm_iff {f : α → ε} (hf : AEStronglyMeasurable f μ) :
@@ -999,7 +997,7 @@ variable [NormedRing 𝕜] [Module 𝕜 β] [IsBoundedSMul 𝕜 β]
 theorem Integrable.smul_of_top_right {f : α → β} {φ : α → 𝕜} (hf : Integrable f μ)
     (hφ : MemLp φ ∞ μ) : Integrable (φ • f) μ := by
   rw [← memLp_one_iff_integrable] at hf ⊢
-  exact MemLp.smul hf hφ
+  exact MemLp.smul hφ hf
 
 theorem Integrable.bdd_smul {f : α → β} {φ : α → 𝕜} (hf : Integrable f μ)
     (C : ℝ) (hφ1 : AEStronglyMeasurable φ μ) (hφ2 : ∀ᵐ a ∂μ, ‖φ a‖ ≤ C) :
@@ -1009,7 +1007,7 @@ theorem Integrable.bdd_smul {f : α → β} {φ : α → 𝕜} (hf : Integrable 
 theorem Integrable.smul_of_top_left {f : α → β} {φ : α → 𝕜} (hφ : Integrable φ μ)
     (hf : MemLp f ∞ μ) : Integrable (φ • f) μ := by
   rw [← memLp_one_iff_integrable] at hφ ⊢
-  exact MemLp.smul hf hφ
+  exact MemLp.smul hφ hf
 
 theorem Integrable.smul_bdd {f : α → β} {φ : α → 𝕜} (hφ : Integrable φ μ)
     (C : ℝ) (hf1 : AEStronglyMeasurable f μ) (hf2 : ∀ᵐ a ∂μ, ‖f a‖ ≤ C) :
@@ -1092,7 +1090,7 @@ theorem Integrable.mul_of_top_left {f : α → 𝕜} {φ : α → 𝕜} (hφ : I
 lemma MemLp.integrable_mul {p q : ℝ≥0∞} {f g : α → 𝕜} (hf : MemLp f p μ) (hg : MemLp g q μ)
     [HolderTriple p q 1] :
     Integrable (f * g) μ :=
-  memLp_one_iff_integrable.1 <| hg.mul hf
+  memLp_one_iff_integrable.1 <| hf.mul hg
 
 end NormedRing
 

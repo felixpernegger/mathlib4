@@ -385,10 +385,18 @@ theorem tendsto_integral_of_L1 {ι} (f : α → G) (hfi : AEStronglyMeasurable f
   exact tendsto_setToFun_of_L1 (dominatedFinMeasAdditive_weightedSMul μ) f hfi hFi hF
 
 /-- If `F i → f` in `L1`, then `∫ x, F i x ∂μ → ∫ x, f x ∂μ`. -/
-lemma tendsto_integral_of_L1' {ι} (f : α → G) (hfi : AEStronglyMeasurable f μ)
+lemma tendsto_integral_of_L1' {ι} (f : α → G)
     {F : ι → α → G} {l : Filter ι} (hFi : ∀ᶠ i in l, Integrable (F i) μ)
     (hF : Tendsto (fun i ↦ eLpNorm (F i - f) 1 μ) l (𝓝 0)) :
     Tendsto (fun i ↦ ∫ x, F i x ∂μ) l (𝓝 (∫ x, f x ∂μ)) := by
+  rcases eq_or_neBot l with rfl | hl
+  · simp
+  have hfi : AEStronglyMeasurable f μ := by
+    have ⟨i, hi, h'i⟩ := (((tendsto_order.1 hF).2 1 zero_lt_one).and hFi).exists
+    have : MemLp f 1 μ := by
+      rw [show f = F i - (F i - f) by abel]
+      apply (memLp_one_iff_integrable.mpr h'i).sub (hi.trans one_lt_top)
+    exact this.aestronglyMeasurable
   refine tendsto_integral_of_L1 f hfi hFi ?_
   apply hF.congr'
   filter_upwards [hFi] with i hi
@@ -411,17 +419,25 @@ lemma tendsto_setIntegral_of_L1 {ι} (f : α → G) (hfi : AEStronglyMeasurable 
     have h_restrict : Tendsto (fun i ↦ eLpNorm (F i - f) 1 (μ.restrict s)) l (𝓝 0) :=
       tendsto_of_tendsto_of_tendsto_of_le_of_le' tendsto_const_nhds hF'
         (Eventually.of_forall fun _ ↦ zero_le) <| hFi.mono fun i hi ↦
-          eLpNorm_mono_measure _ Measure.restrict_le_self (hi.1.sub hfi).restrict
+          eLpNorm_mono_measure _ Measure.restrict_le_self
     apply h_restrict.congr'
     filter_upwards [hFi] with i hi
     rw [eLpNorm_one_eq_lintegral_enorm (hi.1.sub hfi).restrict]
     rfl
 
 /-- If `F i → f` in `L1`, then `∫ x in s, F i x ∂μ → ∫ x in s, f x ∂μ`. -/
-lemma tendsto_setIntegral_of_L1' {ι} (f : α → G) (hfi : AEStronglyMeasurable f μ) {F : ι → α → G}
+lemma tendsto_setIntegral_of_L1' {ι} (f : α → G) {F : ι → α → G}
     {l : Filter ι} (hFi : ∀ᶠ i in l, Integrable (F i) μ)
     (hF : Tendsto (fun i ↦ eLpNorm (F i - f) 1 μ) l (𝓝 0)) (s : Set α) :
     Tendsto (fun i ↦ ∫ x in s, F i x ∂μ) l (𝓝 (∫ x in s, f x ∂μ)) := by
+  rcases eq_or_neBot l with rfl | hl
+  · simp
+  have hfi : AEStronglyMeasurable f μ := by
+    have ⟨i, hi, h'i⟩ := (((tendsto_order.1 hF).2 1 zero_lt_one).and hFi).exists
+    have : MemLp f 1 μ := by
+      rw [show f = F i - (F i - f) by abel]
+      apply (memLp_one_iff_integrable.mpr h'i).sub (hi.trans one_lt_top)
+    exact this.aestronglyMeasurable
   refine tendsto_setIntegral_of_L1 f hfi hFi ?_ s
   apply hF.congr'
   filter_upwards [hFi] with i hi
@@ -919,7 +935,7 @@ variable {H : Type*} [NormedAddCommGroup H]
 
 theorem L1.norm_eq_integral_norm (f : α →₁[μ] H) : ‖f‖ = ∫ a, ‖f a‖ ∂μ := by
   simp only [eLpNorm, eLpNorm'_eq_lintegral_enorm, ENNReal.toReal_one, ENNReal.rpow_one,
-    Lp.norm_def, Lp.aestronglyMeasurable f, ite_eq_left, ENNReal.one_ne_top, one_ne_zero, _root_.div_one]
+    Lp.norm_def, Lp.aestronglyMeasurable f, ite_eq_left, ENNReal.one_ne_top, one_ne_zero, div_one]
   rw [integral_eq_lintegral_of_nonneg_ae (Eventually.of_forall (by simp [norm_nonneg]))
       (Lp.aestronglyMeasurable f).norm]
   simp

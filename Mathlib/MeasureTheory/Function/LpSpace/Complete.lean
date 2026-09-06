@@ -351,16 +351,15 @@ theorem cauchy_tendsto_of_tendsto {f : ℕ → α → E} (hf : ∀ n, AEStrongly
   exact (h_cau N n (max N N1) hn (le_max_left _ _)).le.trans h_B
 
 theorem memLp_of_cauchy_tendsto (hp : 1 ≤ p) {f : ℕ → α → E} (hf : ∀ n, MemLp (f n) p μ)
-    (f_lim : α → E) (h_lim_meas : AEStronglyMeasurable f_lim μ)
-    (h_tendsto : atTop.Tendsto (fun n => eLpNorm (f n - f_lim) p μ) (𝓝 0)) : MemLp f_lim p μ := by
+    (f_lim : α → E) (h_tendsto : atTop.Tendsto (fun n => eLpNorm (f n - f_lim) p μ) (𝓝 0)) :
+    MemLp f_lim p μ := by
   unfold MemLp
   rw [ENNReal.tendsto_atTop_zero] at h_tendsto
   obtain ⟨N, h_tendsto_1⟩ := h_tendsto 1 zero_lt_one
   specialize h_tendsto_1 N (le_refl N)
   have h_add : f_lim = f_lim - f N + f N := by abel
   rw [h_add]
-  refine lt_of_le_of_lt (eLpNorm_add_le
-    ((h_lim_meas.sub (hf N).aestronglyMeasurable).add (hf N).aestronglyMeasurable) hp) ?_
+  refine lt_of_le_of_lt (eLpNorm_add_le hp) ?_
   rw [ENNReal.add_lt_top]
   constructor
   · refine lt_of_le_of_lt ?_ ENNReal.one_lt_top
@@ -381,7 +380,7 @@ theorem cauchy_complete_eLpNorm [CompleteSpace E] (hp : 1 ≤ p) {f : ℕ → α
   have h_tendsto' : atTop.Tendsto (fun n => eLpNorm (f n - f_lim) p μ) (𝓝 0) :=
     cauchy_tendsto_of_tendsto (fun m => (hf m).aestronglyMeasurable) f_lim hB h_cau h_lim
   have h_ℒp_lim : MemLp f_lim p μ :=
-    memLp_of_cauchy_tendsto hp hf f_lim h_f_lim_meas.aestronglyMeasurable h_tendsto'
+    memLp_of_cauchy_tendsto hp hf f_lim h_tendsto'
   exact ⟨f_lim, h_ℒp_lim, h_tendsto'⟩
 
 /-- `Lp` is complete for `1 ≤ p`. -/

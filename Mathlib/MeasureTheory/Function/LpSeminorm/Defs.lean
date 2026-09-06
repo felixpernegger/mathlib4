@@ -135,6 +135,12 @@ theorem eLpNorm_one_eq_lintegral_enorm [TopologicalSpace ε] {f : α → ε}
 theorem eLpNorm_exponent_top [TopologicalSpace ε] {f : α → ε} (hf : AEStronglyMeasurable f μ) :
     eLpNorm f ∞ μ = eLpNormEssSup f μ := by simp [eLpNorm, hf]
 
+theorem eLpNormEssSup_le_eLpNorm_top [TopologicalSpace ε] {f : α → ε} :
+    eLpNormEssSup f μ ≤ eLpNorm f ∞ μ := by
+  by_cases hf : AEStronglyMeasurable f μ
+  · simp [hf]
+  · simp [eLpNorm_of_not_aestronglyMeasurable, hf]
+
 /-- The property that `f : α → E` is a.e. strongly measurable and `(∫ ‖f a‖ ^ p ∂μ) ^ (1/p)`
 is finite if `p < ∞`, or `essSup ‖f‖ < ∞` if `p = ∞`. -/
 def MemLp [TopologicalSpace ε] (f : α → ε) (p : ℝ≥0∞) (μ : Measure α := by volume_tac) : Prop :=

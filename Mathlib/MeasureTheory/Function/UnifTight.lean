@@ -114,9 +114,7 @@ protected theorem add (hf : UnifTight f p μ) (hg : UnifTight g p μ)
   calc
     eLpNorm (indicator sᶜᶜ (f i + g i)) p μ
       = eLpNorm (indicator s (f i) + indicator s (g i)) p μ := by rw [compl_compl, indicator_add']
-    _ ≤ ε := le_of_lt <|
-      hη _ _ (((hf_meas i).indicator hsm).add ((hg_meas i).indicator hsm))
-        (hfs hsm i) (hgs hsm i)
+    _ ≤ ε := (hη _ _ (hfs hsm i) (hgs hsm i)).le
 
 protected theorem neg (hf : UnifTight f p μ) : UnifTight (-f) p μ := by
   intro ε hε
@@ -292,7 +290,6 @@ private theorem tendsto_Lp_of_tendsto_ae_of_meas (hp : 1 ≤ p) (hp' : p ≠ ∞
   have hfngEε := calc
     eLpNorm (E.indicator (f n - g)) p μ
       = eLpNorm (f n - g) p (μ.restrict E) := eLpNorm_indicator_eq_eLpNorm_restrict hmE
-        hmfngE (((hf n).sub hg).aestronglyMeasurable.mono_measure Measure.restrict_le_self)
     _ ≤ ε / 3                              := hfngε n hn
   -- get exterior estimates
   have hmgEc : AEStronglyMeasurable _ μ := (hg.indicator hmE.compl).aestronglyMeasurable
@@ -324,7 +321,7 @@ private theorem tendsto_Lp_of_tendsto_ae_of_meas (hp : 1 ≤ p) (hp' : p ≠ ∞
       = eLpNorm (Eᶜ.indicator (f n - g) + E.indicator (f n - g)) p μ := by
         congr; exact (E.indicator_compl_add_self _).symm
     _ ≤ eLpNorm (indicator Eᶜ (f n - g)) p μ + eLpNorm (indicator E (f n - g)) p μ := by
-        apply eLpNorm_add_le (hmfngEc.add hmfngE) hp
+        apply eLpNorm_add_le hp
     _ ≤ (ε / 3 + ε / 3) + ε / 3 := add_le_add hfngEcε hfngEε
     _ = ε := by simp only [add_thirds]
 
