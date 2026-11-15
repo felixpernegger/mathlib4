@@ -219,24 +219,18 @@ theorem pi_pi_le (s : ∀ i, Set (α i)) : Measure.pi μ (pi univ s) ≤ ∏ i, 
     toMeasure_apply _ _ (.univ_pi fun i ↦ measurableSet_toMeasurable ..), OuterMeasure.pi_pi_le]
   simp
 
-theorem pi_pi_aux [∀ i, SigmaFinite (μ i)] (s : ∀ i, Set (α i)) (hs : ∀ i, MeasurableSet (s i)) :
+private theorem pi_pi_aux [∀ i, SigmaFinite (μ i)] (s : ∀ i, Set (α i))
+    (hs : ∀ i, MeasurableSet (s i)) :
     Measure.pi μ (pi univ s) = ∏ i, μ i (s i) := by
-  refine le_antisymm (pi_pi_le μ s) ?_
   have : Encodable ι := Fintype.toEncodable ι
-  simp_rw [← pi'_pi μ s, Measure.pi,
-    toMeasure_apply _ _ (MeasurableSet.pi countable_univ fun i _ => hs i)]
-  suffices (pi' μ).toOuterMeasure ≤ OuterMeasure.pi fun i => (μ i).toOuterMeasure by exact this _
-  clear hs s
-  rw [OuterMeasure.le_pi]
-  intro s _
-  exact (pi'_pi μ s).le
+  refine le_antisymm (pi_pi_le μ s) ?_
+  rw [← pi'_pi μ s, Measure.pi, toMeasure_apply _ _ (.univ_pi hs)]
+  exact OuterMeasure.le_pi.mpr (fun s _ ↦ (pi'_pi μ s).le) _
 
 theorem pi_eval_preimage_null {i : ι} {s : Set (α i)} (hs : μ i s = 0) :
     Measure.pi μ (eval i ⁻¹' s) = 0 := by
   classical
-  rw [← univ_pi_update_univ, ← nonpos_iff_eq_zero]
-  grw [pi_pi_le]
-  exact Finset.prod_eq_zero (Finset.mem_univ i) (by simp [hs]) |>.le
+  grw [← univ_pi_update_univ, pi_pi_le, Finset.prod_eq_zero (Finset.mem_univ i) (by simp [hs])]
 
 theorem quasiMeasurePreserving_eval (i : ι) :
     QuasiMeasurePreserving (Function.eval i) (Measure.pi μ) (μ i) := by
